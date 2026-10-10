@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "node",
+      "args": [
+        "tools/node_modules/@playwright/mcp/cli.js",
+        "--isolated",
+        "--browser", "chromium",
+        "--viewport-size", "1280x800",
+        "--output-dir", "screenshots/mcp"
+      ],
+      "env": { "PLAYWRIGHT_BROWSERS_PATH": "D:/ms-playwright" }
+    }
+  }
+}

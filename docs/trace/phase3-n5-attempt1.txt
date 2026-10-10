@@ -1,0 +1,8 @@
+US=34 · FR=31 · BR=28 · NFR=14 · contract entities=13 · ERD entities=13
+
+C1: PASS
+
+C2: FAIL
+  - แผนภาพใช้ PromptPay ที่ไม่มีใน ERD
+
+C3: PASS

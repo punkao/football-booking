@@ -1,0 +1,6 @@
+{
+  "TC-BOOK-07": {
+    "class": "flaky (ไม่ใช่บั๊กเว็บ / ไม่ใช่ test ผิด)",
+    "note": "รอบ 7.5b-r2 เฉพาะ Firefox: ทุก step ของ test ผ่าน (ข้อความ error ชื่อ/เบอร์/PDPA ถูกต้อง ช่องยัง free ไม่มี console error) แต่ล้มตอน Playwright ปิด context: \"browserContext.close: Protocol error (Browser.removeBrowserContext): can't access property _maybeDontRestoreTabs\" — เป็นปัญหาของ Firefox driver ที่เคยพบในรอบก่อน (notes 5.1) · รอบ 7.5b-r1 ข้อเดียวกันผ่านทุกเบราว์เซอร์ · ไม่แก้ test"
+  }
+}

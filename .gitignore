@@ -1,0 +1,22 @@
+node_modules/
+.next/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+tools/.mcp-session
+e2e/test-results/
+e2e/playwright-report/
+screenshots/mcp/page-*.yml
+
+# หลักฐานก่อนแก้ (เฟส 7): เก็บเฉพาะ TC ที่ล้ม เพื่อลดขนาด repo
+e2e/test-report/gifs/_before-7.5b/*
+!e2e/test-report/gifs/_before-7.5b/TC-TEAM-02.gif
+!e2e/test-report/gifs/_before-7.5b/TC-MEMBER-02.gif
+!e2e/test-report/gifs/_before-7.5b/TC-TEAM-03.gif
+!e2e/test-report/gifs/_before-7.5b/TC-BOOK-02.gif
+e2e/test-report/videos/_before-7.5b/*
+!e2e/test-report/videos/_before-7.5b/TC-TEAM-02.mp4
+!e2e/test-report/videos/_before-7.5b/TC-MEMBER-02.mp4
+!e2e/test-report/videos/_before-7.5b/TC-TEAM-03.mp4
+!e2e/test-report/videos/_before-7.5b/TC-BOOK-02.mp4

@@ -1,0 +1,19 @@
+{
+  "name": "football-booking-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright E2E tests for ลูกหนัง อารีน่า (black-box, based on docs/04-REQUIREMENTS.md + web/SPEC.md)",
+  "scripts": {
+    "test": "node run-all.mjs",
+    "test:gif": "cross-env GIF=1 node run-all.mjs --gif",
+    "report": "playwright show-report test-report/html",
+    "test:perf": "cross-env PERF=1 playwright test",
+    "browsers": "playwright install chromium firefox webkit"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.0",
+    "@types/node": "24.5.2",
+    "cross-env": "10.1.0",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "football-booking-tools",
+  "private": true,
+  "type": "module",
+  "description": "Playwright MCP + MCP client used to drive the browser like a real user (phase 0/5/7.5/8)",
+  "scripts": {
+    "browsers:install": "cross-env PLAYWRIGHT_BROWSERS_PATH=D:/ms-playwright playwright install chromium firefox webkit",
+    "mcp:bridge": "node mcp-bridge.mjs",
+    "mcp:bridge:headless": "node mcp-bridge.mjs --headless",
+    "mcp:smoke": "node mcp-client.mjs smoke",
+    "mcp:stop": "node mcp-client.mjs stop"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@playwright/mcp": "0.0.83",
+    "@playwright/test": "1.64.0",
+    "cross-env": "10.1.0",
+    "mermaid": "12.1.0"
+  }
+}

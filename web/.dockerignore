@@ -1,0 +1,8 @@
+node_modules
+.next
+selfcheck/screens
+*.tsbuildinfo
+npm-debug.log
+BUGS.md
+SPEC.md
+selfcheck

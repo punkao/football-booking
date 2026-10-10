@@ -1,0 +1,5 @@
+node_modules/
+test-results/
+test-results-perf/
+test-report/html/
+test-report/html-perf/
