@@ -1,81 +1,64 @@
-# BUILD-PROMPT — สร้างเว็บ "ลูกหนัง อารีน่า" (จองสนามฟุตบอลหญ้าเทียม)
+# BUILD-PROMPT v2 — ระบบ "ลูกหนัง อารีน่า" (หน้าบ้าน · หลังบ้าน · แชทบอท · คลัง · ดูแลข้อมูล)
 
-คุณคือนักพัฒนาที่สร้างเว็บนี้ตั้งแต่ศูนย์ ทำทุกอย่างใน `web/` ของโปรเจกต์ `football-booking/`
-**ทำตามขั้นที่มีเลขกำกับ ถ้าขั้นไหนไม่ผ่านให้หยุดแล้วรายงานสาเหตุจริง ห้ามแต่งผล ห้ามอ้างว่าผ่านถ้าไม่ได้รันจริง**
+พรอมต์ฉบับเดียวจบ (บท 04 LAB 5) · วางในหน้าต่าง Claude Code ใหม่แล้วสร้างระบบได้ตั้งแต่ศูนย์ · ใช้กับเว็บ v1 ที่มีอยู่ได้ด้วย (ปรับตาม `08d-REBUILD-PROMPT-v2.md`)
+**ทำตามขั้นที่มีเลข · ขั้นไหนไม่ผ่านให้หยุดแล้วรายงานสาเหตุจริง · ห้ามแต่งผล ห้ามอ้างว่าผ่านถ้าไม่ได้รันจริง**
 
-## อ่านก่อนเริ่ม (อ่านได้เฉพาะไฟล์เหล่านี้)
-- `docs/04-REQUIREMENTS.md` — **แหล่งความจริงเดียว**: contract (ชื่อ entity / attribute / สถานะ), FR-01–FR-31, BR-01–BR-28 (+ค่าขอบ), NFR-01–NFR-14, คำตอบ Q-15/Q-16
-- `docs/06-SA.md` — ERD, sequence, state diagram, activity คิดราคา
-- `docs/07-SAD.md` — สถาปัตยกรรม, หน้าเว็บ, API, ตาราง, ADR, testability
-ห้ามเปิดโฟลเดอร์ `e2e/`, `tools/check-*` และ `docs/trace/`
+## 0. อ่านก่อนลงมือ
+- อ่านได้: `docs/TEST-DATA.md` (ร้านยืนยัน = [D]) · `docs/04-REQUIREMENTS.md` (contract, FR-01–48, BR-01–43, NFR-01–24) · `docs/06-SA.md` · `docs/07-SAD.md`
+- เอกสารขัดกัน: **TEST-DATA > 04 > 06/07** · เรื่องที่เอกสารไม่บอก → ตัดสินเองได้แต่จดใน `web/SPEC.md` หัวข้อ "สมมติฐานของผู้สร้าง"
+- ห้ามเปิด: `e2e/` · `docs/trace/` · `tools/check-*` · `Teaching_CWN2026/**/_solution/`
 
-## 0. เตรียมเครื่อง (Windows + Docker Desktop, shell ที่ใช้คือ Git Bash)
-- ตรวจ `docker info` · ถ้ามี container อื่นใช้พอร์ต 3000 (เช่น `petshop`, `sabai-web`) ให้หยุดเฉพาะตัวนั้นแล้วรายงาน
-- path โปรเจกต์มีช่องว่าง (`D:\work (outside)\...`) ทดสอบแล้วว่า docker compose build + mount ใช้ได้ · ใน Git Bash ถ้าใช้ `docker run -v` ให้ตั้ง `MSYS_NO_PATHCONV=1`
-- ติดตั้ง npm ผ่าน IPv4: `NODE_OPTIONS=--dns-result-order=ipv4first` (เครื่องนี้ IPv6 ใช้ไม่ได้)
+## 1. เตรียมเครื่อง (Windows · Docker Desktop · Git Bash)
+1. `docker info` · พอร์ต 3000 และ 5433 ต้องว่าง (ถ้า container อื่นใช้อยู่ ให้หยุดเฉพาะตัวนั้นแล้วรายงาน)
+2. path มีช่องว่าง → `docker run -v` ใช้ `MSYS_NO_PATHCONV=1` · npm ติดตั้งด้วย `NODE_OPTIONS=--dns-result-order=ipv4first`
+3. Playwright ใช้เบราว์เซอร์ที่ `D:/ms-playwright` (ตั้ง `PLAYWRIGHT_BROWSERS_PATH` ก่อน import)
 
-## 1. เทคโนโลยี
-- Next.js 16.4 (App Router, TypeScript, `output: "standalone"`), React 19.3, `pg` 8 เขียน SQL ตรง ไม่ใช้ ORM (ADR-01) · CSS Modules หรือ CSS ธรรมดา
-- ฟอนต์ไทยแบบติดตั้งในโปรเจกต์ `@fontsource/prompt` (หัวข้อ) + `@fontsource/ibm-plex-sans-thai` (เนื้อหา) — ห้ามโหลดฟอนต์จากเน็ตตอนรัน
-- กฎธุรกิจทุกข้ออยู่ใน `web/lib/rules/*` เป็นฟังก์ชันบริสุทธิ์ ใช้ร่วมกันทั้งหน้าเว็บและ API (ADR-05) · มี unit test สั้น ๆ ด้วย `node --test` สำหรับราคาและค่าขอบ
+## 2. เทคโนโลยี
+- Next.js 16 App Router + TypeScript + `output: "standalone"` · `pg` เขียน SQL ตรง ไม่ใช้ ORM · ฟอนต์ไทยติดตั้งในโปรเจกต์
+- กฎธุรกิจทั้งหมดอยู่ใน `web/lib/rules/*` เป็นฟังก์ชันบริสุทธิ์ ใช้ร่วมกันโดย **หน้าเว็บ · API · แชทบอท** (BR-30) · unit test ด้วย `node --test`
 
-## 2. Docker (2 container เท่านั้น — `07-SAD` ส่วนที่ 2)
-- `web/docker-compose.yml`: `db` (`football-db`, `postgres:16-alpine`, ไม่เปิดพอร์ตออกเครื่อง, healthcheck `pg_isready`, volume `football-db-data`) และ `web` (`football-web`, พอร์ต `3000:3000`, `depends_on: db: service_healthy`, healthcheck ด้วย `node -e "fetch('http://127.0.0.1:3000/api/health')..."`)
-- env ของ web: `DATABASE_URL`, `TZ=Asia/Bangkok`, `HOSTNAME=0.0.0.0`, `ALLOW_TEST_RESET=1`, `BUG_MODE=${BUG_MODE:-0}`
-- volumes ของ web: `../docs:/app/project/docs:ro` และ `../e2e/test-report:/app/project/test-report:ro` (สร้างโฟลเดอร์ `e2e/test-report/` ว่างไว้ด้วย `.gitkeep` ถ้ายังไม่มี เพื่อให้ mount ได้ — ห้ามสร้างไฟล์อื่นใน `e2e/`)
-- `web/Dockerfile` multi-stage: `node:24-alpine`, `npm ci`, `next build`, runner standalone ผู้ใช้ non-root · **ห้ามต่อฐานข้อมูลตอน build** (หน้าที่ใช้ข้อมูลเป็น dynamic)
-- web สร้างตารางและ seed เองตอนเริ่ม ถ้ายังไม่มี (idempotent) · `.gitattributes` บังคับ LF · ไม่มีไฟล์ .sh ที่ผู้ใช้ต้องรัน
+## 3. Docker แยก 2 โปรเจกต์ (NFR-23)
+1. `db/compose.yaml`: `football-db` (`postgres:16-alpine`) · volume `football-pgdata` · พอร์ต `5433:5432` · healthcheck `pg_isready` · สร้าง network `football-net`
+   - `db/init/01-schema.sql` ตาม ERD ใน `06-SA` · `db/init/02-seed.sql` ตาม **TEST-DATA ทุกค่า** · `db/migrations/NNN_*.sql` + `NNN_*.down.sql`
+   - constraint ตาม NFR-19: `EXCLUDE` กันการจองที่กันสนามทับเวลาในสนามเดียวกัน · `CHECK` จำนวนคลังและยอดเงิน ≥ 0 · เงินเป็น `INTEGER` บาท
+2. `web/compose.yaml`: `football-web` พอร์ต 3000 · network `football-net` (external) · `DATABASE_URL=postgres://…@football-db:5432/…` · env `TZ=Asia/Bangkok`, `HOSTNAME=0.0.0.0`, `ALLOW_TEST_RESET`, `BUG_MODE=${BUG_MODE:-0}`, `MODE=${MODE:-mock}`, `LLM_BASE_URL`, `LLM_MODEL`, `LLM_API_KEY` · healthcheck ด้วย node `fetch('/api/health')` · **ห้ามต่อ DB ตอน build**
+   - profile `mock`: service `mock-llm` (ตอบแบบ OpenAI `/v1/chat/completions` ตามกฎตายตัว รองรับ tag ทุกตัว)
+   - mount อ่านอย่างเดียว `../docs` และ `../e2e/test-report` สำหรับหน้า `/project`
+3. เปิด db ก่อน รอ healthy แล้วค่อย web · `.gitattributes` LF · ไม่มีไฟล์ `.sh` ที่ผู้ใช้ต้องรัน · `.env` ไม่ขึ้น git มีแค่ `.env.example` (NFR-18)
 
-## 3. ฟีเจอร์
-- ทำ **FR-01–FR-31 ครบ** ตามหน้าเว็บใน `07-SAD` ส่วนที่ 3 และ API ส่วนที่ 4 · บังคับ **BR-01–BR-28 ทุกข้อทั้งฝั่ง server** (ไม่เชื่อราคาจากเบราว์เซอร์) · ค่าขอบในคอลัมน์ "ค่าขอบที่ต้องทดสอบ" ต้องให้ผลตามนั้นทุกตัว
-- ใช้ชื่อ entity / attribute / สถานะตาม contract ใน `04` ส่วนที่ 1 ตรงตัว (ตาราง snake_case ได้)
-- กันจองซ้อนพร้อมกันด้วย `pg_advisory_xact_lock` ต่อสนาม+วัน (ADR-02, NFR-07) · หมดเวลาจ่ายแบบ lazy (ADR-03)
-- "ตอนนี้" ของแอปมาจากฟังก์ชันเดียว `now()` (ADR-04) — ปกติเวลาจริง ถ้าถูกตั้งด้วย `/api/test/reset` หรือ `/api/test/clock` ใช้ค่านั้นค้างไว้จนกว่าจะตั้งใหม่
-- จ่ายเงินจำลอง: หน้า `/pay/[code]` แสดง QR พร้อมเพย์ตัวอย่าง (วาดเป็น SVG) นับถอยหลัง 15 นาที และปุ่มยืนยันการจ่าย
-- ภาษา TH/EN ทุกหน้าฝั่งลูกค้าและหน้าร้าน (cookie `lang`) — โหมด EN ต้องไม่มีข้อความไทยหลง (NFR-03)
+## 4. ฟีเจอร์ v1 (FR-01–FR-31) — ต้องทำงานเหมือนเดิมทุกข้อ
+ตารางว่าง · จอง · จ่ายจำลอง 15 นาที · มัดจำ/จ่ายเต็ม · ยกเลิก/เลื่อน/เครดิต · ปิดเพราะฝน · ไม่มา + ระงับ · จองประจำ · ของเช่า · สมาชิก + ชั่วโมงฟรี · ลิงก์หาร · หาคู่แข่ง · หน้าร้านตามบทบาท · TH/EN · หน้า `/project` · บังคับ BR-01–BR-28 ฝั่ง server ทุกข้อ · กันจองพร้อมกันด้วย lock + `EXCLUDE`
 
-## 4. ดีไซน์ "ว้าว" แต่ใช้งานง่าย
-- ธีมสนามบอลกลางคืน: เขียวเข้ม `#0B3D2E`, เขียวหญ้า `#1F9D55`, ขาวชอล์ก `#F7F7F2`, เหลืองไฟสนาม `#FFD54A`, แดงเตือน `#E5484D`
-- hero ใหญ่ ลายเส้นสนาม การ์ดมีเงา animation นุ่ม (เคารพ `prefers-reduced-motion`) · มือถือก่อน (NFR-01 ที่ 375 px ไม่มีเลื่อนแนวนอน)
-- **ไม่มีไฟล์รูปให้** → วาดภาพสนาม A, B, C และโลโก้เป็น SVG ในโค้ดเอง (สนาม 5 คน/7 คน, C มีหลังคา) · ห้ามใช้รูปจากเน็ต · ทุกภาพมี alt (NFR-13)
-- ตารางว่างอ่านง่ายบนมือถือ (เลื่อนแนวตั้ง) · จากหน้าแรกถึงตารางวันนี้ ≤ 3 แตะ (NFR-02)
+## 5. ฟีเจอร์ใหม่ (FR-32–FR-48)
+1. **แชทบอท "น้องบอล"** (FR-32–36 · BR-29–32 · NFR-15–17): ปุ่มแชทลอยทุกหน้าฝั่งลูกค้า
+   - `POST /api/chat`: สร้าง system prompt จาก DB (สนาม ราคา กฎ ส่วนลดที่มีจริง ช่องทางติดต่อ) + ประวัติห้องนั้น → เรียก LLM แบบ OpenAI
+   - tag คำสั่งในคำตอบของโมเดล: `[CHECK]{fieldId,date,startHour,hours}` ดูว่าง · `[QUOTE]{…}` คิดราคา · `[BOOK]{…, name, phone, consent}` จอง → backend **ตรวจค่าแล้วเรียกฟังก์ชันเดียวกับหน้าเว็บ** ส่งผลกลับให้โมเดลตอบต่อ (วนไม่เกิน 2 รอบ) · ตัด tag และ `<think>` ก่อนแสดง
+   - ไม่มีเครื่องมือยกเลิก เลื่อน คืนเครดิต หลังบ้าน (BR-32) · tag ที่มาจากข้อความลูกค้าไม่มีผล · ข้อความ ≤ 500 ตัวอักษร · 20 ข้อความ/นาที/ห้อง · LLM เกิน 60 วินาที/ล่ม → ขอโทษ + ช่องทางติดต่อ
+   - เก็บ `ChatSession` / `ChatMessage` · หลังบ้านดูประวัติแชท (FR-36)
+   - `MODE=mock` deterministic (ถามเหมือนเดิมได้คำตอบเดิม) · `MODE=ai` เรียก gateway แบบ OpenAI (Bearer token)
+2. **คลังของ** (FR-37–41 · BR-33–38): ตารางคงเหลือแยก STORE/COUNTER · ขายหน้าเคาน์เตอร์ (CASH/PROMPTPAY) · ย้าย · รับเข้า · ชำรุด · ปรับยอด (ต้องมีเหตุผล) · ตั้งจุดสั่งซื้อซ้ำ · เตือนของต่ำกว่าจุด · ทุกการเปลี่ยนเขียน `StockMovement` ใน transaction เดียวกับ `StockLevel` · สิทธิ์ตาม BR-36 · ของเช่าให้เช่าได้ = จำนวนในคลัง (BR-38)
+3. **หลังบ้าน** (FR-42–44): แดชบอร์ด (ยอดวันนี้ · กราฟ 7 วัน SVG ไม่ใช้ไลบรารี · ชั่วโมงยอดนิยม · อัตราการใช้สนาม BR-41) · ค้นการจองทั้งหมด + ประวัติสถานะ · รายงานช่วงวัน (BR-39, BR-40) + CSV UTF-8 มี BOM (NFR-22) กัน CSV injection · เจ้าของเท่านั้น
+4. **ติดตามการจอง** (FR-45): หน้าการจองแสดงขั้นจาก `BookingStatusHistory`
+5. **ดูแลข้อมูล** (FR-46–48 · BR-42–43 · NFR-20–21): ทุกการเปลี่ยนสถานะเขียน `BookingStatusHistory` · การกระทำของร้านเขียน `AuditLog` · ไม่มี API แก้/ลบสองตารางนี้ · `scripts/backup.mjs` (pg_dump) + `scripts/restore.mjs` + `docs/RUNBOOK.md` · migration รันซ้ำได้ (`IF NOT EXISTS`, `ON CONFLICT DO NOTHING`) + ไฟล์ถอยกลับ · **ห้าม `down -v` ในทุกขั้นตอน**
 
-## 5. สำหรับการทดสอบ (สำคัญที่สุด — `07-SAD` ส่วนที่ 7)
-- `data-testid` ทุกปุ่ม ช่องกรอก ผลลัพธ์ ข้อความ error · ตั้งชื่อแบบ kebab-case ที่สื่อความหมาย เช่น `slot-A-19`, `book-submit`, `price-field`, `pay-now-amount`, `booking-code`, `error-message`
-- `<html lang data-ready="true|false" data-bug-mode="0|1">` — `data-ready` เป็น `true` เมื่อข้อมูลหน้าโหลดเสร็จ
-- `GET /api/health` → `{ "ok": true, "db": true }`
-- `POST /api/test/reset` body `{ "now": "2026-10-09T10:00:00+07:00" }` → ล้างข้อมูลทั้งหมด สร้าง seed ใหม่ และล็อก "ตอนนี้" · `POST /api/test/clock` body `{ "now": ... }` เลื่อนเวลาอย่างเดียว · ทั้งสองตอบ 404 เมื่อ `ALLOW_TEST_RESET` ไม่ใช่ `1`
-- **seed (วันที่คิดจาก "ตอนนี้" ตอน reset, ราคาคิดด้วย `lib/rules` จริง):**
+## 6. ดีไซน์
+ธีมสนามบอลกลางคืนเดิม (เขียวเข้ม `#0B3D2E` · เขียวหญ้า `#1F9D55` · ขาวชอล์ก · เหลืองไฟสนาม `#FFD54A`) · มือถือ 375 px ไม่มีเลื่อนแนวนอน · รูปทั้งหมดวาดเป็น SVG ในโปรเจกต์ (เครื่องไม่มี Codex) ห้ามใช้รูปจากเน็ต · เขียน `web/ASSETS.md` (ไฟล์ · หน้า · สร้างด้วยอะไร · alt)
 
-| ประเภท | ข้อมูล |
-|---|---|
-| สนาม | A, B (5 คน กลางแจ้ง ฿800/฿1,200) · C (7 คน มีหลังคา ฿1,200/฿1,800) |
-| ของเช่า | BIB ฿50 stock 6 · BALL ฿30 stock 10 |
-| วันหยุด | 2026-10-13, 2026-10-23, 2026-12-05, 2026-12-10, 2026-12-31 |
-| ผู้ใช้ร้าน | `owner` / `Owner1234` (OWNER, คุณเอก) · `manager` / `Manager1234` (MANAGER, คุณฝ้าย) · `staff` / `Staff1234` (STAFF, น้องบอล) |
-| ลูกค้า | ต้น `0811111111` / `Ton12345` สมาชิก เครดิต ฿1,200 ชั่วโมงสะสม 7 · มิว `0822222222` / `Mew12345` สมาชิก ชั่วโมงสะสม 10 · โจ้ `0833333333` / `Joe12345` สมาชิก มีประวัติไม่มา 1 ครั้ง · แนน `0844444444` ไม่สมัคร |
-| การจอง | `LN-900001` ต้น · A · วันนี้ 19:00 2 ชม. · CONFIRMED จ่ายตามกฎแล้ว · `LN-900002` โจ้ · C · พรุ่งนี้ 18:00 1 ชม. · CONFIRMED · `LN-900003` โจ้ · B · 5 วันก่อน 19:00 1 ชม. · NO_SHOW · `LN-900004` แนน · B · มะรืนนี้ 09:00 1 ชม. · CONFIRMED จ่ายมัดจำแล้ว |
-| รหัสใหม่ | การจองที่สร้างหลัง reset เริ่ม `LN-100001` เรียงต่อกัน |
+## 7. ทดสอบได้ (NFR-09–NFR-11, NFR-21)
+- `data-testid` ทุกปุ่ม ช่องกรอก ผลลัพธ์ ข้อความ error (ของเดิมห้ามเปลี่ยนชื่อ) · `<html data-ready data-bug-mode>`
+- `GET /api/health` → `{ok:true, db:true}` · `POST /api/test/reset {now?}` = ล้างและ seed ใหม่ด้วย SQL ชุดเดียวกับ `02-seed.sql` · ไม่ส่ง `now` = วันล็อกใน TEST-DATA · `POST /api/test/clock` · ทั้งหมดตอบ 404 เมื่อ `ALLOW_TEST_RESET` ไม่ใช่ `1`
+- **BUG_MODE=1: เลือกบั๊กเอง 3 ตัวจาก BR ใน 04** — เงิน 1 · การจอง 1 · ตัวเลขหรือสถานะที่ต้องอัปเดตหลังทำรายการ 1 · ทุกตัวต้อง "ถ้าลอกค่าจากหน้าจอเป็นผลที่คาดหวังจะจับไม่ได้" (หน้าจอ = API = DB ผิดตรงกัน ไม่มี error) · เขียนเฉลยที่ `web/BUGS.md` เท่านั้น · **ห้ามบอกในแชท ห้ามเขียนใน SPEC / CHANGELOG / คอมเมนต์ที่เดาง่าย / ชื่อข้อตรวจที่พิมพ์ออกจอ**
 
-- **BUG_MODE=1** ฝังบั๊ก 3 ตัวนี้ (ทั้งหน้าเว็บและ API ให้เห็นผลเหมือนกัน) และเขียนเฉลยไว้ที่ **`web/BUGS.md` เท่านั้น** (ห้ามเขียนใน SPEC.md หรือคอมเมนต์ที่เห็นในหน้าเว็บ):
-  1. BR-11: วัน**เสาร์**ที่เริ่มตั้งแต่ 17:00 ได้ `DEPOSIT_50` (บังคับจ่ายเต็มเฉพาะวันศุกร์)
-  2. BR-13: ยกเลิกเมื่อเหลือ **24 ชั่วโมงพอดี** ไม่ได้เครดิต (ใช้ "มากกว่า" แทน "ตั้งแต่")
-  3. BR-22: เช่าเอี๊ยมได้ถึง **7 ชุด**ในช่วงเวลาเดียวกัน (ตรวจสต็อกคลาดไป 1)
-  `BUG_MODE=0` ต้องถูกต้องทุกข้อ
+## 8. เขียน `web/SPEC.md`
+หน้า (path · บทบาท · FR) · `data-testid` ทุกตัว · ข้อความ error/ยืนยันคำต่อคำ TH + EN · API ทุกเส้น · tag คำสั่งของแชทบอท · คำสั่งเปิด/ปิด db+web · mock/ai · BUG_MODE ใน PowerShell และ Git Bash · ตาราง BR → ฟังก์ชัน · สมมติฐานของผู้สร้าง · **ไม่พูดถึงบั๊ก**
 
-## 6. เขียน `web/SPEC.md` (ทีมทดสอบใช้ไฟล์นี้ + `04` เท่านั้น)
-- ตารางหน้าเว็บ (path, ผู้ใช้, FR) · **`data-testid` ทุกตัว** ต่อหน้า พร้อมความหมาย · **ข้อความ error/ยืนยันทุกข้อความคำต่อคำ ทั้ง TH และ EN** (ต้องมี "ช่วงเวลานี้ถูกจองแล้ว")
-- API ทุกเส้น (method, path, body, ตัวอย่างคำตอบ, รหัส error) · seed ทั้งหมดตามตารางข้างบน · วิธี reset/ล็อกเวลา/BUG_MODE ใน PowerShell และ Git Bash
-- ตาราง BR → ฟังก์ชันใน `lib/rules` ที่บังคับ · **ห้ามบอกว่าบั๊กอยู่ตรงไหน**
+## 9. ตรวจเองก่อนส่ง
+1. เปิด db แล้ว web → 2 container healthy · `/api/health` ok
+2. `web/selfcheck/check-testdata.mjs` ยิง API ตามตาราง E01–E148 ใน TEST-DATA (ข้ามแถว unit) → รายงาน "ผ่าน X / Y" · BUG_MODE=0 ต้องผ่านทั้งหมด
+3. BUG_MODE=1 → ยืนยันว่าบั๊ก 3 ตัวเกิดจริง (**รายงานแค่จำนวน**) แล้วกลับเป็น 0
+4. แชทบอท mock: ถามตัวอย่างจาก E109–E120 ได้ผลตามเฉลย · migration รัน 2 ครั้งไม่ error · backup → restore แล้วจำนวนแถวเท่าเดิม · `ALLOW_TEST_RESET=0` → `/api/test/*` 404
+5. unit test · lint · tsc ผ่าน · secret scan ไม่เจอ
+6. จับภาพทุกหน้าที่ 1280 และ 375 px ที่ `web/selfcheck/screens/` · ไม่มี console error · ไม่มีเลื่อนแนวนอน
 
-## 7. ตรวจเองก่อนส่ง (ห้ามสร้างหรือแก้อะไรใน `e2e/` นอกจาก `.gitkeep`)
-1. `cd web && docker compose up -d --build` → รอจน `football-db` และ `football-web` เป็น **healthy** ทั้งคู่
-2. `curl http://localhost:3000/api/health` → `{"ok":true,"db":true}`
-3. เขียนสคริปต์ตรวจกฎผ่าน API ไว้ที่ `web/selfcheck/rules-check.mjs` ครอบคลุมค่าขอบของ BR ทุกข้อเท่าที่ทำผ่าน API ได้ (reset + ล็อกเวลา ก่อนแต่ละกลุ่ม) รันแล้วต้องผ่านทั้งหมดใน `BUG_MODE=0` · จากนั้นสลับ `BUG_MODE=1` (`docker compose up -d` ใหม่) ยืนยันว่าบั๊ก 3 ตัวเกิดจริง แล้วกลับเป็น `0`
-4. จับภาพหน้าหลักด้วย Playwright จาก `tools/` (มี `@playwright/test` 1.64.0 แล้ว — ต้องตั้ง `PLAYWRIGHT_BROWSERS_PATH=D:/ms-playwright` ก่อน import เพราะ path ผู้ใช้มีช่องว่าง): `/`, `/book`, `/book/new`, `/pay/[code]`, `/booking/[code]`, `/my`, `/series`, `/challenges`, `/staff`, `/staff/today`, `/owner` ทั้งจอ 1280 และ 375 px เก็บที่ `web/selfcheck/screens/` · ตรวจว่าไม่มี console error และไม่มีเลื่อนแนวนอนที่ 375 px
-5. รัน `npm run lint` และ unit test ของ `lib/rules` ให้ผ่าน
-
-## 8. รายงานท้ายงาน (เป็นตาราง)
-- ขั้น | ผล | หลักฐาน (คำสั่งที่รันจริง + ผลย่อ)
-- FR ที่ทำครบ / ทำบางส่วน / ยังไม่ได้ทำ (ห้ามซ่อน) · ผล selfcheck จำนวนข้อผ่าน/ไม่ผ่าน ทั้ง `BUG_MODE=0` และ `1`
-- ปัญหาที่เจอและวิธีแก้ · สิ่งที่ตัดสินใจเองนอกเหนือเอกสาร (ต้องระบุทุกข้อ)
+## 10. รายงานท้ายงาน (ตาราง · ห้ามบอกว่าเลือกบั๊กอะไร)
+ขั้น | ผล | หลักฐาน · FR ที่ทำครบ / บางส่วน / ไม่ได้ทำ · check-testdata X/Y · BUG_MODE=1 ล้มกี่ข้อ (ตัวเลขเท่านั้น) · สิ่งที่ตัดสินใจเองนอกเอกสาร
