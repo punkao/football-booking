@@ -45,7 +45,7 @@ import { AppError, fail, num, requireStaff, str } from "./core";
 import { LEVEL_LABEL, label } from "@/lib/i18n";
 import type { Ctx } from "./core";
 import { randomToken } from "./crypto";
-import { lockKey, q, tx } from "./db";
+import { audit, lockKey, q, tx } from "./db";
 import {
   bookingCustomerName,
   loadBookingByCode,
@@ -219,7 +219,7 @@ export async function seriesCreate(ctx: Ctx, b: Record<string, unknown>) {
       );
     }
     return { ok: true, seriesId, codes, payNow: p.totals.payNow, next: `/pay/${codes[0]}`, messageCode: "OK_SERIES_CREATED" };
-  });
+  }, { actor: "CUSTOMER", now: ctx.now });
 }
 
 // ---------- FR-17: rentals availability ----------
@@ -439,7 +439,7 @@ export async function staffGet(ctx: Ctx, code: string) {
 }
 
 export async function staffCheckin(ctx: Ctx, code: string) {
-  await requireStaff(ctx, ["STAFF", "MANAGER", "OWNER"]);
+  const staff = await requireStaff(ctx, ["STAFF", "MANAGER", "OWNER"]);
   const collected = await tx(async (c) => {
     const bk = await getBookingOr404(c, code, true);
     if (bk.status !== "CONFIRMED") throw new AppError("INVALID_STATUS");
@@ -451,13 +451,15 @@ export async function staffCheckin(ctx: Ctx, code: string) {
     ]);
     // BR-23: paid hours (free hour excluded)
     await c.query("UPDATE customers SET paid_hours = paid_hours + $2 WHERE id = $1", [bk.customerId, countedHours(bk.hours, bk.freeHourUsed)]);
+    // BR-42 / T-16
+    await audit(c, staff.id, "CHECKIN", bk.code, { collected: bk.dueAtField }, ctx.now);
     return bk.dueAtField;
-  });
+  }, { actor: staff.username, now: ctx.now });
   return { ok: true, collected, ...(await staffBookingView(ctx, code)), messageCode: "OK_CHECKED_IN" };
 }
 
 export async function staffNoShow(ctx: Ctx, code: string) {
-  await requireStaff(ctx, ["STAFF", "MANAGER", "OWNER"]);
+  const staff = await requireStaff(ctx, ["STAFF", "MANAGER", "OWNER"]);
   const ban = await tx(async (c) => {
     const bk = await getBookingOr404(c, code, true);
     fail(checkNoShow(bk.status, slotStart(bk.date, bk.startHour), ctx.now));
@@ -470,8 +472,9 @@ export async function staffNoShow(ctx: Ctx, code: string) {
     if (until) {
       await c.query("UPDATE customers SET banned_until = GREATEST(COALESCE(banned_until, $2), $2) WHERE id = $1", [bk.customerId, until]);
     }
+    await audit(c, staff.id, "NO_SHOW", bk.code, { bannedUntil: until ? until.toISOString() : null }, ctx.now);
     return until;
-  });
+  }, { actor: staff.username, now: ctx.now });
   return {
     ok: true,
     bannedUntil: ban,
@@ -482,7 +485,7 @@ export async function staffNoShow(ctx: Ctx, code: string) {
 }
 
 export async function staffReturn(ctx: Ctx, code: string, b: Record<string, unknown>) {
-  await requireStaff(ctx, ["STAFF", "MANAGER", "OWNER"]);
+  const staff = await requireStaff(ctx, ["STAFF", "MANAGER", "OWNER"]);
   await tx(async (c) => {
     const bk = await getBookingOr404(c, code, true);
     const rentals = await loadBookingRentals(c, bk.id);
@@ -495,6 +498,7 @@ export async function staffReturn(ctx: Ctx, code: string, b: Record<string, unkn
       if (it.returnedQty > r.qty) throw new AppError("RETURN_EXCEEDS");
       await c.query("UPDATE booking_rentals SET returned_qty = $3 WHERE booking_id = $1 AND item_id = $2", [bk.id, it.itemId, it.returnedQty]);
     }
+    await audit(c, staff.id, "RETURN_RENTALS", bk.code, { items }, ctx.now);
   });
   return { ok: true, ...(await staffBookingView(ctx, code)), messageCode: "OK_RETURNED" };
 }
@@ -552,20 +556,26 @@ export async function holidaysList(ctx: Ctx) {
 }
 
 export async function holidayAdd(ctx: Ctx, b: Record<string, unknown>) {
-  await requireStaff(ctx, ["OWNER"]);
+  const staff = await requireStaff(ctx, ["OWNER"]);
   const date = str(b.date);
   const name = str(b.name);
   if (!isValidDateStr(date)) throw new AppError("INVALID_DATE");
   if (!name) throw new AppError("NAME_REQUIRED");
-  const r = await q("INSERT INTO holidays(date, name) VALUES ($1, $2) ON CONFLICT (date) DO NOTHING RETURNING date", [date, name]);
-  if (!r.length) throw new AppError("HOLIDAY_EXISTS");
+  await tx(async (c) => {
+    const r = await c.query("INSERT INTO holidays(date, name) VALUES ($1, $2) ON CONFLICT (date) DO NOTHING RETURNING date", [date, name]);
+    if (!r.rows.length) throw new AppError("HOLIDAY_EXISTS");
+    await audit(c, staff.id, "HOLIDAY_ADD", date, { name }, ctx.now);
+  });
   return { ok: true, holidays: await loadHolidays(null), messageCode: "OK_HOLIDAY_ADDED" };
 }
 
 export async function holidayDelete(ctx: Ctx, date: string) {
-  await requireStaff(ctx, ["OWNER"]);
-  const r = await q("DELETE FROM holidays WHERE date = $1 RETURNING date", [isValidDateStr(date) ? date : "1900-01-01"]);
-  if (!r.length) throw new AppError("HOLIDAY_NOT_FOUND");
+  const staff = await requireStaff(ctx, ["OWNER"]);
+  await tx(async (c) => {
+    const r = await c.query("DELETE FROM holidays WHERE date = $1 RETURNING date, name", [isValidDateStr(date) ? date : "1900-01-01"]);
+    if (!r.rows.length) throw new AppError("HOLIDAY_NOT_FOUND");
+    await audit(c, staff.id, "HOLIDAY_REMOVE", date, { name: r.rows[0].name }, ctx.now);
+  });
   return { ok: true, holidays: await loadHolidays(null), messageCode: "OK_HOLIDAY_DELETED" };
 }
 
@@ -637,6 +647,14 @@ export async function closureCreate(ctx: Ctx, b: Record<string, unknown>) {
       if (bk.freeHourUsed) await c.query("UPDATE customers SET free_hours_used = GREATEST(0, free_hours_used - 1) WHERE id = $1", [bk.customerId]);
       affected.push({ code: bk.code, credit: split.owner, customerId: bk.customerId, challengeCredit: matched ? split.team : 0, credits });
     }
+    await audit(
+      c,
+      staff.id,
+      "RAIN_CLOSE",
+      `${field.id} ${date} ${from}-${to}`,
+      { closureId: r.rows[0].id, affected: affected.map((a) => ({ code: a.code, credits: a.credits.map((x) => ({ role: x.role, amount: x.amount })) })) },
+      ctx.now,
+    );
     return {
       ok: true,
       closure: { id: r.rows[0].id, fieldId: field.id, date, fromHour: from, toHour: to },
@@ -644,5 +662,5 @@ export async function closureCreate(ctx: Ctx, b: Record<string, unknown>) {
       messageCode: "OK_CLOSED",
       messageParams: { count: affected.length },
     };
-  });
+  }, { actor: staff.username, now: ctx.now });
 }

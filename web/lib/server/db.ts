@@ -1,6 +1,6 @@
 import { Pool, types } from "pg";
 import type { PoolClient } from "pg";
-import { initDatabase } from "./schema";
+import type { AuditAction } from "@/lib/rules";
 
 // DATE columns come back as plain "YYYY-MM-DD" strings (no timezone shifting)
 types.setTypeParser(1082, (v: string) => v);
@@ -9,7 +9,7 @@ types.setTypeParser(20, (v: string) => Number(v));
 
 export type Db = Pick<PoolClient, "query">;
 
-type G = { __lnPool?: Pool; __lnInit?: Promise<void> };
+type G = { __lnPool?: Pool; __lnReady?: Promise<void> };
 const g = globalThis as unknown as G;
 
 export function pool(): Pool {
@@ -20,14 +20,17 @@ export function pool(): Pool {
   return g.__lnPool;
 }
 
-/** creates tables + seed once per process (idempotent, retried until the DB is reachable) */
+/**
+ * v2 (ADR-11): the web no longer creates tables or seeds — db/init + db/migrations do.
+ * This only waits (retrying) until the database answers; the db container may start after the web (ADR-10).
+ */
 export function ensureDb(): Promise<void> {
-  if (!g.__lnInit) {
-    g.__lnInit = (async () => {
+  if (!g.__lnReady) {
+    g.__lnReady = (async () => {
       let lastErr: unknown;
       for (let i = 0; i < 30; i++) {
         try {
-          await initDatabase(pool());
+          await pool().query("SELECT 1");
           return;
         } catch (e) {
           lastErr = e;
@@ -36,11 +39,11 @@ export function ensureDb(): Promise<void> {
       }
       throw lastErr;
     })().catch((e) => {
-      g.__lnInit = undefined;
+      g.__lnReady = undefined;
       throw e;
     });
   }
-  return g.__lnInit;
+  return g.__lnReady;
 }
 
 export async function q<T = Record<string, unknown>>(sql: string, params: unknown[] = []): Promise<T[]> {
@@ -49,11 +52,19 @@ export async function q<T = Record<string, unknown>>(sql: string, params: unknow
   return r.rows as T[];
 }
 
-export async function tx<T>(fn: (c: PoolClient) => Promise<T>): Promise<T> {
+/** who changes bookings in this transaction (BR-42 · ADR-14): CUSTOMER / BOT / SYSTEM / a staff username */
+export type Actor = { actor: string; now: Date };
+
+/**
+ * One transaction. With `who`, the database trigger records every booking status change under that actor and the
+ * application's "now" (ADR-04). A booking change without an actor is refused by the database.
+ */
+export async function tx<T>(fn: (c: PoolClient) => Promise<T>, who?: Actor): Promise<T> {
   await ensureDb();
   const c = await pool().connect();
   try {
     await c.query("BEGIN");
+    if (who) await setActor(c, who);
     const out = await fn(c);
     await c.query("COMMIT");
     return out;
@@ -63,6 +74,29 @@ export async function tx<T>(fn: (c: PoolClient) => Promise<T>): Promise<T> {
   } finally {
     c.release();
   }
+}
+
+/** SET LOCAL app.actor / app.now for the current transaction (read by the history trigger of migration 002) */
+export async function setActor(c: Db, who: Actor): Promise<void> {
+  await c.query("SELECT set_config('app.actor', $1, true), set_config('app.now', $2, true)", [who.actor, who.now.toISOString()]);
+}
+
+/** BR-42 / T-16: one AuditLog row, in the same transaction as the shop action it describes */
+export async function audit(
+  c: Db,
+  staffUserId: number,
+  action: AuditAction,
+  target: string,
+  detail: Record<string, unknown>,
+  now: Date,
+): Promise<void> {
+  await c.query("INSERT INTO audit_logs(staff_user_id, action, target, detail, created_at) VALUES ($1, $2, $3, $4, $5)", [
+    staffUserId,
+    action,
+    target,
+    JSON.stringify(detail),
+    now,
+  ]);
 }
 
 /** ADR-02: serialise writers per key (e.g. field + date) inside a transaction */

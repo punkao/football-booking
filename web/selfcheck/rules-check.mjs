@@ -6,6 +6,9 @@
 //   node selfcheck/rules-check.mjs --expect-bugs   # expects BUG_MODE=1: only the planted-bug checks fail
 //
 // BASE_URL defaults to http://localhost:3000
+//
+// v2 seed (docs/TEST-DATA.md): 0855555555 = ฟ้า and 0866666666 = บีม are seed customers now, so the
+// "unknown opponent team" phones of v1 became 0855550000 and 0866660000 (nothing else changed).
 
 const BASE = process.env.BASE_URL || "http://localhost:3000";
 const EXPECT_BUGS = process.argv.includes("--expect-bugs");
@@ -101,7 +104,14 @@ async function group(name, fn) {
 
 async function main() {
   const h = await sys.get("/api/health");
-  check("NFR-12.health", "GET /api/health → {ok:true, db:true}", h.status === 200 && h.json?.ok === true && h.json?.db === true, JSON.stringify(h.json));
+  check("NFR-12.health", "GET /api/health → exactly {ok:true, db:true}", h.status === 200 && JSON.stringify(h.json) === '{"ok":true,"db":true}', JSON.stringify(h.json));
+  const v = await sys.get("/api/version");
+  check(
+    "V2.version",
+    "GET /api/version → {schemaVersion, chatMode, bugMode} only",
+    v.status === 200 && JSON.stringify(Object.keys(v.json ?? {}).sort()) === '["bugMode","chatMode","schemaVersion"]' && v.json.schemaVersion === "005",
+    JSON.stringify(v.json),
+  );
 
   await group("BR-01", async () => {
     await reset(NOW);
@@ -514,18 +524,18 @@ async function main() {
     const lb = await sys.get("/api/challenges?level=BEGINNER");
     check("FR-20.filter", "level filter works", lb.json.challenges.length === 0);
     const opp = new Client();
-    const acc = await opp.post(`/api/challenges/${id}/accept`, { name: "Rival", phone: "0855555555", consent: true });
+    const acc = await opp.post(`/api/challenges/${id}/accept`, { name: "Rival", phone: "0855550000", consent: true });
     check("FR-21.accept", "accept → AWAITING_PAYMENT", acc.status === 200 && acc.json.challenge.status === "AWAITING_PAYMENT");
     await clock("2026-10-09T10:15:01+07:00");
-    const late = await opp.post(`/api/challenges/${id}/pay`, { phone: "0855555555" });
+    const late = await opp.post(`/api/challenges/${id}/pay`, { phone: "0855550000" });
     check("BR-28.expire", "not paid in 15 min → back to OPEN", late.status === 409 && errCode(late) === "CHALLENGE_PAYMENT_EXPIRED");
-    const acc2 = await opp.post(`/api/challenges/${id}/accept`, { name: "Rival", phone: "0855555555", consent: true });
+    const acc2 = await opp.post(`/api/challenges/${id}/accept`, { name: "Rival", phone: "0855550000", consent: true });
     await clock("2026-10-09T10:30:01+07:00");
-    const pay = await opp.post(`/api/challenges/${id}/pay`, { phone: "0855555555" });
+    const pay = await opp.post(`/api/challenges/${id}/pay`, { phone: "0855550000" });
     check("BR-28.matched", "paid in time → MATCHED", acc2.status === 200 && pay.status === 200 && pay.json.challenge.status === "MATCHED", `${pay.status} ${errCode(pay)}`);
     const me = await ton.get("/api/me");
     check("BR-28.credit", "booking owner gets 900 credit", me.json.customer.creditBalance === 1200 + 900, `${me.json.customer.creditBalance}`);
-    const again = await opp.post(`/api/challenges/${id}/accept`, { name: "Other", phone: "0866666666", consent: true });
+    const again = await opp.post(`/api/challenges/${id}/accept`, { name: "Other", phone: "0866660000", consent: true });
     check("BR-28.locked", "MATCHED cannot be accepted again", errCode(again) === "CHALLENGE_NOT_OPEN");
   });
 
@@ -588,8 +598,8 @@ async function main() {
     const code = await bookPaid(ton, { fieldId: "C", date: "2026-10-16", startHour: 18, phone: TON, name: "ต้น" }); // Fri 18:00 → FULL 1,800
     const id = await challengeFor(ton, code);
     const opp = new Client();
-    await opp.post(`/api/challenges/${id}/accept`, { name: "Rival", phone: "0855555555", consent: true });
-    const pay = await opp.post(`/api/challenges/${id}/pay`, { phone: "0855555555" });
+    await opp.post(`/api/challenges/${id}/accept`, { name: "Rival", phone: "0855550000", consent: true });
+    const pay = await opp.post(`/api/challenges/${id}/pay`, { phone: "0855550000" });
     check("P75-1.matched", "opponent paid → MATCHED, owner credit 1,200 + 900 = 2,100", pay.status === 200 && (await credit(ton)) === 2100, `${pay.status} ${await credit(ton)}`);
     const d = await ton.get(`/api/bookings/${code}`);
     const a = d.json?.actions ?? {};
@@ -618,11 +628,11 @@ async function main() {
     const code2 = await bookPaid(ton2, { fieldId: "B", date: "2026-10-16", startHour: 18, phone: TON, name: "ต้น" }); // Fri 18:00 → FULL 1,200
     const id2 = await challengeFor(ton2, code2);
     const opp2 = new Client();
-    await opp2.post(`/api/challenges/${id2}/accept`, { name: "Rival", phone: "0855555555", consent: true });
+    await opp2.post(`/api/challenges/${id2}/accept`, { name: "Rival", phone: "0855550000", consent: true });
     const dA = await ton2.get(`/api/bookings/${code2}`);
     check("P75-1.awaiting-can-cancel", "AWAITING_PAYMENT (not MATCHED) → owner can still cancel", dA.json?.actions?.canCancel === true, JSON.stringify(dA.json?.actions));
     const c2 = await ton2.post(`/api/bookings/${code2}/cancel`, {});
-    const late = await opp2.post(`/api/challenges/${id2}/pay`, { phone: "0855555555" });
+    const late = await opp2.post(`/api/challenges/${id2}/pay`, { phone: "0855550000" });
     check("P75-1.awaiting-then-pay", "cancel during AWAITING_PAYMENT then opponent pays → 409 CHALLENGE_NOT_OPEN", c2.status === 200 && late.status === 409 && errCode(late) === "CHALLENGE_NOT_OPEN", `${c2.status} ${late.status} ${errCode(late)}`);
     const me2 = (await ton2.get("/api/me")).json;
     check(
@@ -642,8 +652,8 @@ async function main() {
       const cd = await bookPaid(t, { fieldId: "C", date: "2026-10-16", startHour: 18, phone: TON, name: "ต้น" }); // 1,800 paid
       const cid = await challengeFor(t, cd);
       const o = new Client();
-      await o.post(`/api/challenges/${cid}/accept`, { name: "Rival", phone: "0855555555", consent: true });
-      const [cx, px] = await Promise.all([t.post(`/api/bookings/${cd}/cancel`, {}), o.post(`/api/challenges/${cid}/pay`, { phone: "0855555555" })]);
+      await o.post(`/api/challenges/${cid}/accept`, { name: "Rival", phone: "0855550000", consent: true });
+      const [cx, px] = await Promise.all([t.post(`/api/bookings/${cd}/cancel`, {}), o.post(`/api/challenges/${cid}/pay`, { phone: "0855550000" })]);
       const bal = await credit(t);
       // cancel won → 1,200 + 1,800 = 3,000 · payment won → 1,200 + 900 = 2,100 (and cancel refused)
       const ok = (cx.status === 200 && px.status === 409 && bal === 3000) || (px.status === 200 && cx.status === 409 && errCode(cx) === "CHALLENGE_MATCHED" && bal === 2100);
@@ -738,13 +748,13 @@ async function main() {
     const id1 = await challengeFor(ton, c1);
     const id2 = await challengeFor(ton, c2);
     const opp = new Client();
-    await opp.post(`/api/challenges/${id1}/accept`, { name: "Rival", phone: "0855555555", consent: true }); // 10:00:00
+    await opp.post(`/api/challenges/${id1}/accept`, { name: "Rival", phone: "0855550000", consent: true }); // 10:00:00
     await clock("2026-10-09T10:15:00+07:00");
-    const p1 = await opp.post(`/api/challenges/${id1}/pay`, { phone: "0855555555" });
+    const p1 = await opp.post(`/api/challenges/${id1}/pay`, { phone: "0855550000" });
     check("P75-5.15m00s", "pay at exactly 15 min → MATCHED", p1.status === 200 && p1.json?.challenge?.status === "MATCHED", `${p1.status} ${errCode(p1)}`);
-    await opp.post(`/api/challenges/${id2}/accept`, { name: "Rival", phone: "0855555555", consent: true }); // 10:15:00
+    await opp.post(`/api/challenges/${id2}/accept`, { name: "Rival", phone: "0855550000", consent: true }); // 10:15:00
     await clock("2026-10-09T10:30:01+07:00");
-    const p2 = await opp.post(`/api/challenges/${id2}/pay`, { phone: "0855555555" });
+    const p2 = await opp.post(`/api/challenges/${id2}/pay`, { phone: "0855550000" });
     const l = await sys.get("/api/challenges");
     check("P75-5.15m01s", "pay at 15 min 1 s → CHALLENGE_PAYMENT_EXPIRED, back to OPEN", p2.status === 409 && errCode(p2) === "CHALLENGE_PAYMENT_EXPIRED" && l.json.challenges.find((x) => x.id === id2)?.status === "OPEN", `${p2.status} ${errCode(p2)}`);
   });
@@ -853,7 +863,7 @@ async function main() {
     await login(ton, TON, "Ton12345");
     const owner = new Client();
     await staffLogin(owner, "owner", "Owner1234");
-    const TEAM = "0855555555";
+    const TEAM = "0855550000";
     // (a) 04 example: A Fri 18:00 1 h paid 1,200 (FULL_100) · team pays 600 → team 600, owner 600
     const a = await bookPaid(ton, { fieldId: "A", date: "2026-10-16", startHour: 18, phone: TON, name: "ต้น" });
     const ida = await challengeFor(ton, a);
@@ -871,7 +881,7 @@ async function main() {
     await challengeFor(ton, c);
     const d = await bookPaid(ton, { fieldId: "B", date: "2026-10-12", startHour: 18, phone: TON, name: "ต้น" });
     const idd = await challengeFor(ton, d);
-    await new Client().post(`/api/challenges/${idd}/accept`, { name: "Other", phone: "0866666666", consent: true });
+    await new Client().post(`/api/challenges/${idd}/accept`, { name: "Other", phone: "0866660000", consent: true });
     const before = await credit(ton); // 1,200 + 600 (a) + 600 (b) = 2,400
 
     const ra = await owner.post("/api/owner/closures", { fieldId: "A", date: "2026-10-16", fromHour: 18, toHour: 19 });
@@ -889,7 +899,7 @@ async function main() {
     const rd = await owner.post("/api/owner/closures", { fieldId: "B", date: "2026-10-12", fromHour: 18, toHour: 19 });
     const ed = rd.json?.affected?.find((x) => x.code === d);
     check("A27.awaiting", "AWAITING_PAYMENT → owner full 600, waiting team gets nothing", ed?.credit === 600 && ed?.challengeCredit === 0, JSON.stringify(ed));
-    const late = await new Client().post(`/api/challenges/${idd}/pay`, { phone: "0866666666" });
+    const late = await new Client().post(`/api/challenges/${idd}/pay`, { phone: "0866660000" });
     check("A27.awaiting-pay-after", "waiting team pays after the rain close → 409 CHALLENGE_NOT_OPEN", late.status === 409 && errCode(late) === "CHALLENGE_NOT_OPEN", `${late.status} ${errCode(late)}`);
     check("A27.owner-total", "owner balance = 2,400 + 600 + 0 + 1,200 + 600 = 4,800", (await credit(ton)) === 4800, `${await credit(ton)}`);
     const dl = await ton.get(`/api/bookings/${a}`);
@@ -920,7 +930,7 @@ async function main() {
     const id = await challengeFor(ton, code);
     const d0 = await ton.get(`/api/bookings/${code}`);
     check("A28.open-ok", "OPEN challenge → canReschedule = true", d0.json?.actions?.canReschedule === true, JSON.stringify(d0.json?.actions));
-    await new Client().post(`/api/challenges/${id}/accept`, { name: "Rival", phone: "0855555555", consent: true }); // 10:00:00 → deadline 10:15:00
+    await new Client().post(`/api/challenges/${id}/accept`, { name: "Rival", phone: "0855550000", consent: true }); // 10:00:00 → deadline 10:15:00
     const d1 = await ton.get(`/api/bookings/${code}`);
     check(
       "A28.actions",

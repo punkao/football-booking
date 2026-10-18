@@ -178,7 +178,8 @@ flowchart LR
 
 | method | path | ทำอะไร | สิทธิ์ | FR |
 |---|---|---|---|---|
-| GET | `/api/health` 🔁 | `{ ok, db }` · 🆕 เพิ่ม `schemaVersion` (migration ล่าสุดที่รันแล้ว) และ `chatMode` (`mock`/`ai`) · **ไม่**เช็ก gateway (AI ล่ม ≠ เว็บล่ม · NFR-16) | – | NFR-12 |
+| GET | `/api/health` | `{ ok, db }` **ตรงตัวตาม v1** (สัญญาเดิม · e2e ใช้เทียบแบบเท่ากันทุกฟิลด์) · **ไม่**เช็ก gateway (AI ล่ม ≠ เว็บล่ม · NFR-16) | – | NFR-12 |
+| GET | `/api/version` 🆕 | `{ schemaVersion, chatMode, bugMode }` ไม่มีความลับ (แยกออกจาก health เพื่อไม่เปลี่ยนสัญญาเดิม · แก้ระหว่าง B1 2026-10-18) | – | NFR-12, NFR-15 |
 | GET | `/api/fields` | ข้อมูล 3 สนาม | – | FR-30 |
 | GET | `/api/availability?date=` | ทุกรอบของ 3 สนาม: ว่าง/ไม่ว่าง ราคา | – | FR-01, FR-28 |
 | POST | `/api/quote` | คิดราคาแยกบรรทัด + payNow โดยไม่สร้างการจอง | – | FR-05 |
@@ -320,7 +321,7 @@ ALTER TABLE bookings ADD CONSTRAINT bookings_no_overlap
 | reset + ล็อกเวลา | `POST /api/test/reset { "now": "2026-10-09T10:00:00+07:00" }` คืน seed และตั้งเวลา · `POST /api/test/clock` เลื่อนเวลา | NFR-10 |
 | seed ที่แน่นอน | สนาม 3 · ของเช่า 2 · วันหยุด 5 (A-01 ไม่ย้ายข้อมูลเก่า) · ผู้ใช้ร้าน 3 บทบาท · ลูกค้าตัวอย่างที่มีเครดิต / ชั่วโมงสะสม 7 และ 10 / ไม่มา 1 ครั้ง · การจองตัวอย่างที่ทำให้ตารางมีช่องไม่ว่าง · 🔁 v2 ค่าทั้งหมดมาจาก `docs/TEST-DATA.md` แหล่งเดียว → `db/init/02-seed.sql` (รวมคลัง 8 ของ × 2 ที่เก็บ จุดสั่งซื้อซ้ำ) · reset รันไฟล์เดียวกัน | NFR-10 |
 | BUG_MODE | อ่าน `process.env.BUG_MODE === "1"` ตอนรัน · บั๊กที่ฝังกำหนดในเฟส 4 และเขียนเฉพาะ `web/BUGS.md` (ผู้เขียน test ห้ามเห็น) | NFR-11 |
-| health | `GET /api/health` → `{ ok: true, db: true }` ใช้ใน healthcheck และ global-setup ของ test · 🆕 + `schemaVersion`, `chatMode` | NFR-12 |
+| health | `GET /api/health` → `{ ok: true, db: true }` ตรงตัว ใช้ใน healthcheck และ global-setup ของ test · รุ่นข้อมูลและโหมดแชทดูที่ `GET /api/version` | NFR-12 |
 | accessibility | label ทุกช่อง · ปุ่มจริง · alt ทุกรูป · 🆕 widget แชทเปิด/ปิดด้วยปุ่มจริง ช่องพิมพ์มี label · ข้อความใหม่อยู่ใน `role="log"` | NFR-13 |
 | 🆕 แชท mock | `MODE=mock` ถามเหมือนเดิมได้คำตอบเดิม · ใช้กับชุดถามข้อเดียว + ถามต่อเนื่อง แบบ "ต้องมี" | NFR-15 |
 | 🆕 แชท ai แบบควบคุมได้ | `docker compose --profile mock up -d` + `MODE=ai` + `LLM_BASE_URL=http://mock-llm:8080/v1` → ทดสอบ timeout 60 วินาที / error / tag ปลอม / `<think>` โดยไม่ใช้โควตาจริง | NFR-16, NFR-17 |

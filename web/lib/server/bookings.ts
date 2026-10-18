@@ -27,6 +27,7 @@ import {
   rentalPriceFor,
   rentalRemaining,
   rescheduleDifference,
+  rescheduleSettlement,
   slotStart,
   validateBookingTime,
 } from "@/lib/rules";
@@ -219,8 +220,11 @@ export async function confirmBooking(db: Db, b: BookingRow, now: Date, payAmount
   await db.query("UPDATE bookings SET status = 'CONFIRMED', amount_paid = amount_paid + $2 WHERE id = $1", [b.id, payAmount]);
 }
 
-/** FR-02 – FR-05: create a booking (PENDING_PAYMENT, or CONFIRMED when nothing to pay) */
-export async function createBooking(ctx: Ctx, b: Record<string, unknown>) {
+/**
+ * FR-02 – FR-05: create a booking (PENDING_PAYMENT, or CONFIRMED when nothing to pay).
+ * `actor` is who the status history records (BR-42): CUSTOMER on the web.
+ */
+export async function createBooking(ctx: Ctx, b: Record<string, unknown>, actor = "CUSTOMER") {
   const name = str(b.name);
   const phone = normalizePhone(b.phone);
   const fieldId = str(b.fieldId);
@@ -278,7 +282,7 @@ export async function createBooking(ctx: Ctx, b: Record<string, unknown>) {
     }
     const saved = (await loadBookingByCode(c, code))!;
     return { booking: mapBookingPublic(saved), next: status === "CONFIRMED" ? `/booking/${code}?done=free` : `/pay/${code}` };
-  });
+  }, { actor, now: ctx.now });
 }
 
 // ---------- access (FR-09, NFR-05) ----------
@@ -426,7 +430,7 @@ export async function payBooking(ctx: Ctx, code: string, phone?: string) {
       paid += row.payNow;
     }
     return { ok: true, code: b.code, amount: paid, bookings: group, messageCode: "OK_PAID" };
-  });
+  }, { actor: "CUSTOMER", now: ctx.now });
 }
 
 /** FR-10 / BR-13 */
@@ -458,7 +462,7 @@ export async function cancelBooking(ctx: Ctx, code: string, phone?: string) {
       messageCode: credit > 0 ? "OK_CANCEL_CREDIT" : "OK_CANCEL_NO_CREDIT",
       messageParams: { amount: credit },
     };
-  });
+  }, { actor: "CUSTOMER", now: ctx.now });
 }
 
 /** FR-11 / BR-25 */
@@ -499,7 +503,10 @@ export async function rescheduleBooking(ctx: Ctx, code: string, body: Record<str
     const newFieldPrice = fieldPriceFor(ev.field, date, ev.startHour, b.hours, holidays);
     const newDiscount = discountAmount(newFieldPrice, series?.discount_percent ?? 0);
     const newTotal = Math.max(0, newFieldPrice - newDiscount - freeHourValue + b.rentalPrice);
-    const diff = rescheduleDifference(b.totalPrice, newTotal);
+    const diff0 = rescheduleDifference(b.totalPrice, newTotal);
+    // NFR-19: a cheaper slot never takes amount_paid / credit_used / due_at_field below 0 (same as v1 when paid ≥ difference)
+    const settle = rescheduleSettlement({ difference: diff0.creditBack, amountPaid: b.amountPaid, creditUsed: b.creditUsed, dueAtField: b.dueAtField });
+    const diff = { extraPay: diff0.extraPay, creditBack: settle.creditBack };
     if (diff.extraPay > 0) {
       await c.query("INSERT INTO payments(booking_id, amount, method, paid_at) VALUES ($1, $2, 'PROMPTPAY', $3)", [b.id, diff.extraPay, ctx.now]);
     }
@@ -511,8 +518,8 @@ export async function rescheduleBooking(ctx: Ctx, code: string, body: Record<str
     }
     await c.query(
       `UPDATE bookings SET date = $2, start_hour = $3, field_price = $4, discount = $5, total_price = $6,
-         amount_paid = amount_paid + $7 - $8, reschedule_count = reschedule_count + 1 WHERE id = $1`,
-      [b.id, date, ev.startHour, newFieldPrice, newDiscount, newTotal, diff.extraPay, diff.creditBack],
+         amount_paid = $7, credit_used = $8, due_at_field = $9, reschedule_count = reschedule_count + 1 WHERE id = $1`,
+      [b.id, date, ev.startHour, newFieldPrice, newDiscount, newTotal, settle.amountPaid + diff.extraPay, settle.creditUsed, settle.dueAtField],
     );
     // BR-28: an OPEN challenge follows the booking — its amount is recalculated from the new field price
     await c.query("UPDATE challenges SET amount = $2 WHERE booking_id = $1 AND status = 'OPEN'", [b.id, challengeAmount(newFieldPrice, newDiscount)]);
@@ -527,7 +534,7 @@ export async function rescheduleBooking(ctx: Ctx, code: string, body: Record<str
       messageCode: diff.extraPay > 0 ? "OK_RESCHEDULED_PAY" : diff.creditBack > 0 ? "OK_RESCHEDULED_CREDIT" : "OK_RESCHEDULED",
       messageParams: { amount: diff.extraPay || diff.creditBack },
     };
-  });
+  }, { actor: "CUSTOMER", now: ctx.now });
 }
 
 /** for the challenge / split helpers */

@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { MESSAGES, fmtDateTime, money, msg, normLang, rentalName } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n";
-import { q } from "./db";
+import { q, tx } from "./db";
+import { dbErrorCode } from "@/lib/rules";
 import type { Db } from "./db";
 import { unsign } from "./crypto";
 
@@ -36,12 +37,23 @@ export async function getNow(db?: Db): Promise<Date> {
   return v ? new Date(v) : new Date();
 }
 
-/** ADR-03: lazy expiry before every request that reads / writes bookings */
+/** ADR-03: lazy expiry before every request that reads / writes bookings (history actor SYSTEM, BR-42) */
 export async function expireStale(now: Date): Promise<void> {
-  await q("UPDATE bookings SET status = 'EXPIRED' WHERE status = 'PENDING_PAYMENT' AND pay_deadline < $1", [now]);
-  await q(
-    "UPDATE challenges SET status = 'OPEN', accept_customer_id = NULL, pay_deadline = NULL WHERE status = 'AWAITING_PAYMENT' AND pay_deadline < $1",
+  const stale = await q<{ n: number }>(
+    `SELECT (SELECT count(*) FROM bookings WHERE status = 'PENDING_PAYMENT' AND pay_deadline < $1)
+          + (SELECT count(*) FROM challenges WHERE status = 'AWAITING_PAYMENT' AND pay_deadline < $1) AS n`,
     [now],
+  );
+  if (!stale[0]?.n) return;
+  await tx(
+    async (c) => {
+      await c.query("UPDATE bookings SET status = 'EXPIRED' WHERE status = 'PENDING_PAYMENT' AND pay_deadline < $1", [now]);
+      await c.query(
+        "UPDATE challenges SET status = 'OPEN', accept_customer_id = NULL, pay_deadline = NULL WHERE status = 'AWAITING_PAYMENT' AND pay_deadline < $1",
+        [now],
+      );
+    },
+    { actor: "SYSTEM", now },
   );
 }
 
@@ -79,6 +91,9 @@ export function route<P = Record<string, string>>(fn: Handler<P>, opts: { expire
       return NextResponse.json(o);
     } catch (e) {
       if (e instanceof AppError) return errorJson(lang, e.code, e.params, e.status);
+      // NFR-19: a database constraint caught what the app check missed (e.g. EXCLUDE = BR-06 "slot taken")
+      const dbCode = dbErrorCode(e);
+      if (dbCode) return errorJson(lang, dbCode);
       console.error("[api]", e);
       return errorJson(lang, "INTERNAL", undefined, 500);
     }

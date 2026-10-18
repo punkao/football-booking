@@ -31,15 +31,20 @@
 
 ## รันเว็บ (ต้องมี Docker Desktop)
 
+v2 แยก Docker เป็น 2 โปรเจกต์ (`db/` และ `web/`) คุยกันผ่าน network `football-net` · ขั้นตอนเต็ม สำรอง/กู้คืน/migration: [`docs/RUNBOOK.md`](docs/RUNBOOK.md)
+
 ```bash
-cd web
-docker compose up -d --build
+cp db/.env.example db/.env       # ตั้ง POSTGRES_PASSWORD
+cp web/.env.example web/.env     # DATABASE_URL ใช้รหัสผ่านเดียวกัน · ALLOW_TEST_RESET=1 เฉพาะเครื่องทดสอบ
+docker compose -f db/compose.yaml up -d            # football-db ก่อน (สร้าง network + volume football-pgdata)
+docker compose -f web/compose.yaml up -d --build   # แล้วค่อย football-web
 ```
+ห้ามใช้ `down -v` (ลบข้อมูลทั้งหมด)
 
 เปิด <http://localhost:3000> · **หน้า Portal สำหรับตรวจงาน: <http://localhost:3000/project>** (ภาพรวม, เอกสาร + แผนภาพ, test case พร้อมผลและ GIF, traceability, รายงาน)
 บัญชีทดลอง (เจ้าของ / ผู้จัดการ / พนักงาน / ลูกค้า) อยู่ในส่วน seed ของ [`web/SPEC.md`](web/SPEC.md) — เป็นข้อมูลทดลองในเครื่องเท่านั้น
 
-โหมดฝังบั๊ก: `BUG_MODE=1 docker compose up -d` (PowerShell: `$env:BUG_MODE=1; docker compose up -d`) · กลับโหมดปกติ: `docker compose up -d` · เฉลยอยู่ที่ [`web/BUGS.md`](web/BUGS.md)
+โหมดฝังบั๊ก: `BUG_MODE=1 docker compose -f web/compose.yaml up -d` (PowerShell: `$env:BUG_MODE=1; docker compose -f web/compose.yaml up -d`) · กลับโหมดปกติ: `BUG_MODE=0 docker compose -f web/compose.yaml up -d` · เฉลยอยู่ที่ [`web/BUGS.md`](web/BUGS.md)
 
 ## รัน test (ต้องมี Node.js 20+ และเปิดเว็บไว้แล้ว)
 
@@ -84,7 +89,9 @@ npm test
 football-booking/
 ├─ README.md · PLAN.md · .mcp.json
 ├─ docs/          เอกสาร 00–10 + diagrams/ + trace/ (บันทึกกระบวนการ)
-├─ web/           เว็บ Next.js + PostgreSQL (docker-compose.yml, SPEC.md, BUGS.md, selfcheck/)
+├─ db/            PostgreSQL: compose.yaml, init/ (schema + seed), migrations/, scripts/counts.sql, backups/ (ไม่ขึ้น git)
+├─ scripts/       migrate.mjs · backup.mjs · restore.mjs
+├─ web/           เว็บ Next.js (compose.yaml, SPEC.md, BUGS.md, selfcheck/)
 ├─ e2e/           Playwright Test (tests/, test-report/ = รายงาน + GIF + MP4)
 ├─ tools/         Playwright MCP bridge/client + ตัว render Mermaid + สคริปต์ตรวจเอกสาร
 └─ screenshots/   หลักฐานตอน AI สำรวจเว็บผ่าน MCP

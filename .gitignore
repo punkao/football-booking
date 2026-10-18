@@ -20,3 +20,7 @@ e2e/test-report/videos/_before-7.5b/*
 !e2e/test-report/videos/_before-7.5b/TC-MEMBER-02.mp4
 !e2e/test-report/videos/_before-7.5b/TC-TEAM-03.mp4
 !e2e/test-report/videos/_before-7.5b/TC-BOOK-02.mp4
+
+# v2 database backups contain personal data (NFR-18 · ADR-13)
+db/backups/*
+!db/backups/.gitkeep

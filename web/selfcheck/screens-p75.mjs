@@ -40,8 +40,8 @@ const payB = (code) => api(ton, "POST", `/api/bookings/${code}/pay`, {});
 const matched = await mk({ fieldId: "C", date: "2026-10-16", startHour: 18 });
 await payB(matched);
 const ch = (await api(ton, "POST", "/api/challenges", { code: matched, teamName: "ทีมต้น", level: "INTERMEDIATE" })).json.challenge.id;
-await api(setup, "POST", `/api/challenges/${ch}/accept`, { name: "Rival", phone: "0855555555", consent: true });
-await api(setup, "POST", `/api/challenges/${ch}/pay`, { phone: "0855555555" });
+await api(setup, "POST", `/api/challenges/${ch}/accept`, { name: "Rival", phone: "0855550000", consent: true });
+await api(setup, "POST", `/api/challenges/${ch}/pay`, { phone: "0855550000" });
 // an OPEN challenge at level ADVANCED for the list
 const adv = await mk({ fieldId: "B", date: "2026-10-14", startHour: 19 });
 await payB(adv);
@@ -56,7 +56,7 @@ await api(setup, "POST", `/api/split/${token}/${shares[0].id}/paid`, { paid: tru
 const pendingCode = await mk({ fieldId: "B", date: "2026-10-15", startHour: 19 });
 await payB(pendingCode);
 const pch = (await api(ton, "POST", "/api/challenges", { code: pendingCode, teamName: "ทีมต้น", level: "BEGINNER" })).json.challenge.id;
-await api(setup, "POST", `/api/challenges/${pch}/accept`, { name: "Other", phone: "0866666666", consent: true });
+await api(setup, "POST", `/api/challenges/${pch}/accept`, { name: "Other", phone: "0866660000", consent: true });
 // today 12:00 booking for the front desk (item 12)
 const today12 = await mk({ fieldId: "C", date: "2026-10-09", startHour: 12 });
 await payB(today12);

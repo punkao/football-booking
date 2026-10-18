@@ -1,0 +1,65 @@
+# Web project (NFR-23 · ADR-10). Start db/ first (it creates the network football-net), then:
+#   docker compose -f web/compose.yaml up -d --build
+# BUG_MODE / MODE / ALLOW_TEST_RESET come from web/.env or the shell (shell wins), e.g. Git Bash: BUG_MODE=1 docker compose ...
+# This project has no volume: rebuilding or removing the web never touches the data.
+name: football-web
+
+services:
+  web:
+    build: .
+    image: football-web:v2
+    container_name: football-web
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL in web/.env}
+      TZ: Asia/Bangkok
+      HOSTNAME: 0.0.0.0
+      ALLOW_TEST_RESET: ${ALLOW_TEST_RESET:-0}
+      BUG_MODE: ${BUG_MODE:-0}
+      MODE: ${MODE:-mock}
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:8004/v1}
+      LLM_MODEL: ${LLM_MODEL:-claude}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_TIMEOUT_MS: ${LLM_TIMEOUT_MS:-60000}
+      SESSION_SECRET: ${SESSION_SECRET:-}
+      SEED_SQL_PATH: /app/db/02-seed.sql
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ../docs:/app/project/docs:ro
+      - ../e2e/test-report:/app/project/test-report:ro
+      - ../db/init/02-seed.sql:/app/db/02-seed.sql:ro   # /api/test/reset runs the same seed as the database (NFR-10)
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>r.json()).then(j=>process.exit(j.ok&&j.db?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      start_period: 20s
+      retries: 10
+    networks:
+      - football-net
+    restart: unless-stopped
+
+  # profile "mock": an OpenAI-compatible fake LLM for MODE=ai tests (LLM_BASE_URL=http://mock-llm:8080/v1)
+  #   docker compose -f web/compose.yaml --profile mock up -d
+  # B1: placeholder that answers every request with one fixed reply; the rule-based answers come in B2.
+  mock-llm:
+    profiles: ["mock"]
+    image: node:24-alpine
+    container_name: football-mock-llm
+    command: ["node", "/srv/mock-llm/server.mjs"]
+    volumes:
+      - ./mock-llm:/srv/mock-llm:ro
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - football-net
+    restart: unless-stopped
+
+networks:
+  football-net:
+    name: football-net
+    external: true

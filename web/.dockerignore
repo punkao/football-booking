@@ -6,3 +6,8 @@ npm-debug.log
 BUGS.md
 SPEC.md
 selfcheck
+.env
+.env.*
+mock-llm
+compose.yaml
+docker-compose.yml
