@@ -5,3 +5,6 @@ export * from "./pricing.ts";
 export * from "./booking.ts";
 export * from "./extras.ts";
 export * from "./records.ts";
+export * from "./chat.ts";
+export * from "./stock.ts";
+export * from "./reports.ts";

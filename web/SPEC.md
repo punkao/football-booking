@@ -3,59 +3,76 @@
 ใช้คู่กับ `docs/04-REQUIREMENTS.md` (กฎ BR / FR / ค่าขอบ) เท่านั้น · ชื่อ entity / attribute / สถานะตรงกับ contract ใน 04 ส่วนที่ 1
 เว็บ: `http://localhost:3000` · เวลาระบบ Asia/Bangkok
 
-## 0. เริ่มระบบ
+## 0. เริ่มระบบ (v2 · Docker แยก 2 โปรเจกต์)
 
 ```bash
-cd web
-docker compose up -d --build        # สร้าง 2 container: football-db, football-web (รอจน healthy)
-curl http://localhost:3000/api/health   # {"ok":true,"db":true}
+cp db/.env.example db/.env      # ตั้ง POSTGRES_PASSWORD (ครั้งแรกครั้งเดียว)
+cp web/.env.example web/.env    # DATABASE_URL ใช้รหัสผ่านเดียวกัน · เครื่องทดสอบตั้ง ALLOW_TEST_RESET=1
+docker compose -f db/compose.yaml up -d            # 1) football-db (สร้าง network football-net + volume football-pgdata)
+docker compose -f web/compose.yaml up -d --build   # 2) football-web
+curl http://localhost:3000/api/health              # {"ok":true,"db":true}  (สัญญาเดิมของ v1 ไม่เพิ่มช่อง)
+curl http://localhost:3000/api/version             # {"schemaVersion":"005","chatMode":"mock","bugMode":0}
 ```
 
-- ข้อมูลอยู่ใน volume `football-db-data` (ปิดเปิด container ข้อมูลยังอยู่)
-- web สร้างตารางและ seed เองตอนเริ่มครั้งแรก
+- ข้อมูลอยู่ใน volume `football-pgdata` · **ห้าม `docker compose … down -v`** · ปิด: `docker compose -f web/compose.yaml stop` แล้ว `docker compose -f db/compose.yaml stop`
+- schema + ข้อมูลเริ่มต้นมาจาก `db/init/01-schema.sql` (= migration 001–005) + `db/init/02-seed.sql` (= `docs/TEST-DATA.md`) ตอนสร้าง volume ครั้งแรก · web ไม่สร้างตารางเอง
+- สำรอง / กู้คืน / migration: `docs/RUNBOOK.md` (`node scripts/backup.mjs` · `node scripts/restore.mjs latest` · `node scripts/migrate.mjs`)
+- ฐานข้อมูลจากเครื่อง: `localhost:5433` (ผูก 127.0.0.1 เท่านั้น) ผู้ใช้/รหัสผ่านตาม `db/.env`
 
-### reset + ล็อกเวลา + BUG_MODE
+### reset + ล็อกเวลา + BUG_MODE + MODE
 
 **Git Bash**
 ```bash
-curl -X POST http://localhost:3000/api/test/reset -H "content-type: application/json" -d '{"now":"2026-10-09T10:00:00+07:00"}'
+curl -X POST http://localhost:3000/api/test/reset -H "content-type: application/json" -d '{}'
 curl -X POST http://localhost:3000/api/test/clock -H "content-type: application/json" -d '{"now":"2026-10-09T15:01:00+07:00"}'
-BUG_MODE=1 docker compose up -d      # เปิดโหมดฝังบั๊ก (สร้าง container web ใหม่)
-docker compose up -d                 # กลับเป็น BUG_MODE=0
+BUG_MODE=1 docker compose -f web/compose.yaml up -d     # โหมดฝังบั๊ก (สร้าง container web ใหม่)
+BUG_MODE=0 docker compose -f web/compose.yaml up -d     # กลับเป็นปกติ
+docker compose -f web/compose.yaml --profile mock up -d mock-llm                                  # AI ปลอมแบบ OpenAI
+MODE=ai LLM_API_KEY=any-token docker compose -f web/compose.yaml up -d web                        # ใช้เส้นทาง ai ผ่าน mock-llm (LLM_BASE_URL ใน web/.env)
+MODE=mock docker compose -f web/compose.yaml up -d web                                            # กลับเป็น mock
 ```
 
 **PowerShell**
 ```powershell
-Invoke-RestMethod -Method Post http://localhost:3000/api/test/reset -ContentType "application/json" -Body '{"now":"2026-10-09T10:00:00+07:00"}'
+Invoke-RestMethod -Method Post http://localhost:3000/api/test/reset -ContentType "application/json" -Body '{}'
 Invoke-RestMethod -Method Post http://localhost:3000/api/test/clock -ContentType "application/json" -Body '{"now":"2026-10-09T15:01:00+07:00"}'
-$env:BUG_MODE="1"; docker compose up -d
-Remove-Item Env:BUG_MODE; docker compose up -d
+$env:BUG_MODE="1"; docker compose -f web/compose.yaml up -d
+$env:BUG_MODE="0"; docker compose -f web/compose.yaml up -d
+docker compose -f web/compose.yaml --profile mock up -d mock-llm
+$env:MODE="ai"; $env:LLM_API_KEY="any-token"; docker compose -f web/compose.yaml up -d web
+$env:MODE="mock"; docker compose -f web/compose.yaml up -d web
 ```
 
-- `POST /api/test/reset` body `{ "now": ISO }` → ล้างข้อมูลทั้งหมด สร้าง seed ใหม่ (วันที่คิดจาก `now`) และ **ล็อก "ตอนนี้"** ไว้ที่ `now` จนกว่าจะตั้งใหม่ · ไม่ส่ง `now` = seed ตามเวลาจริงและปลดล็อก
-- `POST /api/test/clock` body `{ "now": ISO }` → เปลี่ยน "ตอนนี้" อย่างเดียว (ข้อมูลไม่เปลี่ยน) · `{ "now": null }` = กลับไปใช้เวลาจริง
-- ทั้งสองตอบ `{ "ok": true, "now": "...Z", "locked": true, "bugMode": 0|1 }` · ตอบ **404** ถ้า `ALLOW_TEST_RESET` ไม่ใช่ `1`
-- เวลาที่ล็อกไว้ "ค้าง" (ไม่เดิน) · กฎที่ใช้เวลาทุกข้อ (BR-04, 05, 10, 13, 16, 17, 25, 28) คิดจากค่านี้
+- `POST /api/test/reset` body `{}` → ล้างข้อมูลทั้งหมด รัน **SQL ชุดเดียวกับ `db/init/02-seed.sql`** (วันที่ตายตัวตาม TEST-DATA) และ **ล็อก "ตอนนี้" ที่ ศุกร์ 9 ต.ค. 2026 10:00 (Asia/Bangkok)** · ส่ง `{ "now": ISO }` = seed เดิม แต่ล็อกเวลาที่ค่านั้น
+- `POST /api/test/clock` body `{ "now": ISO }` → เปลี่ยน "ตอนนี้" อย่างเดียว · `{}` หรือ `{ "now": null }` = กลับไปใช้เวลาจริง
+- ทั้งสองตอบ `{ "ok": true, "now": "...Z", "locked": true, "bugMode": 0|1 }` · **404 ทุก method** ถ้า `ALLOW_TEST_RESET` ไม่ใช่ `1` (ค่าเริ่มต้นใน `.env.example` = 0)
+- เวลาที่ล็อกไว้ "ค้าง" (ไม่เดิน) · กฎที่ใช้เวลาทุกข้อ (BR-04, 05, 10, 13, 16, 17, 25, 28, 45) และเวลาที่บันทึกลงตารางใหม่ทุกตาราง (ประวัติสถานะ AuditLog คลัง แชท) ใช้ค่านี้
 - การจองที่สร้างหลัง reset ได้รหัส `LN-100001`, `LN-100002`, … เรียงต่อกัน
-- `<html lang="th|en" data-ready="true|false" data-bug-mode="0|1">` · `data-ready="true"` เมื่อหน้าโหลดข้อมูลเสร็จ (ระหว่างกดปุ่มที่เรียก API จะเป็น `false` ชั่วคราว)
+- `<html lang="th|en" data-ready="true|false" data-bug-mode="0|1">` · `data-ready="true"` เมื่อหน้าโหลดข้อมูลเสร็จ · widget แชทมี `data-chat-state="idle|waiting"`
 
-## 1. seed (หลัง reset ด้วย now = ศุกร์ 9 ต.ค. 2026 10:00)
+## 1. seed (= `docs/TEST-DATA.md` ทุกค่า · หลัง reset `{}`)
 
 | ประเภท | ข้อมูล |
 |---|---|
 | สนาม `Field` | A, B = 5 คน กลางแจ้ง `dayRate` 800 / `eveningRate` 1,200 · C = 7 คน มีหลังคา 1,200 / 1,800 |
-| ของเช่า `RentalItem` | `BIB` เอี๊ยม ฿50 stock 6 · `BALL` ลูกบอล ฿30 stock 10 |
 | วันหยุด `Holiday` | 2026-10-13, 2026-10-23, 2026-12-05, 2026-12-10, 2026-12-31 |
 | ผู้ใช้ร้าน `StaffUser` | `owner` / `Owner1234` (OWNER, คุณเอก) · `manager` / `Manager1234` (MANAGER, คุณฝ้าย) · `staff` / `Staff1234` (STAFF, น้องบอล) |
-| ลูกค้า `Customer` | ต้น `0811111111` / `Ton12345` สมาชิก `creditBalance` 1,200 (มีรายการเครดิต RAIN +1,200) `paidHours` 7 · มิว `0822222222` / `Mew12345` สมาชิก `paidHours` 10 · โจ้ `0833333333` / `Joe12345` สมาชิก มี NO_SHOW 1 ครั้ง (LN-900003) · แนน `0844444444` ไม่สมัคร (ไม่มีรหัสผ่าน) |
-| การจอง | ดูตารางล่าง (วันที่นับจาก `now` ตอน reset · ราคาคิดด้วย `lib/rules`) |
+| ลูกค้า `Customer` | ต้น `0811111111` / `Ton12345` เครดิต 1,200 (RAIN +1,200) สะสม 7 ชม. · มิว `0822222222` / `Mew12345` 10 ชม. · โจ้ `0833333333` / `Joe12345` ไม่มา 1 ครั้ง · แนน `0844444444` ไม่สมัคร · ฟ้า `0855555555` / `Fah12345` 9 ชม. · บีม `0866666666` / `Beam12345` ไม่มา 2 ครั้ง ระงับถึง 6 พ.ย. 2026 19:15 · ทีมเก่า `0877777777` ไม่สมัคร |
+| คลัง `StockItem` × `StockLevel` (STORE / COUNTER) | BIB 0/6 · BALL 0/10 · WATER 96/24 (จุด 48) · ORS 48/12 (จุด 24) · TOWEL 50/20 (จุด 20) · CONE 40/0 (จุด 20) · NET 4/0 (จุด 2) · LAMP 12/0 (จุด 6) · ราคา BIB ฿50 BALL ฿30 WATER ฿10 ORS ฿20 TOWEL ฿10 |
+| ขายหน้าเคาน์เตอร์ | 8 ต.ค. 20:30 ORS 3 = ฿60 PROMPTPAY · 9 ต.ค. 09:00 WATER 4 = ฿40 CASH (staff) · คลังด้านบนคือ **หลัง** ขายแล้ว |
+| แชท | 1 ห้อง (`5d7c1e0a-8b3f-4c2e-9a61-0f4b2d8e7c11`) 8 ต.ค. 23:10 "เปิดกี่โมงครับ" → "เปิดทุกวัน 08:00–24:00 ครับ" |
+| ประวัติสถานะ | ทุกการจองใน seed: PENDING_PAYMENT → CONFIRMED (CUSTOMER) → CHECKED_IN / NO_SHOW (`staff`) · AuditLog ว่าง |
 
-| code | ลูกค้า | สนาม | วัน/เวลา | สถานะ | ราคา (กรณี now = 9 ต.ค.) |
+| code | ลูกค้า | สนาม | วันเวลา | สถานะ | ยอด · จ่ายแล้ว |
 |---|---|---|---|---|---|
-| `LN-900001` | ต้น | A | วันนี้ 19:00–21:00 | CONFIRMED จ่ายตามกฎแล้ว | ศุกร์ ≥17:00 → FULL_100 · 2,400 จ่าย 2,400 ค้าง 0 |
-| `LN-900002` | โจ้ | C | พรุ่งนี้ 18:00–19:00 | CONFIRMED | เสาร์ → FULL_100 · 1,800 จ่าย 1,800 |
-| `LN-900003` | โจ้ | B | 5 วันก่อน 19:00–20:00 | NO_SHOW (บันทึกเวลาเริ่ม + 15 นาที) | อาทิตย์ → 1,200 มัดจำ 600 |
-| `LN-900004` | แนน | B | มะรืนนี้ 09:00–10:00 | CONFIRMED จ่ายมัดจำแล้ว | อาทิตย์ → 1,200 จ่าย 600 ค้าง 600 |
+| `LN-900001` | ต้น | A | ศ 9 ต.ค. 19–21 | CONFIRMED | 2,400 FULL_100 · 2,400 (8 ต.ค. 20:00) |
+| `LN-900002` | โจ้ | C | ส 10 ต.ค. 18–19 | CONFIRMED | 1,800 FULL_100 · 1,800 |
+| `LN-900003` | โจ้ | B | อา 4 ต.ค. 19–20 | NO_SHOW (19:15) | 1,200 มัดจำ · 600 |
+| `LN-900004` | แนน | B | อา 11 ต.ค. 09–10 | CONFIRMED | 1,200 มัดจำ · 600 ค้าง 600 |
+| `LN-900005` | ทีมเก่า | A | ส 3 ต.ค. 18–20 | CHECKED_IN | 2,400 FULL_100 · 2,400 |
+| `LN-900006` | ทีมเก่า | B | อ 6 ต.ค. 19–20 | CHECKED_IN | 1,200 มัดจำ · 600 + 600 CASH_AT_FIELD |
+| `LN-900007` | บีม | C | ศ 25 ก.ย. 18–19 | NO_SHOW (18:15) | 1,800 FULL_100 · 1,800 |
+| `LN-900008` | บีม | A | พ 7 ต.ค. 19–20 | NO_SHOW (19:15) | 1,200 มัดจำ · 600 |
 
 ## 2. หน้าเว็บ
 
@@ -434,8 +451,8 @@ API ตอบ error รูปแบบเดียว `{ "error": { "code": "...
 - ช่วงที่ปิดเพราะฝนจองใหม่ไม่ได้ (`FIELD_CLOSED`) · ปิดฝนเปลี่ยนเฉพาะ `CONFIRMED` ที่ทับช่วง · คำท้าของการจองนั้นทุกสถานะ (รวม `MATCHED` หลังคืนเครดิต) เป็น `CLOSED`
 - ปิดฝนการจองที่คำท้า `MATCHED` (BR-14, A-27): ทีมรับได้เครดิตคืน = ยอดที่จ่าย เข้า `Customer` ของเบอร์ทีมนั้น (ใช้ได้เมื่อสมัครสมาชิกด้วยเบอร์นั้น A-17) · เจ้าของได้ = เงินที่จ่าย + เครดิตที่ใช้ − เครดิต CHALLENGE ที่ได้จากการจองนี้แล้ว (ไม่ต่ำกว่า 0) · ตัวอย่าง A ศุกร์ 18:00 จ่าย ฿1,200 ทีมรับจ่าย ฿600 → ทีม ฿600 เจ้าของ ฿600 · คำท้า `AWAITING_PAYMENT` ทีมยังไม่ได้จ่าย → ไม่ได้เครดิต เจ้าของได้เต็ม
 - BR-16 นับ "ภายใน 30 วัน" จาก **วันที่ปฏิทิน** ที่บันทึกไม่มา (ห่าง ≤ 30 วัน → ระงับ) · ระงับถึง เวลาที่บันทึก + 30 วัน
-- BR-22 คงเหลือของช่วงเวลา = stock − จำนวนที่เช่าใน**การจองที่ทับเวลา** (ทุกสนาม) − จำนวนที่**ยังไม่คืน**จากการจองที่จบไปแล้วก่อนช่วงนั้นในวันเดียวกัน · นับเฉพาะการจองสถานะ `PENDING_PAYMENT` / `CONFIRMED` / `CHECKED_IN` (แก้คำอธิบายเฟส 7.5 — เดิมเขียนผิดว่า "ทุกสนามในวันเดียวกัน" แต่เว็บทำแบบนี้มาตลอด)
-- เลื่อนวัน: จำนวนชั่วโมงเท่าเดิม สนามเดิม · ส่วนต่างคิดจากยอดรวมใหม่ − ยอดรวมเดิม · ยอดเก็บหน้าสนามไม่เปลี่ยน · ถ้าใช้ชั่วโมงฟรี ช่วงใหม่ต้องเข้าเงื่อนไข BR-24 · คำท้าที่ยัง `OPEN` ย้ายตามการจองและคิดยอดทีมรับใหม่จากค่าสนามใหม่
+- BR-22 คงเหลือของช่วงเวลา = stock (v2: ผลรวม `StockLevel` ของของชิ้นนั้นทุกที่เก็บ · BR-38) − จำนวนที่เช่าใน**การจองที่ทับเวลา** (ทุกสนาม) − จำนวนที่**ยังไม่คืน**จากการจองที่จบไปแล้วก่อนช่วงนั้นในวันเดียวกัน · นับเฉพาะการจองสถานะ `PENDING_PAYMENT` / `CONFIRMED` / `CHECKED_IN` (แก้คำอธิบายเฟส 7.5 — เดิมเขียนผิดว่า "ทุกสนามในวันเดียวกัน" แต่เว็บทำแบบนี้มาตลอด)
+- เลื่อนวัน: จำนวนชั่วโมงเท่าเดิม สนามเดิม · ส่วนต่างคิดจากยอดรวมใหม่ − ยอดรวมเดิม · ยอดเก็บหน้าสนามไม่เปลี่ยน (v2: ถ้าถูกลงเกินเงินที่จ่ายมา ส่วนเกินลดยอดเก็บหน้าสนามแทน ดูข้อ 14) · ถ้าใช้ชั่วโมงฟรี ช่วงใหม่ต้องเข้าเงื่อนไข BR-24 · คำท้าที่ยัง `OPEN` ย้ายตามการจองและคิดยอดทีมรับใหม่จากค่าสนามใหม่
 - เช็กอินทำได้กับ `CONFIRMED` ทุกเวลา · เก็บ `dueAtField` ทั้งหมดเป็น `CASH_AT_FIELD`
 - ลิงก์หาร 2–30 คน · ยอดสุทธิ = ยอดรวม − เครดิตที่ใช้
 - รับคำท้าต้องติ๊กยินยอม PDPA · เจ้าของรับคำท้าของตัวเองไม่ได้ · จองประจำไม่มีของเช่า/เครดิต/ชั่วโมงฟรี
@@ -473,7 +490,27 @@ API ตอบ error รูปแบบเดียว `{ "error": { "code": "...
 | BR-27 | `splitPerPerson`, `checkSplitCount` (extras.ts) | `splitCreate` (ลิงก์เดิมถ้ามีแล้ว) |
 | BR-28 | `checkChallengeCreate`, `challengeAmount`, `challengeDeadlineFrom`, `CHALLENGE_PAY_MINUTES` (extras.ts) · `checkCancel`/`checkReschedule` (`CHALLENGE_MATCHED`) | `challengeCreate/Accept/Pay`, `cancelBooking`, `rescheduleBooking` |
 
-unit test: `cd web && npm test` (node --test `lib/rules/rules.test.ts`)
+| BR-29 | `SHOP_CONTACT`, `REAL_DISCOUNTS` (chat.ts) · `buildSystemPrompt` (lib/chat/prompt.ts) · `mockBrain` (lib/chat/mock.ts) | `chatSend` |
+| BR-30 | `priceGuardOk`, `moneyAmounts` (chat.ts) · `runTurn` (lib/chat/engine.ts) + `evaluateBooking` | `chatSend` tools |
+| BR-31 | `validateTag` (chat.ts) · draftToken · `createBooking(…, "BOT")` | `chatSend`, `chatBook` |
+| BR-32 | `neutralizeUserText`, `parseBotReply`, `TAG_NAMES` (ไม่มี tag ยกเลิก/เลื่อน) (chat.ts) | `chatSend` |
+| NFR-16 / NFR-17 | `checkChatText`, `chatRateOk`, `CHAT_MAX_CHARS`, `CHAT_MAX_PER_MINUTE` (chat.ts) · `apology` (engine.ts) | `chatSend` |
+| BR-33 | `checkStockOut` (stock.ts) + `stock_levels.qty CHECK >= 0` | `counterSale`, `stockTransfer`, `stockDamage` |
+| BR-34 | `checkTransfer`, `applyTransfer` (stock.ts) | `stockTransfer` |
+| BR-35 | `isBelowReorder` (stock.ts) | `stockOverview`, `stockAlerts`, `dashboard` |
+| BR-36 | `canStockAction`, `checkReason`, `adjustMovement` (stock.ts) | ทุกฟังก์ชันใน `lib/server/stock.ts` |
+| BR-37 | `saleTotal`, `checkSellable`, `SALE_METHODS` (stock.ts) | `counterSale` · หน้า `/staff/stock/sale` (ยอดก่อนยืนยัน) |
+| BR-38 | `rentableTotal` (stock.ts) · `loadRentalItems` อ่าน `stock_levels` | `rentalAvailability` |
+| BR-39 | `checkReportRange`, `addMonths`, `canAccess("REPORTS")` (reports.ts) | `report`, `reportCsv` |
+| BR-40 | `summarizeMoney` (reports.ts) | `dashboard`, `report`, `reportCsv` |
+| BR-41 | `utilizationPercent` (reports.ts) | `dashboard` |
+| BR-42 | `AUDIT_ACTIONS`, `isAuditAction`, `historyActorLabel` (records.ts) + trigger (migration 002) | `audit()` ใน `lib/server/db.ts`, `tx(…, { actor, now })` |
+| BR-43 | `planMigrations` (records.ts) | `scripts/migrate.mjs` |
+| BR-44 | `canAccess` (reports.ts) | `lib/server/backoffice.ts`, หน้า `/owner/*` |
+| BR-45 | `maskPhone`, `chatNeedsRedaction`, `redactText` (chat.ts) | `redactOldChats`, `chatsList`, `chatDetail` |
+| NFR-22 | `csvCell`, `toCsv` (reports.ts) | `reportCsv` |
+
+unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `lib/chat/*.test.ts`)
 
 ## 8. เปลี่ยนแปลงเฟส 7.5
 
@@ -503,3 +540,155 @@ unit test: `cd web && npm test` (node --test `lib/rules/rules.test.ts`)
 | A-28 | BR-25 | คำท้า `AWAITING_PAYMENT` → เลื่อนไม่ได้ `CHALLENGE_PENDING` 409 · ครบ 15 นาทีพอดียังเลื่อนไม่ได้ · 15 นาที 1 วินาทีคำท้ากลับเป็น `OPEN` เลื่อนได้ (ยอดทีมรับคิดใหม่) |
 
 ตรวจเอง: `node selfcheck/rules-check.mjs` (API, ข้อ `P75-*`) · `node selfcheck/screens-p75.mjs` (หน้าเว็บ + ภาพ `selfcheck/screens/p75-*.png`) · `node selfcheck/nfr08.mjs`
+
+## 9. v2 · หน้าเว็บใหม่ (FR-32 – FR-48)
+
+| path | บทบาท | FR / BR | หมายเหตุ |
+|---|---|---|---|
+| ปุ่มแชทลอย (ทุกหน้าฝั่งลูกค้า) | ทุกคน | FR-32–FR-35 · BR-29–BR-32 | ไม่แสดงใต้ `/staff`, `/manager`, `/owner`, `/project` |
+| `/booking/[code]` (เพิ่ม) | เจ้าของการจอง | FR-45 | การ์ด "ขั้นตอนการจอง" จาก `BookingStatusHistory` (สถานะ + เวลา ไม่มีชื่อพนักงาน) |
+| `/staff/stock` | STAFF, MANAGER, OWNER | FR-37, FR-41 · BR-44 | คงเหลือ STORE / COUNTER / รวม · กล่องเตือนของใกล้หมดเฉพาะ MANAGER / OWNER · ประวัติของเข้า-ออก |
+| `/staff/stock/sale` | STAFF, MANAGER, OWNER | FR-38 · BR-33, BR-37 | ของหมวด SALE เท่านั้น ตัดจากเคาน์เตอร์ · CASH / PROMPTPAY |
+| `/staff/stock/transfer` | STAFF, MANAGER, OWNER | FR-39 · BR-34 | |
+| `/manager/stock` | MANAGER, OWNER (STAFF → `forbidden-message`) | FR-40 · BR-36, BR-38 | รับเข้า · ชำรุด (ต้องมีเหตุผล) · ปรับยอดหลังนับ (ต้องมีเหตุผล) · จุดสั่งซื้อซ้ำ |
+| `/owner/dashboard` | OWNER, MANAGER | FR-42 · BR-40, BR-41 | ยอดเงินวันนี้ · กราฟ SVG 7 วัน · ชั่วโมงที่จองมาก · อัตราการใช้สนาม · จำนวนของใกล้หมด |
+| `/owner/bookings` · `/owner/bookings/[code]` | OWNER, MANAGER | FR-43 · BR-42 | ค้นด้วยรหัส / เบอร์ / วันเตะ · ประวัติสถานะเต็ม (จาก → เป็น · ผู้ทำ · เวลา) |
+| `/owner/reports` | OWNER เท่านั้น | FR-44 · BR-39, BR-40 · NFR-22 | ตารางรายวัน + ปุ่ม CSV |
+| `/owner/chats` · `/owner/chats/[id]` | OWNER, MANAGER | FR-36 · BR-45 | เบอร์แสดง `08x-xxx-1234` · อ่านอย่างเดียว |
+| `/owner/audit` | OWNER เท่านั้น | FR-47 · BR-42 | กรองวัน / ผู้ใช้ / action · อ่านอย่างเดียว |
+
+เมนูบน: ผู้ใช้ร้านทุกบทบาทเห็น `nav-stock` · MANAGER / OWNER เห็น `nav-backoffice` (→ `/owner/dashboard`) · หน้าหลังบ้านมีแถบ `tab-*` แสดงเฉพาะหน้าที่บทบาทนั้นเปิดได้
+เปิดหน้าที่บทบาทไม่มีสิทธิ์ → `forbidden-message` · ไม่ได้เข้าสู่ระบบ → ไป `/staff/login?next=…`
+
+## 10. v2 · data-testid
+
+| หน้า | testid |
+|---|---|
+| แชท | `chat-widget` (`data-chat-state`), `chat-open` (aria-expanded), `chat-panel`, `chat-close`, `chat-log` (role=log), `chat-welcome`, `chat-msg-user`, `chat-msg-bot`, `chat-typing`, `chat-input` (≤ 500), `chat-send`, `chat-count` (`data-value` = จำนวนตัวอักษร), `chat-error` |
+| การ์ดในแชท | `chat-card-check` (`data-available`), `chat-card-quote` (`data-ok`), `chat-quote-total`, `chat-quote-pay-now` · การ์ดยืนยัน `chat-card-confirm`: `chat-card-field`, `chat-card-when` (`data-value` = `YYYY-MM-DD start-hours`), `chat-card-name`, `chat-card-phone`, `chat-card-total`, `chat-card-pay-now`, `chat-card-plan` (`data-value`), `chat-card-consent` (checkbox ไม่ติ๊กไว้ก่อน), `chat-card-confirm-button` (กดได้เมื่อติ๊กแล้ว), `chat-card-error`, `chat-booking-code`, `chat-pay-link` |
+| `/booking/[code]` | `booking-timeline` (`data-count`), `timeline-step-{i}` (`data-status`, ขั้นล่าสุด `aria-current="step"`), `timeline-time-{i}` |
+| `/staff/stock` | `stock-alerts` (`data-count` · เฉพาะ MANAGER/OWNER), `stock-alerts-empty`, `stock-alert-{ID}` (`data-value` = ยอดรวม), `stock-table`, `stock-row-{ID}`, `stock-{ID}-store`, `stock-{ID}-counter`, `stock-{ID}-total`, `stock-{ID}-reorder` (ทั้งหมดมี `data-value`), `stock-{ID}-low`, `movement-table`, `movement-{id}` (`data-type`), `movement-type-{id}`, `movement-qty-{id}` (`data-value` มีเครื่องหมาย), `movement-user-{id}` |
+| `/staff/stock/sale` | `sale-form`, `sale-qty-{ID}`, `sale-price-{ID}`, `sale-available-{ID}`, `sale-method-CASH`, `sale-method-PROMPTPAY`, `sale-total` (`data-value`), `sale-submit` |
+| `/staff/stock/transfer` | `transfer-form`, `transfer-item`, `transfer-from`, `transfer-to`, `transfer-qty`, `transfer-levels`, `transfer-store`, `transfer-counter`, `transfer-total`, `transfer-submit` |
+| `/manager/stock` | `receive-form`, `receive-item`, `receive-location`, `receive-qty`, `receive-reason`, `receive-submit` · `damage-*` (เหมือนกัน) · `adjust-form`, `adjust-item`, `adjust-location`, `adjust-current`, `adjust-counted`, `adjust-reason`, `adjust-submit`, `adjust-result` (`data-value` = ผลต่าง) · `reorder-form`, `reorder-item`, `reorder-current`, `reorder-value`, `reorder-submit` |
+| `/owner/dashboard` | `dash-date`, `dash-today-total`, `dash-today-booking-money`, `dash-today-sales`, `dash-today-credit`, `dash-low-stock`, `dash-week-total`, `dash-chart`, `dash-bar-{YYYY-MM-DD}` (`data-value`), `dash-util-{A|B|C}` (`data-value` = %), `dash-hours`, `dash-hour-{8..23}` (`data-value`), `dash-status`, `dash-status-{STATUS}` |
+| `/owner/bookings` | `bk-search-code`, `bk-search-phone`, `bk-search-date`, `bk-search-submit`, `bk-results` (`data-count`), `bk-row-{code}`, `bk-link-{code}`, `bk-status-{code}`, `bk-empty` |
+| `/owner/bookings/[code]` | `history-back`, `history-status`, `history-total`, `history-paid`, `history-due`, `history-table` (`data-count`), `history-row-{i}`, `history-at-{i}`, `history-from-{i}`, `history-to-{i}`, `history-actor-{i}` (`data-value` = actor ดิบ · ข้อความ: ลูกค้า / แชทบอท / ระบบ / username), `history-payments` |
+| `/owner/reports` | `report-from`, `report-to`, `report-submit`, `report-error`, `report-csv`, `report-table` (`data-count`), `report-row-{date}`, `report-{date}-booking`, `-cash`, `-promptpay`, `-total`, `-credit`, `-bookings`, `-noshow`, `report-totals`, `report-total-booking`, `report-total-cash`, `report-total-promptpay`, `report-total-money`, `report-total-credit`, `report-total-bookings`, `report-total-noshow` |
+| `/owner/chats` | `chat-list` (`data-count`), `chat-row-{id}`, `chat-link-{id}`, `chat-list-empty` · ห้อง: `chat-detail-back`, `chat-detail` (`data-count`), `chat-detail-msg-{i}` (`data-role`), `chat-detail-booking-{code}` |
+| `/owner/audit` | `audit-from`, `audit-to`, `audit-staff`, `audit-action`, `audit-submit`, `audit-table` (`data-count`), `audit-row-{id}`, `audit-at-{id}`, `audit-user-{id}`, `audit-action-{id}` (`data-value`), `audit-target-{id}`, `audit-empty` |
+| ส่วนกลาง | `nav-stock`, `nav-backoffice`, `tab-dashboard`, `tab-bookings`, `tab-stock`, `tab-sale`, `tab-transfer`, `tab-manager-stock`, `tab-chats`, `tab-reports`, `tab-audit`, `bot-avatar` |
+
+## 11. v2 · ข้อความ error / ยืนยัน (คำต่อคำ)
+
+ทุก error ตอบ `{ "error": { "code", "message", "params"? } }` ภาษาตาม cookie `lang` · ข้อความของ v1 (ข้อ 4) ไม่เปลี่ยน · `{item}` แสดงชื่อของตามภาษา
+
+| code | HTTP | TH | EN |
+|---|---|---|---|
+| `FORBIDDEN_ORIGIN` | 403 | คำขอนี้ต้องส่งจากหน้าเว็บของร้านเท่านั้น | This request must come from the shop's own website |
+| `STOCK_ITEM_NOT_FOUND` | 404 | ไม่พบของในคลัง | Stock item not found |
+| `INVALID_LOCATION` | 400 | ที่เก็บไม่ถูกต้อง | Invalid storage place |
+| `STOCK_INSUFFICIENT` | 409 | ของไม่พอ ({item} มี {available}) | Not enough stock ({item}: {available} available) |
+| `STOCK_SAME_LOCATION` | 400 | ต้นทางและปลายทางต้องเป็นคนละที่ | Source and destination must be different places |
+| `STOCK_NOT_FOR_SALE` | 400 | ขายได้เฉพาะของหมวดของขาย ({item} ขายไม่ได้) | Only sale items can be sold ({item} cannot be sold) |
+| `STOCK_REASON_REQUIRED` | 400 | กรุณาใส่เหตุผล | Please enter a reason |
+| `STOCK_NO_CHANGE` | 400 | จำนวนที่นับได้เท่ากับยอดในระบบ ไม่มีอะไรต้องปรับ | The counted quantity equals the system quantity. Nothing to adjust |
+| `INVALID_METHOD` | 400 | กรุณาเลือกช่องทางชำระ เงินสด หรือ พร้อมเพย์ | Please choose a payment method: cash or PromptPay |
+| `SALE_EMPTY` | 400 | กรุณาเลือกของอย่างน้อย 1 รายการ | Please choose at least 1 item |
+| `INVALID_REORDER_POINT` | 400 | จุดสั่งซื้อซ้ำต้องเป็นจำนวนเต็มตั้งแต่ 0 หรือเว้นว่าง | The reorder point must be a whole number from 0, or empty |
+| `REPORT_RANGE_ORDER` | 400 | วันสิ้นสุดต้องไม่ก่อนวันเริ่ม | The end date must not be before the start date |
+| `REPORT_RANGE_TOO_LONG` | 400 | ดูรายงานได้ครั้งละไม่เกิน 3 เดือน | A report can cover at most 3 months |
+| `CHAT_EMPTY` | 400 | กรุณาพิมพ์ข้อความ | Please type a message |
+| `CHAT_TOO_LONG` | 400 | ข้อความยาวเกิน 500 ตัวอักษร | The message is longer than 500 characters |
+| `CHAT_RATE_LIMIT` | 429 | ส่งข้อความเร็วเกินไป (ไม่เกิน 20 ข้อความต่อนาที) กรุณารอสักครู่ | Too many messages (at most 20 per minute). Please wait a moment |
+| `CHAT_SESSION_NOT_FOUND` | 404 | ไม่พบห้องแชท | Chat not found |
+| `CHAT_DRAFT_INVALID` | 400 | การ์ดยืนยันไม่ถูกต้อง กรุณาขอการ์ดใหม่ในแชท | This confirmation card is not valid. Please ask for a new one in the chat |
+| `CHAT_DRAFT_EXPIRED` | 409 | การ์ดยืนยันหมดอายุ (15 นาที) กรุณาขอใหม่ในแชท | This confirmation card has expired (15 minutes). Please ask again in the chat |
+| `OK_SALE` | 200 | บันทึกการขายแล้ว ยอด {amount} | Sale saved. Total {amount} |
+| `OK_TRANSFER` | 200 | ย้ายของแล้ว | Items moved |
+| `OK_RECEIVE` | 200 | รับของเข้าแล้ว | Items received |
+| `OK_DAMAGE` | 200 | บันทึกของชำรุดแล้ว | Damage recorded |
+| `OK_ADJUST` | 200 | ปรับยอดแล้ว ({delta}) | Quantity adjusted ({delta}) |
+| `OK_REORDER_POINT` | 200 | ตั้งจุดสั่งซื้อซ้ำแล้ว | Reorder point saved |
+| `OK_CHAT_BOOKED` | 200 | จองแล้ว รหัส {code} กรุณาชำระภายใน 15 นาที | Booked. Code {code}. Please pay within 15 minutes |
+
+ข้อความของแชทบอทไม่ใช่ error (HTTP 200) · AI ล่ม/ช้าเกิน 60 วินาที: "ขออภัยครับ ตอนนี้น้องบอลตอบไม่ได้ชั่วคราว กรุณาโทร 02-345-6789 หรือ LINE @lookhnang ครับ" / "Sorry, Nong Ball can't answer right now. Please call 02-345-6789 or LINE @lookhnang." (`failed: true`)
+
+## 12. v2 · API
+
+| method | path | body / query | ตอบ | สิทธิ์ |
+|---|---|---|---|---|
+| GET | `/api/version` | – | `{ schemaVersion, chatMode, bugMode }` | – |
+| GET | `/api/bookings/{code}` (เพิ่มช่อง) | เดิม | + `history: [{ toStatus, at }]` | เดิม |
+| GET | `/api/rentals/availability` (เปลี่ยนที่มา) | เดิม | `stock` = ผลรวม `StockLevel` ของ BIB/BALL ทุกที่เก็บ (BR-38) · ราคา = `StockItem.unitPrice` | – |
+| POST | `/api/chat` | `{ text }` (≤ 500) | `{ sessionId, reply, cards[], failed }` · cookie `ln_chat` (httpOnly) | – · 20 ข้อความ/นาที/ห้อง → 429 |
+| GET | `/api/chat` · `/api/chat/{sessionId}` | – | `{ sessionId, messages: [{ role, text, bookingCode, createdAt }] }` · ห้องของคนอื่น → 404 | เจ้าของ cookie |
+| POST | `/api/chat/book` | `{ draftToken, consent: true, sessionId? }` | 201 `{ code, status, payNow, payUrl, payDeadline, reply }` + cookie สิทธิ์ดูการจอง | เจ้าของ cookie · `consent` ไม่ใช่ `true` → `CONSENT_REQUIRED` |
+| GET | `/api/staff/stock` | – | `{ role, items: [{ id, name, category, unitPrice, reorderPoint, store, counter, total, below? }], alerts? }` | STAFF ขึ้นไป (`below`, `alerts` เฉพาะ MANAGER/OWNER) |
+| GET | `/api/staff/stock/movements` | `?itemId=&from=&to=` | `{ movements: [{ id, itemId, type, qty, delta, fromLocationId, toLocationId, reason, username, createdAt, … }] }` ใหม่ก่อน | STAFF ขึ้นไป |
+| POST | `/api/staff/stock/sale` | `{ items: [{ itemId, qty }], method: CASH|PROMPTPAY }` | `{ sale: { id, total, method, items }, levels[], message }` | STAFF ขึ้นไป |
+| POST | `/api/staff/stock/transfer` | `{ itemId, qty, fromLocationId, toLocationId }` | `{ levels: { store, counter, total } }` | STAFF ขึ้นไป |
+| POST | `/api/manager/stock/receive` | `{ itemId, locationId, qty, reason? }` | `{ levels }` | MANAGER, OWNER |
+| POST | `/api/manager/stock/damage` | `{ itemId, locationId, qty, reason }` | `{ levels }` | MANAGER, OWNER |
+| POST | `/api/manager/stock/adjust` | `{ itemId, locationId, countedQty, reason }` | `{ delta, by: { username, name }, at, levels }` | MANAGER, OWNER |
+| PUT | `/api/manager/stock/items/{itemId}/reorder-point` | `{ reorderPoint: int ≥ 0 | null }` | `{ itemId, reorderPoint }` | MANAGER, OWNER |
+| GET | `/api/manager/stock/alerts` | – | `{ alerts: [{ id, name, total, reorderPoint }] }` | MANAGER, OWNER |
+| GET | `/api/owner/dashboard` | `?date=` (ไม่ส่ง = วันนี้) | `{ date, today: { total, bookingMoney, salesCash, salesPromptpay, salesMoney, creditUsed }, week[7], weekTotal, utilization[], popularHours[16], bookingsByStatus, lowStockCount }` | OWNER, MANAGER |
+| GET | `/api/owner/bookings` | `?code=&phone=&date=` | `{ bookings[] }` (สูงสุด 100) | OWNER, MANAGER |
+| GET | `/api/owner/bookings/{code}/history` | – | `{ booking, payments[], history: [{ fromStatus, toStatus, actor, actorLabel, at }] }` | OWNER, MANAGER · PUT/PATCH/DELETE/POST → 404 |
+| GET | `/api/owner/reports` | `?from=&to=` | `{ from, to, days[], totals }` | OWNER |
+| GET | `/api/owner/reports.csv` | `?from=&to=` | `text/csv; charset=utf-8` · BOM · CRLF · `report-<from>-<to>.csv` · เขียน AuditLog `REPORT_EXPORT` | OWNER |
+| GET | `/api/owner/chats` · `/api/owner/chats/{id}` | `?from=&to=` | รายการห้อง / ข้อความ (เบอร์ปิดบางส่วน) | OWNER, MANAGER · เขียน → 404 |
+| GET | `/api/owner/audit` | `?from=&to=&staffUserId=&action=` | `{ actions, staff, entries: [{ id, action, target, detail, at, username, staffName }] }` | OWNER · เขียน → 404 |
+
+- ไม่มีเส้นทางแก้/ลบ `BookingStatusHistory`, `AuditLog`, `StockMovement`, `ChatMessage` (เส้นที่ไม่มี → 404) · ฐานข้อมูลก็ห้ามด้วย trigger
+- คำขอที่เปลี่ยนข้อมูลซึ่งมี header `Origin` ต่างจากเว็บ → 403 `FORBIDDEN_ORIGIN` (ไม่มี `Origin` เช่น curl / Playwright `request` = ผ่าน)
+- CSV คอลัมน์: วันที่ · ยอดจอง · ขายเงินสด · ขายพร้อมเพย์ · ยอดขายรวม · รวมรับเงิน · หักเครดิต · จำนวนการจอง (วันเตะ) · สถานะทั้ง 7 · ส่วนลด · ค่าของเช่า · ชั่วโมงฟรีที่ใช้ · แถวสุดท้าย "รวม" · ช่องข้อความขึ้นต้น `= + - @` tab CR → เติม `'` · มี `,` `"` ขึ้นบรรทัด → ห่อ `"`
+
+## 13. v2 · แชทบอท "น้องบอล"
+
+| tag (ในคำตอบของโมเดลเท่านั้น) | ข้อมูลที่อนุญาต | backend ทำอะไร |
+|---|---|---|
+| `[CHECK]{"fieldId","date","startHour","hours"}` | สนาม A/B/C · วันที่ · ชั่วโมงเริ่ม (เต็ม) · ชั่วโมง (เต็ม, ไม่ใส่ = 1) | `evaluateBooking` เดียวกับ `/api/quote` → ว่าง/ไม่ว่าง + เหตุผล (ข้อความเดียวกับหน้าเว็บ) + รอบอื่นที่ว่าง |
+| `[QUOTE]{…เหมือนกัน}` | เหมือนกัน | ราคา + แผนจ่าย + จ่ายตอนนี้ · รอบที่ถูกจอง/ปิด → ยังบอกราคา (ฟังก์ชันเดียวกัน) และบอกว่าไม่ว่าง |
+| `[BOOK]{…, "name", "phone"}` | + ชื่อ (≤ 60) + เบอร์ 10 หลัก | ตรวจกฎ (รวม BR-16) แบบไม่บันทึก → การ์ดยืนยันพร้อม `draftToken` (HMAC ผูกห้อง อายุ 15 นาทีตามนาฬิกาของแอป) · การจองเกิดเมื่อลูกค้าติ๊กยินยอมและกดยืนยัน (`POST /api/chat/book`) ด้วย `createBooking` ตัวเดียวกับเว็บ actor `BOT` |
+
+- tag อื่น / JSON ผิด / มีช่องเกิน (เช่น `price`) → ไม่ทำอะไร และถูกตัดออก · `<think>…</think>` ถูกตัด · วนเรียกเครื่องมือไม่เกิน 2 รอบ
+- tag ที่ลูกค้าพิมพ์ (`[BOOK]`, `[CHECK]`, `[QUOTE]`, `[RESULT]`) ถูกทำให้ไม่มีผล (`[` → `［`) ก่อนเก็บและก่อนส่งให้โมเดล
+- ตัวเลข ฿ ในคำตอบต้องมาจากผลฟังก์ชันหรือราคาที่ประกาศ ไม่งั้นคำตอบถูกแทนด้วยแม่แบบจากผลจริง (BR-30)
+- ไม่มีเครื่องมือยกเลิก / เลื่อน / คืนเครดิต / หลังบ้าน · ของเช่า เครดิต ชั่วโมงฟรี จองประจำ → แนะนำให้จองหน้าเว็บ (A-34)
+- system prompt สร้างจากฐานข้อมูลทุกข้อความ (สนาม ราคา วันหยุด ช่วงปิด 14 วัน ราคาของเช่า กฎ ส่วนลด 2 อย่าง ช่องทางติดต่อ วันเวลาปัจจุบัน) ไม่มีข้อมูลลูกค้า
+- ส่งประวัติ 20 ข้อความล่าสุดของห้องให้โมเดล · เก็บทุกข้อความใน `ChatMessage` (ข้อความที่แสดงจริง) · ห้องผูก cookie (UUID สุ่ม)
+- `MODE=mock` (ค่าเริ่มต้น): สมองตามกฎในโค้ด `lib/chat/mock.ts` ไม่มี network ถามเหมือนเดิมได้คำตอบเดิม · `MODE=ai`: `POST {LLM_BASE_URL}/chat/completions` + `Authorization: Bearer {LLM_API_KEY}` · timeout `LLM_TIMEOUT_MS` (60,000) → ขอโทษ + ช่องทางติดต่อ
+- `mock-llm` (profile `mock`, `LLM_BASE_URL=http://mock-llm:8080/v1`): ตอบแบบ OpenAI ด้วยสมองเดียวกับ mock · คำในข้อความลูกค้าเพื่อทดสอบ: `#slow` (ช้า 65 วินาที) · `#error` (HTTP 500) · `#faketag` (tag ปลอม/ผิดรูป) · `#think` (มี `<think>`)
+- BR-45: ข้อความที่เก่ากว่า 90 วัน (นาฬิกาของแอป) ถูกลบเบอร์และชื่อ (`[ลบเบอร์แล้ว]`, `[ลบชื่อแล้ว]`) ตอนเปิดประวัติแชทหรือส่งข้อความ · หลังบ้านเห็นเบอร์แบบ `08x-xxx-1234`
+
+## 14. สมมติฐานของผู้สร้าง (v2 · เรื่องที่เอกสารไม่บอก)
+
+| เรื่อง | ตัดสิน |
+|---|---|
+| reset `{}` | ใช้ seed วันที่ตายตัว + ล็อกเวลา ศ 9 ต.ค. 2026 10:00 · `clock {}` ยังปลดล็อกเป็นเวลาจริงเหมือน v1 · volume ใหม่ไม่ล็อกเวลา |
+| `/api/health` | คงรูปแบบ v1 `{ ok, db }` ทุกตัวอักษร · `schemaVersion` / `chatMode` / `bugMode` ย้ายไป `/api/version` |
+| ราคาเมื่อถามบอทถึงรอบที่ไม่ว่าง (E112 C ส 10 ต.ค. 18:00 คือ LN-900002) | บอกราคาจากฟังก์ชันเดิมและบอกว่ารอบนี้ไม่ว่าง (ไม่แต่ง ไม่ซ่อน) |
+| "อีก N รอบที่ว่าง" ของบอท | สนามอื่นเวลาเดียวกันก่อน แล้วชั่วโมงที่ใกล้ที่สุดของสนามเดิม 2 รอบ |
+| ยินยอม PDPA ในแชท | บอทถามในแชทก่อน (ตอบ "ไม่ยินยอม" = ไม่สร้าง) และการ์ดมีช่องติ๊กที่ต้องติ๊กเองก่อนกดยืนยัน (A-34) — ต้องผ่านทั้งสอง |
+| บอทต้องได้ "จำนวนชั่วโมง" | นับเป็น 1 ใน 7 อย่างของ BR-31 จึงถามถ้าไม่บอก (ถามราคา/ว่าง ไม่บอก = 1 ชั่วโมง) |
+| แดชบอร์ด "หักเครดิต" | เครดิตที่ใช้จ่ายการจอง (`CreditEntry` USED) นับตามวันที่ใช้ · รายงานแสดงคอลัมน์เดียวกัน |
+| รายงาน: ส่วนลด ค่าของเช่า ชั่วโมงฟรี ไม่มา จำนวนการจองตามสถานะ | นับตามวันเตะ (T-20) · ยอดเงินนับตามวันรับเงิน (BR-40) · ช่วงวัน = 3 เดือนปฏิทิน (วันสิ้นสุด < วันเริ่ม + 3 เดือน) |
+| ประวัติการเคลื่อนไหวคลังของ seed | การขาย 2 ครั้งใน TEST-DATA 5.2 มี `StockMovement` SALE คู่กัน · AuditLog ของ seed ว่าง |
+| ปรับยอดให้เท่าเดิม | ปฏิเสธ `STOCK_NO_CHANGE` (ไม่มีอะไรให้บันทึก) |
+| ย้ายข้อมูลคลังจากฐาน v1 | `rental_items.stock` ไปอยู่ที่ COUNTER (ตำแหน่งเดียวกับ TEST-DATA) · ของอื่นเริ่ม 0 |
+| แก้ข้อความแชทหลัง 90 วัน | trigger ห้ามแก้ `chat_messages` ยกเว้นงาน BR-45 ที่ตั้ง `app.redact` และแก้ได้เฉพาะช่องข้อความ |
+| เลื่อนไปช่วงที่ถูกกว่า | ส่วนต่างคืนเป็นเครดิตเท่าที่จ่ายมา (เงิน + เครดิตที่ใช้) ส่วนที่เกินลดยอดเก็บหน้าสนาม — ไม่มีคอลัมน์เงินติดลบ (NFR-19) · ถ้าจ่ายมาพอ ผลเท่า v1 |
+| กัน CSRF | ตรวจ `Origin` เมื่อมี (เบราว์เซอร์) · ไม่มี `Origin` (สคริปต์ทดสอบ) = ผ่าน |
+| ปุ่มแชทลอย | หน้าเว็บเว้นที่ว่างด้านล่าง 84 px ไม่ให้บังปุ่มสุดท้ายของหน้า · มือถือแสดงเป็นไอคอน |
+
+## 15. ตรวจเอง (selfcheck)
+
+| สคริปต์ | ทำอะไร |
+|---|---|
+| `npm test` | unit test `lib/rules/*.test.ts` + `lib/chat/*.test.ts` (รวม E75, E87, E88 และแชท mock E109–E120) |
+| `node selfcheck/check-testdata.mjs` | ยิง API ตาม TEST-DATA E01–E148 (ข้าม unit) + ตัวเลข 5.4 → "ผ่าน X / Y" · `--expect-bugs` พิมพ์แค่จำนวนที่ล้ม |
+| `node selfcheck/rules-check.mjs` | ชุดตรวจกฎ v1 (191 ข้อ) · `--expect-bugs` พิมพ์แค่จำนวน |
+| `node selfcheck/screens-v2.mjs` | ภาพทุกหน้าใหม่ 1280 / 375 px → `selfcheck/screens/v2-*.png` + ตรวจ console error / เลื่อนแนวนอน |
+| `node scripts/migrate.mjs` · `backup.mjs` · `restore.mjs` | ดู `docs/RUNBOOK.md` |

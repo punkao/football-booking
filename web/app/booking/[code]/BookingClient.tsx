@@ -6,7 +6,7 @@ import { FieldArt } from "@/components/Art";
 import { PhoneGate } from "@/components/PhoneGate";
 import { ErrorBox, Money, OkBox, Ready } from "@/components/ui";
 import { api } from "@/lib/client";
-import { LEVEL_LABEL, fieldName, fmtDate, label, msg, rentalName, statusLabel, timeRange, tx } from "@/lib/i18n";
+import { LEVEL_LABEL, fieldName, fmtDate, fmtDateTime, label, msg, rentalName, statusLabel, timeRange, tx } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n";
 import { LAST_START_HOUR, OPEN_HOUR } from "@/lib/rules";
 
@@ -38,6 +38,8 @@ type Booking = {
 };
 type Detail = {
   booking: Booking;
+  /** FR-45: status steps from BookingStatusHistory (time only, no staff names) */
+  history?: { toStatus: string; at: string }[];
   actions: {
     canPay: boolean;
     canCancel: boolean;
@@ -153,6 +155,29 @@ export function BookingClient({ lang, code, done }: { lang: Lang; code: string; 
                 </Link>
               )}
             </section>
+
+            {data.history && data.history.length > 0 && (
+              <section className="card" aria-labelledby="h-timeline">
+                <h2 id="h-timeline">{tx(lang, "ขั้นตอนการจอง", "Booking progress")}</h2>
+                <ol className="timeline" data-testid="booking-timeline" data-count={data.history.length}>
+                  {data.history.map((h, i) => (
+                    <li
+                      key={i}
+                      className={`timeline-step ${h.toStatus}${i === data.history!.length - 1 ? " current" : ""}`}
+                      data-testid={`timeline-step-${i}`}
+                      data-status={h.toStatus}
+                      aria-current={i === data.history!.length - 1 ? "step" : undefined}
+                    >
+                      <span className="timeline-dot" aria-hidden="true" />
+                      <span className="timeline-label">{statusLabel(lang, h.toStatus)}</span>
+                      <time className="timeline-time" data-testid={`timeline-time-${i}`} dateTime={h.at}>
+                        {fmtDateTime(lang, h.at)}
+                      </time>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
 
             <section className="card" aria-labelledby="h-actions">
               <h2 id="h-actions">{tx(lang, "จัดการการจอง", "Manage booking")}</h2>

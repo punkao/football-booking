@@ -77,7 +77,7 @@ export async function rentalAvailability(db: Db | null, date: string, startHour:
       hours,
       uses.filter((u) => u.itemId === it.id),
     );
-    return { id: it.id, name: it.name, price: it.price, stock: it.stock, remaining, maxQty: maxRentable(it.id, remaining, bug) };
+    return { id: it.id, name: it.name, price: it.price, stock: it.stock, remaining, maxQty: maxRentable(it.id, remaining) };
   });
 }
 
@@ -118,7 +118,7 @@ export async function evaluateBooking(
   if (!field) throw new AppError("INVALID_FIELD");
   if (!isValidDateStr(input.date)) throw new AppError("INVALID_DATE");
   const date = input.date;
-  fail(validateBookingTime({ date, startHour: input.startHour, hours: input.hours, now: ctx.now }));
+  fail(validateBookingTime({ date, startHour: input.startHour, hours: input.hours, now: ctx.now, bug: ctx.bug }));
   const startHour = input.startHour as number;
   const hours = input.hours as number;
 
@@ -130,7 +130,7 @@ export async function evaluateBooking(
   for (const r of input.rentals) {
     const a = avail.find((x) => x.id === r.itemId);
     if (!a) throw new AppError("INVALID_QTY");
-    fail(checkRentalQty(r.itemId, r.qty, a.remaining, ctx.bug));
+    fail(checkRentalQty(r.itemId, r.qty, a.remaining));
     if (r.qty > 0) rentals.push({ itemId: r.itemId, qty: r.qty, price: a.price, remaining: a.remaining, maxQty: a.maxQty });
   }
 
@@ -155,7 +155,7 @@ export async function evaluateBooking(
     creditUsed = input.useCredit && input.creditUsed === undefined ? Math.min(customer.creditBalance, totalBeforeCredit) : input.creditUsed ?? 0;
     fail(checkCredit(creditUsed, customer.creditBalance, totalBeforeCredit));
   }
-  const price = computePrice({ fieldPrice, discount, freeHourValue, rentalPrice, creditUsed, paymentPlan: paymentPlanFor(date, startHour, ctx.bug) });
+  const price = computePrice({ fieldPrice, discount, freeHourValue, rentalPrice, creditUsed, paymentPlan: paymentPlanFor(date, startHour) });
   const hourly = [];
   for (let h = startHour; h < startHour + hours; h++) hourly.push({ hour: h, rate: hourlyRate(field, date, h, holidays) });
   return { ...price, field, date, startHour, hours, isHoliday: isHoliday(date, holidays), hourly, rentals, freeHourSlot: isFreeHourSlot(date, startHour) };
@@ -349,6 +349,11 @@ export async function bookingDetail(ctx: Ctx, b: BookingRow) {
         [b.id],
       )
     : [];
+  // FR-45 / 07-SAD 4: status steps with time only (who did it is not shown to customers)
+  const history = await q<{ to_status: string; created_at: Date }>(
+    "SELECT to_status, created_at FROM booking_status_history WHERE booking_id = $1 ORDER BY created_at, id",
+    [b.id],
+  );
   const start = slotStart(b.date, b.startHour);
   const activeChallenge = challenge && ["OPEN", "AWAITING_PAYMENT", "MATCHED"].includes(String(challenge.status));
   const { matched, pending } = await challengeState(null, b.id);
@@ -392,6 +397,7 @@ export async function bookingDetail(ctx: Ctx, b: BookingRow) {
           }
         : null,
     },
+    history: history.map((h) => ({ toStatus: h.to_status, at: h.created_at })),
     now: ctx.now,
     secondsLeft: b.status === "PENDING_PAYMENT" ? Math.max(0, Math.floor((new Date(b.payDeadline).getTime() - ctx.now.getTime()) / 1000)) : 0,
     payTotal: b.seriesId && b.status === "PENDING_PAYMENT" ? pendingSeries.reduce((s, x) => s + x.pay_now, 0) : b.payNow,
@@ -401,7 +407,7 @@ export async function bookingDetail(ctx: Ctx, b: BookingRow) {
       cancelBlockedBy: cancelBlock?.code ?? null,
       // a cancel that will be refused returns nothing → the confirm step previews ฿0
       cancelCreditNow:
-        b.status === "CONFIRMED" && !cancelBlock ? cancelCredit({ start, now: ctx.now, amountPaid: b.amountPaid, creditUsed: b.creditUsed, bugMode: ctx.bug }) : 0,
+        b.status === "CONFIRMED" && !cancelBlock ? cancelCredit({ start, now: ctx.now, amountPaid: b.amountPaid, creditUsed: b.creditUsed }) : 0,
       canReschedule: rescheduleBlock === null,
       rescheduleBlockedBy: rescheduleBlock?.code ?? null,
       canChallenge: checkChallengeCreate(b.status, start, ctx.now) === null && !activeChallenge,
@@ -444,8 +450,8 @@ export async function cancelBooking(ctx: Ctx, code: string, phone?: string) {
     await c.query("UPDATE bookings SET status = 'CANCELLED' WHERE id = $1", [b.id]);
     await c.query("UPDATE challenges SET status = 'CLOSED' WHERE booking_id = $1 AND status IN ('OPEN', 'AWAITING_PAYMENT')", [b.id]);
     if (b.status === "PENDING_PAYMENT") return { ok: true, status: "CANCELLED", creditReturned: 0, messageCode: "OK_CANCEL_PENDING" };
-    const credit = cancelCredit({ start, now: ctx.now, amountPaid: Math.max(0, b.amountPaid), creditUsed: b.creditUsed, bugMode: ctx.bug });
-    const inWindow = cancelCredit({ start, now: ctx.now, amountPaid: 1, creditUsed: 0, bugMode: ctx.bug }) > 0;
+    const credit = cancelCredit({ start, now: ctx.now, amountPaid: Math.max(0, b.amountPaid), creditUsed: b.creditUsed });
+    const inWindow = cancelCredit({ start, now: ctx.now, amountPaid: 1, creditUsed: 0 }) > 0;
     if (credit > 0) {
       await c.query("UPDATE customers SET credit_balance = credit_balance + $2 WHERE id = $1", [b.customerId, credit]);
       await c.query("INSERT INTO credit_entries(customer_id, amount, reason, booking_id, created_at) VALUES ($1, $2, 'CANCEL', $3, $4)", [

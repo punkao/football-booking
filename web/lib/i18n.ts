@@ -80,6 +80,27 @@ export const MESSAGES: Record<string, { th: string; en: string; status?: number 
   INTERNAL: { th: "เกิดข้อผิดพลาดในระบบ กรุณาลองใหม่", en: "Something went wrong. Please try again", status: 500 },
   NETWORK: { th: "เชื่อมต่อไม่ได้ กรุณาลองใหม่", en: "Connection failed. Please try again", status: 0 },
 
+  // ---- v2: stock, back office, chat ----
+  FORBIDDEN_ORIGIN: { th: "คำขอนี้ต้องส่งจากหน้าเว็บของร้านเท่านั้น", en: "This request must come from the shop's own website", status: 403 },
+  STOCK_ITEM_NOT_FOUND: { th: "ไม่พบของในคลัง", en: "Stock item not found", status: 404 },
+  INVALID_LOCATION: { th: "ที่เก็บไม่ถูกต้อง", en: "Invalid storage place", status: 400 },
+  STOCK_INSUFFICIENT: { th: "ของไม่พอ ({item} มี {available})", en: "Not enough stock ({item}: {available} available)", status: 409 },
+  STOCK_SAME_LOCATION: { th: "ต้นทางและปลายทางต้องเป็นคนละที่", en: "Source and destination must be different places", status: 400 },
+  STOCK_NOT_FOR_SALE: { th: "ขายได้เฉพาะของหมวดของขาย ({item} ขายไม่ได้)", en: "Only sale items can be sold ({item} cannot be sold)", status: 400 },
+  STOCK_REASON_REQUIRED: { th: "กรุณาใส่เหตุผล", en: "Please enter a reason", status: 400 },
+  STOCK_NO_CHANGE: { th: "จำนวนที่นับได้เท่ากับยอดในระบบ ไม่มีอะไรต้องปรับ", en: "The counted quantity equals the system quantity. Nothing to adjust", status: 400 },
+  INVALID_METHOD: { th: "กรุณาเลือกช่องทางชำระ เงินสด หรือ พร้อมเพย์", en: "Please choose a payment method: cash or PromptPay", status: 400 },
+  SALE_EMPTY: { th: "กรุณาเลือกของอย่างน้อย 1 รายการ", en: "Please choose at least 1 item", status: 400 },
+  INVALID_REORDER_POINT: { th: "จุดสั่งซื้อซ้ำต้องเป็นจำนวนเต็มตั้งแต่ 0 หรือเว้นว่าง", en: "The reorder point must be a whole number from 0, or empty", status: 400 },
+  REPORT_RANGE_ORDER: { th: "วันสิ้นสุดต้องไม่ก่อนวันเริ่ม", en: "The end date must not be before the start date", status: 400 },
+  REPORT_RANGE_TOO_LONG: { th: "ดูรายงานได้ครั้งละไม่เกิน 3 เดือน", en: "A report can cover at most 3 months", status: 400 },
+  CHAT_EMPTY: { th: "กรุณาพิมพ์ข้อความ", en: "Please type a message", status: 400 },
+  CHAT_TOO_LONG: { th: "ข้อความยาวเกิน 500 ตัวอักษร", en: "The message is longer than 500 characters", status: 400 },
+  CHAT_RATE_LIMIT: { th: "ส่งข้อความเร็วเกินไป (ไม่เกิน 20 ข้อความต่อนาที) กรุณารอสักครู่", en: "Too many messages (at most 20 per minute). Please wait a moment", status: 429 },
+  CHAT_SESSION_NOT_FOUND: { th: "ไม่พบห้องแชท", en: "Chat not found", status: 404 },
+  CHAT_DRAFT_INVALID: { th: "การ์ดยืนยันไม่ถูกต้อง กรุณาขอการ์ดใหม่ในแชท", en: "This confirmation card is not valid. Please ask for a new one in the chat", status: 400 },
+  CHAT_DRAFT_EXPIRED: { th: "การ์ดยืนยันหมดอายุ (15 นาที) กรุณาขอใหม่ในแชท", en: "This confirmation card has expired (15 minutes). Please ask again in the chat", status: 409 },
+
   // ---- confirmations ----
   OK_PAID: { th: "ชำระเงินสำเร็จ การจองได้รับการยืนยันแล้ว", en: "Payment successful. Your booking is confirmed" },
   OK_CONFIRMED_FREE: { th: "ยืนยันการจองแล้ว (ยอดที่ต้องจ่าย ฿0)", en: "Booking confirmed (nothing to pay)" },
@@ -102,6 +123,13 @@ export const MESSAGES: Record<string, { th: string; en: string; status?: number 
   OK_HOLIDAY_DELETED: { th: "ลบวันหยุดแล้ว", en: "Holiday deleted" },
   OK_CLOSED: { th: "ปิดสนามแล้ว คืนเครดิต {count} การจอง", en: "Field closed. Credit returned for {count} booking(s)" },
   OK_REGISTERED: { th: "สมัครสมาชิกสำเร็จ", en: "Registration successful" },
+  OK_SALE: { th: "บันทึกการขายแล้ว ยอด {amount}", en: "Sale saved. Total {amount}" },
+  OK_TRANSFER: { th: "ย้ายของแล้ว", en: "Items moved" },
+  OK_RECEIVE: { th: "รับของเข้าแล้ว", en: "Items received" },
+  OK_DAMAGE: { th: "บันทึกของชำรุดแล้ว", en: "Damage recorded" },
+  OK_ADJUST: { th: "ปรับยอดแล้ว ({delta})", en: "Quantity adjusted ({delta})" },
+  OK_REORDER_POINT: { th: "ตั้งจุดสั่งซื้อซ้ำแล้ว", en: "Reorder point saved" },
+  OK_CHAT_BOOKED: { th: "จองแล้ว รหัส {code} กรุณาชำระภายใน 15 นาที", en: "Booked. Code {code}. Please pay within 15 minutes" },
   OK_SERIES_CREATED: { th: "สร้างการจองประจำแล้ว กรุณาชำระเงินภายใน 15 นาที", en: "Recurring booking created. Please pay within 15 minutes" },
 };
 
@@ -200,7 +228,65 @@ export function fieldName(lang: Lang, id: string): string {
 export function rentalName(lang: Lang, id: string): string {
   if (id === "BIB") return lang === "en" ? "Bib" : "เอี๊ยม";
   if (id === "BALL") return lang === "en" ? "Ball" : "ลูกบอล";
-  return id;
+  return stockItemName(lang, id);
 }
+
+/** A-32 stock items (TEST-DATA section 4) */
+export const STOCK_ITEM_LABEL: Record<string, { th: string; en: string }> = {
+  BIB: { th: "เสื้อเอี๊ยม (ชุด 10 ตัว)", en: "Bibs (set of 10)" },
+  BALL: { th: "ลูกบอล", en: "Ball" },
+  WATER: { th: "น้ำดื่ม 600 มล.", en: "Drinking water 600 ml" },
+  ORS: { th: "เครื่องดื่มเกลือแร่", en: "Electrolyte drink" },
+  TOWEL: { th: "ผ้าเย็น", en: "Cold towel" },
+  CONE: { th: "กรวยซ้อม", en: "Training cone" },
+  NET: { th: "ตาข่ายประตูสำรอง", en: "Spare goal net" },
+  LAMP: { th: "หลอดไฟสนามสำรอง", en: "Spare floodlight lamp" },
+};
+
+export function stockItemName(lang: Lang, id: string): string {
+  return label(lang, STOCK_ITEM_LABEL, id);
+}
+
+export const LOCATION_LABEL: Record<string, { th: string; en: string }> = {
+  STORE: { th: "ห้องเก็บของ", en: "Store room" },
+  COUNTER: { th: "เคาน์เตอร์", en: "Counter" },
+};
+
+export const CATEGORY_LABEL: Record<string, { th: string; en: string }> = {
+  RENTAL: { th: "ของเช่า", en: "Rental" },
+  SALE: { th: "ของขาย", en: "For sale" },
+  EQUIPMENT: { th: "อุปกรณ์สนาม", en: "Field equipment" },
+};
+
+export const MOVEMENT_LABEL: Record<string, { th: string; en: string }> = {
+  RECEIVE: { th: "รับเข้า", en: "Received" },
+  SALE: { th: "ขาย", en: "Sold" },
+  TRANSFER: { th: "ย้าย", en: "Moved" },
+  DAMAGE: { th: "ชำรุด", en: "Damaged" },
+  ADJUST: { th: "ปรับยอด", en: "Adjusted" },
+};
+
+export const METHOD_LABEL: Record<string, { th: string; en: string }> = {
+  CASH: { th: "เงินสด", en: "Cash" },
+  PROMPTPAY: { th: "พร้อมเพย์", en: "PromptPay" },
+  CASH_AT_FIELD: { th: "เงินสดหน้าสนาม", en: "Cash at the field" },
+  CREDIT: { th: "เครดิต", en: "Credit" },
+};
+
+export const AUDIT_LABEL: Record<string, { th: string; en: string }> = {
+  CHECKIN: { th: "เช็กอิน", en: "Check-in" },
+  NO_SHOW: { th: "บันทึกไม่มา", en: "No-show" },
+  RETURN_RENTALS: { th: "คืนของเช่า", en: "Rentals returned" },
+  RAIN_CLOSE: { th: "ปิดเพราะฝน", en: "Rain closure" },
+  HOLIDAY_ADD: { th: "เพิ่มวันหยุด", en: "Holiday added" },
+  HOLIDAY_REMOVE: { th: "ลบวันหยุด", en: "Holiday removed" },
+  STOCK_RECEIVE: { th: "รับของเข้า", en: "Stock received" },
+  STOCK_SALE: { th: "ขายหน้าเคาน์เตอร์", en: "Counter sale" },
+  STOCK_TRANSFER: { th: "ย้ายของ", en: "Stock moved" },
+  STOCK_DAMAGE: { th: "ของชำรุด", en: "Stock damaged" },
+  STOCK_ADJUST: { th: "ปรับยอดคลัง", en: "Stock adjusted" },
+  REORDER_POINT: { th: "ตั้งจุดสั่งซื้อซ้ำ", en: "Reorder point set" },
+  REPORT_EXPORT: { th: "ดาวน์โหลดรายงาน", en: "Report downloaded" },
+};
 
 export const SHOP_NAME = { th: "ลูกหนัง อารีน่า", en: "Luknang Arena" };

@@ -81,6 +81,20 @@ type Handler<P> = (ctx: Ctx, params: P) => Promise<Response | object>;
 export function route<P = Record<string, string>>(fn: Handler<P>, opts: { expire?: boolean } = {}) {
   return async (req: NextRequest, context: { params: Promise<P> }): Promise<Response> => {
     const lang = normLang(req.cookies.get("lang")?.value);
+    // 07-SAD 8.1 CSRF: a browser request that changes data must come from this site (no Origin = not a browser form)
+    if (req.method !== "GET" && req.method !== "HEAD") {
+      const origin = req.headers.get("origin");
+      const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host");
+      if (origin && origin !== "null") {
+        let ok = false;
+        try {
+          ok = new URL(origin).host === host;
+        } catch {
+          ok = false;
+        }
+        if (!ok) return errorJson(lang, "FORBIDDEN_ORIGIN");
+      }
+    }
     try {
       const now = await getNow();
       if (opts.expire !== false) await expireStale(now);

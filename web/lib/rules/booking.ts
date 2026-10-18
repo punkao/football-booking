@@ -38,10 +38,10 @@ export function checkCancel(status: string, start: Date, now: Date, challengeMat
 }
 
 /** BR-13: credit back = paid + credit used when at least 24 hours remain, otherwise 0 */
-export function cancelCredit(input: { start: Date; now: Date; amountPaid: number; creditUsed: number; bugMode?: boolean }): number {
+export function cancelCredit(input: { start: Date; now: Date; amountPaid: number; creditUsed: number }): number {
   const remaining = input.start.getTime() - input.now.getTime();
   const limit = CANCEL_CREDIT_MIN_HOURS * HOUR_MS;
-  const ok = input.bugMode ? remaining > limit : remaining >= limit;
+  const ok = remaining >= limit;
   return ok ? input.amountPaid + input.creditUsed : 0;
 }
 

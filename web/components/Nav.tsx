@@ -17,7 +17,10 @@ export function Nav({ lang, staffRole }: { lang: Lang; staffRole: string | null 
   ];
   if (staffRole) {
     links.push({ href: "/staff", id: "nav-staff", label: tx(lang, "หน้าสนาม", "Front desk") });
+    links.push({ href: "/staff/stock", id: "nav-stock", label: tx(lang, "คลังของ", "Stock") });
     if (staffRole !== "STAFF") links.push({ href: "/staff/today", id: "nav-staff-today", label: tx(lang, "ภาพรวมวันนี้", "Today") });
+    // BR-44: the back office is for OWNER and MANAGER only
+    if (staffRole !== "STAFF") links.push({ href: "/owner/dashboard", id: "nav-backoffice", label: tx(lang, "หลังบ้าน", "Back office") });
     if (staffRole === "OWNER") links.push({ href: "/owner", id: "nav-owner", label: tx(lang, "เจ้าของ", "Owner") });
   } else {
     links.push({ href: "/staff/login", id: "nav-staff-login", label: tx(lang, "พนักงาน", "Staff") });

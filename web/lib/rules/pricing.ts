@@ -39,9 +39,9 @@ export function fieldPriceFor(field: Rates, date: string, startHour: number, hou
 }
 
 /** BR-11: FULL_100 when the booking starts at/after 17:00 on Friday or Saturday, otherwise DEPOSIT_50 */
-export function paymentPlanFor(date: string, startHour: number, bugMode = false): PaymentPlan {
+export function paymentPlanFor(date: string, startHour: number): PaymentPlan {
   const w = weekdayOf(date);
-  const fullDays = bugMode ? [5] : [5, 6];
+  const fullDays = [5, 6];
   if (fullDays.includes(w) && startHour >= EVENING_START_HOUR) return "FULL_100";
   return "DEPOSIT_50";
 }

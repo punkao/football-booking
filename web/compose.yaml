@@ -42,14 +42,18 @@ services:
 
   # profile "mock": an OpenAI-compatible fake LLM for MODE=ai tests (LLM_BASE_URL=http://mock-llm:8080/v1)
   #   docker compose -f web/compose.yaml --profile mock up -d
-  # B1: placeholder that answers every request with one fixed reply; the rule-based answers come in B2.
+  # It answers with the same deterministic brain as MODE=mock (lib/chat, mounted read-only) · #slow #error #faketag #think
   mock-llm:
     profiles: ["mock"]
     image: node:24-alpine
     container_name: football-mock-llm
+    init: true                  # node gets SIGTERM properly on stop
     command: ["node", "/srv/mock-llm/server.mjs"]
+    environment:
+      MOCK_SLOW_MS: ${MOCK_SLOW_MS:-65000}
     volumes:
       - ./mock-llm:/srv/mock-llm:ro
+      - ./lib:/srv/lib:ro
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 10s

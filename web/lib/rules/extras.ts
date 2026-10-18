@@ -77,13 +77,13 @@ export function rentalRemaining(stock: number, startHour: number, hours: number,
 }
 
 /** highest quantity that may be rented given what remains */
-export function maxRentable(itemId: string, remaining: number, bugMode = false): number {
-  return bugMode && itemId === "BIB" ? remaining + 1 : remaining;
+export function maxRentable(_itemId: string, remaining: number): number {
+  return remaining;
 }
 
-export function checkRentalQty(itemId: string, qty: number, remaining: number, bugMode = false): RuleError | null {
+export function checkRentalQty(itemId: string, qty: number, remaining: number): RuleError | null {
   if (!Number.isInteger(qty) || qty < 0) return { code: "INVALID_QTY" };
-  if (qty > maxRentable(itemId, remaining, bugMode)) return { code: "RENTAL_OUT_OF_STOCK", params: { item: itemId, remaining } };
+  if (qty > maxRentable(itemId, remaining)) return { code: "RENTAL_OUT_OF_STOCK", params: { item: itemId, remaining } };
   return null;
 }
 

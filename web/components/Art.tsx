@@ -146,3 +146,35 @@ export function SampleQr({ seed, title }: { seed: string; title: string }) {
     </svg>
   );
 }
+
+/** v2 · chatbot "น้องบอล": a smiling football with a headset (chat button + chat header) */
+export function BotAvatar({ size = 34, title }: { size?: number; title: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" role={title ? "img" : undefined} aria-label={title || undefined} aria-hidden={title ? undefined : true} data-testid="bot-avatar">
+      {title && <title>{title}</title>}
+      <circle cx="32" cy="34" r="24" fill="#F7F7F2" stroke="#0B3D2E" strokeWidth="2.5" />
+      <path d="M32 22l7 5-2.6 8.2h-8.8L25 27z" fill="#0B3D2E" />
+      <path d="M25 27l-9-2M39 27l9-2M27.6 35.2l-5 7M36.4 35.2l5 7" stroke="#0B3D2E" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="26" cy="44" r="2" fill="#0B3D2E" />
+      <circle cx="38" cy="44" r="2" fill="#0B3D2E" />
+      <path d="M27 50c3 2.5 7 2.5 10 0" stroke="#0B3D2E" strokeWidth="2" fill="none" strokeLinecap="round" />
+      <path d="M8 34a24 24 0 0 1 48 0" stroke="#FFD54A" strokeWidth="4" fill="none" strokeLinecap="round" />
+      <rect x="4" y="31" width="8" height="12" rx="3" fill="#1F9D55" stroke="#0B3D2E" strokeWidth="1.5" />
+      <rect x="52" y="31" width="8" height="12" rx="3" fill="#1F9D55" stroke="#0B3D2E" strokeWidth="1.5" />
+      <path d="M8 43c0 8 6 12 14 12" stroke="#0B3D2E" strokeWidth="2" fill="none" />
+      <circle cx="23" cy="55" r="2.5" fill="#FFD54A" stroke="#0B3D2E" strokeWidth="1" />
+    </svg>
+  );
+}
+
+/** v2 · empty state for back-office lists */
+export function EmptyNet({ title }: { title: string }) {
+  return (
+    <svg width="96" height="64" viewBox="0 0 96 64" role="img" aria-label={title}>
+      <title>{title}</title>
+      <rect x="8" y="8" width="80" height="48" rx="4" fill="none" stroke="#1F9D55" strokeWidth="3" />
+      <path d="M8 20h80M8 32h80M8 44h80M24 8v48M40 8v48M56 8v48M72 8v48" stroke="#1F9D55" strokeWidth="1" opacity="0.5" />
+      <circle cx="48" cy="40" r="9" fill="#F7F7F2" stroke="#0B3D2E" strokeWidth="2" />
+    </svg>
+  );
+}

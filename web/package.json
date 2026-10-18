@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node --test \"lib/rules/*.test.ts\"",
+    "test": "node --test \"lib/rules/*.test.ts\" \"lib/chat/*.test.ts\"",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

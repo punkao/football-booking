@@ -67,7 +67,17 @@ export async function loadHolidays(db: Db | null): Promise<{ date: string; name:
 export async function holidayDates(db: Db | null): Promise<string[]> {
   return (await loadHolidays(db)).map((h) => h.date);
 }
-export const loadRentalItems = (db: Db | null) => rows<RentalItemRow>(db, "SELECT * FROM rental_items ORDER BY price DESC");
+/**
+ * BR-38 / ADR-18 / T-17: rental price = StockItem.unitPrice and rentable total = stock of every place
+ * (rental_items.stock is kept for rollback only and is no longer read).
+ */
+export const loadRentalItems = (db: Db | null) =>
+  rows<RentalItemRow>(
+    db,
+    `SELECT r.id, r.name, si.unit_price AS price, COALESCE((SELECT sum(l.qty) FROM stock_levels l WHERE l.item_id = r.id), 0)::int AS stock
+       FROM rental_items r JOIN stock_items si ON si.id = r.id
+      ORDER BY si.unit_price DESC, r.id`,
+  );
 
 export async function loadCustomerById(db: Db | null, id: number | null, forUpdate = false): Promise<CustomerRow | null> {
   if (!id) return null;

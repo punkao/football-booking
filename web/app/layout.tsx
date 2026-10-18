@@ -9,6 +9,7 @@ import "./globals.css";
 import { Logo } from "@/components/Art";
 import { LangToggle } from "@/components/ui";
 import { Nav } from "@/components/Nav";
+import { ChatWidget } from "@/components/ChatWidget";
 import { SHOP_NAME, tx } from "@/lib/i18n";
 import { pageLang, pageStaff } from "@/lib/server/page";
 
@@ -53,6 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </div>
         </header>
         <div id="main">{children}</div>
+        <ChatWidget lang={lang} />
         <footer className="site-footer">
           <div className="container spread">
             <span>

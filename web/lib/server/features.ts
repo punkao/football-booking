@@ -77,7 +77,7 @@ export async function availability(ctx: Ctx, dateParam: string | null) {
     for (let h = OPEN_HOUR; h <= LAST_START_HOUR; h++) {
       const taken = bookings.some((b) => b.fieldId === f.id && isBlocking(b.status) && overlaps(h, 1, b.startHour, b.hours));
       const closed = closures.some((c) => c.fieldId === f.id && overlaps(h, 1, c.fromHour, c.toHour - c.fromHour));
-      const time = slotTimeState(date, h, ctx.now);
+      const time = slotTimeState(date, h, ctx.now, ctx.bug);
       const status = taken ? "booked" : closed ? "closed" : time !== "ok" ? time : "free";
       slots.push({ fieldId: f.id, hour: h, price: hourlyRate(f, date, h, holidays), status, available: status === "free" });
     }
@@ -85,7 +85,7 @@ export async function availability(ctx: Ctx, dateParam: string | null) {
   return {
     date,
     today,
-    maxDate: maxBookableDate(ctx.now),
+    maxDate: maxBookableDate(ctx.now, ctx.bug),
     now: ctx.now,
     weekday: weekdayOf(date),
     isHoliday: isHoliday(date, holidays),
@@ -158,7 +158,7 @@ async function seriesPlan(db: Parameters<typeof loadField>[0], ctx: Ctx, input: 
       status: conflict ? "conflict" : "free",
       reason: conflict?.code ?? null,
       fieldPrice: fieldPriceFor(field, d, startHour, hours, holidays),
-      paymentPlan: paymentPlanFor(d, startHour, ctx.bug),
+      paymentPlan: paymentPlanFor(d, startHour),
     });
   }
   const free = weeks.filter((w) => w.status === "free");

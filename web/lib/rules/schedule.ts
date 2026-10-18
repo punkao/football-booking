@@ -32,15 +32,16 @@ export function checkHours(startHour: number, hours: unknown): RuleError | null 
 }
 
 /** BR-04: from today up to today + 14 days (single bookings only) */
-export function checkAdvanceWindow(date: string, now: Date): RuleError | null {
+export function checkAdvanceWindow(date: string, now: Date, bug = false): RuleError | null {
   const today = todayOf(now);
   if (date < today) return { code: "PAST_DATE" };
-  if (date > addDays(today, MAX_ADVANCE_DAYS)) return { code: "TOO_FAR_AHEAD", params: { maxDate: addDays(today, MAX_ADVANCE_DAYS) } };
+  const last = maxBookableDate(now, bug);
+  if (date > last) return { code: "TOO_FAR_AHEAD", params: { maxDate: last } };
   return null;
 }
 
-export function maxBookableDate(now: Date): string {
-  return addDays(todayOf(now), MAX_ADVANCE_DAYS);
+export function maxBookableDate(now: Date, bug = false): string {
+  return addDays(todayOf(now), MAX_ADVANCE_DAYS + (bug ? 1 : 0));
 }
 
 /** BR-05: start must be at least 60 minutes after "now" */
@@ -74,13 +75,13 @@ export function checkClosures(startHour: number, hours: number, closures: { from
 }
 
 /** BR-02 → BR-03 → BR-04 → BR-05 in order. Series bookings skip BR-04 (BR-18). */
-export function validateBookingTime(input: { date: string; startHour: unknown; hours: unknown; now: Date; series?: boolean }): RuleError | null {
+export function validateBookingTime(input: { date: string; startHour: unknown; hours: unknown; now: Date; series?: boolean; bug?: boolean }): RuleError | null {
   const e1 = checkStartHour(input.startHour);
   if (e1) return e1;
   const e2 = checkHours(input.startHour as number, input.hours);
   if (e2) return e2;
   if (!input.series) {
-    const e3 = checkAdvanceWindow(input.date, input.now);
+    const e3 = checkAdvanceWindow(input.date, input.now, input.bug);
     if (e3) return e3;
   } else if (input.date < todayOf(input.now)) {
     return { code: "PAST_DATE" };
@@ -89,10 +90,10 @@ export function validateBookingTime(input: { date: string; startHour: unknown; h
 }
 
 /** time-based slot state for the availability table */
-export function slotTimeState(date: string, hour: number, now: Date): "ok" | "past" | "out-of-range" {
+export function slotTimeState(date: string, hour: number, now: Date, bug = false): "ok" | "past" | "out-of-range" {
   const today = todayOf(now);
   if (date < today) return "past";
-  if (date > addDays(today, MAX_ADVANCE_DAYS)) return "out-of-range";
+  if (date > maxBookableDate(now, bug)) return "out-of-range";
   if (slotStart(date, hour).getTime() - now.getTime() < MIN_LEAD_MINUTES * 60 * 1000) return "past";
   return "ok";
 }

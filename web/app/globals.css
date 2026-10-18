@@ -1089,3 +1089,311 @@ input[aria-invalid="true"] {
   border: 1px solid var(--line);
   border-radius: 8px;
 }
+
+/* ---------- v2 · FR-45 booking timeline ---------- */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 4px;
+}
+.timeline-step {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  grid-template-areas: "dot label" "dot time";
+  column-gap: 10px;
+  padding: 0 0 14px;
+  position: relative;
+}
+.timeline-step::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 16px;
+  bottom: 0;
+  width: 2px;
+  background: var(--line);
+}
+.timeline-step:last-child::before {
+  display: none;
+}
+.timeline-dot {
+  grid-area: dot;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  border-radius: 50%;
+  background: var(--grass);
+  border: 3px solid var(--chalk);
+  box-shadow: 0 0 0 2px var(--grass);
+}
+.timeline-step.current .timeline-dot {
+  background: var(--flood);
+  box-shadow: 0 0 0 2px var(--pitch);
+}
+.timeline-step.CANCELLED .timeline-dot,
+.timeline-step.EXPIRED .timeline-dot,
+.timeline-step.NO_SHOW .timeline-dot,
+.timeline-step.RAIN_CLOSED .timeline-dot {
+  background: var(--alert);
+  box-shadow: 0 0 0 2px var(--alert);
+}
+.timeline-label {
+  grid-area: label;
+  font-weight: 600;
+}
+.timeline-time {
+  grid-area: time;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ---------- v2 · back office tables / tabs / chart ---------- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+.data-table th,
+.data-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.data-table th {
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: var(--pitch);
+  background: rgba(31, 157, 85, 0.08);
+  white-space: nowrap;
+}
+.data-table td.num,
+.data-table th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.data-table tr.low td {
+  background: rgba(255, 213, 74, 0.22);
+}
+.data-table tfoot td {
+  font-weight: 700;
+}
+.back-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 16px;
+}
+.back-tabs a {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--pitch);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.back-tabs a[aria-current="page"] {
+  background: var(--pitch);
+  color: var(--chalk);
+  border-color: var(--pitch);
+}
+.chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.chart .bar {
+  fill: var(--grass);
+}
+.chart .bar.today {
+  fill: var(--flood);
+  stroke: var(--pitch);
+  stroke-width: 1;
+}
+.chart text {
+  font-family: var(--font-body);
+  font-size: 11px;
+  fill: var(--ink);
+}
+.meter {
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(11, 61, 46, 0.1);
+  overflow: hidden;
+}
+.meter > span {
+  display: block;
+  height: 100%;
+  background: var(--grass);
+}
+.warn-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--flood);
+  color: var(--pitch);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.mono-break {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ---------- v2 · chat widget "น้องบอล" ---------- */
+.chat-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px 10px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--pitch);
+  color: var(--chalk);
+  font-family: var(--font-head);
+  font-weight: 600;
+  box-shadow: var(--shadow-hover);
+  cursor: pointer;
+}
+.chat-fab:focus-visible {
+  outline: 3px solid var(--flood);
+  outline-offset: 2px;
+}
+.chat-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 76px;
+  z-index: 61;
+  width: min(380px, calc(100vw - 32px));
+  max-height: min(640px, calc(100vh - 110px));
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hover);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--pitch);
+  color: var(--chalk);
+}
+.chat-head h2 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--chalk);
+  flex: 1;
+}
+.chat-head button {
+  background: transparent;
+  border: 1px solid rgba(247, 247, 242, 0.4);
+  color: var(--chalk);
+  border-radius: 8px;
+  padding: 2px 10px;
+  cursor: pointer;
+}
+.chat-log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: linear-gradient(180deg, rgba(31, 157, 85, 0.06), transparent 40%);
+}
+.chat-msg {
+  max-width: 88%;
+  padding: 8px 11px;
+  border-radius: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.93rem;
+  line-height: 1.45;
+}
+.chat-msg.user {
+  align-self: flex-end;
+  background: var(--grass);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.chat-msg.bot {
+  align-self: flex-start;
+  background: var(--chalk);
+  border: 1px solid var(--line);
+  border-bottom-left-radius: 4px;
+}
+.chat-card {
+  align-self: stretch;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--flood);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #fffdf3;
+  font-size: 0.9rem;
+}
+.chat-card dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 10px;
+  margin: 6px 0;
+}
+.chat-card dt {
+  color: var(--muted);
+}
+.chat-card dd {
+  margin: 0;
+  font-weight: 600;
+}
+.chat-form {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid var(--line);
+}
+.chat-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  font: inherit;
+}
+.chat-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding: 0 12px 8px;
+}
+@media (max-width: 480px) {
+  .chat-panel {
+    right: 8px;
+    left: 8px;
+    width: auto;
+    bottom: 72px;
+  }
+}
+/* the floating chat button never covers the last controls of a page */
+body:has(.chat-fab) {
+  padding-bottom: 84px;
+}
+@media (max-width: 480px) {
+  .chat-fab {
+    padding: 8px;
+  }
+  .chat-fab span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
