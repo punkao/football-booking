@@ -1,7 +1,7 @@
 {
   "runs": {
     "setup": {
-      "runAt": "2026-10-10T08:32:45.459Z",
+      "runAt": "2026-10-18T17:25:16.814Z",
       "gifMode": false,
       "rows": [
         {
@@ -13,19 +13,19 @@
           "priority": "?",
           "expected": "",
           "status": "passed",
-          "durationMs": 35,
+          "durationMs": 33,
           "error": "",
           "steps": [],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:39.081Z",
+          "finishedAt": "2026-10-18T17:22:38.116Z",
           "notes": {}
         }
       ]
     },
     "chromium": {
-      "runAt": "2026-10-10T08:32:45.459Z",
+      "runAt": "2026-10-18T17:25:16.814Z",
       "gifMode": false,
       "rows": [
         {
@@ -37,7 +37,7 @@
           "priority": "P2",
           "expected": "GET /api/health → 200 {\"ok\":true,\"db\":true} · GET /api/fields → 3 สนาม A/B 800/1,200 C 1,200/1,800",
           "status": "passed",
-          "durationMs": 65,
+          "durationMs": 68,
           "error": "",
           "steps": [
             "GET /api/health",
@@ -46,7 +46,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:39.666Z",
+          "finishedAt": "2026-10-18T17:22:38.726Z",
           "notes": {}
         },
         {
@@ -58,7 +58,7 @@
           "priority": "P1",
           "expected": "ส่ง POST /api/bookings ช่วงเดียวกันพร้อมกัน 2 คำขอ → 201 จำนวน 1 และ 409 SLOT_TAKEN \"ช่วงเวลานี้ถูกจองแล้ว\" จำนวน 1 · availability ช่วงนั้น booked",
           "status": "passed",
-          "durationMs": 91,
+          "durationMs": 114,
           "error": "",
           "steps": [
             "ส่งจอง C 2026-10-17 20:00 พร้อมกัน 2 คำขอ (คนละเบอร์)",
@@ -68,7 +68,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:39.724Z",
+          "finishedAt": "2026-10-18T17:22:38.781Z",
           "notes": {}
         },
         {
@@ -80,7 +80,7 @@
           "priority": "P1",
           "expected": "startHour 7/8.5/24 → 400 INVALID_START_HOUR · 23 → 200 · hours 0/1.5 → 400 INVALID_HOURS · สนาม D → INVALID_FIELD · 2026-10-08 → PAST_DATE · รูปแบบ {error:{code,message}}",
           "status": "passed",
-          "durationMs": 133,
+          "durationMs": 144,
           "error": "",
           "steps": [
             "startHour 7 (= 08:00 − 1 ชม.), 8.5 (= 08:30), 24 → INVALID_START_HOUR",
@@ -91,7 +91,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:39.742Z",
+          "finishedAt": "2026-10-18T17:22:38.796Z",
           "notes": {}
         },
         {
@@ -103,7 +103,7 @@
           "priority": "P2",
           "expected": "ไม่มี cookie: /api/staff/bookings/LN-900001, /api/staff/today, POST /api/owner/holidays, POST checkin → 401 UNAUTHORIZED \"กรุณาเข้าสู่ระบบ\" · STAFF GET /api/staff/today → 403 FORBIDDEN_ROLE · MANAGER POST /api/owner/closures → 403 · เปิด /staff/today → /staff/login?next=%2Fstaff%2Ftoday + login-required",
           "status": "passed",
-          "durationMs": 1705,
+          "durationMs": 1680,
           "error": "",
           "steps": [
             "ไม่เข้าสู่ระบบเรียก API หน้าร้าน 4 เส้น → 401",
@@ -114,76 +114,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:42.651Z",
-          "notes": {}
-        },
-        {
-          "project": "chromium",
-          "tc": "TC-BOOK-03",
-          "title": "TC-BOOK-03 จำนวนชั่วโมงและเวลาจบไม่เกิน 24:00",
-          "file": "tests/book.spec.ts",
-          "module": "BOOK",
-          "priority": "P1",
-          "expected": "21:00 × 4 → \"การจองต้องจบไม่เกิน 24:00\" · 0 ชม. → \"จำนวนชั่วโมงต้องเป็นจำนวนเต็มอย่างน้อย 1 ชั่วโมง\" · 20:00 × 4 (จบ 24:00) ราคา 4,800 จองได้ → /pay",
-          "status": "passed",
-          "durationMs": 3213,
-          "error": "",
-          "steps": [
-            "A 2026-10-22 เริ่ม 21:00 × 4 ชม. (จบ 01:00) → ปฏิเสธ",
-            "0 ชั่วโมง (= 1 − 1) → ปฏิเสธ",
-            "เริ่ม 20:00 × 4 ชม. (จบ 24:00 พอดี) → ราคา 4,800 และจองได้"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:29:44.052Z",
-          "notes": {}
-        },
-        {
-          "project": "chromium",
-          "tc": "TC-BOOK-04",
-          "title": "TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้)",
-          "file": "tests/book.spec.ts",
-          "module": "BOOK",
-          "priority": "P1",
-          "expected": "มี date-chip-2026-10-23 ไม่มี date-chip-2026-10-24 · /book?date=2026-10-24 ช่อง out-of-range · ฟอร์ม 24 ต.ค. → \"จองล่วงหน้าได้ไม่เกิน 14 วัน\" · 23 ต.ค. (= 9 + 14) จองสำเร็จ → /pay",
-          "status": "passed",
-          "durationMs": 3276,
-          "error": "",
-          "steps": [
-            "ปุ่มวันมีถึง 23 ต.ค. (วันนี้ + 14) ไม่มี 24 ต.ค.",
-            "ตารางวันที่ 24 ต.ค. (= 9 + 15) ทุกช่องเป็น out-of-range",
-            "ฟอร์มจองวันที่ 24 ต.ค. → ปฏิเสธ",
-            "ฟอร์มจองวันที่ 23 ต.ค. A 9:00 → จองได้"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:29:44.103Z",
-          "notes": {}
-        },
-        {
-          "project": "chromium",
-          "tc": "TC-BOOK-07",
-          "title": "TC-BOOK-07 ฟอร์มลูกค้า: ชื่อ เบอร์ และช่องยินยอม PDPA",
-          "file": "tests/book.spec.ts",
-          "module": "BOOK",
-          "priority": "P2",
-          "expected": "pdpa-consent ไม่ติ๊กตอนเปิด · ไม่กรอกชื่อ → \"กรุณากรอกชื่อ\" · เบอร์ 08123 → \"เบอร์โทรต้องเป็นตัวเลข 10 หลักขึ้นต้นด้วย 0\" · ไม่ติ๊ก → \"กรุณายินยอมให้เก็บข้อมูลส่วนบุคคล (PDPA) ก่อนดำเนินการ\" · ไม่มีการจองถูกสร้าง",
-          "status": "passed",
-          "durationMs": 2975,
-          "error": "",
-          "steps": [
-            "เปิดฟอร์ม ช่องยินยอมต้องไม่ติ๊กไว้ก่อน",
-            "ไม่กรอกชื่อ → \"กรุณากรอกชื่อ\"",
-            "เบอร์ 08123 → \"เบอร์โทรต้องเป็นตัวเลข 10 หลักขึ้นต้นด้วย 0\"",
-            "ไม่ติ๊กยินยอม → ข้อความ PDPA",
-            "ไม่มีการจองถูกสร้าง: ช่องยังว่าง"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:29:44.160Z",
+          "finishedAt": "2026-10-18T17:22:41.595Z",
           "notes": {}
         },
         {
@@ -195,7 +126,7 @@
           "priority": "P3",
           "expected": "ติ๊ก filter-before-17 → ไม่มีช่อง 17:00–23:00 แต่มี 16:00 · sort-by=price → slot-list ราคาไม่ลดลง เริ่ม 800 จบ 1,800",
           "status": "passed",
-          "durationMs": 1610,
+          "durationMs": 1484,
           "error": "",
           "steps": [
             "เปิด /book?date=2026-10-12 แล้วติ๊กเฉพาะรอบก่อน 17:00",
@@ -204,29 +135,76 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:44.287Z",
+          "finishedAt": "2026-10-18T17:22:43.108Z",
           "notes": {}
         },
         {
           "project": "chromium",
-          "tc": "TC-CREDIT-01",
-          "title": "TC-CREDIT-01 สมาชิกดูเครดิต ประวัติเครดิต และชั่วโมงสะสม",
-          "file": "tests/credit.spec.ts",
-          "module": "CREDIT",
-          "priority": "P2",
-          "expected": "ต้น: credit-balance 1,200 · credit-entry RAIN +1200 · paid-hours 7 · free-hours-available 0 · free-hours-next data-value 3 \"อีก 3 ชั่วโมง\" (= 10 − 7)",
+          "tc": "TC-BOOK-04",
+          "title": "TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้)",
+          "file": "tests/book.spec.ts",
+          "module": "BOOK",
+          "priority": "P1",
+          "expected": "มี date-chip-2026-10-23 ไม่มี date-chip-2026-10-24 · /book?date=2026-10-24 ช่อง out-of-range · ฟอร์ม 24 ต.ค. → \"จองล่วงหน้าได้ไม่เกิน 14 วัน\" · 23 ต.ค. (= 9 + 14) จองสำเร็จ → /pay",
           "status": "passed",
-          "durationMs": 1271,
+          "durationMs": 3343,
           "error": "",
           "steps": [
-            "ต้นเข้าสู่ระบบด้วยเบอร์+รหัสผ่านที่หน้า /my",
-            "เครดิตคงเหลือและประวัติ",
-            "ชั่วโมงสะสม 7 → ยังไม่มีสิทธิ์ อีก 3 ชั่วโมง"
+            "ปุ่มวันมีถึง 23 ต.ค. (วันนี้ + 14) ไม่มี 24 ต.ค.",
+            "ตารางวันที่ 24 ต.ค. (= 9 + 15) ทุกช่องเป็น out-of-range",
+            "ฟอร์มจองวันที่ 24 ต.ค. → ปฏิเสธ",
+            "ฟอร์มจองวันที่ 23 ต.ค. A 9:00 → จองได้"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:45.450Z",
+          "finishedAt": "2026-10-18T17:22:43.450Z",
+          "notes": {}
+        },
+        {
+          "project": "chromium",
+          "tc": "TC-BOOK-07",
+          "title": "TC-BOOK-07 ฟอร์มลูกค้า: ชื่อ เบอร์ และช่องยินยอม PDPA",
+          "file": "tests/book.spec.ts",
+          "module": "BOOK",
+          "priority": "P2",
+          "expected": "pdpa-consent ไม่ติ๊กตอนเปิด · ไม่กรอกชื่อ → \"กรุณากรอกชื่อ\" · เบอร์ 08123 → \"เบอร์โทรต้องเป็นตัวเลข 10 หลักขึ้นต้นด้วย 0\" · ไม่ติ๊ก → \"กรุณายินยอมให้เก็บข้อมูลส่วนบุคคล (PDPA) ก่อนดำเนินการ\" · ไม่มีการจองถูกสร้าง",
+          "status": "passed",
+          "durationMs": 3441,
+          "error": "",
+          "steps": [
+            "เปิดฟอร์ม ช่องยินยอมต้องไม่ติ๊กไว้ก่อน",
+            "ไม่กรอกชื่อ → \"กรุณากรอกชื่อ\"",
+            "เบอร์ 08123 → \"เบอร์โทรต้องเป็นตัวเลข 10 หลักขึ้นต้นด้วย 0\"",
+            "ไม่ติ๊กยินยอม → ข้อความ PDPA",
+            "ไม่มีการจองถูกสร้าง: ช่องยังว่าง"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:22:43.457Z",
+          "notes": {}
+        },
+        {
+          "project": "chromium",
+          "tc": "TC-BOOK-03",
+          "title": "TC-BOOK-03 จำนวนชั่วโมงและเวลาจบไม่เกิน 24:00",
+          "file": "tests/book.spec.ts",
+          "module": "BOOK",
+          "priority": "P1",
+          "expected": "21:00 × 4 → \"การจองต้องจบไม่เกิน 24:00\" · 0 ชม. → \"จำนวนชั่วโมงต้องเป็นจำนวนเต็มอย่างน้อย 1 ชั่วโมง\" · 20:00 × 4 (จบ 24:00) ราคา 4,800 จองได้ → /pay",
+          "status": "passed",
+          "durationMs": 3767,
+          "error": "",
+          "steps": [
+            "A 2026-10-22 เริ่ม 21:00 × 4 ชม. (จบ 01:00) → ปฏิเสธ",
+            "0 ชั่วโมง (= 1 − 1) → ปฏิเสธ",
+            "เริ่ม 20:00 × 4 ชม. (จบ 24:00 พอดี) → ราคา 4,800 และจองได้"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:22:43.686Z",
           "notes": {}
         },
         {
@@ -238,7 +216,7 @@
           "priority": "P1",
           "expected": "แตะช่องว่าง → ฟอร์ม (PDPA ไม่ติ๊ก) → 2 ชม. ราคา 2,400 มัดจำ 50% จ่ายตอนนี้ 1,200 เก็บหน้าสนาม 1,200 → /pay/LN-xxxxxx จ่าย 1,200 → /booking/{code}?done=paid \"ชำระเงินสำเร็จ การจองได้รับการยืนยันแล้ว\" CONFIRMED จ่ายแล้ว 1,200 ค้าง 1,200 · consentAt ถูกบันทึก · ช่องเป็น booked",
           "status": "passed",
-          "durationMs": 4675,
+          "durationMs": 4507,
           "error": "",
           "steps": [
             "เปิดตารางว่าง 2026-10-12 แล้วแตะช่อง A 19:00",
@@ -250,31 +228,29 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:45.589Z",
+          "finishedAt": "2026-10-18T17:22:44.328Z",
           "notes": {}
         },
         {
           "project": "chromium",
-          "tc": "TC-CANCEL-06",
-          "title": "TC-CANCEL-06 เลื่อนการจองที่คำท้า MATCHED ไม่ได้ (A-21)",
-          "file": "tests/cancel.spec.ts",
-          "module": "CANCEL",
-          "priority": "P1",
-          "expected": "B พฤ. 15 ต.ค. 1 ชม. (฿800 มัดจำ 400) ประกาศหาคู่แข่ง ทีมอื่นรับและจ่าย ฿400 → MATCHED · หน้าเจ้าของ reschedule-submit-hint data-value CHALLENGE_MATCHED \"มีทีมรับคำท้าแล้ว ยกเลิกหรือเลื่อนการจองนี้ไม่ได้\" · กดเลื่อนไปเวลาว่าง → error เดิม · API reschedule → 409 CHALLENGE_MATCHED · วัน/เวลาเดิม rescheduleCount 0 สถานะ CONFIRMED เครดิตเจ้าของ 400 (CHALLENGE อย่างเดียว) ช่องปลายทางยังว่าง",
+          "tc": "TC-CREDIT-01",
+          "title": "TC-CREDIT-01 สมาชิกดูเครดิต ประวัติเครดิต และชั่วโมงสะสม",
+          "file": "tests/credit.spec.ts",
+          "module": "CREDIT",
+          "priority": "P2",
+          "expected": "ต้น: credit-balance 1,200 · credit-entry RAIN +1200 · paid-hours 7 · free-hours-available 0 · free-hours-next data-value 3 \"อีก 3 ชั่วโมง\" (= 10 − 7)",
           "status": "passed",
-          "durationMs": 1856,
+          "durationMs": 1297,
           "error": "",
           "steps": [
-            "เจ้าของ (สมาชิกใหม่) จองและจ่าย B 2026-10-15 14:00 แล้วประกาศหาคู่แข่ง",
-            "ทีมอื่นรับคำท้าและจ่าย ฿400 → MATCHED",
-            "หน้าการจอง: เหตุผลที่เลื่อนไม่ได้แสดงก่อนกด",
-            "กดเลื่อนไป 21:00 (ช่วงว่าง) → ปฏิเสธ",
-            "API เลื่อน → 409 CHALLENGE_MATCHED และการจองไม่เปลี่ยน"
+            "ต้นเข้าสู่ระบบด้วยเบอร์+รหัสผ่านที่หน้า /my",
+            "เครดิตคงเหลือและประวัติ",
+            "ชั่วโมงสะสม 7 → ยังไม่มีสิทธิ์ อีก 3 ชั่วโมง"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:45.976Z",
+          "finishedAt": "2026-10-18T17:22:44.783Z",
           "notes": {}
         },
         {
@@ -286,7 +262,7 @@
           "priority": "P1",
           "expected": "A มีการจอง 2 ชม. แล้ว: A เริ่มชั่วโมงที่ 2 (ทับ 1 ชม.) → \"ช่วงเวลานี้ถูกจองแล้ว\" · A เริ่มต่อท้ายพอดี → จองได้ · B เวลาเดียวกัน → จองได้",
           "status": "passed",
-          "durationMs": 5112,
+          "durationMs": 5061,
           "error": "",
           "steps": [
             "มีการจอง A 19:00–21:00 (จ่ายแล้ว)",
@@ -297,30 +273,31 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:46.011Z",
+          "finishedAt": "2026-10-18T17:22:45.026Z",
           "notes": {}
         },
         {
           "project": "chromium",
-          "tc": "TC-HOME-01",
-          "title": "TC-HOME-01 หน้าแรกพร้อมใช้ การ์ด 3 สนาม และไปตารางว่างวันนี้ใน 1 แตะ",
-          "file": "tests/home.spec.ts",
-          "module": "HOME",
-          "priority": "P2",
-          "expected": "<html data-ready=\"true\" data-bug-mode=\"0|1\"> · home-field-A/B/C แสดง · แตะ cta-today 1 ครั้ง → /book, date-chip-2026-10-09 aria-pressed=true, slot-grid แสดง (NFR-02 ≤ 3 แตะ) · ไม่มี console error",
+          "tc": "TC-CANCEL-06",
+          "title": "TC-CANCEL-06 เลื่อนการจองที่คำท้า MATCHED ไม่ได้ (A-21)",
+          "file": "tests/cancel.spec.ts",
+          "module": "CANCEL",
+          "priority": "P1",
+          "expected": "B พฤ. 15 ต.ค. 1 ชม. (฿800 มัดจำ 400) ประกาศหาคู่แข่ง ทีมอื่นรับและจ่าย ฿400 → MATCHED · หน้าเจ้าของ reschedule-submit-hint data-value CHALLENGE_MATCHED \"มีทีมรับคำท้าแล้ว ยกเลิกหรือเลื่อนการจองนี้ไม่ได้\" · กดเลื่อนไปเวลาว่าง → error เดิม · API reschedule → 409 CHALLENGE_MATCHED · วัน/เวลาเดิม rescheduleCount 0 สถานะ CONFIRMED เครดิตเจ้าของ 400 (CHALLENGE อย่างเดียว) ช่องปลายทางยังว่าง",
           "status": "passed",
-          "durationMs": 1062,
+          "durationMs": 2417,
           "error": "",
           "steps": [
-            "เปิดหน้าแรก /",
-            "เห็นการ์ดสนาม A, B, C และปุ่มดูสนามว่างวันนี้",
-            "แตะ cta-today 1 ครั้ง → ตารางว่างของวันนี้",
-            "ไม่มี console error"
+            "เจ้าของ (สมาชิกใหม่) จองและจ่าย B 2026-10-15 14:00 แล้วประกาศหาคู่แข่ง",
+            "ทีมอื่นรับคำท้าและจ่าย ฿400 → MATCHED",
+            "หน้าการจอง: เหตุผลที่เลื่อนไม่ได้แสดงก่อนกด",
+            "กดเลื่อนไป 21:00 (ช่วงว่าง) → ปฏิเสธ",
+            "API เลื่อน → 409 CHALLENGE_MATCHED และการจองไม่เปลี่ยน"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:46.673Z",
+          "finishedAt": "2026-10-18T17:22:45.891Z",
           "notes": {}
         },
         {
@@ -332,7 +309,7 @@
           "priority": "P2",
           "expected": "A,B: size 5 outdoor 800/1,200 · C: size 7 covered 1,200/1,800 · field-art-* มี aria-label",
           "status": "passed",
-          "durationMs": 942,
+          "durationMs": 951,
           "error": "",
           "steps": [
             "เปิด /fields",
@@ -343,7 +320,30 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:46.934Z",
+          "finishedAt": "2026-10-18T17:22:46.008Z",
+          "notes": {}
+        },
+        {
+          "project": "chromium",
+          "tc": "TC-HOME-01",
+          "title": "TC-HOME-01 หน้าแรกพร้อมใช้ การ์ด 3 สนาม และไปตารางว่างวันนี้ใน 1 แตะ",
+          "file": "tests/home.spec.ts",
+          "module": "HOME",
+          "priority": "P2",
+          "expected": "<html data-ready=\"true\" data-bug-mode=\"0|1\"> · home-field-A/B/C แสดง · แตะ cta-today 1 ครั้ง → /book, date-chip-2026-10-09 aria-pressed=true, slot-grid แสดง (NFR-02 ≤ 3 แตะ) · ไม่มี console error",
+          "status": "passed",
+          "durationMs": 1247,
+          "error": "",
+          "steps": [
+            "เปิดหน้าแรก /",
+            "เห็นการ์ดสนาม A, B, C และปุ่มดูสนามว่างวันนี้",
+            "แตะ cta-today 1 ครั้ง → ตารางว่างของวันนี้",
+            "ไม่มี console error"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:22:46.061Z",
           "notes": {}
         },
         {
@@ -355,7 +355,7 @@
           "priority": "P1",
           "expected": "เบอร์ใหม่ (ไม่สมัคร) มีเครดิต ฿400 จากการยกเลิก · ไม่เข้าสู่ระบบ: /api/quote useCredit=true → 401 MEMBER_REQUIRED \"ต้องเข้าสู่ระบบสมาชิกก่อน\" · /api/quote creditUsed=400 → 401 เดิม · /api/bookings useCredit+creditUsed=400 → 401 เดิม ไม่สร้างการจอง · creditUsed=0 ไม่นับว่าขอใช้ (200, creditUsed 0) · เข้าสู่ระบบเป็นสมาชิกคนอื่น (มิว) แล้วจองด้วยเบอร์นี้ขอใช้เครดิต → 401 เดิม · ฟอร์มไม่มี use-credit · เครดิตยัง ฿400 · หลังสมัคร+เข้าสู่ระบบเบอร์นี้ quote ใช้เครดิตได้ 400",
           "status": "passed",
-          "durationMs": 2428,
+          "durationMs": 2618,
           "error": "",
           "steps": [
             "ลูกค้า (ไม่สมัคร) จอง B 2026-10-15 9:00 จ่าย 400 แล้วยกเลิกล่วงหน้า → เครดิต 400",
@@ -369,30 +369,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:47.893Z",
-          "notes": {}
-        },
-        {
-          "project": "chromium",
-          "tc": "TC-I18N-01",
-          "title": "TC-I18N-01 สลับภาษา ไทย/English และจำภาษาเมื่อเปลี่ยนหน้า",
-          "file": "tests/i18n.spec.ts",
-          "module": "I18N",
-          "priority": "P2",
-          "expected": "กด lang-en → <html lang=\"en\">, lang-en aria-pressed=true · ไปหน้าสนามและตารางยังเป็น en · เงินแสดง \"THB 1,200\" · กด lang-th → กลับ th และ \"฿1,200\"",
-          "status": "passed",
-          "durationMs": 1989,
-          "error": "",
-          "steps": [
-            "หน้าแรกเริ่มเป็นภาษาไทย แล้วกด EN",
-            "ไปหน้าสนาม: ยังเป็น English และเงินเป็น THB",
-            "ไปหน้าตารางว่าง (โหลดใหม่ทั้งหน้า) ยังเป็น English",
-            "กด TH กลับเป็นภาษาไทยและ ฿"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:29:48.019Z",
+          "finishedAt": "2026-10-18T17:22:47.004Z",
           "notes": {}
         },
         {
@@ -404,7 +381,7 @@
           "priority": "P1",
           "expected": "A 09:00 (฿800) → A 17:00 (฿1,200): \"เลื่อนการจองแล้ว จ่ายส่วนต่าง ฿400 เรียบร้อย\" ยอดรวม 1,200 · เลื่อนครั้งที่ 2 → \"เลื่อนได้ 1 ครั้งต่อการจอง\" · B 17:00 → B 09:00: \"เลื่อนการจองแล้ว ได้รับส่วนต่างเป็นเครดิต ฿400\" ยอดรวม 800",
           "status": "passed",
-          "durationMs": 3959,
+          "durationMs": 3931,
           "error": "",
           "steps": [
             "สร้างและจ่ายการจอง A 9:00 และ B 17:00 (พ. 21 ต.ค.)",
@@ -415,32 +392,30 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:48.030Z",
+          "finishedAt": "2026-10-18T17:22:47.070Z",
           "notes": {}
         },
         {
           "project": "chromium",
-          "tc": "TC-MEMBER-02",
-          "title": "TC-MEMBER-02 ดูการจองด้วยรหัส+เบอร์ · ข้อมูลผูกเบอร์ ชื่อเก็บต่อการจอง · เห็นเฉพาะของตัวเอง",
-          "file": "tests/member.spec.ts",
-          "module": "MEMBER",
+          "tc": "TC-I18N-01",
+          "title": "TC-I18N-01 สลับภาษา ไทย/English และจำภาษาเมื่อเปลี่ยนหน้า",
+          "file": "tests/i18n.spec.ts",
+          "module": "I18N",
           "priority": "P2",
-          "expected": "LN-900004 + 0844444444 → /booking/LN-900004 ชื่อ \"แนน\" · LN-900001 + เบอร์แนน → \"เบอร์โทรไม่ตรงกับการจองนี้\" · เปิด /booking/LN-900001 ตรง ๆ → gate-phone · จองด้วยเบอร์แนนชื่อ \"แนน ทดลอง\" → แสดง \"แนน ทดลอง\" และ customerId เดียวกับ LN-900004 · มิวเรียกการจองของต้น → 403 BOOKING_FORBIDDEN",
+          "expected": "กด lang-en → <html lang=\"en\">, lang-en aria-pressed=true · ไปหน้าสนามและตารางยังเป็น en · เงินแสดง \"THB 1,200\" · กด lang-th → กลับ th และ \"฿1,200\"",
           "status": "passed",
-          "durationMs": 3402,
+          "durationMs": 2396,
           "error": "",
           "steps": [
-            "ค้นด้วยรหัส LN-900004 + เบอร์แนน → เห็นการจอง",
-            "ค้น LN-900001 (ของต้น) ด้วยเบอร์แนน → ปฏิเสธ",
-            "เปิด /booking/LN-900001 ตรง ๆ → ต้องใส่เบอร์ก่อน ไม่เห็นรายละเอียด",
-            "จองด้วยเบอร์แนน กรอกชื่อ \"แนน ทดลอง\" (อา. 18 ต.ค. C 20:00)",
-            "การจองใหม่เป็นลูกค้าคนเดียวกับ LN-900004 (ผูกเบอร์)",
-            "มิว (สมาชิกอื่น) เรียกดูการจองของต้น → 403"
+            "หน้าแรกเริ่มเป็นภาษาไทย แล้วกด EN",
+            "ไปหน้าสนาม: ยังเป็น English และเงินเป็น THB",
+            "ไปหน้าตารางว่าง (โหลดใหม่ทั้งหน้า) ยังเป็น English",
+            "กด TH กลับเป็นภาษาไทยและ ฿"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:51.322Z",
+          "finishedAt": "2026-10-18T17:22:48.312Z",
           "notes": {}
         },
         {
@@ -452,7 +427,7 @@
           "priority": "P2",
           "expected": "รหัส 7 ตัว → \"รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร\" · ไม่ติ๊กยินยอม → \"กรุณายินยอมให้เก็บข้อมูลส่วนบุคคล (PDPA) ก่อนดำเนินการ\" · สำเร็จ → \"สมัครสมาชิกสำเร็จ\" + my-name · สมัครซ้ำ → \"เบอร์นี้สมัครสมาชิกแล้ว กรุณาเข้าสู่ระบบ\" · รหัสผิด → \"เบอร์โทรหรือรหัสผ่านไม่ถูกต้อง\" · รหัสถูก → my-name",
           "status": "passed",
-          "durationMs": 4575,
+          "durationMs": 4716,
           "error": "",
           "steps": [
             "เปิด /my",
@@ -466,32 +441,32 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:51.541Z",
+          "finishedAt": "2026-10-18T17:22:50.802Z",
           "notes": {}
         },
         {
           "project": "chromium",
-          "tc": "TC-CREDIT-02",
-          "title": "TC-CREDIT-02 เครดิตสะสมตามเบอร์ ใช้ได้หลังสมัครสมาชิกเท่านั้น",
-          "file": "tests/credit.spec.ts",
-          "module": "CREDIT",
-          "priority": "P1",
-          "expected": "ยกเลิกล่วงหน้า 7 วัน → \"ยกเลิกแล้ว ได้รับเครดิตคืน ฿400\" · ยังไม่สมัคร: ไม่มี use-credit และ API ไม่ยอมให้ใช้เครดิต · สมัครแล้ว credit-balance 400 (CANCEL +400) · จองใหม่ใช้เครดิต: เครดิต 400 สุทธิ 400 จ่ายตอนนี้ 200 · จ่ายแล้วเครดิต 0 มีรายการ USED −400",
+          "tc": "TC-MEMBER-02",
+          "title": "TC-MEMBER-02 ดูการจองด้วยรหัส+เบอร์ · ข้อมูลผูกเบอร์ ชื่อเก็บต่อการจอง · เห็นเฉพาะของตัวเอง",
+          "file": "tests/member.spec.ts",
+          "module": "MEMBER",
+          "priority": "P2",
+          "expected": "LN-900004 + 0844444444 → /booking/LN-900004 ชื่อ \"แนน\" · LN-900001 + เบอร์แนน → \"เบอร์โทรไม่ตรงกับการจองนี้\" · เปิด /booking/LN-900001 ตรง ๆ → gate-phone · จองด้วยเบอร์แนนชื่อ \"แนน ทดลอง\" → แสดง \"แนน ทดลอง\" และ customerId เดียวกับ LN-900004 · มิวเรียกการจองของต้น → 403 BOOKING_FORBIDDEN",
           "status": "passed",
-          "durationMs": 7653,
+          "durationMs": 3808,
           "error": "",
           "steps": [
-            "ลูกค้า (ไม่สมัคร) จอง B 9:00 ศ. 16 ต.ค. จ่ายมัดจำ 400",
-            "ยกเลิก (เหลือ 7 วัน ≥ 24 ชม.) → ได้เครดิต 400",
-            "ยังไม่สมัคร: ฟอร์มจองไม่มีช่องใช้เครดิต และ API ไม่ยอมให้ใช้เครดิต",
-            "สมัครสมาชิกด้วยเบอร์เดิม → เห็นเครดิต 400 (CANCEL)",
-            "จองใหม่ B 10:00 ติ๊กใช้เครดิต → เครดิต 400 สุทธิ 400 จ่าย 200",
-            "หลังจ่าย เครดิตเหลือ 0 มีรายการ USED −400"
+            "ค้นด้วยรหัส LN-900004 + เบอร์แนน → เห็นการจอง",
+            "ค้น LN-900001 (ของต้น) ด้วยเบอร์แนน → ปฏิเสธ",
+            "เปิด /booking/LN-900001 ตรง ๆ → ต้องใส่เบอร์ก่อน ไม่เห็นรายละเอียด",
+            "จองด้วยเบอร์แนน กรอกชื่อ \"แนน ทดลอง\" (อา. 18 ต.ค. C 20:00)",
+            "การจองใหม่เป็นลูกค้าคนเดียวกับ LN-900004 (ผูกเบอร์)",
+            "มิว (สมาชิกอื่น) เรียกดูการจองของต้น → 403"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:51.961Z",
+          "finishedAt": "2026-10-18T17:22:50.890Z",
           "notes": {}
         },
         {
@@ -503,7 +478,7 @@
           "priority": "P3",
           "expected": "โหมด EN: /, /book, /book/new, /fields, /challenges, /my, /series, /pay/{code}, /booking/{code} ไม่มีอักษรไทย (ยกเว้นชื่อร้านและชื่อที่ผู้ใช้กรอก) · ไม่กรอกชื่อ → \"Please enter your name\"",
           "status": "passed",
-          "durationMs": 5688,
+          "durationMs": 5182,
           "error": "",
           "steps": [
             "สร้างการจอง A ศ. 16 ต.ค. 8:00 (ชื่อภาษาอังกฤษ)",
@@ -523,7 +498,32 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:52.398Z",
+          "finishedAt": "2026-10-18T17:22:51.222Z",
+          "notes": {}
+        },
+        {
+          "project": "chromium",
+          "tc": "TC-CREDIT-02",
+          "title": "TC-CREDIT-02 เครดิตสะสมตามเบอร์ ใช้ได้หลังสมัครสมาชิกเท่านั้น",
+          "file": "tests/credit.spec.ts",
+          "module": "CREDIT",
+          "priority": "P1",
+          "expected": "ยกเลิกล่วงหน้า 7 วัน → \"ยกเลิกแล้ว ได้รับเครดิตคืน ฿400\" · ยังไม่สมัคร: ไม่มี use-credit และ API ไม่ยอมให้ใช้เครดิต · สมัครแล้ว credit-balance 400 (CANCEL +400) · จองใหม่ใช้เครดิต: เครดิต 400 สุทธิ 400 จ่ายตอนนี้ 200 · จ่ายแล้วเครดิต 0 มีรายการ USED −400",
+          "status": "passed",
+          "durationMs": 8613,
+          "error": "",
+          "steps": [
+            "ลูกค้า (ไม่สมัคร) จอง B 9:00 ศ. 16 ต.ค. จ่ายมัดจำ 400",
+            "ยกเลิก (เหลือ 7 วัน ≥ 24 ชม.) → ได้เครดิต 400",
+            "ยังไม่สมัคร: ฟอร์มจองไม่มีช่องใช้เครดิต และ API ไม่ยอมให้ใช้เครดิต",
+            "สมัครสมาชิกด้วยเบอร์เดิม → เห็นเครดิต 400 (CANCEL)",
+            "จองใหม่ B 10:00 ติ๊กใช้เครดิต → เครดิต 400 สุทธิ 400 จ่าย 200",
+            "หลังจ่าย เครดิตเหลือ 0 มีรายการ USED −400"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:22:52.326Z",
           "notes": {}
         },
         {
@@ -535,7 +535,7 @@
           "priority": "P1",
           "expected": "มิว: ศ. 16 A 16:00 ใช้ได้ (ฟรี 800 ยอด 0) · ศ. 16 A 17:00 และ ส. 17 A 09:00 → 400 \"ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์\" · อ. 13 (วันหยุดวันธรรมดา) A 09:00 ใช้ได้ · ต้น (7 ชม.) → \"ยังไม่มีสิทธิ์ชั่วโมงฟรี\" และ use-free-hour กดไม่ได้",
           "status": "passed",
-          "durationMs": 4436,
+          "durationMs": 4168,
           "error": "",
           "steps": [
             "มิวเข้าสู่ระบบ (สะสม 10 ชม. = 1 สิทธิ์) ศ. 16 A 16:00 ใช้สิทธิ์ได้",
@@ -546,7 +546,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:52.490Z",
+          "finishedAt": "2026-10-18T17:22:52.543Z",
           "notes": {}
         },
         {
@@ -558,7 +558,7 @@
           "priority": "P1",
           "expected": "เช็กอิน 9 ชม. → paid-hours 9, free-hours-available 0, free-hours-next 1 · ครบ 10 → free-hours-available 1 · จอง C 1 ชม. ใช้สิทธิ์: price-free-hour 1,200 price-total 0 → /booking/{code}?done=free \"ยืนยันการจองแล้ว (ยอดที่ต้องจ่าย ฿0)\" CONFIRMED · สิทธิ์เหลือ 0",
           "status": "passed",
-          "durationMs": 4808,
+          "durationMs": 5511,
           "error": "",
           "steps": [
             "สมัครสมาชิกใหม่",
@@ -571,103 +571,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:52.859Z",
-          "notes": {}
-        },
-        {
-          "project": "chromium",
-          "tc": "TC-MEMBER-05",
-          "title": "TC-MEMBER-05 ช่องชั่วโมงฟรีปิด (disabled) พร้อมเหตุผล เมื่อรอบใช้สิทธิ์ไม่ได้หรือไม่มีสิทธิ์ (Q-T5)",
-          "file": "tests/member.spec.ts",
-          "module": "MEMBER",
-          "priority": "P2",
-          "expected": "มิว (1 สิทธิ์): ศ. 16 A 16:00 → use-free-hour ใช้ได้ ไม่มี use-free-hour-reason · เปลี่ยนเป็น 17:00 → disabled + use-free-hour-reason data-value FREE_HOUR_NOT_ELIGIBLE \"ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์\" · ส. 17 A 09:00 → disabled + เหตุผลเดิม · API ส่ง useFreeHour กับ ส. 09:00 ยังได้ 400 FREE_HOUR_NOT_ELIGIBLE · ต้น (0 สิทธิ์) ศ. 16 A 16:00 → disabled + FREE_HOUR_NONE \"ยังไม่มีสิทธิ์ชั่วโมงฟรี\"",
-          "status": "passed",
-          "durationMs": 3403,
-          "error": "",
-          "steps": [
-            "มิวเข้าสู่ระบบ · ศ. 16 ต.ค. A 16:00 → ช่องชั่วโมงฟรีใช้ได้ ไม่มีเหตุผลปิด",
-            "เปลี่ยนเวลาเริ่มเป็น 17:00 → ช่องปิด พร้อมเหตุผล FREE_HOUR_NOT_ELIGIBLE",
-            "ส. 17 ต.ค. A 09:00 (เสาร์) → ช่องปิด พร้อมเหตุผลเดิม",
-            "API ยังตอบ error เดิมถ้าส่ง useFreeHour มากับรอบที่ใช้ไม่ได้",
-            "ต้น (สะสม 7 ชม. ยังไม่มีสิทธิ์) ศ. 16 A 16:00 → ช่องปิด พร้อมเหตุผล FREE_HOUR_NONE"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:29:54.738Z",
-          "notes": {}
-        },
-        {
-          "project": "chromium",
-          "tc": "TC-PAY-01",
-          "title": "TC-PAY-01 หน้าจ่ายจำลอง PromptPay และสถานะหลังจ่าย (รีโหลด/จ่ายซ้ำ)",
-          "file": "tests/pay.spec.ts",
-          "module": "PAY",
-          "priority": "P2",
-          "expected": "booking-code ตรง · pay-qr แสดง · pay-now-amount 400 (สนาม C 600) · pay-countdown data-value 1–900 วินาที ข้อความ mm:ss ≤ 15:00 · จ่ายแล้วเปิด /pay ซ้ำ → pay-already · API จ่ายซ้ำ → 409 INVALID_STATUS \"สถานะการจองนี้ทำรายการนี้ไม่ได้\"",
-          "status": "passed",
-          "durationMs": 1948,
-          "error": "",
-          "steps": [
-            "สร้างการจอง A จ. 12 ต.ค. 08:00 1 ชม.",
-            "หน้า /pay แสดงรหัส QR ยอด และเวลานับถอยหลัง 15 นาที",
-            "กดยืนยันการจ่าย → CONFIRMED",
-            "เปิด /pay ซ้ำ → แจ้งว่าไม่ต้องจ่ายแล้ว ไม่มีปุ่มจ่าย",
-            "เรียก API จ่ายซ้ำ → 409 INVALID_STATUS"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:29:54.820Z",
-          "notes": {}
-        },
-        {
-          "project": "chromium",
-          "tc": "TC-OWNER-02",
-          "title": "TC-OWNER-02 ปิดสนามเพราะฝน: เฉพาะ A/B · คืนเครดิต · ไม่แตะการจองนอกช่วง",
-          "file": "tests/owner.spec.ts",
-          "module": "OWNER",
-          "priority": "P1",
-          "expected": "closure-field มีแค่ A, B · API ปิด C → 400 \"สนาม C มีหลังคา ปิดเพราะฝนไม่ได้\" · ปิด A ช่วงที่จ่ายมา ฿1,200 → \"ปิดสนามแล้ว คืนเครดิต 1 การจอง\" closure-affected 1,200 · การจองเป็น RAIN_CLOSED ลูกค้าได้เครดิต 1,200 · การจอง 15:00 นอกช่วงยัง CONFIRMED · ช่องเป็น closed · จองช่วงที่ปิด → \"สนามปิดในช่วงเวลานี้\"",
-          "status": "passed",
-          "durationMs": 2602,
-          "error": "",
-          "steps": [
-            "ลูกค้า (สมาชิก) จอง A 2026-10-20 19:00 × 2 จ่าย 1,200 และ A 15:00 (นอกช่วง)",
-            "API ปิดสนาม C (มีหลังคา) → ปฏิเสธ",
-            "เจ้าของปิด A 2026-10-20 19:00–21:00 เพราะฝน",
-            "การจองในช่วงเป็น RAIN_CLOSED ได้เครดิต 1,200 · นอกช่วงไม่ถูกแตะ",
-            "ตารางแสดงช่วงที่ปิดเป็น closed และจองช่วงนั้นไม่ได้"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:29:55.019Z",
-          "notes": {}
-        },
-        {
-          "project": "chromium",
-          "tc": "TC-OWNER-03",
-          "title": "TC-OWNER-03 ปิดเพราะฝนการจองที่คำท้า MATCHED: ทีมได้คืนเท่าที่จ่าย เจ้าของได้ จ่าย + เครดิตที่ใช้ − เครดิตจากคำท้า (A-27)",
-          "file": "tests/owner.spec.ts",
-          "module": "OWNER",
-          "priority": "P1",
-          "expected": "A ศ. 16 ต.ค. 1 ชม. (เริ่ม ≥ 17:00 → FULL_100) จ่าย ฿1,200 · ทีมรับจ่าย ฿600 (= ฿1,200 × 50%) → เจ้าของได้ CHALLENGE ฿600 · เจ้าของปิด A ช่วงนั้นเพราะฝน → \"ปิดสนามแล้ว คืนเครดิต 1 การจอง\" · closure-affected-{code}-credit = 600 (= ฿1,200 − ฿600) · closure-affected-{code}-challenge = 600 · การจอง RAIN_CLOSED คำท้า CLOSED · เจ้าของเครดิตรวม 1,200 (CHALLENGE +600, RAIN +600) · ทีมรับ (สมัครด้วยเบอร์นั้น) เครดิต 600 (RAIN +600)",
-          "status": "passed",
-          "durationMs": 2689,
-          "error": "",
-          "steps": [
-            "เจ้าของ (สมาชิกใหม่) จอง A ศ. 2026-10-16 18:00 จ่ายเต็ม ฿1,200 แล้วประกาศหาคู่แข่ง",
-            "ทีมอื่นรับคำท้าและจ่าย ฿600 → MATCHED · เจ้าของได้เครดิต CHALLENGE ฿600",
-            "เจ้าของร้านปิด A 2026-10-16 18:00–19:00 เพราะฝน",
-            "การจอง RAIN_CLOSED คำท้า CLOSED · เจ้าของเครดิต 1,200 (CHALLENGE +600, RAIN +600)",
-            "ทีมรับคำท้าสมัครด้วยเบอร์ของทีม → เห็นเครดิตคืน ฿600 (RAIN)"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:29:55.202Z",
+          "finishedAt": "2026-10-18T17:22:52.631Z",
           "notes": {}
         },
         {
@@ -679,7 +583,7 @@
           "priority": "P2",
           "expected": "เพิ่มวันหยุด → \"เพิ่มวันหยุดแล้ว\" รายการปรากฏ · ตารางวันนั้นมี holiday-badge และ A 09:00 = ฿1,200 · เพิ่มซ้ำ → \"มีวันหยุดวันนี้อยู่แล้ว\" · ลบ → \"ลบวันหยุดแล้ว\" ราคากลับเป็น ฿800",
           "status": "passed",
-          "durationMs": 3552,
+          "durationMs": 3372,
           "error": "",
           "steps": [
             "ก่อนเพิ่ม: วันธรรมดา A 09:00 = ฿800",
@@ -691,7 +595,103 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:55.550Z",
+          "finishedAt": "2026-10-18T17:22:54.656Z",
+          "notes": {}
+        },
+        {
+          "project": "chromium",
+          "tc": "TC-PAY-01",
+          "title": "TC-PAY-01 หน้าจ่ายจำลอง PromptPay และสถานะหลังจ่าย (รีโหลด/จ่ายซ้ำ)",
+          "file": "tests/pay.spec.ts",
+          "module": "PAY",
+          "priority": "P2",
+          "expected": "booking-code ตรง · pay-qr แสดง · pay-now-amount 400 (สนาม C 600) · pay-countdown data-value 1–900 วินาที ข้อความ mm:ss ≤ 15:00 · จ่ายแล้วเปิด /pay ซ้ำ → pay-already · API จ่ายซ้ำ → 409 INVALID_STATUS \"สถานะการจองนี้ทำรายการนี้ไม่ได้\"",
+          "status": "passed",
+          "durationMs": 2326,
+          "error": "",
+          "steps": [
+            "สร้างการจอง A จ. 12 ต.ค. 08:00 1 ชม.",
+            "หน้า /pay แสดงรหัส QR ยอด และเวลานับถอยหลัง 15 นาที",
+            "กดยืนยันการจ่าย → CONFIRMED",
+            "เปิด /pay ซ้ำ → แจ้งว่าไม่ต้องจ่ายแล้ว ไม่มีปุ่มจ่าย",
+            "เรียก API จ่ายซ้ำ → 409 INVALID_STATUS"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:22:54.984Z",
+          "notes": {}
+        },
+        {
+          "project": "chromium",
+          "tc": "TC-MEMBER-05",
+          "title": "TC-MEMBER-05 ช่องชั่วโมงฟรีปิด (disabled) พร้อมเหตุผล เมื่อรอบใช้สิทธิ์ไม่ได้หรือไม่มีสิทธิ์ (Q-T5)",
+          "file": "tests/member.spec.ts",
+          "module": "MEMBER",
+          "priority": "P2",
+          "expected": "มิว (1 สิทธิ์): ศ. 16 A 16:00 → use-free-hour ใช้ได้ ไม่มี use-free-hour-reason · เปลี่ยนเป็น 17:00 → disabled + use-free-hour-reason data-value FREE_HOUR_NOT_ELIGIBLE \"ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์\" · ส. 17 A 09:00 → disabled + เหตุผลเดิม · API ส่ง useFreeHour กับ ส. 09:00 ยังได้ 400 FREE_HOUR_NOT_ELIGIBLE · ต้น (0 สิทธิ์) ศ. 16 A 16:00 → disabled + FREE_HOUR_NONE \"ยังไม่มีสิทธิ์ชั่วโมงฟรี\"",
+          "status": "passed",
+          "durationMs": 4186,
+          "error": "",
+          "steps": [
+            "มิวเข้าสู่ระบบ · ศ. 16 ต.ค. A 16:00 → ช่องชั่วโมงฟรีใช้ได้ ไม่มีเหตุผลปิด",
+            "เปลี่ยนเวลาเริ่มเป็น 17:00 → ช่องปิด พร้อมเหตุผล FREE_HOUR_NOT_ELIGIBLE",
+            "ส. 17 ต.ค. A 09:00 (เสาร์) → ช่องปิด พร้อมเหตุผลเดิม",
+            "API ยังตอบ error เดิมถ้าส่ง useFreeHour มากับรอบที่ใช้ไม่ได้",
+            "ต้น (สะสม 7 ชม. ยังไม่มีสิทธิ์) ศ. 16 A 16:00 → ช่องปิด พร้อมเหตุผล FREE_HOUR_NONE"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:22:54.999Z",
+          "notes": {}
+        },
+        {
+          "project": "chromium",
+          "tc": "TC-OWNER-02",
+          "title": "TC-OWNER-02 ปิดสนามเพราะฝน: เฉพาะ A/B · คืนเครดิต · ไม่แตะการจองนอกช่วง",
+          "file": "tests/owner.spec.ts",
+          "module": "OWNER",
+          "priority": "P1",
+          "expected": "closure-field มีแค่ A, B · API ปิด C → 400 \"สนาม C มีหลังคา ปิดเพราะฝนไม่ได้\" · ปิด A ช่วงที่จ่ายมา ฿1,200 → \"ปิดสนามแล้ว คืนเครดิต 1 การจอง\" closure-affected 1,200 · การจองเป็น RAIN_CLOSED ลูกค้าได้เครดิต 1,200 · การจอง 15:00 นอกช่วงยัง CONFIRMED · ช่องเป็น closed · จองช่วงที่ปิด → \"สนามปิดในช่วงเวลานี้\"",
+          "status": "passed",
+          "durationMs": 2860,
+          "error": "",
+          "steps": [
+            "ลูกค้า (สมาชิก) จอง A 2026-10-20 19:00 × 2 จ่าย 1,200 และ A 15:00 (นอกช่วง)",
+            "API ปิดสนาม C (มีหลังคา) → ปฏิเสธ",
+            "เจ้าของปิด A 2026-10-20 19:00–21:00 เพราะฝน",
+            "การจองในช่วงเป็น RAIN_CLOSED ได้เครดิต 1,200 · นอกช่วงไม่ถูกแตะ",
+            "ตารางแสดงช่วงที่ปิดเป็น closed และจองช่วงนั้นไม่ได้"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:22:55.227Z",
+          "notes": {}
+        },
+        {
+          "project": "chromium",
+          "tc": "TC-OWNER-03",
+          "title": "TC-OWNER-03 ปิดเพราะฝนการจองที่คำท้า MATCHED: ทีมได้คืนเท่าที่จ่าย เจ้าของได้ จ่าย + เครดิตที่ใช้ − เครดิตจากคำท้า (A-27)",
+          "file": "tests/owner.spec.ts",
+          "module": "OWNER",
+          "priority": "P1",
+          "expected": "A ศ. 16 ต.ค. 1 ชม. (เริ่ม ≥ 17:00 → FULL_100) จ่าย ฿1,200 · ทีมรับจ่าย ฿600 (= ฿1,200 × 50%) → เจ้าของได้ CHALLENGE ฿600 · เจ้าของปิด A ช่วงนั้นเพราะฝน → \"ปิดสนามแล้ว คืนเครดิต 1 การจอง\" · closure-affected-{code}-credit = 600 (= ฿1,200 − ฿600) · closure-affected-{code}-challenge = 600 · การจอง RAIN_CLOSED คำท้า CLOSED · เจ้าของเครดิตรวม 1,200 (CHALLENGE +600, RAIN +600) · ทีมรับ (สมัครด้วยเบอร์นั้น) เครดิต 600 (RAIN +600)",
+          "status": "passed",
+          "durationMs": 2671,
+          "error": "",
+          "steps": [
+            "เจ้าของ (สมาชิกใหม่) จอง A ศ. 2026-10-16 18:00 จ่ายเต็ม ฿1,200 แล้วประกาศหาคู่แข่ง",
+            "ทีมอื่นรับคำท้าและจ่าย ฿600 → MATCHED · เจ้าของได้เครดิต CHALLENGE ฿600",
+            "เจ้าของร้านปิด A 2026-10-16 18:00–19:00 เพราะฝน",
+            "การจอง RAIN_CLOSED คำท้า CLOSED · เจ้าของเครดิต 1,200 (CHALLENGE +600, RAIN +600)",
+            "ทีมรับคำท้าสมัครด้วยเบอร์ของทีม → เห็นเครดิตคืน ฿600 (RAIN)"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:22:55.247Z",
           "notes": {}
         },
         {
@@ -703,7 +703,7 @@
           "priority": "P2",
           "expected": "viewport 375×812: /, /book, /book/new, /fields, /challenges, /my, /series, /pay/{code}, /booking/{code}, /split/{token} → scrollWidth ≤ clientWidth",
           "status": "passed",
-          "durationMs": 4456,
+          "durationMs": 4430,
           "error": "",
           "steps": [
             "สร้างการจอง A จ. 12 ต.ค. 10:00",
@@ -714,15 +714,15 @@
             "เปิด /challenges ที่ 375 px",
             "เปิด /my ที่ 375 px",
             "เปิด /series ที่ 375 px",
-            "เปิด /pay/LN-100018 ที่ 375 px",
+            "เปิด /pay/LN-100017 ที่ 375 px",
             "จ่ายและสร้างลิงก์หาร (เตรียมหน้า /booking และ /split)",
-            "เปิด /booking/LN-100018 ที่ 375 px",
-            "เปิด /split/yDJpyPp3170- ที่ 375 px"
+            "เปิด /booking/LN-100017 ที่ 375 px",
+            "เปิด /split/Lu24iM9mxw3V ที่ 375 px"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:56.017Z",
+          "finishedAt": "2026-10-18T17:22:55.339Z",
           "notes": {}
         },
         {
@@ -734,7 +734,7 @@
           "priority": "P1",
           "expected": "A 09:00: ส. 10 ต.ค. ฿1,200 · อ. 13 ต.ค. (วันหยุด, มี holiday-badge) ฿1,200 · อ. 20 ต.ค. (ไม่ใช่วันหยุด) ฿800",
           "status": "passed",
-          "durationMs": 1464,
+          "durationMs": 1295,
           "error": "",
           "steps": [
             "เสาร์ 10 ต.ค. A 09:00 = ฿1,200",
@@ -744,7 +744,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:56.302Z",
+          "finishedAt": "2026-10-18T17:22:56.307Z",
           "notes": {}
         },
         {
@@ -756,7 +756,7 @@
           "priority": "P1",
           "expected": "พ. 14 ต.ค.: slot-A-16 ฿800 · A-17 ฿1,200 · C-16 ฿1,200 · C-17 ฿1,800 · ฟอร์ม A 16:00 × 2: price-hour-16 800, price-hour-17 1,200, price-field 2,000",
           "status": "passed",
-          "durationMs": 2547,
+          "durationMs": 2511,
           "error": "",
           "steps": [
             "ตาราง พ. 14 ต.ค. ราคาในช่อง",
@@ -765,28 +765,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:57.302Z",
-          "notes": {}
-        },
-        {
-          "project": "chromium",
-          "tc": "TC-RENT-01",
-          "title": "TC-RENT-01 ราคาของเช่าและจำนวนคงเหลือ",
-          "file": "tests/rent.spec.ts",
-          "module": "RENT",
-          "priority": "P1",
-          "expected": "อ. 20 ต.ค. B 08:00: เอี๊ยมเหลือ 6 บอลเหลือ 10 · เอี๊ยม 2 + บอล 1 → price-rental 130 (= 50 × 2 + 30) · price-total 930",
-          "status": "passed",
-          "durationMs": 1983,
-          "error": "",
-          "steps": [
-            "เปิดฟอร์ม B 08:00 อ. 20 ต.ค. เห็นคงเหลือเต็ม",
-            "เช่าเอี๊ยม 2 บอล 1 → ค่าของเช่า 130"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:29:57.555Z",
+          "finishedAt": "2026-10-18T17:22:57.204Z",
           "notes": {}
         },
         {
@@ -798,7 +777,7 @@
           "priority": "P2",
           "expected": "จองเอี๊ยม 6 ชุดได้ · อีกสนามเวลาเดียวกัน เอี๊ยมเหลือ 0 ขอ 1 (ชุดที่ 7) → \"ของเช่าไม่พอ (เอี๊ยม เหลือ 0)\" · บอล 11 ลูก → \"ของเช่าไม่พอ (ลูกบอล เหลือ 10)\"",
           "status": "passed",
-          "durationMs": 2118,
+          "durationMs": 2272,
           "error": "",
           "steps": [
             "จอง B 10:00 2026-10-18 เช่าเอี๊ยม 6 ชุด (ครบ stock) → ได้",
@@ -808,31 +787,28 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:58.158Z",
+          "finishedAt": "2026-10-18T17:22:57.648Z",
           "notes": {}
         },
         {
           "project": "chromium",
-          "tc": "TC-PRICE-03",
-          "title": "TC-PRICE-03 แผนจ่าย มัดจำ 50% / จ่ายเต็ม 100%",
-          "file": "tests/price.spec.ts",
-          "module": "PRICE",
+          "tc": "TC-RENT-01",
+          "title": "TC-RENT-01 ราคาของเช่าและจำนวนคงเหลือ",
+          "file": "tests/rent.spec.ts",
+          "module": "RENT",
           "priority": "P1",
-          "expected": "ศ. 16 เริ่ม 17:00 → FULL_100 (จ่าย 1,200 = ยอดรวม) · ศ. 16 เริ่ม 16:00 × 2 → DEPOSIT_50 (2,000 → 1,000) · พฤ. 15 เริ่ม 17:00 → DEPOSIT_50 · อ. 13 (วันหยุด) เริ่ม 17:00 → DEPOSIT_50 · ส. 17 เริ่ม 17:00 → FULL_100",
+          "expected": "อ. 20 ต.ค. B 08:00: เอี๊ยมเหลือ 6 บอลเหลือ 10 · เอี๊ยม 2 + บอล 1 → price-rental 130 (= 50 × 2 + 30) · price-total 930",
           "status": "passed",
-          "durationMs": 4330,
+          "durationMs": 2453,
           "error": "",
           "steps": [
-            "ศุกร์ 16 ต.ค. เริ่ม 17:00 → FULL_100 จ่ายตอนนี้ 1200",
-            "ศุกร์ 16 ต.ค. เริ่ม 16:00 × 2 (คร่อม 17:00) → DEPOSIT_50 จ่ายตอนนี้ 1000",
-            "พฤหัส 15 ต.ค. เริ่ม 17:00 → DEPOSIT_50 จ่ายตอนนี้ 600",
-            "อังคาร 13 ต.ค. (วันหยุด) เริ่ม 17:00 → DEPOSIT_50 จ่ายตอนนี้ 600",
-            "เสาร์ 17 ต.ค. เริ่ม 17:00 → FULL_100 จ่ายตอนนี้ 1200"
+            "เปิดฟอร์ม B 08:00 อ. 20 ต.ค. เห็นคงเหลือเต็ม",
+            "เช่าเอี๊ยม 2 บอล 1 → ค่าของเช่า 130"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:59.363Z",
+          "finishedAt": "2026-10-18T17:22:57.737Z",
           "notes": {}
         },
         {
@@ -844,7 +820,7 @@
           "priority": "P1",
           "expected": "พ. A 19:00 × 2 = 2,400 → จ่ายตอนนี้ 1,200 เก็บหน้าสนาม 1,200 · ต้น (เครดิต 1,200) ราคา 2,000 ใช้เครดิต → เครดิต 1,200 สุทธิ 800 จ่ายตอนนี้ 400 เก็บหน้าสนาม 400 · เครดิต 1,000 กับยอดรวม 800 → 400 CREDIT_EXCEEDS_TOTAL \"ใช้เครดิตเกินยอดรวมไม่ได้\"",
           "status": "passed",
-          "durationMs": 4257,
+          "durationMs": 3351,
           "error": "",
           "steps": [
             "ไม่เข้าสู่ระบบ: พ. 14 ต.ค. A 19:00 × 2 ชม.",
@@ -854,7 +830,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:59.477Z",
+          "finishedAt": "2026-10-18T17:22:58.617Z",
           "notes": {}
         },
         {
@@ -866,7 +842,7 @@
           "priority": "P1",
           "expected": "ส่วนลด = ⌈ค่าสนาม × 10%⌉ เมื่อมีเศษสตางค์ (BR-19, A-24) · ถ้าราคาจริงทุกสนาม/ช่วงเวลา (dayRate, eveningRate) ทำให้ 10% ลงตัวทุกกรณี → ทดสอบผ่านหน้าเว็บไม่ได้ ข้าม (ไม่เดา)",
           "status": "skipped",
-          "durationMs": 384,
+          "durationMs": 393,
           "error": "",
           "steps": [
             "อ่านราคาจริงจาก /api/fields แล้วหากรณีที่ 10% ของค่าสนามมีเศษ"
@@ -874,11 +850,59 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:59.764Z",
+          "finishedAt": "2026-10-18T17:22:59.064Z",
           "notes": {
             "rates": "A 800/1200, B 800/1200, C 1200/1800",
             "skip": "ทดสอบไม่ได้ผ่านหน้าเว็บ: ราคาจริง (A 800/1200, B 800/1200, C 1200/1800) เป็นทวีคูณของ 10 ทุกช่วง → ส่วนลด 10% ลงตัวทุกกรณี ไม่มีเศษให้ปัด (A-24)"
           }
+        },
+        {
+          "project": "chromium",
+          "tc": "TC-RENT-03",
+          "title": "TC-RENT-03 ของที่ยังไม่คืนจากรอบก่อนหน้า และพนักงานบันทึกคืน",
+          "file": "tests/rent.spec.ts",
+          "module": "RENT",
+          "priority": "P2",
+          "expected": "รอบ 19:00 เช่าเอี๊ยม 6 ยังไม่คืน → รอบ 20:00 เหลือ 0 (= 6 − 6) · รอบ 18:00 (ก่อนหน้า) เหลือ 6 · พนักงานคืน 6 → \"บันทึกคืนของเช่าแล้ว\" → รอบ 20:00 เหลือ 6",
+          "status": "passed",
+          "durationMs": 3856,
+          "error": "",
+          "steps": [
+            "จอง C 19:00 2026-10-22 เช่าเอี๊ยม 6 ชุด จ่ายแล้ว",
+            "รอบ 20:00 (ถัดไป) เอี๊ยมเหลือ 0",
+            "รอบ 18:00 (ก่อนการจองที่เช่า) เอี๊ยมยังเหลือ 6",
+            "พนักงานค้นรหัสแล้วบันทึกคืนเอี๊ยม 6",
+            "รอบ 20:00 เอี๊ยมกลับมาเหลือ 6"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:00.181Z",
+          "notes": {}
+        },
+        {
+          "project": "chromium",
+          "tc": "TC-PRICE-03",
+          "title": "TC-PRICE-03 แผนจ่าย มัดจำ 50% / จ่ายเต็ม 100%",
+          "file": "tests/price.spec.ts",
+          "module": "PRICE",
+          "priority": "P1",
+          "expected": "ศ. 16 เริ่ม 17:00 → FULL_100 (จ่าย 1,200 = ยอดรวม) · ศ. 16 เริ่ม 16:00 × 2 → DEPOSIT_50 (2,000 → 1,000) · พฤ. 15 เริ่ม 17:00 → DEPOSIT_50 · อ. 13 (วันหยุด) เริ่ม 17:00 → DEPOSIT_50 · ส. 17 เริ่ม 17:00 → FULL_100",
+          "status": "passed",
+          "durationMs": 5666,
+          "error": "",
+          "steps": [
+            "ศุกร์ 16 ต.ค. เริ่ม 17:00 → FULL_100 จ่ายตอนนี้ 1200",
+            "ศุกร์ 16 ต.ค. เริ่ม 16:00 × 2 (คร่อม 17:00) → DEPOSIT_50 จ่ายตอนนี้ 1000",
+            "พฤหัส 15 ต.ค. เริ่ม 17:00 → DEPOSIT_50 จ่ายตอนนี้ 600",
+            "อังคาร 13 ต.ค. (วันหยุด) เริ่ม 17:00 → DEPOSIT_50 จ่ายตอนนี้ 600",
+            "เสาร์ 17 ต.ค. เริ่ม 17:00 → FULL_100 จ่ายตอนนี้ 1200"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:00.692Z",
+          "notes": {}
         },
         {
           "project": "chromium",
@@ -889,7 +913,7 @@
           "priority": "P1",
           "expected": "ไม่เข้าสู่ระบบ → series-login-required · 3 สัปดาห์ → \"จองประจำได้ 4–12 สัปดาห์\" · 4 → series-weeks-booked 4 · 12 → 12 (สัปดาห์ที่ 12 = 2026-12-30) · 13 → \"จองประจำได้ 4–12 สัปดาห์\" · เริ่มวันนี้ 10:00 → \"ต้องจองก่อนเวลาเริ่มอย่างน้อย 1 ชั่วโมง\"",
           "status": "passed",
-          "durationMs": 2568,
+          "durationMs": 4084,
           "error": "",
           "steps": [
             "ยังไม่เข้าสู่ระบบ → ต้องเข้าสู่ระบบสมาชิกก่อน",
@@ -903,7 +927,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:59.887Z",
+          "finishedAt": "2026-10-18T17:23:01.312Z",
           "notes": {}
         },
         {
@@ -915,7 +939,7 @@
           "priority": "P1",
           "expected": "พุธ A 19:00 × 2: 10 สัปดาห์ → ค่าสนาม 24,000 ส่วนลด 10% = 2,400 ยอดรวม 21,600 จ่ายตอนนี้ 10,800 · 7 สัปดาห์ (= 8 − 1) → ส่วนลด 0% จ่าย 8,400 · 8 สัปดาห์ → ส่วนลด 10% (1,920) จ่าย 8,640",
           "status": "passed",
-          "durationMs": 2412,
+          "durationMs": 3634,
           "error": "",
           "steps": [
             "10 สัปดาห์ → ส่วนลด 10% จ่ายตอนนี้ 10800",
@@ -925,31 +949,30 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:29:59.990Z",
+          "finishedAt": "2026-10-18T17:23:01.316Z",
           "notes": {}
         },
         {
           "project": "chromium",
-          "tc": "TC-RENT-03",
-          "title": "TC-RENT-03 ของที่ยังไม่คืนจากรอบก่อนหน้า และพนักงานบันทึกคืน",
-          "file": "tests/rent.spec.ts",
-          "module": "RENT",
-          "priority": "P2",
-          "expected": "รอบ 19:00 เช่าเอี๊ยม 6 ยังไม่คืน → รอบ 20:00 เหลือ 0 (= 6 − 6) · รอบ 18:00 (ก่อนหน้า) เหลือ 6 · พนักงานคืน 6 → \"บันทึกคืนของเช่าแล้ว\" → รอบ 20:00 เหลือ 6",
+          "tc": "TC-STAFF-01",
+          "title": "TC-STAFF-01 พนักงานค้นรหัส เห็นยอดเก็บหน้าสนาม และกดเก็บเงิน/เช็กอิน",
+          "file": "tests/staff.spec.ts",
+          "module": "STAFF",
+          "priority": "P1",
+          "expected": "อา. 11 ต.ค. A ฿1,200 มัดจำ 600: ค้นรหัส → CONFIRMED เก็บหน้าสนาม 600 จ่ายแล้ว 600 ชื่อลูกค้าตรง · กดเช็กอิน → \"เก็บเงินและเช็กอินแล้ว\" CHECKED_IN จ่ายแล้ว 1,200 ค้าง 0 · ลูกค้าเห็น CHECKED_IN",
           "status": "passed",
-          "durationMs": 3681,
+          "durationMs": 2656,
           "error": "",
           "steps": [
-            "จอง C 19:00 2026-10-22 เช่าเอี๊ยม 6 ชุด จ่ายแล้ว",
-            "รอบ 20:00 (ถัดไป) เอี๊ยมเหลือ 0",
-            "รอบ 18:00 (ก่อนการจองที่เช่า) เอี๊ยมยังเหลือ 6",
-            "พนักงานค้นรหัสแล้วบันทึกคืนเอี๊ยม 6",
-            "รอบ 20:00 เอี๊ยมกลับมาเหลือ 6"
+            "ลูกค้าจอง A อา. 11 ต.ค. 10:00 จ่ายมัดจำ",
+            "พนักงานเข้าสู่ระบบ แล้วค้นด้วยรหัสการจอง",
+            "กด \"เก็บเงินแล้ว / เช็กอิน\"",
+            "ลูกค้าเปิดหน้าการจอง เห็น CHECKED_IN ค้าง 0"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:00.001Z",
+          "finishedAt": "2026-10-18T17:23:01.859Z",
           "notes": {}
         },
         {
@@ -961,7 +984,7 @@
           "priority": "P1",
           "expected": "ศุกร์ C 1 ชม. เริ่ม 16 ต.ค. มีคนจอง 23 ต.ค. แล้ว: ขอ 4 → จองได้ 3 · ขอ 8 → series-conflicts \"2026-10-23\", week-2 conflict, จองได้ 7, ส่วนลด 0%, จ่ายตอนนี้ 12,600 (1,800 × 7 จ่ายเต็มทุกสัปดาห์) · ยืนยัน → /pay 12,600 → จ่ายแล้ว 7 การจอง CONFIRMED",
           "status": "passed",
-          "durationMs": 3462,
+          "durationMs": 5532,
           "error": "",
           "steps": [
             "มีคนอื่นจอง C ศ. 23 ต.ค. 21:00 ไว้แล้ว (สัปดาห์ที่ 2)",
@@ -974,30 +997,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:01.645Z",
-          "notes": {}
-        },
-        {
-          "project": "chromium",
-          "tc": "TC-STAFF-01",
-          "title": "TC-STAFF-01 พนักงานค้นรหัส เห็นยอดเก็บหน้าสนาม และกดเก็บเงิน/เช็กอิน",
-          "file": "tests/staff.spec.ts",
-          "module": "STAFF",
-          "priority": "P1",
-          "expected": "อา. 11 ต.ค. A ฿1,200 มัดจำ 600: ค้นรหัส → CONFIRMED เก็บหน้าสนาม 600 จ่ายแล้ว 600 ชื่อลูกค้าตรง · กดเช็กอิน → \"เก็บเงินและเช็กอินแล้ว\" CHECKED_IN จ่ายแล้ว 1,200 ค้าง 0 · ลูกค้าเห็น CHECKED_IN",
-          "status": "passed",
-          "durationMs": 2828,
-          "error": "",
-          "steps": [
-            "ลูกค้าจอง A อา. 11 ต.ค. 10:00 จ่ายมัดจำ",
-            "พนักงานเข้าสู่ระบบ แล้วค้นด้วยรหัสการจอง",
-            "กด \"เก็บเงินแล้ว / เช็กอิน\"",
-            "ลูกค้าเปิดหน้าการจอง เห็น CHECKED_IN ค้าง 0"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:02.324Z",
+          "finishedAt": "2026-10-18T17:23:03.302Z",
           "notes": {}
         },
         {
@@ -1009,7 +1009,7 @@
           "priority": "P3",
           "expected": "ตัวเลือก challenge-level และ challenge-filter-level: BEGINNER = \"มือใหม่\", INTERMEDIATE = \"กลาง\", ADVANCED = \"เก่ง\" · การ์ด ADVANCED แสดง \"เก่ง\" · กรอง ADVANCED เห็นเฉพาะ data-level=\"ADVANCED\"",
           "status": "passed",
-          "durationMs": 2885,
+          "durationMs": 2630,
           "error": "",
           "steps": [
             "จองและจ่าย C พ. 14 ต.ค. 14:00",
@@ -1021,7 +1021,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:02.910Z",
+          "finishedAt": "2026-10-18T17:23:03.992Z",
           "notes": {}
         },
         {
@@ -1033,7 +1033,7 @@
           "priority": "P2",
           "expected": "฿2,400 ÷ 12 คน → split-per-person 200 · /split/{token}: split-net 2,400 split-people 12 · สลับคนที่ 1 → data-paid true, split-paid-count 1 · 1 คน → \"จำนวนคนต้องอยู่ระหว่าง 2–30 คน\" · ฿1,200 ÷ 7 คน (ใส่ชื่อ) → 172 (ปัดขึ้นจาก 171.43)",
           "status": "passed",
-          "durationMs": 4456,
+          "durationMs": 4270,
           "error": "",
           "steps": [
             "จองและจ่าย B 19:00 × 2 (฿2,400) และ C 8:00 × 1 (฿1,200) พ. 14 ต.ค.",
@@ -1045,7 +1045,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:04.370Z",
+          "finishedAt": "2026-10-18T17:23:05.171Z",
           "notes": {}
         },
         {
@@ -1057,7 +1057,7 @@
           "priority": "P2",
           "expected": "เข้าสู่ระบบแล้วไปหน้าหลัก: STAFF → /staff, MANAGER → /staff/today, OWNER → /owner · STAFF เปิด /staff/today และ /owner → forbidden-message · MANAGER เปิด /owner → forbidden-message · ภาพรวมวันนี้: today-slot-A-19 CONFIRMED, total-bookings 1, total-paid 2,400, total-due 0, today-rental-BIB-8 = 6",
           "status": "passed",
-          "durationMs": 4707,
+          "durationMs": 5111,
           "error": "",
           "steps": [
             "STAFF เข้าสู่ระบบ → /staff",
@@ -1069,7 +1069,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:04.496Z",
+          "finishedAt": "2026-10-18T17:23:05.331Z",
           "notes": {}
         },
         {
@@ -1081,7 +1081,7 @@
           "priority": "P3",
           "expected": "C อา. 11 ต.ค. 1 ชม. ฿1,800 ลิงก์ 4 คน (คนละ ฿450) · /split/{token}: split-people data-value 4 · split-paid-count data-value 0 → กดจ่ายคนที่ 1, 2 → 2 → ยกเลิกคนที่ 1 → 1",
           "status": "passed",
-          "durationMs": 2379,
+          "durationMs": 2094,
           "error": "",
           "steps": [
             "จองและจ่าย C อา. 11 ต.ค. 8:00 แล้วสร้างลิงก์หาร 4 คน",
@@ -1092,7 +1092,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:04.723Z",
+          "finishedAt": "2026-10-18T17:23:05.429Z",
           "notes": {}
         },
         {
@@ -1104,7 +1104,7 @@
           "priority": "P2",
           "expected": "C พฤ. 15 ต.ค. 1 ชม. ฿1,800 · สร้างลิงก์ 6 คน → \"สร้างลิงก์หารค่าสนามแล้ว\" คนละ ฿300 · หลังสร้างไม่มีฟอร์ม split-create · ลูกทีมคนที่ 1 จ่ายแล้ว · สร้างครั้งที่ 2 (= 1 + 1) ด้วย 9 คน → 200 existing=true token เดิม people 6 perPerson 300 \"การจองนี้มีลิงก์หารค่าสนามแล้ว ใช้ลิงก์เดิม\" · ครั้งที่ 3 ใส่ชื่อ 3 คน → ลิงก์เดิมเช่นกัน · ลิงก์ยังมี 6 ส่วน paidCount 1",
           "status": "passed",
-          "durationMs": 3396,
+          "durationMs": 4082,
           "error": "",
           "steps": [
             "จองและจ่าย C 2026-10-15 19:00 × 1 (฿1,800 มัดจำ 900)",
@@ -1118,7 +1118,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:05.063Z",
+          "finishedAt": "2026-10-18T17:23:05.982Z",
           "notes": {}
         },
         {
@@ -1130,7 +1130,7 @@
           "priority": "P1",
           "expected": "การจองค้างจ่าย → \"ประกาศหาคู่แข่งได้เฉพาะการจองที่ยืนยันแล้วและยังไม่ถึงเวลาเริ่ม\" · C ศ. 18:00 ฿1,800 ประกาศ → \"ประกาศหาคู่แข่งแล้ว\" ทีมรับจ่าย 900 · /challenges ไม่มีเบอร์โทร · เจ้าของรับเอง → \"รับคำท้าของตัวเองไม่ได้\" · ทีมอื่นรับ → \"รับคำท้าแล้ว กรุณาชำระเงินภายใน 15 นาที\" จ่าย 900 → \"ชำระเงินสำเร็จ จับคู่แข่งเรียบร้อย\" MATCHED · เจ้าของเครดิต 900 (CHALLENGE) · เจ้าของยกเลิก → ถูกปฏิเสธ 409 CHALLENGE_MATCHED \"มีทีมรับคำท้าแล้ว ยกเลิกหรือเลื่อนการจองนี้ไม่ได้\" (cancel-booking-hint / cancel-confirm-reason data-value CHALLENGE_MATCHED) สถานะยัง CONFIRMED เครดิตยัง 900",
           "status": "passed",
-          "durationMs": 5687,
+          "durationMs": 6673,
           "error": "",
           "steps": [
             "เจ้าของ (สมาชิกใหม่) จอง C ศ. 16 ต.ค. 18:00 จ่ายเต็ม 1,800 และอีกการจองค้างจ่าย",
@@ -1146,13 +1146,13 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:05.708Z",
+          "finishedAt": "2026-10-18T17:23:08.023Z",
           "notes": {}
         }
       ]
     },
     "firefox": {
-      "runAt": "2026-10-10T08:32:45.459Z",
+      "runAt": "2026-10-18T17:25:16.814Z",
       "gifMode": false,
       "rows": [
         {
@@ -1164,7 +1164,7 @@
           "priority": "P2",
           "expected": "GET /api/health → 200 {\"ok\":true,\"db\":true} · GET /api/fields → 3 สนาม A/B 800/1,200 C 1,200/1,800",
           "status": "passed",
-          "durationMs": 199,
+          "durationMs": 75,
           "error": "",
           "steps": [
             "GET /api/health",
@@ -1173,30 +1173,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:04.377Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-API-03",
-          "title": "TC-API-03 ตรวจค่าที่ส่งเข้า API จอง (เวลาเริ่ม/จำนวนชั่วโมง/สนาม/วันที่)",
-          "file": "tests/api.spec.ts",
-          "module": "API",
-          "priority": "P1",
-          "expected": "startHour 7/8.5/24 → 400 INVALID_START_HOUR · 23 → 200 · hours 0/1.5 → 400 INVALID_HOURS · สนาม D → INVALID_FIELD · 2026-10-08 → PAST_DATE · รูปแบบ {error:{code,message}}",
-          "status": "passed",
-          "durationMs": 199,
-          "error": "",
-          "steps": [
-            "startHour 7 (= 08:00 − 1 ชม.), 8.5 (= 08:30), 24 → INVALID_START_HOUR",
-            "startHour 23 (รอบสุดท้าย) → 200",
-            "hours 0 (= 1 − 1) และ 1.5 → INVALID_HOURS",
-            "สนาม D → INVALID_FIELD · วันที่ผ่านมา → PAST_DATE"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:04.596Z",
+          "finishedAt": "2026-10-18T17:23:05.745Z",
           "notes": {}
         },
         {
@@ -1208,7 +1185,7 @@
           "priority": "P1",
           "expected": "ส่ง POST /api/bookings ช่วงเดียวกันพร้อมกัน 2 คำขอ → 201 จำนวน 1 และ 409 SLOT_TAKEN \"ช่วงเวลานี้ถูกจองแล้ว\" จำนวน 1 · availability ช่วงนั้น booked",
           "status": "passed",
-          "durationMs": 176,
+          "durationMs": 258,
           "error": "",
           "steps": [
             "ส่งจอง C 2026-10-17 21:00 พร้อมกัน 2 คำขอ (คนละเบอร์)",
@@ -1218,99 +1195,30 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:05.452Z",
+          "finishedAt": "2026-10-18T17:23:06.544Z",
           "notes": {}
         },
         {
           "project": "firefox",
-          "tc": "TC-API-02",
-          "title": "TC-API-02 ไม่เข้าสู่ระบบ/บทบาทไม่พอ เรียก API และหน้าร้าน → ถูกปฏิเสธ",
+          "tc": "TC-API-03",
+          "title": "TC-API-03 ตรวจค่าที่ส่งเข้า API จอง (เวลาเริ่ม/จำนวนชั่วโมง/สนาม/วันที่)",
           "file": "tests/api.spec.ts",
           "module": "API",
-          "priority": "P2",
-          "expected": "ไม่มี cookie: /api/staff/bookings/LN-900001, /api/staff/today, POST /api/owner/holidays, POST checkin → 401 UNAUTHORIZED \"กรุณาเข้าสู่ระบบ\" · STAFF GET /api/staff/today → 403 FORBIDDEN_ROLE · MANAGER POST /api/owner/closures → 403 · เปิด /staff/today → /staff/login?next=%2Fstaff%2Ftoday + login-required",
-          "status": "passed",
-          "durationMs": 4802,
-          "error": "",
-          "steps": [
-            "ไม่เข้าสู่ระบบเรียก API หน้าร้าน 4 เส้น → 401",
-            "STAFF เรียกภาพรวมวันนี้ → 403 FORBIDDEN_ROLE",
-            "MANAGER สั่งปิดสนาม (เฉพาะ OWNER) → 403 FORBIDDEN_ROLE",
-            "ไม่เข้าสู่ระบบเปิด /staff/today → ถูกส่งไปหน้าเข้าสู่ระบบร้าน"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:13.220Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-BOOK-01",
-          "title": "TC-BOOK-01 E2E จองจนจ่ายจบผ่านหน้าเว็บ",
-          "file": "tests/book.spec.ts",
-          "module": "BOOK",
           "priority": "P1",
-          "expected": "แตะช่องว่าง → ฟอร์ม (PDPA ไม่ติ๊ก) → 2 ชม. ราคา 2,400 มัดจำ 50% จ่ายตอนนี้ 1,200 เก็บหน้าสนาม 1,200 → /pay/LN-xxxxxx จ่าย 1,200 → /booking/{code}?done=paid \"ชำระเงินสำเร็จ การจองได้รับการยืนยันแล้ว\" CONFIRMED จ่ายแล้ว 1,200 ค้าง 1,200 · consentAt ถูกบันทึก · ช่องเป็น booked",
+          "expected": "startHour 7/8.5/24 → 400 INVALID_START_HOUR · 23 → 200 · hours 0/1.5 → 400 INVALID_HOURS · สนาม D → INVALID_FIELD · 2026-10-08 → PAST_DATE · รูปแบบ {error:{code,message}}",
           "status": "passed",
-          "durationMs": 8673,
+          "durationMs": 318,
           "error": "",
           "steps": [
-            "เปิดตารางว่าง 2026-10-12 แล้วแตะช่อง B 19:00",
-            "ช่อง PDPA ไม่ติ๊กไว้ก่อน · เลือก 2 ชั่วโมง ราคาแยกบรรทัดถูกต้อง",
-            "กรอกชื่อ เบอร์ ติ๊กยินยอม แล้วกดยืนยันการจอง → หน้าจ่าย",
-            "กดยืนยันการจ่าย → หน้าการจองสถานะ CONFIRMED",
-            "บันทึกเวลายินยอม PDPA (consentAt) และช่องในตารางกลายเป็น booked"
+            "startHour 7 (= 08:00 − 1 ชม.), 8.5 (= 08:30), 24 → INVALID_START_HOUR",
+            "startHour 23 (รอบสุดท้าย) → 200",
+            "hours 0 (= 1 − 1) และ 1.5 → INVALID_HOURS",
+            "สนาม D → INVALID_FIELD · วันที่ผ่านมา → PAST_DATE"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:14.680Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-BOOK-08",
-          "title": "TC-BOOK-08 กรองรอบก่อน 17:00 และเรียงราคาถูกไปแพง",
-          "file": "tests/book.spec.ts",
-          "module": "BOOK",
-          "priority": "P3",
-          "expected": "ติ๊ก filter-before-17 → ไม่มีช่อง 17:00–23:00 แต่มี 16:00 · sort-by=price → slot-list ราคาไม่ลดลง เริ่ม 800 จบ 1,800",
-          "status": "passed",
-          "durationMs": 2053,
-          "error": "",
-          "steps": [
-            "เปิด /book?date=2026-10-12 แล้วติ๊กเฉพาะรอบก่อน 17:00",
-            "ยกเลิกกรอง แล้วเรียงตามราคา"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:15.294Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-BOOK-07",
-          "title": "TC-BOOK-07 ฟอร์มลูกค้า: ชื่อ เบอร์ และช่องยินยอม PDPA",
-          "file": "tests/book.spec.ts",
-          "module": "BOOK",
-          "priority": "P2",
-          "expected": "pdpa-consent ไม่ติ๊กตอนเปิด · ไม่กรอกชื่อ → \"กรุณากรอกชื่อ\" · เบอร์ 08123 → \"เบอร์โทรต้องเป็นตัวเลข 10 หลักขึ้นต้นด้วย 0\" · ไม่ติ๊ก → \"กรุณายินยอมให้เก็บข้อมูลส่วนบุคคล (PDPA) ก่อนดำเนินการ\" · ไม่มีการจองถูกสร้าง",
-          "status": "passed",
-          "durationMs": 9012,
-          "error": "",
-          "steps": [
-            "เปิดฟอร์ม ช่องยินยอมต้องไม่ติ๊กไว้ก่อน",
-            "ไม่กรอกชื่อ → \"กรุณากรอกชื่อ\"",
-            "เบอร์ 08123 → \"เบอร์โทรต้องเป็นตัวเลข 10 หลักขึ้นต้นด้วย 0\"",
-            "ไม่ติ๊กยินยอม → ข้อความ PDPA",
-            "ไม่มีการจองถูกสร้าง: ช่องยังว่าง"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:15.995Z",
+          "finishedAt": "2026-10-18T17:23:06.548Z",
           "notes": {}
         },
         {
@@ -1322,7 +1230,7 @@
           "priority": "P1",
           "expected": "A มีการจอง 2 ชม. แล้ว: A เริ่มชั่วโมงที่ 2 (ทับ 1 ชม.) → \"ช่วงเวลานี้ถูกจองแล้ว\" · A เริ่มต่อท้ายพอดี → จองได้ · B เวลาเดียวกัน → จองได้",
           "status": "passed",
-          "durationMs": 9621,
+          "durationMs": 9894,
           "error": "",
           "steps": [
             "มีการจอง A 12:00–14:00 (จ่ายแล้ว)",
@@ -1333,7 +1241,54 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:16.116Z",
+          "finishedAt": "2026-10-18T17:23:17.481Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-BOOK-01",
+          "title": "TC-BOOK-01 E2E จองจนจ่ายจบผ่านหน้าเว็บ",
+          "file": "tests/book.spec.ts",
+          "module": "BOOK",
+          "priority": "P1",
+          "expected": "แตะช่องว่าง → ฟอร์ม (PDPA ไม่ติ๊ก) → 2 ชม. ราคา 2,400 มัดจำ 50% จ่ายตอนนี้ 1,200 เก็บหน้าสนาม 1,200 → /pay/LN-xxxxxx จ่าย 1,200 → /booking/{code}?done=paid \"ชำระเงินสำเร็จ การจองได้รับการยืนยันแล้ว\" CONFIRMED จ่ายแล้ว 1,200 ค้าง 1,200 · consentAt ถูกบันทึก · ช่องเป็น booked",
+          "status": "passed",
+          "durationMs": 11459,
+          "error": "",
+          "steps": [
+            "เปิดตารางว่าง 2026-10-12 แล้วแตะช่อง B 19:00",
+            "ช่อง PDPA ไม่ติ๊กไว้ก่อน · เลือก 2 ชั่วโมง ราคาแยกบรรทัดถูกต้อง",
+            "กรอกชื่อ เบอร์ ติ๊กยินยอม แล้วกดยืนยันการจอง → หน้าจ่าย",
+            "กดยืนยันการจ่าย → หน้าการจองสถานะ CONFIRMED",
+            "บันทึกเวลายินยอม PDPA (consentAt) และช่องในตารางกลายเป็น booked"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:18.558Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-API-02",
+          "title": "TC-API-02 ไม่เข้าสู่ระบบ/บทบาทไม่พอ เรียก API และหน้าร้าน → ถูกปฏิเสธ",
+          "file": "tests/api.spec.ts",
+          "module": "API",
+          "priority": "P2",
+          "expected": "ไม่มี cookie: /api/staff/bookings/LN-900001, /api/staff/today, POST /api/owner/holidays, POST checkin → 401 UNAUTHORIZED \"กรุณาเข้าสู่ระบบ\" · STAFF GET /api/staff/today → 403 FORBIDDEN_ROLE · MANAGER POST /api/owner/closures → 403 · เปิด /staff/today → /staff/login?next=%2Fstaff%2Ftoday + login-required",
+          "status": "passed",
+          "durationMs": 8250,
+          "error": "",
+          "steps": [
+            "ไม่เข้าสู่ระบบเรียก API หน้าร้าน 4 เส้น → 401",
+            "STAFF เรียกภาพรวมวันนี้ → 403 FORBIDDEN_ROLE",
+            "MANAGER สั่งปิดสนาม (เฉพาะ OWNER) → 403 FORBIDDEN_ROLE",
+            "ไม่เข้าสู่ระบบเปิด /staff/today → ถูกส่งไปหน้าเข้าสู่ระบบร้าน"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:19.071Z",
           "notes": {}
         },
         {
@@ -1345,7 +1300,7 @@
           "priority": "P1",
           "expected": "21:00 × 4 → \"การจองต้องจบไม่เกิน 24:00\" · 0 ชม. → \"จำนวนชั่วโมงต้องเป็นจำนวนเต็มอย่างน้อย 1 ชั่วโมง\" · 20:00 × 4 (จบ 24:00) ราคา 4,800 จองได้ → /pay",
           "status": "passed",
-          "durationMs": 6867,
+          "durationMs": 10405,
           "error": "",
           "steps": [
             "B 2026-10-22 เริ่ม 21:00 × 4 ชม. (จบ 01:00) → ปฏิเสธ",
@@ -1355,7 +1310,28 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:16.273Z",
+          "finishedAt": "2026-10-18T17:23:19.607Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-BOOK-08",
+          "title": "TC-BOOK-08 กรองรอบก่อน 17:00 และเรียงราคาถูกไปแพง",
+          "file": "tests/book.spec.ts",
+          "module": "BOOK",
+          "priority": "P3",
+          "expected": "ติ๊ก filter-before-17 → ไม่มีช่อง 17:00–23:00 แต่มี 16:00 · sort-by=price → slot-list ราคาไม่ลดลง เริ่ม 800 จบ 1,800",
+          "status": "passed",
+          "durationMs": 3156,
+          "error": "",
+          "steps": [
+            "เปิด /book?date=2026-10-12 แล้วติ๊กเฉพาะรอบก่อน 17:00",
+            "ยกเลิกกรอง แล้วเรียงตามราคา"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:20.697Z",
           "notes": {}
         },
         {
@@ -1367,7 +1343,7 @@
           "priority": "P1",
           "expected": "มี date-chip-2026-10-23 ไม่มี date-chip-2026-10-24 · /book?date=2026-10-24 ช่อง out-of-range · ฟอร์ม 24 ต.ค. → \"จองล่วงหน้าได้ไม่เกิน 14 วัน\" · 23 ต.ค. (= 9 + 14) จองสำเร็จ → /pay",
           "status": "passed",
-          "durationMs": 8650,
+          "durationMs": 12526,
           "error": "",
           "steps": [
             "ปุ่มวันมีถึง 23 ต.ค. (วันนี้ + 14) ไม่มี 24 ต.ค.",
@@ -1378,31 +1354,31 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:16.345Z",
+          "finishedAt": "2026-10-18T17:23:20.811Z",
           "notes": {}
         },
         {
           "project": "firefox",
-          "tc": "TC-CANCEL-06",
-          "title": "TC-CANCEL-06 เลื่อนการจองที่คำท้า MATCHED ไม่ได้ (A-21)",
-          "file": "tests/cancel.spec.ts",
-          "module": "CANCEL",
-          "priority": "P1",
-          "expected": "B พฤ. 15 ต.ค. 1 ชม. (฿800 มัดจำ 400) ประกาศหาคู่แข่ง ทีมอื่นรับและจ่าย ฿400 → MATCHED · หน้าเจ้าของ reschedule-submit-hint data-value CHALLENGE_MATCHED \"มีทีมรับคำท้าแล้ว ยกเลิกหรือเลื่อนการจองนี้ไม่ได้\" · กดเลื่อนไปเวลาว่าง → error เดิม · API reschedule → 409 CHALLENGE_MATCHED · วัน/เวลาเดิม rescheduleCount 0 สถานะ CONFIRMED เครดิตเจ้าของ 400 (CHALLENGE อย่างเดียว) ช่องปลายทางยังว่าง",
+          "tc": "TC-BOOK-07",
+          "title": "TC-BOOK-07 ฟอร์มลูกค้า: ชื่อ เบอร์ และช่องยินยอม PDPA",
+          "file": "tests/book.spec.ts",
+          "module": "BOOK",
+          "priority": "P2",
+          "expected": "pdpa-consent ไม่ติ๊กตอนเปิด · ไม่กรอกชื่อ → \"กรุณากรอกชื่อ\" · เบอร์ 08123 → \"เบอร์โทรต้องเป็นตัวเลข 10 หลักขึ้นต้นด้วย 0\" · ไม่ติ๊ก → \"กรุณายินยอมให้เก็บข้อมูลส่วนบุคคล (PDPA) ก่อนดำเนินการ\" · ไม่มีการจองถูกสร้าง",
           "status": "passed",
-          "durationMs": 2057,
+          "durationMs": 9833,
           "error": "",
           "steps": [
-            "เจ้าของ (สมาชิกใหม่) จองและจ่าย B 2026-10-15 15:00 แล้วประกาศหาคู่แข่ง",
-            "ทีมอื่นรับคำท้าและจ่าย ฿400 → MATCHED",
-            "หน้าการจอง: เหตุผลที่เลื่อนไม่ได้แสดงก่อนกด",
-            "กดเลื่อนไป 22:00 (ช่วงว่าง) → ปฏิเสธ",
-            "API เลื่อน → 409 CHALLENGE_MATCHED และการจองไม่เปลี่ยน"
+            "เปิดฟอร์ม ช่องยินยอมต้องไม่ติ๊กไว้ก่อน",
+            "ไม่กรอกชื่อ → \"กรุณากรอกชื่อ\"",
+            "เบอร์ 08123 → \"เบอร์โทรต้องเป็นตัวเลข 10 หลักขึ้นต้นด้วย 0\"",
+            "ไม่ติ๊กยินยอม → ข้อความ PDPA",
+            "ไม่มีการจองถูกสร้าง: ช่องยังว่าง"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:17.371Z",
+          "finishedAt": "2026-10-18T17:23:22.944Z",
           "notes": {}
         },
         {
@@ -1414,7 +1390,7 @@
           "priority": "P2",
           "expected": "ต้น: credit-balance 1,200 · credit-entry RAIN +1200 · paid-hours 7 · free-hours-available 0 · free-hours-next data-value 3 \"อีก 3 ชั่วโมง\" (= 10 − 7)",
           "status": "passed",
-          "durationMs": 1964,
+          "durationMs": 3678,
           "error": "",
           "steps": [
             "ต้นเข้าสู่ระบบด้วยเบอร์+รหัสผ่านที่หน้า /my",
@@ -1424,30 +1400,31 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:17.980Z",
+          "finishedAt": "2026-10-18T17:23:23.400Z",
           "notes": {}
         },
         {
           "project": "firefox",
-          "tc": "TC-HOME-02",
-          "title": "TC-HOME-02 หน้าข้อมูลสนาม: ขนาด หลังคา ราคา รูปมีคำอธิบาย",
-          "file": "tests/home.spec.ts",
-          "module": "HOME",
-          "priority": "P2",
-          "expected": "A,B: size 5 outdoor 800/1,200 · C: size 7 covered 1,200/1,800 · field-art-* มี aria-label",
+          "tc": "TC-CANCEL-06",
+          "title": "TC-CANCEL-06 เลื่อนการจองที่คำท้า MATCHED ไม่ได้ (A-21)",
+          "file": "tests/cancel.spec.ts",
+          "module": "CANCEL",
+          "priority": "P1",
+          "expected": "B พฤ. 15 ต.ค. 1 ชม. (฿800 มัดจำ 400) ประกาศหาคู่แข่ง ทีมอื่นรับและจ่าย ฿400 → MATCHED · หน้าเจ้าของ reschedule-submit-hint data-value CHALLENGE_MATCHED \"มีทีมรับคำท้าแล้ว ยกเลิกหรือเลื่อนการจองนี้ไม่ได้\" · กดเลื่อนไปเวลาว่าง → error เดิม · API reschedule → 409 CHALLENGE_MATCHED · วัน/เวลาเดิม rescheduleCount 0 สถานะ CONFIRMED เครดิตเจ้าของ 400 (CHALLENGE อย่างเดียว) ช่องปลายทางยังว่าง",
           "status": "passed",
-          "durationMs": 1635,
+          "durationMs": 4278,
           "error": "",
           "steps": [
-            "เปิด /fields",
-            "สนาม A: ขนาด 5 คน outdoor ราคา 800/1200",
-            "สนาม B: ขนาด 5 คน outdoor ราคา 800/1200",
-            "สนาม C: ขนาด 7 คน covered ราคา 1200/1800"
+            "เจ้าของ (สมาชิกใหม่) จองและจ่าย B 2026-10-15 15:00 แล้วประกาศหาคู่แข่ง",
+            "ทีมอื่นรับคำท้าและจ่าย ฿400 → MATCHED",
+            "หน้าการจอง: เหตุผลที่เลื่อนไม่ได้แสดงก่อนกด",
+            "กดเลื่อนไป 22:00 (ช่วงว่าง) → ปฏิเสธ",
+            "API เลื่อน → 409 CHALLENGE_MATCHED และการจองไม่เปลี่ยน"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:19.026Z",
+          "finishedAt": "2026-10-18T17:23:23.430Z",
           "notes": {}
         },
         {
@@ -1459,7 +1436,7 @@
           "priority": "P1",
           "expected": "เบอร์ใหม่ (ไม่สมัคร) มีเครดิต ฿400 จากการยกเลิก · ไม่เข้าสู่ระบบ: /api/quote useCredit=true → 401 MEMBER_REQUIRED \"ต้องเข้าสู่ระบบสมาชิกก่อน\" · /api/quote creditUsed=400 → 401 เดิม · /api/bookings useCredit+creditUsed=400 → 401 เดิม ไม่สร้างการจอง · creditUsed=0 ไม่นับว่าขอใช้ (200, creditUsed 0) · เข้าสู่ระบบเป็นสมาชิกคนอื่น (มิว) แล้วจองด้วยเบอร์นี้ขอใช้เครดิต → 401 เดิม · ฟอร์มไม่มี use-credit · เครดิตยัง ฿400 · หลังสมัคร+เข้าสู่ระบบเบอร์นี้ quote ใช้เครดิตได้ 400",
           "status": "passed",
-          "durationMs": 3292,
+          "durationMs": 3721,
           "error": "",
           "steps": [
             "ลูกค้า (ไม่สมัคร) จอง B 2026-10-15 10:00 จ่าย 400 แล้วยกเลิกล่วงหน้า → เครดิต 400",
@@ -1473,7 +1450,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:19.584Z",
+          "finishedAt": "2026-10-18T17:23:24.616Z",
           "notes": {}
         },
         {
@@ -1485,7 +1462,7 @@
           "priority": "P1",
           "expected": "A 09:00 (฿800) → A 17:00 (฿1,200): \"เลื่อนการจองแล้ว จ่ายส่วนต่าง ฿400 เรียบร้อย\" ยอดรวม 1,200 · เลื่อนครั้งที่ 2 → \"เลื่อนได้ 1 ครั้งต่อการจอง\" · B 17:00 → B 09:00: \"เลื่อนการจองแล้ว ได้รับส่วนต่างเป็นเครดิต ฿400\" ยอดรวม 800",
           "status": "passed",
-          "durationMs": 5678,
+          "durationMs": 6547,
           "error": "",
           "steps": [
             "สร้างและจ่ายการจอง A 10:00 และ B 18:00 (พ. 21 ต.ค.)",
@@ -1496,7 +1473,30 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:20.376Z",
+          "finishedAt": "2026-10-18T17:23:25.227Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-HOME-02",
+          "title": "TC-HOME-02 หน้าข้อมูลสนาม: ขนาด หลังคา ราคา รูปมีคำอธิบาย",
+          "file": "tests/home.spec.ts",
+          "module": "HOME",
+          "priority": "P2",
+          "expected": "A,B: size 5 outdoor 800/1,200 · C: size 7 covered 1,200/1,800 · field-art-* มี aria-label",
+          "status": "passed",
+          "durationMs": 2783,
+          "error": "",
+          "steps": [
+            "เปิด /fields",
+            "สนาม A: ขนาด 5 คน outdoor ราคา 800/1200",
+            "สนาม B: ขนาด 5 คน outdoor ราคา 800/1200",
+            "สนาม C: ขนาด 7 คน covered ราคา 1200/1800"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:26.297Z",
           "notes": {}
         },
         {
@@ -1508,7 +1508,7 @@
           "priority": "P2",
           "expected": "<html data-ready=\"true\" data-bug-mode=\"0|1\"> · home-field-A/B/C แสดง · แตะ cta-today 1 ครั้ง → /book, date-chip-2026-10-09 aria-pressed=true, slot-grid แสดง (NFR-02 ≤ 3 แตะ) · ไม่มี console error",
           "status": "passed",
-          "durationMs": 4457,
+          "durationMs": 4376,
           "error": "",
           "steps": [
             "เปิดหน้าแรก /",
@@ -1519,7 +1519,32 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:20.820Z",
+          "finishedAt": "2026-10-18T17:23:27.375Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-CREDIT-02",
+          "title": "TC-CREDIT-02 เครดิตสะสมตามเบอร์ ใช้ได้หลังสมัครสมาชิกเท่านั้น",
+          "file": "tests/credit.spec.ts",
+          "module": "CREDIT",
+          "priority": "P1",
+          "expected": "ยกเลิกล่วงหน้า 7 วัน → \"ยกเลิกแล้ว ได้รับเครดิตคืน ฿400\" · ยังไม่สมัคร: ไม่มี use-credit และ API ไม่ยอมให้ใช้เครดิต · สมัครแล้ว credit-balance 400 (CANCEL +400) · จองใหม่ใช้เครดิต: เครดิต 400 สุทธิ 400 จ่ายตอนนี้ 200 · จ่ายแล้วเครดิต 0 มีรายการ USED −400",
+          "status": "passed",
+          "durationMs": 10200,
+          "error": "",
+          "steps": [
+            "ลูกค้า (ไม่สมัคร) จอง B 11:00 ศ. 16 ต.ค. จ่ายมัดจำ 400",
+            "ยกเลิก (เหลือ 7 วัน ≥ 24 ชม.) → ได้เครดิต 400",
+            "ยังไม่สมัคร: ฟอร์มจองไม่มีช่องใช้เครดิต และ API ไม่ยอมให้ใช้เครดิต",
+            "สมัครสมาชิกด้วยเบอร์เดิม → เห็นเครดิต 400 (CANCEL)",
+            "จองใหม่ B 12:00 ติ๊กใช้เครดิต → เครดิต 400 สุทธิ 400 จ่าย 200",
+            "หลังจ่าย เครดิตเหลือ 0 มีรายการ USED −400"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:31.049Z",
           "notes": {}
         },
         {
@@ -1531,7 +1556,7 @@
           "priority": "P2",
           "expected": "กด lang-en → <html lang=\"en\">, lang-en aria-pressed=true · ไปหน้าสนามและตารางยังเป็น en · เงินแสดง \"THB 1,200\" · กด lang-th → กลับ th และ \"฿1,200\"",
           "status": "passed",
-          "durationMs": 6838,
+          "durationMs": 7951,
           "error": "",
           "steps": [
             "หน้าแรกเริ่มเป็นภาษาไทย แล้วกด EN",
@@ -1542,7 +1567,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:24.837Z",
+          "finishedAt": "2026-10-18T17:23:31.498Z",
           "notes": {}
         },
         {
@@ -1554,7 +1579,7 @@
           "priority": "P2",
           "expected": "รหัส 7 ตัว → \"รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร\" · ไม่ติ๊กยินยอม → \"กรุณายินยอมให้เก็บข้อมูลส่วนบุคคล (PDPA) ก่อนดำเนินการ\" · สำเร็จ → \"สมัครสมาชิกสำเร็จ\" + my-name · สมัครซ้ำ → \"เบอร์นี้สมัครสมาชิกแล้ว กรุณาเข้าสู่ระบบ\" · รหัสผิด → \"เบอร์โทรหรือรหัสผ่านไม่ถูกต้อง\" · รหัสถูก → my-name",
           "status": "passed",
-          "durationMs": 6354,
+          "durationMs": 7243,
           "error": "",
           "steps": [
             "เปิด /my",
@@ -1568,7 +1593,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:25.960Z",
+          "finishedAt": "2026-10-18T17:23:32.593Z",
           "notes": {}
         },
         {
@@ -1580,7 +1605,7 @@
           "priority": "P2",
           "expected": "LN-900004 + 0844444444 → /booking/LN-900004 ชื่อ \"แนน\" · LN-900001 + เบอร์แนน → \"เบอร์โทรไม่ตรงกับการจองนี้\" · เปิด /booking/LN-900001 ตรง ๆ → gate-phone · จองด้วยเบอร์แนนชื่อ \"แนน ทดลอง\" → แสดง \"แนน ทดลอง\" และ customerId เดียวกับ LN-900004 · มิวเรียกการจองของต้น → 403 BOOKING_FORBIDDEN",
           "status": "passed",
-          "durationMs": 6301,
+          "durationMs": 6581,
           "error": "",
           "steps": [
             "ค้นด้วยรหัส LN-900004 + เบอร์แนน → เห็นการจอง",
@@ -1593,32 +1618,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:26.696Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-CREDIT-02",
-          "title": "TC-CREDIT-02 เครดิตสะสมตามเบอร์ ใช้ได้หลังสมัครสมาชิกเท่านั้น",
-          "file": "tests/credit.spec.ts",
-          "module": "CREDIT",
-          "priority": "P1",
-          "expected": "ยกเลิกล่วงหน้า 7 วัน → \"ยกเลิกแล้ว ได้รับเครดิตคืน ฿400\" · ยังไม่สมัคร: ไม่มี use-credit และ API ไม่ยอมให้ใช้เครดิต · สมัครแล้ว credit-balance 400 (CANCEL +400) · จองใหม่ใช้เครดิต: เครดิต 400 สุทธิ 400 จ่ายตอนนี้ 200 · จ่ายแล้วเครดิต 0 มีรายการ USED −400",
-          "status": "passed",
-          "durationMs": 11423,
-          "error": "",
-          "steps": [
-            "ลูกค้า (ไม่สมัคร) จอง B 11:00 ศ. 16 ต.ค. จ่ายมัดจำ 400",
-            "ยกเลิก (เหลือ 7 วัน ≥ 24 ชม.) → ได้เครดิต 400",
-            "ยังไม่สมัคร: ฟอร์มจองไม่มีช่องใช้เครดิต และ API ไม่ยอมให้ใช้เครดิต",
-            "สมัครสมาชิกด้วยเบอร์เดิม → เห็นเครดิต 400 (CANCEL)",
-            "จองใหม่ B 12:00 ติ๊กใช้เครดิต → เครดิต 400 สุทธิ 400 จ่าย 200",
-            "หลังจ่าย เครดิตเหลือ 0 มีรายการ USED −400"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:27.563Z",
+          "finishedAt": "2026-10-18T17:23:33.010Z",
           "notes": {}
         },
         {
@@ -1630,7 +1630,7 @@
           "priority": "P1",
           "expected": "เช็กอิน 9 ชม. → paid-hours 9, free-hours-available 0, free-hours-next 1 · ครบ 10 → free-hours-available 1 · จอง C 1 ชม. ใช้สิทธิ์: price-free-hour 1,200 price-total 0 → /booking/{code}?done=free \"ยืนยันการจองแล้ว (ยอดที่ต้องจ่าย ฿0)\" CONFIRMED · สิทธิ์เหลือ 0",
           "status": "passed",
-          "durationMs": 7433,
+          "durationMs": 7119,
           "error": "",
           "steps": [
             "สมัครสมาชิกใหม่",
@@ -1643,7 +1643,54 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:28.274Z",
+          "finishedAt": "2026-10-18T17:23:34.569Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-MEMBER-04",
+          "title": "TC-MEMBER-04 เงื่อนไขการใช้ชั่วโมงฟรี (จ.–ศ. ก่อน 17:00 เฉพาะสมาชิกที่มีสิทธิ์)",
+          "file": "tests/member.spec.ts",
+          "module": "MEMBER",
+          "priority": "P1",
+          "expected": "มิว: ศ. 16 A 16:00 ใช้ได้ (ฟรี 800 ยอด 0) · ศ. 16 A 17:00 และ ส. 17 A 09:00 → 400 \"ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์\" · อ. 13 (วันหยุดวันธรรมดา) A 09:00 ใช้ได้ · ต้น (7 ชม.) → \"ยังไม่มีสิทธิ์ชั่วโมงฟรี\" และ use-free-hour กดไม่ได้",
+          "status": "passed",
+          "durationMs": 3812,
+          "error": "",
+          "steps": [
+            "มิวเข้าสู่ระบบ (สะสม 10 ชม. = 1 สิทธิ์) ศ. 16 A 16:00 ใช้สิทธิ์ได้",
+            "ศ. 16 A 17:00 และ ส. 17 A 09:00 → ใช้ไม่ได้",
+            "อ. 13 ต.ค. (วันหยุดที่ตรงวันธรรมดา) A 09:00 → ใช้ได้ (A-15)",
+            "ต้น (สะสม 7 ชม.) → ยังไม่มีสิทธิ์"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:35.051Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-MEMBER-05",
+          "title": "TC-MEMBER-05 ช่องชั่วโมงฟรีปิด (disabled) พร้อมเหตุผล เมื่อรอบใช้สิทธิ์ไม่ได้หรือไม่มีสิทธิ์ (Q-T5)",
+          "file": "tests/member.spec.ts",
+          "module": "MEMBER",
+          "priority": "P2",
+          "expected": "มิว (1 สิทธิ์): ศ. 16 A 16:00 → use-free-hour ใช้ได้ ไม่มี use-free-hour-reason · เปลี่ยนเป็น 17:00 → disabled + use-free-hour-reason data-value FREE_HOUR_NOT_ELIGIBLE \"ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์\" · ส. 17 A 09:00 → disabled + เหตุผลเดิม · API ส่ง useFreeHour กับ ส. 09:00 ยังได้ 400 FREE_HOUR_NOT_ELIGIBLE · ต้น (0 สิทธิ์) ศ. 16 A 16:00 → disabled + FREE_HOUR_NONE \"ยังไม่มีสิทธิ์ชั่วโมงฟรี\"",
+          "status": "passed",
+          "durationMs": 5548,
+          "error": "",
+          "steps": [
+            "มิวเข้าสู่ระบบ · ศ. 16 ต.ค. A 16:00 → ช่องชั่วโมงฟรีใช้ได้ ไม่มีเหตุผลปิด",
+            "เปลี่ยนเวลาเริ่มเป็น 17:00 → ช่องปิด พร้อมเหตุผล FREE_HOUR_NOT_ELIGIBLE",
+            "ส. 17 ต.ค. A 09:00 (เสาร์) → ช่องปิด พร้อมเหตุผลเดิม",
+            "API ยังตอบ error เดิมถ้าส่ง useFreeHour มากับรอบที่ใช้ไม่ได้",
+            "ต้น (สะสม 7 ชม. ยังไม่มีสิทธิ์) ศ. 16 A 16:00 → ช่องปิด พร้อมเหตุผล FREE_HOUR_NONE"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:37.130Z",
           "notes": {}
         },
         {
@@ -1655,7 +1702,7 @@
           "priority": "P3",
           "expected": "โหมด EN: /, /book, /book/new, /fields, /challenges, /my, /series, /pay/{code}, /booking/{code} ไม่มีอักษรไทย (ยกเว้นชื่อร้านและชื่อที่ผู้ใช้กรอก) · ไม่กรอกชื่อ → \"Please enter your name\"",
           "status": "passed",
-          "durationMs": 10783,
+          "durationMs": 13033,
           "error": "",
           "steps": [
             "สร้างการจอง A ศ. 16 ต.ค. 9:00 (ชื่อภาษาอังกฤษ)",
@@ -1675,78 +1722,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:29.839Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-MEMBER-04",
-          "title": "TC-MEMBER-04 เงื่อนไขการใช้ชั่วโมงฟรี (จ.–ศ. ก่อน 17:00 เฉพาะสมาชิกที่มีสิทธิ์)",
-          "file": "tests/member.spec.ts",
-          "module": "MEMBER",
-          "priority": "P1",
-          "expected": "มิว: ศ. 16 A 16:00 ใช้ได้ (ฟรี 800 ยอด 0) · ศ. 16 A 17:00 และ ส. 17 A 09:00 → 400 \"ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์\" · อ. 13 (วันหยุดวันธรรมดา) A 09:00 ใช้ได้ · ต้น (7 ชม.) → \"ยังไม่มีสิทธิ์ชั่วโมงฟรี\" และ use-free-hour กดไม่ได้",
-          "status": "passed",
-          "durationMs": 5899,
-          "error": "",
-          "steps": [
-            "มิวเข้าสู่ระบบ (สะสม 10 ชม. = 1 สิทธิ์) ศ. 16 A 16:00 ใช้สิทธิ์ได้",
-            "ศ. 16 A 17:00 และ ส. 17 A 09:00 → ใช้ไม่ได้",
-            "อ. 13 ต.ค. (วันหยุดที่ตรงวันธรรมดา) A 09:00 → ใช้ได้ (A-15)",
-            "ต้น (สะสม 7 ชม.) → ยังไม่มีสิทธิ์"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:30.758Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-MEMBER-05",
-          "title": "TC-MEMBER-05 ช่องชั่วโมงฟรีปิด (disabled) พร้อมเหตุผล เมื่อรอบใช้สิทธิ์ไม่ได้หรือไม่มีสิทธิ์ (Q-T5)",
-          "file": "tests/member.spec.ts",
-          "module": "MEMBER",
-          "priority": "P2",
-          "expected": "มิว (1 สิทธิ์): ศ. 16 A 16:00 → use-free-hour ใช้ได้ ไม่มี use-free-hour-reason · เปลี่ยนเป็น 17:00 → disabled + use-free-hour-reason data-value FREE_HOUR_NOT_ELIGIBLE \"ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์\" · ส. 17 A 09:00 → disabled + เหตุผลเดิม · API ส่ง useFreeHour กับ ส. 09:00 ยังได้ 400 FREE_HOUR_NOT_ELIGIBLE · ต้น (0 สิทธิ์) ศ. 16 A 16:00 → disabled + FREE_HOUR_NONE \"ยังไม่มีสิทธิ์ชั่วโมงฟรี\"",
-          "status": "passed",
-          "durationMs": 5422,
-          "error": "",
-          "steps": [
-            "มิวเข้าสู่ระบบ · ศ. 16 ต.ค. A 16:00 → ช่องชั่วโมงฟรีใช้ได้ ไม่มีเหตุผลปิด",
-            "เปลี่ยนเวลาเริ่มเป็น 17:00 → ช่องปิด พร้อมเหตุผล FREE_HOUR_NOT_ELIGIBLE",
-            "ส. 17 ต.ค. A 09:00 (เสาร์) → ช่องปิด พร้อมเหตุผลเดิม",
-            "API ยังตอบ error เดิมถ้าส่ง useFreeHour มากับรอบที่ใช้ไม่ได้",
-            "ต้น (สะสม 7 ชม. ยังไม่มีสิทธิ์) ศ. 16 A 16:00 → ช่องปิด พร้อมเหตุผล FREE_HOUR_NONE"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:31.398Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-OWNER-02",
-          "title": "TC-OWNER-02 ปิดสนามเพราะฝน: เฉพาะ A/B · คืนเครดิต · ไม่แตะการจองนอกช่วง",
-          "file": "tests/owner.spec.ts",
-          "module": "OWNER",
-          "priority": "P1",
-          "expected": "closure-field มีแค่ A, B · API ปิด C → 400 \"สนาม C มีหลังคา ปิดเพราะฝนไม่ได้\" · ปิด A ช่วงที่จ่ายมา ฿1,200 → \"ปิดสนามแล้ว คืนเครดิต 1 การจอง\" closure-affected 1,200 · การจองเป็น RAIN_CLOSED ลูกค้าได้เครดิต 1,200 · การจอง 15:00 นอกช่วงยัง CONFIRMED · ช่องเป็น closed · จองช่วงที่ปิด → \"สนามปิดในช่วงเวลานี้\"",
-          "status": "passed",
-          "durationMs": 5677,
-          "error": "",
-          "steps": [
-            "ลูกค้า (สมาชิก) จอง A 2026-10-18 19:00 × 2 จ่าย 1,200 และ A 15:00 (นอกช่วง)",
-            "API ปิดสนาม C (มีหลังคา) → ปฏิเสธ",
-            "เจ้าของปิด A 2026-10-18 19:00–21:00 เพราะฝน",
-            "การจองในช่วงเป็น RAIN_CLOSED ได้เครดิต 1,200 · นอกช่วงไม่ถูกแตะ",
-            "ตารางแสดงช่วงที่ปิดเป็น closed และจองช่วงนั้นไม่ได้"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:33.968Z",
+          "finishedAt": "2026-10-18T17:23:37.734Z",
           "notes": {}
         },
         {
@@ -1758,7 +1734,7 @@
           "priority": "P2",
           "expected": "เพิ่มวันหยุด → \"เพิ่มวันหยุดแล้ว\" รายการปรากฏ · ตารางวันนั้นมี holiday-badge และ A 09:00 = ฿1,200 · เพิ่มซ้ำ → \"มีวันหยุดวันนี้อยู่แล้ว\" · ลบ → \"ลบวันหยุดแล้ว\" ราคากลับเป็น ฿800",
           "status": "passed",
-          "durationMs": 6636,
+          "durationMs": 6052,
           "error": "",
           "steps": [
             "ก่อนเพิ่ม: วันธรรมดา A 09:00 = ฿800",
@@ -1770,7 +1746,31 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:34.217Z",
+          "finishedAt": "2026-10-18T17:23:39.116Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-OWNER-02",
+          "title": "TC-OWNER-02 ปิดสนามเพราะฝน: เฉพาะ A/B · คืนเครดิต · ไม่แตะการจองนอกช่วง",
+          "file": "tests/owner.spec.ts",
+          "module": "OWNER",
+          "priority": "P1",
+          "expected": "closure-field มีแค่ A, B · API ปิด C → 400 \"สนาม C มีหลังคา ปิดเพราะฝนไม่ได้\" · ปิด A ช่วงที่จ่ายมา ฿1,200 → \"ปิดสนามแล้ว คืนเครดิต 1 การจอง\" closure-affected 1,200 · การจองเป็น RAIN_CLOSED ลูกค้าได้เครดิต 1,200 · การจอง 15:00 นอกช่วงยัง CONFIRMED · ช่องเป็น closed · จองช่วงที่ปิด → \"สนามปิดในช่วงเวลานี้\"",
+          "status": "passed",
+          "durationMs": 5070,
+          "error": "",
+          "steps": [
+            "ลูกค้า (สมาชิก) จอง A 2026-10-18 19:00 × 2 จ่าย 1,200 และ A 15:00 (นอกช่วง)",
+            "API ปิดสนาม C (มีหลังคา) → ปฏิเสธ",
+            "เจ้าของปิด A 2026-10-18 19:00–21:00 เพราะฝน",
+            "การจองในช่วงเป็น RAIN_CLOSED ได้เครดิต 1,200 · นอกช่วงไม่ถูกแตะ",
+            "ตารางแสดงช่วงที่ปิดเป็น closed และจองช่วงนั้นไม่ได้"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:39.693Z",
           "notes": {}
         },
         {
@@ -1782,7 +1782,7 @@
           "priority": "P1",
           "expected": "A ศ. 16 ต.ค. 1 ชม. (เริ่ม ≥ 17:00 → FULL_100) จ่าย ฿1,200 · ทีมรับจ่าย ฿600 (= ฿1,200 × 50%) → เจ้าของได้ CHALLENGE ฿600 · เจ้าของปิด A ช่วงนั้นเพราะฝน → \"ปิดสนามแล้ว คืนเครดิต 1 การจอง\" · closure-affected-{code}-credit = 600 (= ฿1,200 − ฿600) · closure-affected-{code}-challenge = 600 · การจอง RAIN_CLOSED คำท้า CLOSED · เจ้าของเครดิตรวม 1,200 (CHALLENGE +600, RAIN +600) · ทีมรับ (สมัครด้วยเบอร์นั้น) เครดิต 600 (RAIN +600)",
           "status": "passed",
-          "durationMs": 4405,
+          "durationMs": 5256,
           "error": "",
           "steps": [
             "เจ้าของ (สมาชิกใหม่) จอง A ศ. 2026-10-16 19:00 จ่ายเต็ม ฿1,200 แล้วประกาศหาคู่แข่ง",
@@ -1794,7 +1794,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:34.267Z",
+          "finishedAt": "2026-10-18T17:23:40.409Z",
           "notes": {}
         },
         {
@@ -1806,7 +1806,7 @@
           "priority": "P2",
           "expected": "booking-code ตรง · pay-qr แสดง · pay-now-amount 400 (สนาม C 600) · pay-countdown data-value 1–900 วินาที ข้อความ mm:ss ≤ 15:00 · จ่ายแล้วเปิด /pay ซ้ำ → pay-already · API จ่ายซ้ำ → 409 INVALID_STATUS \"สถานะการจองนี้ทำรายการนี้ไม่ได้\"",
           "status": "passed",
-          "durationMs": 3754,
+          "durationMs": 4194,
           "error": "",
           "steps": [
             "สร้างการจอง B จ. 12 ต.ค. 08:00 1 ชม.",
@@ -1818,7 +1818,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:34.529Z",
+          "finishedAt": "2026-10-18T17:23:41.399Z",
           "notes": {}
         },
         {
@@ -1830,7 +1830,7 @@
           "priority": "P1",
           "expected": "พ. 14 ต.ค.: slot-A-16 ฿800 · A-17 ฿1,200 · C-16 ฿1,200 · C-17 ฿1,800 · ฟอร์ม A 16:00 × 2: price-hour-16 800, price-hour-17 1,200, price-field 2,000",
           "status": "passed",
-          "durationMs": 3847,
+          "durationMs": 4153,
           "error": "",
           "steps": [
             "ตาราง พ. 14 ต.ค. ราคาในช่อง",
@@ -1839,7 +1839,29 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:35.264Z",
+          "finishedAt": "2026-10-18T17:23:41.971Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-PRICE-02",
+          "title": "TC-PRICE-02 เสาร์ อาทิตย์ และวันหยุด คิดราคาเย็นทุกรอบ",
+          "file": "tests/price.spec.ts",
+          "module": "PRICE",
+          "priority": "P1",
+          "expected": "A 09:00: ส. 10 ต.ค. ฿1,200 · อ. 13 ต.ค. (วันหยุด, มี holiday-badge) ฿1,200 · อ. 20 ต.ค. (ไม่ใช่วันหยุด) ฿800",
+          "status": "passed",
+          "durationMs": 2929,
+          "error": "",
+          "steps": [
+            "เสาร์ 10 ต.ค. A 09:00 = ฿1,200",
+            "อังคาร 13 ต.ค. (วันหยุด) A 09:00 = ฿1,200 และมีป้ายวันหยุด",
+            "อังคาร 20 ต.ค. (= 13 + 7 ไม่ใช่วันหยุด) A 09:00 = ฿800"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:42.072Z",
           "notes": {}
         },
         {
@@ -1851,7 +1873,7 @@
           "priority": "P2",
           "expected": "viewport 375×812: /, /book, /book/new, /fields, /challenges, /my, /series, /pay/{code}, /booking/{code}, /split/{token} → scrollWidth ≤ clientWidth",
           "status": "passed",
-          "durationMs": 9391,
+          "durationMs": 9499,
           "error": "",
           "steps": [
             "สร้างการจอง A จ. 12 ต.ค. 11:00",
@@ -1865,34 +1887,12 @@
             "เปิด /pay/LN-100060 ที่ 375 px",
             "จ่ายและสร้างลิงก์หาร (เตรียมหน้า /booking และ /split)",
             "เปิด /booking/LN-100060 ที่ 375 px",
-            "เปิด /split/6yHHPVS_Ch76 ที่ 375 px"
+            "เปิด /split/Bm2caX9IUj60 ที่ 375 px"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:36.106Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-PRICE-02",
-          "title": "TC-PRICE-02 เสาร์ อาทิตย์ และวันหยุด คิดราคาเย็นทุกรอบ",
-          "file": "tests/price.spec.ts",
-          "module": "PRICE",
-          "priority": "P1",
-          "expected": "A 09:00: ส. 10 ต.ค. ฿1,200 · อ. 13 ต.ค. (วันหยุด, มี holiday-badge) ฿1,200 · อ. 20 ต.ค. (ไม่ใช่วันหยุด) ฿800",
-          "status": "passed",
-          "durationMs": 3051,
-          "error": "",
-          "steps": [
-            "เสาร์ 10 ต.ค. A 09:00 = ฿1,200",
-            "อังคาร 13 ต.ค. (วันหยุด) A 09:00 = ฿1,200 และมีป้ายวันหยุด",
-            "อังคาร 20 ต.ค. (= 13 + 7 ไม่ใช่วันหยุด) A 09:00 = ฿800"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:37.040Z",
+          "finishedAt": "2026-10-18T17:23:42.146Z",
           "notes": {}
         },
         {
@@ -1904,7 +1904,7 @@
           "priority": "P1",
           "expected": "อ. 20 ต.ค. B 08:00: เอี๊ยมเหลือ 6 บอลเหลือ 10 · เอี๊ยม 2 + บอล 1 → price-rental 130 (= 50 × 2 + 30) · price-total 930",
           "status": "passed",
-          "durationMs": 2843,
+          "durationMs": 2664,
           "error": "",
           "steps": [
             "เปิดฟอร์ม B 08:00 อ. 20 ต.ค. เห็นคงเหลือเต็ม",
@@ -1913,7 +1913,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:37.394Z",
+          "finishedAt": "2026-10-18T17:23:44.112Z",
           "notes": {}
         },
         {
@@ -1925,7 +1925,7 @@
           "priority": "P1",
           "expected": "พ. A 19:00 × 2 = 2,400 → จ่ายตอนนี้ 1,200 เก็บหน้าสนาม 1,200 · ต้น (เครดิต 1,200) ราคา 2,000 ใช้เครดิต → เครดิต 1,200 สุทธิ 800 จ่ายตอนนี้ 400 เก็บหน้าสนาม 400 · เครดิต 1,000 กับยอดรวม 800 → 400 CREDIT_EXCEEDS_TOTAL \"ใช้เครดิตเกินยอดรวมไม่ได้\"",
           "status": "passed",
-          "durationMs": 5537,
+          "durationMs": 4578,
           "error": "",
           "steps": [
             "ไม่เข้าสู่ระบบ: พ. 14 ต.ค. A 19:00 × 2 ชม.",
@@ -1935,7 +1935,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:39.829Z",
+          "finishedAt": "2026-10-18T17:23:45.031Z",
           "notes": {}
         },
         {
@@ -1947,7 +1947,7 @@
           "priority": "P2",
           "expected": "จองเอี๊ยม 6 ชุดได้ · อีกสนามเวลาเดียวกัน เอี๊ยมเหลือ 0 ขอ 1 (ชุดที่ 7) → \"ของเช่าไม่พอ (เอี๊ยม เหลือ 0)\" · บอล 11 ลูก → \"ของเช่าไม่พอ (ลูกบอล เหลือ 10)\"",
           "status": "passed",
-          "durationMs": 4706,
+          "durationMs": 4220,
           "error": "",
           "steps": [
             "จอง B 10:00 2026-10-17 เช่าเอี๊ยม 6 ชุด (ครบ stock) → ได้",
@@ -1957,31 +1957,8 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:39.985Z",
+          "finishedAt": "2026-10-18T17:23:46.248Z",
           "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-SERIES-04",
-          "title": "TC-SERIES-04 ส่วนลดจองประจำมีเศษ → ปัดส่วนลดขึ้นเป็นบาทเต็ม (A-24)",
-          "file": "tests/series.spec.ts",
-          "module": "SERIES",
-          "priority": "P1",
-          "expected": "ส่วนลด = ⌈ค่าสนาม × 10%⌉ เมื่อมีเศษสตางค์ (BR-19, A-24) · ถ้าราคาจริงทุกสนาม/ช่วงเวลา (dayRate, eveningRate) ทำให้ 10% ลงตัวทุกกรณี → ทดสอบผ่านหน้าเว็บไม่ได้ ข้าม (ไม่เดา)",
-          "status": "skipped",
-          "durationMs": 832,
-          "error": "",
-          "steps": [
-            "อ่านราคาจริงจาก /api/fields แล้วหากรณีที่ 10% ของค่าสนามมีเศษ"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:40.838Z",
-          "notes": {
-            "rates": "A 800/1200, B 800/1200, C 1200/1800",
-            "skip": "ทดสอบไม่ได้ผ่านหน้าเว็บ: ราคาจริง (A 800/1200, B 800/1200, C 1200/1800) เป็นทวีคูณของ 10 ทุกช่วง → ส่วนลด 10% ลงตัวทุกกรณี ไม่มีเศษให้ปัด (A-24)"
-          }
         },
         {
           "project": "firefox",
@@ -1992,7 +1969,7 @@
           "priority": "P1",
           "expected": "ศ. 16 เริ่ม 17:00 → FULL_100 (จ่าย 1,200 = ยอดรวม) · ศ. 16 เริ่ม 16:00 × 2 → DEPOSIT_50 (2,000 → 1,000) · พฤ. 15 เริ่ม 17:00 → DEPOSIT_50 · อ. 13 (วันหยุด) เริ่ม 17:00 → DEPOSIT_50 · ส. 17 เริ่ม 17:00 → FULL_100",
           "status": "passed",
-          "durationMs": 7087,
+          "durationMs": 7078,
           "error": "",
           "steps": [
             "ศุกร์ 16 ต.ค. เริ่ม 17:00 → FULL_100 จ่ายตอนนี้ 1200",
@@ -2004,53 +1981,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:41.322Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-RENT-03",
-          "title": "TC-RENT-03 ของที่ยังไม่คืนจากรอบก่อนหน้า และพนักงานบันทึกคืน",
-          "file": "tests/rent.spec.ts",
-          "module": "RENT",
-          "priority": "P2",
-          "expected": "รอบ 19:00 เช่าเอี๊ยม 6 ยังไม่คืน → รอบ 20:00 เหลือ 0 (= 6 − 6) · รอบ 18:00 (ก่อนหน้า) เหลือ 6 · พนักงานคืน 6 → \"บันทึกคืนของเช่าแล้ว\" → รอบ 20:00 เหลือ 6",
-          "status": "passed",
-          "durationMs": 5355,
-          "error": "",
-          "steps": [
-            "จอง C 19:00 2026-10-11 เช่าเอี๊ยม 6 ชุด จ่ายแล้ว",
-            "รอบ 20:00 (ถัดไป) เอี๊ยมเหลือ 0",
-            "รอบ 18:00 (ก่อนการจองที่เช่า) เอี๊ยมยังเหลือ 6",
-            "พนักงานค้นรหัสแล้วบันทึกคืนเอี๊ยม 6",
-            "รอบ 20:00 เอี๊ยมกลับมาเหลือ 6"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:41.483Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-SERIES-02",
-          "title": "TC-SERIES-02 ราคาจองประจำ ส่วนลด 10% เมื่อ ≥ 8 สัปดาห์ และยอดจ่ายรวม",
-          "file": "tests/series.spec.ts",
-          "module": "SERIES",
-          "priority": "P1",
-          "expected": "พุธ A 19:00 × 2: 10 สัปดาห์ → ค่าสนาม 24,000 ส่วนลด 10% = 2,400 ยอดรวม 21,600 จ่ายตอนนี้ 10,800 · 7 สัปดาห์ (= 8 − 1) → ส่วนลด 0% จ่าย 8,400 · 8 สัปดาห์ → ส่วนลด 10% (1,920) จ่าย 8,640",
-          "status": "passed",
-          "durationMs": 4332,
-          "error": "",
-          "steps": [
-            "10 สัปดาห์ → ส่วนลด 10% จ่ายตอนนี้ 10800",
-            "7 สัปดาห์ → ส่วนลด 0% จ่ายตอนนี้ 8400",
-            "8 สัปดาห์ → ส่วนลด 10% จ่ายตอนนี้ 8640"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:41.756Z",
+          "finishedAt": "2026-10-18T17:23:46.834Z",
           "notes": {}
         },
         {
@@ -2062,7 +1993,7 @@
           "priority": "P1",
           "expected": "ไม่เข้าสู่ระบบ → series-login-required · 3 สัปดาห์ → \"จองประจำได้ 4–12 สัปดาห์\" · 4 → series-weeks-booked 4 · 12 → 12 (สัปดาห์ที่ 12 = 2026-12-30) · 13 → \"จองประจำได้ 4–12 สัปดาห์\" · เริ่มวันนี้ 10:00 → \"ต้องจองก่อนเวลาเริ่มอย่างน้อย 1 ชั่วโมง\"",
           "status": "passed",
-          "durationMs": 5685,
+          "durationMs": 4833,
           "error": "",
           "steps": [
             "ยังไม่เข้าสู่ระบบ → ต้องเข้าสู่ระบบสมาชิกก่อน",
@@ -2076,7 +2007,76 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:42.744Z",
+          "finishedAt": "2026-10-18T17:23:47.113Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-SERIES-04",
+          "title": "TC-SERIES-04 ส่วนลดจองประจำมีเศษ → ปัดส่วนลดขึ้นเป็นบาทเต็ม (A-24)",
+          "file": "tests/series.spec.ts",
+          "module": "SERIES",
+          "priority": "P1",
+          "expected": "ส่วนลด = ⌈ค่าสนาม × 10%⌉ เมื่อมีเศษสตางค์ (BR-19, A-24) · ถ้าราคาจริงทุกสนาม/ช่วงเวลา (dayRate, eveningRate) ทำให้ 10% ลงตัวทุกกรณี → ทดสอบผ่านหน้าเว็บไม่ได้ ข้าม (ไม่เดา)",
+          "status": "skipped",
+          "durationMs": 836,
+          "error": "",
+          "steps": [
+            "อ่านราคาจริงจาก /api/fields แล้วหากรณีที่ 10% ของค่าสนามมีเศษ"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:47.148Z",
+          "notes": {
+            "rates": "A 800/1200, B 800/1200, C 1200/1800",
+            "skip": "ทดสอบไม่ได้ผ่านหน้าเว็บ: ราคาจริง (A 800/1200, B 800/1200, C 1200/1800) เป็นทวีคูณของ 10 ทุกช่วง → ส่วนลด 10% ลงตัวทุกกรณี ไม่มีเศษให้ปัด (A-24)"
+          }
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-SERIES-02",
+          "title": "TC-SERIES-02 ราคาจองประจำ ส่วนลด 10% เมื่อ ≥ 8 สัปดาห์ และยอดจ่ายรวม",
+          "file": "tests/series.spec.ts",
+          "module": "SERIES",
+          "priority": "P1",
+          "expected": "พุธ A 19:00 × 2: 10 สัปดาห์ → ค่าสนาม 24,000 ส่วนลด 10% = 2,400 ยอดรวม 21,600 จ่ายตอนนี้ 10,800 · 7 สัปดาห์ (= 8 − 1) → ส่วนลด 0% จ่าย 8,400 · 8 สัปดาห์ → ส่วนลด 10% (1,920) จ่าย 8,640",
+          "status": "passed",
+          "durationMs": 3182,
+          "error": "",
+          "steps": [
+            "10 สัปดาห์ → ส่วนลด 10% จ่ายตอนนี้ 10800",
+            "7 สัปดาห์ → ส่วนลด 0% จ่ายตอนนี้ 8400",
+            "8 สัปดาห์ → ส่วนลด 10% จ่ายตอนนี้ 8640"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:47.356Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-RENT-03",
+          "title": "TC-RENT-03 ของที่ยังไม่คืนจากรอบก่อนหน้า และพนักงานบันทึกคืน",
+          "file": "tests/rent.spec.ts",
+          "module": "RENT",
+          "priority": "P2",
+          "expected": "รอบ 19:00 เช่าเอี๊ยม 6 ยังไม่คืน → รอบ 20:00 เหลือ 0 (= 6 − 6) · รอบ 18:00 (ก่อนหน้า) เหลือ 6 · พนักงานคืน 6 → \"บันทึกคืนของเช่าแล้ว\" → รอบ 20:00 เหลือ 6",
+          "status": "passed",
+          "durationMs": 5238,
+          "error": "",
+          "steps": [
+            "จอง C 19:00 2026-10-11 เช่าเอี๊ยม 6 ชุด จ่ายแล้ว",
+            "รอบ 20:00 (ถัดไป) เอี๊ยมเหลือ 0",
+            "รอบ 18:00 (ก่อนการจองที่เช่า) เอี๊ยมยังเหลือ 6",
+            "พนักงานค้นรหัสแล้วบันทึกคืนเอี๊ยม 6",
+            "รอบ 20:00 เอี๊ยมกลับมาเหลือ 6"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:47.383Z",
           "notes": {}
         },
         {
@@ -2088,7 +2088,7 @@
           "priority": "P1",
           "expected": "ศุกร์ C 1 ชม. เริ่ม 16 ต.ค. มีคนจอง 23 ต.ค. แล้ว: ขอ 4 → จองได้ 3 · ขอ 8 → series-conflicts \"2026-10-23\", week-2 conflict, จองได้ 7, ส่วนลด 0%, จ่ายตอนนี้ 12,600 (1,800 × 7 จ่ายเต็มทุกสัปดาห์) · ยืนยัน → /pay 12,600 → จ่ายแล้ว 7 การจอง CONFIRMED",
           "status": "passed",
-          "durationMs": 5890,
+          "durationMs": 4764,
           "error": "",
           "steps": [
             "มีคนอื่นจอง C ศ. 23 ต.ค. 22:00 ไว้แล้ว (สัปดาห์ที่ 2)",
@@ -2101,7 +2101,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:45.754Z",
+          "finishedAt": "2026-10-18T17:23:49.839Z",
           "notes": {}
         },
         {
@@ -2113,7 +2113,7 @@
           "priority": "P1",
           "expected": "อา. 11 ต.ค. A ฿1,200 มัดจำ 600: ค้นรหัส → CONFIRMED เก็บหน้าสนาม 600 จ่ายแล้ว 600 ชื่อลูกค้าตรง · กดเช็กอิน → \"เก็บเงินและเช็กอินแล้ว\" CHECKED_IN จ่ายแล้ว 1,200 ค้าง 0 · ลูกค้าเห็น CHECKED_IN",
           "status": "passed",
-          "durationMs": 6123,
+          "durationMs": 3825,
           "error": "",
           "steps": [
             "ลูกค้าจอง A อา. 11 ต.ค. 11:00 จ่ายมัดจำ",
@@ -2124,7 +2124,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:47.030Z",
+          "finishedAt": "2026-10-18T17:23:50.725Z",
           "notes": {}
         },
         {
@@ -2136,7 +2136,7 @@
           "priority": "P3",
           "expected": "ตัวเลือก challenge-level และ challenge-filter-level: BEGINNER = \"มือใหม่\", INTERMEDIATE = \"กลาง\", ADVANCED = \"เก่ง\" · การ์ด ADVANCED แสดง \"เก่ง\" · กรอง ADVANCED เห็นเฉพาะ data-level=\"ADVANCED\"",
           "status": "passed",
-          "durationMs": 8174,
+          "durationMs": 3830,
           "error": "",
           "steps": [
             "จองและจ่าย C พ. 14 ต.ค. 15:00",
@@ -2148,7 +2148,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:51.024Z",
+          "finishedAt": "2026-10-18T17:23:51.292Z",
           "notes": {}
         },
         {
@@ -2160,7 +2160,7 @@
           "priority": "P2",
           "expected": "฿2,400 ÷ 12 คน → split-per-person 200 · /split/{token}: split-net 2,400 split-people 12 · สลับคนที่ 1 → data-paid true, split-paid-count 1 · 1 คน → \"จำนวนคนต้องอยู่ระหว่าง 2–30 คน\" · ฿1,200 ÷ 7 คน (ใส่ชื่อ) → 172 (ปัดขึ้นจาก 171.43)",
           "status": "passed",
-          "durationMs": 11787,
+          "durationMs": 5630,
           "error": "",
           "steps": [
             "จองและจ่าย B 21:00 × 2 (฿2,400) และ C 9:00 × 1 (฿1,200) พ. 14 ต.ค.",
@@ -2172,7 +2172,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:53.298Z",
+          "finishedAt": "2026-10-18T17:23:52.805Z",
           "notes": {}
         },
         {
@@ -2184,7 +2184,7 @@
           "priority": "P3",
           "expected": "C อา. 11 ต.ค. 1 ชม. ฿1,800 ลิงก์ 4 คน (คนละ ฿450) · /split/{token}: split-people data-value 4 · split-paid-count data-value 0 → กดจ่ายคนที่ 1, 2 → 2 → ยกเลิกคนที่ 1 → 1",
           "status": "passed",
-          "durationMs": 6337,
+          "durationMs": 3472,
           "error": "",
           "steps": [
             "จองและจ่าย C อา. 11 ต.ค. 9:00 แล้วสร้างลิงก์หาร 4 คน",
@@ -2195,7 +2195,31 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:53.589Z",
+          "finishedAt": "2026-10-18T17:23:54.243Z",
+          "notes": {}
+        },
+        {
+          "project": "firefox",
+          "tc": "TC-STAFF-05",
+          "title": "TC-STAFF-05 สิทธิ์ตามบทบาทฝั่งร้าน และภาพรวมวันนี้ของผู้จัดการ",
+          "file": "tests/staff.spec.ts",
+          "module": "STAFF",
+          "priority": "P2",
+          "expected": "เข้าสู่ระบบแล้วไปหน้าหลัก: STAFF → /staff, MANAGER → /staff/today, OWNER → /owner · STAFF เปิด /staff/today และ /owner → forbidden-message · MANAGER เปิด /owner → forbidden-message · ภาพรวมวันนี้: today-slot-A-19 CONFIRMED, total-bookings 1, total-paid 2,400, total-due 0, today-rental-BIB-8 = 6",
+          "status": "passed",
+          "durationMs": 7599,
+          "error": "",
+          "steps": [
+            "STAFF เข้าสู่ระบบ → /staff",
+            "STAFF เปิด /staff/today และ /owner → ไม่มีสิทธิ์",
+            "MANAGER เข้าสู่ระบบ → /staff/today เห็นภาพรวมวันนี้",
+            "MANAGER เปิด /owner → ไม่มีสิทธิ์",
+            "OWNER เข้าสู่ระบบ → /owner"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:54.744Z",
           "notes": {}
         },
         {
@@ -2207,7 +2231,7 @@
           "priority": "P2",
           "expected": "C พฤ. 15 ต.ค. 1 ชม. ฿1,800 · สร้างลิงก์ 6 คน → \"สร้างลิงก์หารค่าสนามแล้ว\" คนละ ฿300 · หลังสร้างไม่มีฟอร์ม split-create · ลูกทีมคนที่ 1 จ่ายแล้ว · สร้างครั้งที่ 2 (= 1 + 1) ด้วย 9 คน → 200 existing=true token เดิม people 6 perPerson 300 \"การจองนี้มีลิงก์หารค่าสนามแล้ว ใช้ลิงก์เดิม\" · ครั้งที่ 3 ใส่ชื่อ 3 คน → ลิงก์เดิมเช่นกัน · ลิงก์ยังมี 6 ส่วน paidCount 1",
           "status": "passed",
-          "durationMs": 8303,
+          "durationMs": 5083,
           "error": "",
           "steps": [
             "จองและจ่าย C 2026-10-15 20:00 × 1 (฿1,800 มัดจำ 900)",
@@ -2221,31 +2245,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:54.195Z",
-          "notes": {}
-        },
-        {
-          "project": "firefox",
-          "tc": "TC-STAFF-05",
-          "title": "TC-STAFF-05 สิทธิ์ตามบทบาทฝั่งร้าน และภาพรวมวันนี้ของผู้จัดการ",
-          "file": "tests/staff.spec.ts",
-          "module": "STAFF",
-          "priority": "P2",
-          "expected": "เข้าสู่ระบบแล้วไปหน้าหลัก: STAFF → /staff, MANAGER → /staff/today, OWNER → /owner · STAFF เปิด /staff/today และ /owner → forbidden-message · MANAGER เปิด /owner → forbidden-message · ภาพรวมวันนี้: today-slot-A-19 CONFIRMED, total-bookings 1, total-paid 2,400, total-due 0, today-rental-BIB-8 = 6",
-          "status": "passed",
-          "durationMs": 13320,
-          "error": "",
-          "steps": [
-            "STAFF เข้าสู่ระบบ → /staff",
-            "STAFF เปิด /staff/today และ /owner → ไม่มีสิทธิ์",
-            "MANAGER เข้าสู่ระบบ → /staff/today เห็นภาพรวมวันนี้",
-            "MANAGER เปิด /owner → ไม่มีสิทธิ์",
-            "OWNER เข้าสู่ระบบ → /owner"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:54.659Z",
+          "finishedAt": "2026-10-18T17:23:54.969Z",
           "notes": {}
         },
         {
@@ -2257,7 +2257,7 @@
           "priority": "P1",
           "expected": "การจองค้างจ่าย → \"ประกาศหาคู่แข่งได้เฉพาะการจองที่ยืนยันแล้วและยังไม่ถึงเวลาเริ่ม\" · C ศ. 18:00 ฿1,800 ประกาศ → \"ประกาศหาคู่แข่งแล้ว\" ทีมรับจ่าย 900 · /challenges ไม่มีเบอร์โทร · เจ้าของรับเอง → \"รับคำท้าของตัวเองไม่ได้\" · ทีมอื่นรับ → \"รับคำท้าแล้ว กรุณาชำระเงินภายใน 15 นาที\" จ่าย 900 → \"ชำระเงินสำเร็จ จับคู่แข่งเรียบร้อย\" MATCHED · เจ้าของเครดิต 900 (CHALLENGE) · เจ้าของยกเลิก → ถูกปฏิเสธ 409 CHALLENGE_MATCHED \"มีทีมรับคำท้าแล้ว ยกเลิกหรือเลื่อนการจองนี้ไม่ได้\" (cancel-booking-hint / cancel-confirm-reason data-value CHALLENGE_MATCHED) สถานะยัง CONFIRMED เครดิตยัง 900",
           "status": "passed",
-          "durationMs": 17170,
+          "durationMs": 9732,
           "error": "",
           "steps": [
             "เจ้าของ (สมาชิกใหม่) จอง C ศ. 16 ต.ค. 19:00 จ่ายเต็ม 1,800 และอีกการจองค้างจ่าย",
@@ -2273,13 +2273,13 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:58.965Z",
+          "finishedAt": "2026-10-18T17:23:57.136Z",
           "notes": {}
         }
       ]
     },
     "webkit": {
-      "runAt": "2026-10-10T08:32:45.459Z",
+      "runAt": "2026-10-18T17:25:16.814Z",
       "gifMode": false,
       "rows": [
         {
@@ -2291,7 +2291,7 @@
           "priority": "P2",
           "expected": "GET /api/health → 200 {\"ok\":true,\"db\":true} · GET /api/fields → 3 สนาม A/B 800/1,200 C 1,200/1,800",
           "status": "passed",
-          "durationMs": 68,
+          "durationMs": 134,
           "error": "",
           "steps": [
             "GET /api/health",
@@ -2300,30 +2300,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:55.863Z",
-          "notes": {}
-        },
-        {
-          "project": "webkit",
-          "tc": "TC-API-03",
-          "title": "TC-API-03 ตรวจค่าที่ส่งเข้า API จอง (เวลาเริ่ม/จำนวนชั่วโมง/สนาม/วันที่)",
-          "file": "tests/api.spec.ts",
-          "module": "API",
-          "priority": "P1",
-          "expected": "startHour 7/8.5/24 → 400 INVALID_START_HOUR · 23 → 200 · hours 0/1.5 → 400 INVALID_HOURS · สนาม D → INVALID_FIELD · 2026-10-08 → PAST_DATE · รูปแบบ {error:{code,message}}",
-          "status": "passed",
-          "durationMs": 154,
-          "error": "",
-          "steps": [
-            "startHour 7 (= 08:00 − 1 ชม.), 8.5 (= 08:30), 24 → INVALID_START_HOUR",
-            "startHour 23 (รอบสุดท้าย) → 200",
-            "hours 0 (= 1 − 1) และ 1.5 → INVALID_HOURS",
-            "สนาม D → INVALID_FIELD · วันที่ผ่านมา → PAST_DATE"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:30:56.054Z",
+          "finishedAt": "2026-10-18T17:23:54.608Z",
           "notes": {}
         },
         {
@@ -2335,7 +2312,7 @@
           "priority": "P1",
           "expected": "ส่ง POST /api/bookings ช่วงเดียวกันพร้อมกัน 2 คำขอ → 201 จำนวน 1 และ 409 SLOT_TAKEN \"ช่วงเวลานี้ถูกจองแล้ว\" จำนวน 1 · availability ช่วงนั้น booked",
           "status": "passed",
-          "durationMs": 352,
+          "durationMs": 82,
           "error": "",
           "steps": [
             "ส่งจอง C 2026-10-17 22:00 พร้อมกัน 2 คำขอ (คนละเบอร์)",
@@ -2345,7 +2322,30 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:30:56.715Z",
+          "finishedAt": "2026-10-18T17:23:54.711Z",
+          "notes": {}
+        },
+        {
+          "project": "webkit",
+          "tc": "TC-API-03",
+          "title": "TC-API-03 ตรวจค่าที่ส่งเข้า API จอง (เวลาเริ่ม/จำนวนชั่วโมง/สนาม/วันที่)",
+          "file": "tests/api.spec.ts",
+          "module": "API",
+          "priority": "P1",
+          "expected": "startHour 7/8.5/24 → 400 INVALID_START_HOUR · 23 → 200 · hours 0/1.5 → 400 INVALID_HOURS · สนาม D → INVALID_FIELD · 2026-10-08 → PAST_DATE · รูปแบบ {error:{code,message}}",
+          "status": "passed",
+          "durationMs": 250,
+          "error": "",
+          "steps": [
+            "startHour 7 (= 08:00 − 1 ชม.), 8.5 (= 08:30), 24 → INVALID_START_HOUR",
+            "startHour 23 (รอบสุดท้าย) → 200",
+            "hours 0 (= 1 − 1) และ 1.5 → INVALID_HOURS",
+            "สนาม D → INVALID_FIELD · วันที่ผ่านมา → PAST_DATE"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:23:56.461Z",
           "notes": {}
         },
         {
@@ -2357,7 +2357,7 @@
           "priority": "P2",
           "expected": "ไม่มี cookie: /api/staff/bookings/LN-900001, /api/staff/today, POST /api/owner/holidays, POST checkin → 401 UNAUTHORIZED \"กรุณาเข้าสู่ระบบ\" · STAFF GET /api/staff/today → 403 FORBIDDEN_ROLE · MANAGER POST /api/owner/closures → 403 · เปิด /staff/today → /staff/login?next=%2Fstaff%2Ftoday + login-required",
           "status": "passed",
-          "durationMs": 4053,
+          "durationMs": 2235,
           "error": "",
           "steps": [
             "ไม่เข้าสู่ระบบเรียก API หน้าร้าน 4 เส้น → 401",
@@ -2368,7 +2368,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:00.168Z",
+          "finishedAt": "2026-10-18T17:23:57.158Z",
           "notes": {}
         },
         {
@@ -2380,7 +2380,7 @@
           "priority": "P3",
           "expected": "ติ๊ก filter-before-17 → ไม่มีช่อง 17:00–23:00 แต่มี 16:00 · sort-by=price → slot-list ราคาไม่ลดลง เริ่ม 800 จบ 1,800",
           "status": "passed",
-          "durationMs": 5327,
+          "durationMs": 3319,
           "error": "",
           "steps": [
             "เปิด /book?date=2026-10-12 แล้วติ๊กเฉพาะรอบก่อน 17:00",
@@ -2389,7 +2389,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:05.624Z",
+          "finishedAt": "2026-10-18T17:24:00.497Z",
           "notes": {}
         },
         {
@@ -2401,7 +2401,7 @@
           "priority": "P1",
           "expected": "21:00 × 4 → \"การจองต้องจบไม่เกิน 24:00\" · 0 ชม. → \"จำนวนชั่วโมงต้องเป็นจำนวนเต็มอย่างน้อย 1 ชั่วโมง\" · 20:00 × 4 (จบ 24:00) ราคา 4,800 จองได้ → /pay",
           "status": "passed",
-          "durationMs": 9863,
+          "durationMs": 5894,
           "error": "",
           "steps": [
             "B 2026-10-20 เริ่ม 21:00 × 4 ชม. (จบ 01:00) → ปฏิเสธ",
@@ -2411,7 +2411,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:05.927Z",
+          "finishedAt": "2026-10-18T17:24:02.394Z",
           "notes": {}
         },
         {
@@ -2423,7 +2423,7 @@
           "priority": "P1",
           "expected": "มี date-chip-2026-10-23 ไม่มี date-chip-2026-10-24 · /book?date=2026-10-24 ช่อง out-of-range · ฟอร์ม 24 ต.ค. → \"จองล่วงหน้าได้ไม่เกิน 14 วัน\" · 23 ต.ค. (= 9 + 14) จองสำเร็จ → /pay",
           "status": "passed",
-          "durationMs": 11783,
+          "durationMs": 5889,
           "error": "",
           "steps": [
             "ปุ่มวันมีถึง 23 ต.ค. (วันนี้ + 14) ไม่มี 24 ต.ค.",
@@ -2434,7 +2434,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:07.926Z",
+          "finishedAt": "2026-10-18T17:24:02.988Z",
           "notes": {}
         },
         {
@@ -2446,7 +2446,7 @@
           "priority": "P1",
           "expected": "แตะช่องว่าง → ฟอร์ม (PDPA ไม่ติ๊ก) → 2 ชม. ราคา 2,400 มัดจำ 50% จ่ายตอนนี้ 1,200 เก็บหน้าสนาม 1,200 → /pay/LN-xxxxxx จ่าย 1,200 → /booking/{code}?done=paid \"ชำระเงินสำเร็จ การจองได้รับการยืนยันแล้ว\" CONFIRMED จ่ายแล้ว 1,200 ค้าง 1,200 · consentAt ถูกบันทึก · ช่องเป็น booked",
           "status": "passed",
-          "durationMs": 12009,
+          "durationMs": 8616,
           "error": "",
           "steps": [
             "เปิดตารางว่าง 2026-10-19 แล้วแตะช่อง A 19:00",
@@ -2458,7 +2458,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:08.618Z",
+          "finishedAt": "2026-10-18T17:24:03.531Z",
           "notes": {}
         },
         {
@@ -2470,7 +2470,7 @@
           "priority": "P1",
           "expected": "A มีการจอง 2 ชม. แล้ว: A เริ่มชั่วโมงที่ 2 (ทับ 1 ชม.) → \"ช่วงเวลานี้ถูกจองแล้ว\" · A เริ่มต่อท้ายพอดี → จองได้ · B เวลาเดียวกัน → จองได้",
           "status": "passed",
-          "durationMs": 12893,
+          "durationMs": 7853,
           "error": "",
           "steps": [
             "มีการจอง A 8:00–10:00 (จ่ายแล้ว)",
@@ -2481,31 +2481,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:09.750Z",
-          "notes": {}
-        },
-        {
-          "project": "webkit",
-          "tc": "TC-CANCEL-06",
-          "title": "TC-CANCEL-06 เลื่อนการจองที่คำท้า MATCHED ไม่ได้ (A-21)",
-          "file": "tests/cancel.spec.ts",
-          "module": "CANCEL",
-          "priority": "P1",
-          "expected": "B พฤ. 15 ต.ค. 1 ชม. (฿800 มัดจำ 400) ประกาศหาคู่แข่ง ทีมอื่นรับและจ่าย ฿400 → MATCHED · หน้าเจ้าของ reschedule-submit-hint data-value CHALLENGE_MATCHED \"มีทีมรับคำท้าแล้ว ยกเลิกหรือเลื่อนการจองนี้ไม่ได้\" · กดเลื่อนไปเวลาว่าง → error เดิม · API reschedule → 409 CHALLENGE_MATCHED · วัน/เวลาเดิม rescheduleCount 0 สถานะ CONFIRMED เครดิตเจ้าของ 400 (CHALLENGE อย่างเดียว) ช่องปลายทางยังว่าง",
-          "status": "passed",
-          "durationMs": 4930,
-          "error": "",
-          "steps": [
-            "เจ้าของ (สมาชิกใหม่) จองและจ่าย B 2026-10-15 16:00 แล้วประกาศหาคู่แข่ง",
-            "ทีมอื่นรับคำท้าและจ่าย ฿400 → MATCHED",
-            "หน้าการจอง: เหตุผลที่เลื่อนไม่ได้แสดงก่อนกด",
-            "กดเลื่อนไป 23:00 (ช่วงว่าง) → ปฏิเสธ",
-            "API เลื่อน → 409 CHALLENGE_MATCHED และการจองไม่เปลี่ยน"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:31:10.932Z",
+          "finishedAt": "2026-10-18T17:24:04.381Z",
           "notes": {}
         },
         {
@@ -2517,7 +2493,7 @@
           "priority": "P2",
           "expected": "pdpa-consent ไม่ติ๊กตอนเปิด · ไม่กรอกชื่อ → \"กรุณากรอกชื่อ\" · เบอร์ 08123 → \"เบอร์โทรต้องเป็นตัวเลข 10 หลักขึ้นต้นด้วย 0\" · ไม่ติ๊ก → \"กรุณายินยอมให้เก็บข้อมูลส่วนบุคคล (PDPA) ก่อนดำเนินการ\" · ไม่มีการจองถูกสร้าง",
           "status": "passed",
-          "durationMs": 8046,
+          "durationMs": 5680,
           "error": "",
           "steps": [
             "เปิดฟอร์ม ช่องยินยอมต้องไม่ติ๊กไว้ก่อน",
@@ -2529,7 +2505,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:11.174Z",
+          "finishedAt": "2026-10-18T17:24:04.678Z",
           "notes": {}
         },
         {
@@ -2541,7 +2517,7 @@
           "priority": "P2",
           "expected": "ต้น: credit-balance 1,200 · credit-entry RAIN +1200 · paid-hours 7 · free-hours-available 0 · free-hours-next data-value 3 \"อีก 3 ชั่วโมง\" (= 10 − 7)",
           "status": "passed",
-          "durationMs": 4226,
+          "durationMs": 2104,
           "error": "",
           "steps": [
             "ต้นเข้าสู่ระบบด้วยเบอร์+รหัสผ่านที่หน้า /my",
@@ -2551,7 +2527,54 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:12.310Z",
+          "finishedAt": "2026-10-18T17:24:05.120Z",
+          "notes": {}
+        },
+        {
+          "project": "webkit",
+          "tc": "TC-CANCEL-06",
+          "title": "TC-CANCEL-06 เลื่อนการจองที่คำท้า MATCHED ไม่ได้ (A-21)",
+          "file": "tests/cancel.spec.ts",
+          "module": "CANCEL",
+          "priority": "P1",
+          "expected": "B พฤ. 15 ต.ค. 1 ชม. (฿800 มัดจำ 400) ประกาศหาคู่แข่ง ทีมอื่นรับและจ่าย ฿400 → MATCHED · หน้าเจ้าของ reschedule-submit-hint data-value CHALLENGE_MATCHED \"มีทีมรับคำท้าแล้ว ยกเลิกหรือเลื่อนการจองนี้ไม่ได้\" · กดเลื่อนไปเวลาว่าง → error เดิม · API reschedule → 409 CHALLENGE_MATCHED · วัน/เวลาเดิม rescheduleCount 0 สถานะ CONFIRMED เครดิตเจ้าของ 400 (CHALLENGE อย่างเดียว) ช่องปลายทางยังว่าง",
+          "status": "passed",
+          "durationMs": 2996,
+          "error": "",
+          "steps": [
+            "เจ้าของ (สมาชิกใหม่) จองและจ่าย B 2026-10-15 16:00 แล้วประกาศหาคู่แข่ง",
+            "ทีมอื่นรับคำท้าและจ่าย ฿400 → MATCHED",
+            "หน้าการจอง: เหตุผลที่เลื่อนไม่ได้แสดงก่อนกด",
+            "กดเลื่อนไป 23:00 (ช่วงว่าง) → ปฏิเสธ",
+            "API เลื่อน → 409 CHALLENGE_MATCHED และการจองไม่เปลี่ยน"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:24:05.414Z",
+          "notes": {}
+        },
+        {
+          "project": "webkit",
+          "tc": "TC-CANCEL-03",
+          "title": "TC-CANCEL-03 เลื่อนวัน/เวลา: แพงขึ้นจ่ายส่วนต่าง ถูกลงคืนเครดิต และเลื่อนได้ 1 ครั้ง",
+          "file": "tests/cancel.spec.ts",
+          "module": "CANCEL",
+          "priority": "P1",
+          "expected": "A 09:00 (฿800) → A 17:00 (฿1,200): \"เลื่อนการจองแล้ว จ่ายส่วนต่าง ฿400 เรียบร้อย\" ยอดรวม 1,200 · เลื่อนครั้งที่ 2 → \"เลื่อนได้ 1 ครั้งต่อการจอง\" · B 17:00 → B 09:00: \"เลื่อนการจองแล้ว ได้รับส่วนต่างเป็นเครดิต ฿400\" ยอดรวม 800",
+          "status": "passed",
+          "durationMs": 5324,
+          "error": "",
+          "steps": [
+            "สร้างและจ่ายการจอง A 11:00 และ B 22:00 (พ. 21 ต.ค.)",
+            "เลื่อน A 11:00 (฿800) → 22:00 (฿1,200) จ่ายเพิ่ม ฿400",
+            "เลื่อนครั้งที่ 2 (= 1 + 1) → ปฏิเสธ",
+            "เลื่อน B 22:00 (฿1,200) → 11:00 (฿800) ได้เครดิตคืน ฿400"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:24:05.848Z",
           "notes": {}
         },
         {
@@ -2563,7 +2586,7 @@
           "priority": "P1",
           "expected": "เบอร์ใหม่ (ไม่สมัคร) มีเครดิต ฿400 จากการยกเลิก · ไม่เข้าสู่ระบบ: /api/quote useCredit=true → 401 MEMBER_REQUIRED \"ต้องเข้าสู่ระบบสมาชิกก่อน\" · /api/quote creditUsed=400 → 401 เดิม · /api/bookings useCredit+creditUsed=400 → 401 เดิม ไม่สร้างการจอง · creditUsed=0 ไม่นับว่าขอใช้ (200, creditUsed 0) · เข้าสู่ระบบเป็นสมาชิกคนอื่น (มิว) แล้วจองด้วยเบอร์นี้ขอใช้เครดิต → 401 เดิม · ฟอร์มไม่มี use-credit · เครดิตยัง ฿400 · หลังสมัคร+เข้าสู่ระบบเบอร์นี้ quote ใช้เครดิตได้ 400",
           "status": "passed",
-          "durationMs": 3878,
+          "durationMs": 2623,
           "error": "",
           "steps": [
             "ลูกค้า (ไม่สมัคร) จอง B 2026-10-15 11:00 จ่าย 400 แล้วยกเลิกล่วงหน้า → เครดิต 400",
@@ -2577,30 +2600,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:13.740Z",
-          "notes": {}
-        },
-        {
-          "project": "webkit",
-          "tc": "TC-CANCEL-03",
-          "title": "TC-CANCEL-03 เลื่อนวัน/เวลา: แพงขึ้นจ่ายส่วนต่าง ถูกลงคืนเครดิต และเลื่อนได้ 1 ครั้ง",
-          "file": "tests/cancel.spec.ts",
-          "module": "CANCEL",
-          "priority": "P1",
-          "expected": "A 09:00 (฿800) → A 17:00 (฿1,200): \"เลื่อนการจองแล้ว จ่ายส่วนต่าง ฿400 เรียบร้อย\" ยอดรวม 1,200 · เลื่อนครั้งที่ 2 → \"เลื่อนได้ 1 ครั้งต่อการจอง\" · B 17:00 → B 09:00: \"เลื่อนการจองแล้ว ได้รับส่วนต่างเป็นเครดิต ฿400\" ยอดรวม 800",
-          "status": "passed",
-          "durationMs": 8309,
-          "error": "",
-          "steps": [
-            "สร้างและจ่ายการจอง A 11:00 และ B 22:00 (พ. 21 ต.ค.)",
-            "เลื่อน A 11:00 (฿800) → 22:00 (฿1,200) จ่ายเพิ่ม ฿400",
-            "เลื่อนครั้งที่ 2 (= 1 + 1) → ปฏิเสธ",
-            "เลื่อน B 22:00 (฿1,200) → 11:00 (฿800) ได้เครดิตคืน ฿400"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:31:14.020Z",
+          "finishedAt": "2026-10-18T17:24:07.040Z",
           "notes": {}
         },
         {
@@ -2612,7 +2612,7 @@
           "priority": "P2",
           "expected": "A,B: size 5 outdoor 800/1,200 · C: size 7 covered 1,200/1,800 · field-art-* มี aria-label",
           "status": "passed",
-          "durationMs": 3238,
+          "durationMs": 2012,
           "error": "",
           "steps": [
             "เปิด /fields",
@@ -2623,7 +2623,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:14.483Z",
+          "finishedAt": "2026-10-18T17:24:07.155Z",
           "notes": {}
         },
         {
@@ -2635,7 +2635,7 @@
           "priority": "P2",
           "expected": "<html data-ready=\"true\" data-bug-mode=\"0|1\"> · home-field-A/B/C แสดง · แตะ cta-today 1 ครั้ง → /book, date-chip-2026-10-09 aria-pressed=true, slot-grid แสดง (NFR-02 ≤ 3 แตะ) · ไม่มี console error",
           "status": "passed",
-          "durationMs": 6288,
+          "durationMs": 4088,
           "error": "",
           "steps": [
             "เปิดหน้าแรก /",
@@ -2646,30 +2646,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:17.271Z",
-          "notes": {}
-        },
-        {
-          "project": "webkit",
-          "tc": "TC-I18N-01",
-          "title": "TC-I18N-01 สลับภาษา ไทย/English และจำภาษาเมื่อเปลี่ยนหน้า",
-          "file": "tests/i18n.spec.ts",
-          "module": "I18N",
-          "priority": "P2",
-          "expected": "กด lang-en → <html lang=\"en\">, lang-en aria-pressed=true · ไปหน้าสนามและตารางยังเป็น en · เงินแสดง \"THB 1,200\" · กด lang-th → กลับ th และ \"฿1,200\"",
-          "status": "passed",
-          "durationMs": 10351,
-          "error": "",
-          "steps": [
-            "หน้าแรกเริ่มเป็นภาษาไทย แล้วกด EN",
-            "ไปหน้าสนาม: ยังเป็น English และเงินเป็น THB",
-            "ไปหน้าตารางว่าง (โหลดใหม่ทั้งหน้า) ยังเป็น English",
-            "กด TH กลับเป็นภาษาไทยและ ฿"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:31:22.741Z",
+          "finishedAt": "2026-10-18T17:24:08.800Z",
           "notes": {}
         },
         {
@@ -2681,7 +2658,7 @@
           "priority": "P2",
           "expected": "LN-900004 + 0844444444 → /booking/LN-900004 ชื่อ \"แนน\" · LN-900001 + เบอร์แนน → \"เบอร์โทรไม่ตรงกับการจองนี้\" · เปิด /booking/LN-900001 ตรง ๆ → gate-phone · จองด้วยเบอร์แนนชื่อ \"แนน ทดลอง\" → แสดง \"แนน ทดลอง\" และ customerId เดียวกับ LN-900004 · มิวเรียกการจองของต้น → 403 BOOKING_FORBIDDEN",
           "status": "passed",
-          "durationMs": 8382,
+          "durationMs": 4786,
           "error": "",
           "steps": [
             "ค้นด้วยรหัส LN-900004 + เบอร์แนน → เห็นการจอง",
@@ -2694,7 +2671,30 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:22.964Z",
+          "finishedAt": "2026-10-18T17:24:11.972Z",
+          "notes": {}
+        },
+        {
+          "project": "webkit",
+          "tc": "TC-I18N-01",
+          "title": "TC-I18N-01 สลับภาษา ไทย/English และจำภาษาเมื่อเปลี่ยนหน้า",
+          "file": "tests/i18n.spec.ts",
+          "module": "I18N",
+          "priority": "P2",
+          "expected": "กด lang-en → <html lang=\"en\">, lang-en aria-pressed=true · ไปหน้าสนามและตารางยังเป็น en · เงินแสดง \"THB 1,200\" · กด lang-th → กลับ th และ \"฿1,200\"",
+          "status": "passed",
+          "durationMs": 7192,
+          "error": "",
+          "steps": [
+            "หน้าแรกเริ่มเป็นภาษาไทย แล้วกด EN",
+            "ไปหน้าสนาม: ยังเป็น English และเงินเป็น THB",
+            "ไปหน้าตารางว่าง (โหลดใหม่ทั้งหน้า) ยังเป็น English",
+            "กด TH กลับเป็นภาษาไทยและ ฿"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:24:12.649Z",
           "notes": {}
         },
         {
@@ -2706,7 +2706,7 @@
           "priority": "P1",
           "expected": "ยกเลิกล่วงหน้า 7 วัน → \"ยกเลิกแล้ว ได้รับเครดิตคืน ฿400\" · ยังไม่สมัคร: ไม่มี use-credit และ API ไม่ยอมให้ใช้เครดิต · สมัครแล้ว credit-balance 400 (CANCEL +400) · จองใหม่ใช้เครดิต: เครดิต 400 สุทธิ 400 จ่ายตอนนี้ 200 · จ่ายแล้วเครดิต 0 มีรายการ USED −400",
           "status": "passed",
-          "durationMs": 15425,
+          "durationMs": 9690,
           "error": "",
           "steps": [
             "ลูกค้า (ไม่สมัคร) จอง B 13:00 ศ. 16 ต.ค. จ่ายมัดจำ 400",
@@ -2719,7 +2719,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:24.152Z",
+          "finishedAt": "2026-10-18T17:24:13.248Z",
           "notes": {}
         },
         {
@@ -2731,7 +2731,7 @@
           "priority": "P1",
           "expected": "เช็กอิน 9 ชม. → paid-hours 9, free-hours-available 0, free-hours-next 1 · ครบ 10 → free-hours-available 1 · จอง C 1 ชม. ใช้สิทธิ์: price-free-hour 1,200 price-total 0 → /booking/{code}?done=free \"ยืนยันการจองแล้ว (ยอดที่ต้องจ่าย ฿0)\" CONFIRMED · สิทธิ์เหลือ 0",
           "status": "passed",
-          "durationMs": 9683,
+          "durationMs": 5467,
           "error": "",
           "steps": [
             "สมัครสมาชิกใหม่",
@@ -2744,7 +2744,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:27.099Z",
+          "finishedAt": "2026-10-18T17:24:14.321Z",
           "notes": {}
         },
         {
@@ -2756,7 +2756,7 @@
           "priority": "P1",
           "expected": "มิว: ศ. 16 A 16:00 ใช้ได้ (ฟรี 800 ยอด 0) · ศ. 16 A 17:00 และ ส. 17 A 09:00 → 400 \"ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์\" · อ. 13 (วันหยุดวันธรรมดา) A 09:00 ใช้ได้ · ต้น (7 ชม.) → \"ยังไม่มีสิทธิ์ชั่วโมงฟรี\" และ use-free-hour กดไม่ได้",
           "status": "passed",
-          "durationMs": 5711,
+          "durationMs": 4068,
           "error": "",
           "steps": [
             "มิวเข้าสู่ระบบ (สะสม 10 ชม. = 1 สิทธิ์) ศ. 16 A 16:00 ใช้สิทธิ์ได้",
@@ -2767,7 +2767,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:28.551Z",
+          "finishedAt": "2026-10-18T17:24:16.058Z",
           "notes": {}
         },
         {
@@ -2779,7 +2779,7 @@
           "priority": "P2",
           "expected": "รหัส 7 ตัว → \"รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร\" · ไม่ติ๊กยินยอม → \"กรุณายินยอมให้เก็บข้อมูลส่วนบุคคล (PDPA) ก่อนดำเนินการ\" · สำเร็จ → \"สมัครสมาชิกสำเร็จ\" + my-name · สมัครซ้ำ → \"เบอร์นี้สมัครสมาชิกแล้ว กรุณาเข้าสู่ระบบ\" · รหัสผิด → \"เบอร์โทรหรือรหัสผ่านไม่ถูกต้อง\" · รหัสถูก → my-name",
           "status": "passed",
-          "durationMs": 14759,
+          "durationMs": 8998,
           "error": "",
           "steps": [
             "เปิด /my",
@@ -2793,7 +2793,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:28.843Z",
+          "finishedAt": "2026-10-18T17:24:16.065Z",
           "notes": {}
         },
         {
@@ -2805,7 +2805,7 @@
           "priority": "P2",
           "expected": "มิว (1 สิทธิ์): ศ. 16 A 16:00 → use-free-hour ใช้ได้ ไม่มี use-free-hour-reason · เปลี่ยนเป็น 17:00 → disabled + use-free-hour-reason data-value FREE_HOUR_NOT_ELIGIBLE \"ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์\" · ส. 17 A 09:00 → disabled + เหตุผลเดิม · API ส่ง useFreeHour กับ ส. 09:00 ยังได้ 400 FREE_HOUR_NOT_ELIGIBLE · ต้น (0 สิทธิ์) ศ. 16 A 16:00 → disabled + FREE_HOUR_NONE \"ยังไม่มีสิทธิ์ชั่วโมงฟรี\"",
           "status": "passed",
-          "durationMs": 6626,
+          "durationMs": 4136,
           "error": "",
           "steps": [
             "มิวเข้าสู่ระบบ · ศ. 16 ต.ค. A 16:00 → ช่องชั่วโมงฟรีใช้ได้ ไม่มีเหตุผลปิด",
@@ -2817,7 +2817,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:29.683Z",
+          "finishedAt": "2026-10-18T17:24:16.806Z",
           "notes": {}
         },
         {
@@ -2829,7 +2829,7 @@
           "priority": "P3",
           "expected": "โหมด EN: /, /book, /book/new, /fields, /challenges, /my, /series, /pay/{code}, /booking/{code} ไม่มีอักษรไทย (ยกเว้นชื่อร้านและชื่อที่ผู้ใช้กรอก) · ไม่กรอกชื่อ → \"Please enter your name\"",
           "status": "passed",
-          "durationMs": 17369,
+          "durationMs": 11274,
           "error": "",
           "steps": [
             "สร้างการจอง A ศ. 16 ต.ค. 10:00 (ชื่อภาษาอังกฤษ)",
@@ -2849,7 +2849,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:31.151Z",
+          "finishedAt": "2026-10-18T17:24:17.146Z",
           "notes": {}
         },
         {
@@ -2861,7 +2861,7 @@
           "priority": "P2",
           "expected": "viewport 375×812: /, /book, /book/new, /fields, /challenges, /my, /series, /pay/{code}, /booking/{code}, /split/{token} → scrollWidth ≤ clientWidth",
           "status": "passed",
-          "durationMs": 8054,
+          "durationMs": 5752,
           "error": "",
           "steps": [
             "สร้างการจอง A จ. 12 ต.ค. 12:00",
@@ -2872,15 +2872,15 @@
             "เปิด /challenges ที่ 375 px",
             "เปิด /my ที่ 375 px",
             "เปิด /series ที่ 375 px",
-            "เปิด /pay/LN-100100 ที่ 375 px",
+            "เปิด /pay/LN-100101 ที่ 375 px",
             "จ่ายและสร้างลิงก์หาร (เตรียมหน้า /booking และ /split)",
-            "เปิด /booking/LN-100100 ที่ 375 px",
-            "เปิด /split/3JvbnU9cWBW_ ที่ 375 px"
+            "เปิด /booking/LN-100101 ที่ 375 px",
+            "เปิด /split/kXW6APEXx2l9 ที่ 375 px"
           ],
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:32.269Z",
+          "finishedAt": "2026-10-18T17:24:19.032Z",
           "notes": {}
         },
         {
@@ -2892,7 +2892,7 @@
           "priority": "P2",
           "expected": "booking-code ตรง · pay-qr แสดง · pay-now-amount 400 (สนาม C 600) · pay-countdown data-value 1–900 วินาที ข้อความ mm:ss ≤ 15:00 · จ่ายแล้วเปิด /pay ซ้ำ → pay-already · API จ่ายซ้ำ → 409 INVALID_STATUS \"สถานะการจองนี้ทำรายการนี้ไม่ได้\"",
           "status": "passed",
-          "durationMs": 5240,
+          "durationMs": 3200,
           "error": "",
           "steps": [
             "สร้างการจอง C จ. 12 ต.ค. 08:00 1 ชม.",
@@ -2904,7 +2904,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:35.026Z",
+          "finishedAt": "2026-10-18T17:24:20.027Z",
           "notes": {}
         },
         {
@@ -2916,7 +2916,7 @@
           "priority": "P1",
           "expected": "closure-field มีแค่ A, B · API ปิด C → 400 \"สนาม C มีหลังคา ปิดเพราะฝนไม่ได้\" · ปิด A ช่วงที่จ่ายมา ฿1,200 → \"ปิดสนามแล้ว คืนเครดิต 1 การจอง\" closure-affected 1,200 · การจองเป็น RAIN_CLOSED ลูกค้าได้เครดิต 1,200 · การจอง 15:00 นอกช่วงยัง CONFIRMED · ช่องเป็น closed · จองช่วงที่ปิด → \"สนามปิดในช่วงเวลานี้\"",
           "status": "passed",
-          "durationMs": 6593,
+          "durationMs": 4044,
           "error": "",
           "steps": [
             "ลูกค้า (สมาชิก) จอง A 2026-10-12 21:00 × 2 จ่าย 1,200 และ A 15:00 (นอกช่วง)",
@@ -2928,7 +2928,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:35.213Z",
+          "finishedAt": "2026-10-18T17:24:20.147Z",
           "notes": {}
         },
         {
@@ -2940,7 +2940,7 @@
           "priority": "P1",
           "expected": "A ศ. 16 ต.ค. 1 ชม. (เริ่ม ≥ 17:00 → FULL_100) จ่าย ฿1,200 · ทีมรับจ่าย ฿600 (= ฿1,200 × 50%) → เจ้าของได้ CHALLENGE ฿600 · เจ้าของปิด A ช่วงนั้นเพราะฝน → \"ปิดสนามแล้ว คืนเครดิต 1 การจอง\" · closure-affected-{code}-credit = 600 (= ฿1,200 − ฿600) · closure-affected-{code}-challenge = 600 · การจอง RAIN_CLOSED คำท้า CLOSED · เจ้าของเครดิตรวม 1,200 (CHALLENGE +600, RAIN +600) · ทีมรับ (สมัครด้วยเบอร์นั้น) เครดิต 600 (RAIN +600)",
           "status": "passed",
-          "durationMs": 6534,
+          "durationMs": 4244,
           "error": "",
           "steps": [
             "เจ้าของ (สมาชิกใหม่) จอง A ศ. 2026-10-16 20:00 จ่ายเต็ม ฿1,200 แล้วประกาศหาคู่แข่ง",
@@ -2952,7 +2952,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:35.491Z",
+          "finishedAt": "2026-10-18T17:24:20.347Z",
           "notes": {}
         },
         {
@@ -2964,7 +2964,7 @@
           "priority": "P1",
           "expected": "พ. 14 ต.ค.: slot-A-16 ฿800 · A-17 ฿1,200 · C-16 ฿1,200 · C-17 ฿1,800 · ฟอร์ม A 16:00 × 2: price-hour-16 800, price-hour-17 1,200, price-field 2,000",
           "status": "passed",
-          "durationMs": 5194,
+          "durationMs": 3440,
           "error": "",
           "steps": [
             "ตาราง พ. 14 ต.ค. ราคาในช่อง",
@@ -2973,7 +2973,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:36.394Z",
+          "finishedAt": "2026-10-18T17:24:20.612Z",
           "notes": {}
         },
         {
@@ -2985,7 +2985,7 @@
           "priority": "P2",
           "expected": "เพิ่มวันหยุด → \"เพิ่มวันหยุดแล้ว\" รายการปรากฏ · ตารางวันนั้นมี holiday-badge และ A 09:00 = ฿1,200 · เพิ่มซ้ำ → \"มีวันหยุดวันนี้อยู่แล้ว\" · ลบ → \"ลบวันหยุดแล้ว\" ราคากลับเป็น ฿800",
           "status": "passed",
-          "durationMs": 10196,
+          "durationMs": 6265,
           "error": "",
           "steps": [
             "ก่อนเพิ่ม: วันธรรมดา A 09:00 = ฿800",
@@ -2997,7 +2997,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:37.387Z",
+          "finishedAt": "2026-10-18T17:24:20.615Z",
           "notes": {}
         },
         {
@@ -3009,7 +3009,7 @@
           "priority": "P1",
           "expected": "A 09:00: ส. 10 ต.ค. ฿1,200 · อ. 13 ต.ค. (วันหยุด, มี holiday-badge) ฿1,200 · อ. 20 ต.ค. (ไม่ใช่วันหยุด) ฿800",
           "status": "passed",
-          "durationMs": 5398,
+          "durationMs": 2751,
           "error": "",
           "steps": [
             "เสาร์ 10 ต.ค. A 09:00 = ฿1,200",
@@ -3019,7 +3019,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:37.701Z",
+          "finishedAt": "2026-10-18T17:24:21.802Z",
           "notes": {}
         },
         {
@@ -3031,7 +3031,7 @@
           "priority": "P1",
           "expected": "อ. 20 ต.ค. B 08:00: เอี๊ยมเหลือ 6 บอลเหลือ 10 · เอี๊ยม 2 + บอล 1 → price-rental 130 (= 50 × 2 + 30) · price-total 930",
           "status": "passed",
-          "durationMs": 3142,
+          "durationMs": 2762,
           "error": "",
           "steps": [
             "เปิดฟอร์ม B 08:00 อ. 20 ต.ค. เห็นคงเหลือเต็ม",
@@ -3040,7 +3040,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:38.723Z",
+          "finishedAt": "2026-10-18T17:24:23.132Z",
           "notes": {}
         },
         {
@@ -3052,7 +3052,7 @@
           "priority": "P1",
           "expected": "พ. A 19:00 × 2 = 2,400 → จ่ายตอนนี้ 1,200 เก็บหน้าสนาม 1,200 · ต้น (เครดิต 1,200) ราคา 2,000 ใช้เครดิต → เครดิต 1,200 สุทธิ 800 จ่ายตอนนี้ 400 เก็บหน้าสนาม 400 · เครดิต 1,000 กับยอดรวม 800 → 400 CREDIT_EXCEEDS_TOTAL \"ใช้เครดิตเกินยอดรวมไม่ได้\"",
           "status": "passed",
-          "durationMs": 6710,
+          "durationMs": 4833,
           "error": "",
           "steps": [
             "ไม่เข้าสู่ระบบ: พ. 14 ต.ค. A 19:00 × 2 ชม.",
@@ -3062,31 +3062,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:42.022Z",
-          "notes": {}
-        },
-        {
-          "project": "webkit",
-          "tc": "TC-PRICE-03",
-          "title": "TC-PRICE-03 แผนจ่าย มัดจำ 50% / จ่ายเต็ม 100%",
-          "file": "tests/price.spec.ts",
-          "module": "PRICE",
-          "priority": "P1",
-          "expected": "ศ. 16 เริ่ม 17:00 → FULL_100 (จ่าย 1,200 = ยอดรวม) · ศ. 16 เริ่ม 16:00 × 2 → DEPOSIT_50 (2,000 → 1,000) · พฤ. 15 เริ่ม 17:00 → DEPOSIT_50 · อ. 13 (วันหยุด) เริ่ม 17:00 → DEPOSIT_50 · ส. 17 เริ่ม 17:00 → FULL_100",
-          "status": "passed",
-          "durationMs": 9655,
-          "error": "",
-          "steps": [
-            "ศุกร์ 16 ต.ค. เริ่ม 17:00 → FULL_100 จ่ายตอนนี้ 1200",
-            "ศุกร์ 16 ต.ค. เริ่ม 16:00 × 2 (คร่อม 17:00) → DEPOSIT_50 จ่ายตอนนี้ 1000",
-            "พฤหัส 15 ต.ค. เริ่ม 17:00 → DEPOSIT_50 จ่ายตอนนี้ 600",
-            "อังคาร 13 ต.ค. (วันหยุด) เริ่ม 17:00 → DEPOSIT_50 จ่ายตอนนี้ 600",
-            "เสาร์ 17 ต.ค. เริ่ม 17:00 → FULL_100 จ่ายตอนนี้ 1200"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:31:44.730Z",
+          "finishedAt": "2026-10-18T17:24:25.013Z",
           "notes": {}
         },
         {
@@ -3098,7 +3074,7 @@
           "priority": "P2",
           "expected": "รอบ 19:00 เช่าเอี๊ยม 6 ยังไม่คืน → รอบ 20:00 เหลือ 0 (= 6 − 6) · รอบ 18:00 (ก่อนหน้า) เหลือ 6 · พนักงานคืน 6 → \"บันทึกคืนของเช่าแล้ว\" → รอบ 20:00 เหลือ 6",
           "status": "passed",
-          "durationMs": 7580,
+          "durationMs": 5078,
           "error": "",
           "steps": [
             "จอง B 19:00 2026-10-13 เช่าเอี๊ยม 6 ชุด จ่ายแล้ว",
@@ -3110,7 +3086,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:45.038Z",
+          "finishedAt": "2026-10-18T17:24:25.721Z",
           "notes": {}
         },
         {
@@ -3122,7 +3098,7 @@
           "priority": "P1",
           "expected": "ส่วนลด = ⌈ค่าสนาม × 10%⌉ เมื่อมีเศษสตางค์ (BR-19, A-24) · ถ้าราคาจริงทุกสนาม/ช่วงเวลา (dayRate, eveningRate) ทำให้ 10% ลงตัวทุกกรณี → ทดสอบผ่านหน้าเว็บไม่ได้ ข้าม (ไม่เดา)",
           "status": "skipped",
-          "durationMs": 701,
+          "durationMs": 455,
           "error": "",
           "steps": [
             "อ่านราคาจริงจาก /api/fields แล้วหากรณีที่ 10% ของค่าสนามมีเศษ"
@@ -3130,7 +3106,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:45.496Z",
+          "finishedAt": "2026-10-18T17:24:26.199Z",
           "notes": {
             "rates": "A 800/1200, B 800/1200, C 1200/1800",
             "skip": "ทดสอบไม่ได้ผ่านหน้าเว็บ: ราคาจริง (A 800/1200, B 800/1200, C 1200/1800) เป็นทวีคูณของ 10 ทุกช่วง → ส่วนลด 10% ลงตัวทุกกรณี ไม่มีเศษให้ปัด (A-24)"
@@ -3145,7 +3121,7 @@
           "priority": "P2",
           "expected": "จองเอี๊ยม 6 ชุดได้ · อีกสนามเวลาเดียวกัน เอี๊ยมเหลือ 0 ขอ 1 (ชุดที่ 7) → \"ของเช่าไม่พอ (เอี๊ยม เหลือ 0)\" · บอล 11 ลูก → \"ของเช่าไม่พอ (ลูกบอล เหลือ 10)\"",
           "status": "passed",
-          "durationMs": 9049,
+          "durationMs": 5893,
           "error": "",
           "steps": [
             "จอง A 10:00 2026-10-10 เช่าเอี๊ยม 6 ชุด (ครบ stock) → ได้",
@@ -3155,7 +3131,31 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:45.596Z",
+          "finishedAt": "2026-10-18T17:24:26.533Z",
+          "notes": {}
+        },
+        {
+          "project": "webkit",
+          "tc": "TC-PRICE-03",
+          "title": "TC-PRICE-03 แผนจ่าย มัดจำ 50% / จ่ายเต็ม 100%",
+          "file": "tests/price.spec.ts",
+          "module": "PRICE",
+          "priority": "P1",
+          "expected": "ศ. 16 เริ่ม 17:00 → FULL_100 (จ่าย 1,200 = ยอดรวม) · ศ. 16 เริ่ม 16:00 × 2 → DEPOSIT_50 (2,000 → 1,000) · พฤ. 15 เริ่ม 17:00 → DEPOSIT_50 · อ. 13 (วันหยุด) เริ่ม 17:00 → DEPOSIT_50 · ส. 17 เริ่ม 17:00 → FULL_100",
+          "status": "passed",
+          "durationMs": 7310,
+          "error": "",
+          "steps": [
+            "ศุกร์ 16 ต.ค. เริ่ม 17:00 → FULL_100 จ่ายตอนนี้ 1200",
+            "ศุกร์ 16 ต.ค. เริ่ม 16:00 × 2 (คร่อม 17:00) → DEPOSIT_50 จ่ายตอนนี้ 1000",
+            "พฤหัส 15 ต.ค. เริ่ม 17:00 → DEPOSIT_50 จ่ายตอนนี้ 600",
+            "อังคาร 13 ต.ค. (วันหยุด) เริ่ม 17:00 → DEPOSIT_50 จ่ายตอนนี้ 600",
+            "เสาร์ 17 ต.ค. เริ่ม 17:00 → FULL_100 จ่ายตอนนี้ 1200"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:24:27.361Z",
           "notes": {}
         },
         {
@@ -3167,7 +3167,7 @@
           "priority": "P1",
           "expected": "พุธ A 19:00 × 2: 10 สัปดาห์ → ค่าสนาม 24,000 ส่วนลด 10% = 2,400 ยอดรวม 21,600 จ่ายตอนนี้ 10,800 · 7 สัปดาห์ (= 8 − 1) → ส่วนลด 0% จ่าย 8,400 · 8 สัปดาห์ → ส่วนลด 10% (1,920) จ่าย 8,640",
           "status": "passed",
-          "durationMs": 7680,
+          "durationMs": 4292,
           "error": "",
           "steps": [
             "10 สัปดาห์ → ส่วนลด 10% จ่ายตอนนี้ 10800",
@@ -3177,7 +3177,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:46.505Z",
+          "finishedAt": "2026-10-18T17:24:27.452Z",
           "notes": {}
         },
         {
@@ -3189,7 +3189,7 @@
           "priority": "P1",
           "expected": "ไม่เข้าสู่ระบบ → series-login-required · 3 สัปดาห์ → \"จองประจำได้ 4–12 สัปดาห์\" · 4 → series-weeks-booked 4 · 12 → 12 (สัปดาห์ที่ 12 = 2026-12-30) · 13 → \"จองประจำได้ 4–12 สัปดาห์\" · เริ่มวันนี้ 10:00 → \"ต้องจองก่อนเวลาเริ่มอย่างน้อย 1 ชั่วโมง\"",
           "status": "passed",
-          "durationMs": 12367,
+          "durationMs": 5911,
           "error": "",
           "steps": [
             "ยังไม่เข้าสู่ระบบ → ต้องเข้าสู่ระบบสมาชิกก่อน",
@@ -3203,7 +3203,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:50.159Z",
+          "finishedAt": "2026-10-18T17:24:27.733Z",
           "notes": {}
         },
         {
@@ -3215,7 +3215,7 @@
           "priority": "P1",
           "expected": "อา. 11 ต.ค. A ฿1,200 มัดจำ 600: ค้นรหัส → CONFIRMED เก็บหน้าสนาม 600 จ่ายแล้ว 600 ชื่อลูกค้าตรง · กดเช็กอิน → \"เก็บเงินและเช็กอินแล้ว\" CHECKED_IN จ่ายแล้ว 1,200 ค้าง 0 · ลูกค้าเห็น CHECKED_IN",
           "status": "passed",
-          "durationMs": 5722,
+          "durationMs": 3260,
           "error": "",
           "steps": [
             "ลูกค้าจอง A อา. 11 ต.ค. 12:00 จ่ายมัดจำ",
@@ -3226,7 +3226,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:50.818Z",
+          "finishedAt": "2026-10-18T17:24:29.473Z",
           "notes": {}
         },
         {
@@ -3238,7 +3238,7 @@
           "priority": "P1",
           "expected": "ศุกร์ C 1 ชม. เริ่ม 16 ต.ค. มีคนจอง 23 ต.ค. แล้ว: ขอ 4 → จองได้ 3 · ขอ 8 → series-conflicts \"2026-10-23\", week-2 conflict, จองได้ 7, ส่วนลด 0%, จ่ายตอนนี้ 12,600 (1,800 × 7 จ่ายเต็มทุกสัปดาห์) · ยืนยัน → /pay 12,600 → จ่ายแล้ว 7 การจอง CONFIRMED",
           "status": "passed",
-          "durationMs": 9404,
+          "durationMs": 5594,
           "error": "",
           "steps": [
             "มีคนอื่นจอง C ศ. 23 ต.ค. 23:00 ไว้แล้ว (สัปดาห์ที่ 2)",
@@ -3251,31 +3251,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:51.505Z",
-          "notes": {}
-        },
-        {
-          "project": "webkit",
-          "tc": "TC-TEAM-01",
-          "title": "TC-TEAM-01 ลิงก์หารค่าสนาม ยอดต่อคน (ปัดขึ้น) และสถานะจ่ายรายคน",
-          "file": "tests/team.spec.ts",
-          "module": "TEAM",
-          "priority": "P2",
-          "expected": "฿2,400 ÷ 12 คน → split-per-person 200 · /split/{token}: split-net 2,400 split-people 12 · สลับคนที่ 1 → data-paid true, split-paid-count 1 · 1 คน → \"จำนวนคนต้องอยู่ระหว่าง 2–30 คน\" · ฿1,200 ÷ 7 คน (ใส่ชื่อ) → 172 (ปัดขึ้นจาก 171.43)",
-          "status": "passed",
-          "durationMs": 10067,
-          "error": "",
-          "steps": [
-            "จองและจ่าย B 17:00 × 2 (฿2,400) และ C 10:00 × 1 (฿1,200) พ. 14 ต.ค.",
-            "สร้างลิงก์หาร 12 คน → คนละ ฿200",
-            "เปิดลิงก์หาร (ลูกทีม) แล้วกดว่าคนที่ 1 จ่ายแล้ว",
-            "การจอง ฿1,200: 1 คน (= 2 − 1) → ปฏิเสธ",
-            "ใส่ชื่อลูกทีม 7 คน → ฿1,200 ÷ 7 = 171.43 ปัดขึ้น ฿172"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:31:55.751Z",
+          "finishedAt": "2026-10-18T17:24:30.633Z",
           "notes": {}
         },
         {
@@ -3287,7 +3263,7 @@
           "priority": "P3",
           "expected": "ตัวเลือก challenge-level และ challenge-filter-level: BEGINNER = \"มือใหม่\", INTERMEDIATE = \"กลาง\", ADVANCED = \"เก่ง\" · การ์ด ADVANCED แสดง \"เก่ง\" · กรอง ADVANCED เห็นเฉพาะ data-level=\"ADVANCED\"",
           "status": "passed",
-          "durationMs": 5815,
+          "durationMs": 3108,
           "error": "",
           "steps": [
             "จองและจ่าย C พ. 14 ต.ค. 16:00",
@@ -3299,7 +3275,55 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:56.058Z",
+          "finishedAt": "2026-10-18T17:24:30.874Z",
+          "notes": {}
+        },
+        {
+          "project": "webkit",
+          "tc": "TC-TEAM-01",
+          "title": "TC-TEAM-01 ลิงก์หารค่าสนาม ยอดต่อคน (ปัดขึ้น) และสถานะจ่ายรายคน",
+          "file": "tests/team.spec.ts",
+          "module": "TEAM",
+          "priority": "P2",
+          "expected": "฿2,400 ÷ 12 คน → split-per-person 200 · /split/{token}: split-net 2,400 split-people 12 · สลับคนที่ 1 → data-paid true, split-paid-count 1 · 1 คน → \"จำนวนคนต้องอยู่ระหว่าง 2–30 คน\" · ฿1,200 ÷ 7 คน (ใส่ชื่อ) → 172 (ปัดขึ้นจาก 171.43)",
+          "status": "passed",
+          "durationMs": 5549,
+          "error": "",
+          "steps": [
+            "จองและจ่าย B 17:00 × 2 (฿2,400) และ C 10:00 × 1 (฿1,200) พ. 14 ต.ค.",
+            "สร้างลิงก์หาร 12 คน → คนละ ฿200",
+            "เปิดลิงก์หาร (ลูกทีม) แล้วกดว่าคนที่ 1 จ่ายแล้ว",
+            "การจอง ฿1,200: 1 คน (= 2 − 1) → ปฏิเสธ",
+            "ใส่ชื่อลูกทีม 7 คน → ฿1,200 ÷ 7 = 171.43 ปัดขึ้น ฿172"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:24:32.932Z",
+          "notes": {}
+        },
+        {
+          "project": "webkit",
+          "tc": "TC-STAFF-05",
+          "title": "TC-STAFF-05 สิทธิ์ตามบทบาทฝั่งร้าน และภาพรวมวันนี้ของผู้จัดการ",
+          "file": "tests/staff.spec.ts",
+          "module": "STAFF",
+          "priority": "P2",
+          "expected": "เข้าสู่ระบบแล้วไปหน้าหลัก: STAFF → /staff, MANAGER → /staff/today, OWNER → /owner · STAFF เปิด /staff/today และ /owner → forbidden-message · MANAGER เปิด /owner → forbidden-message · ภาพรวมวันนี้: today-slot-A-19 CONFIRMED, total-bookings 1, total-paid 2,400, total-due 0, today-rental-BIB-8 = 6",
+          "status": "passed",
+          "durationMs": 6410,
+          "error": "",
+          "steps": [
+            "STAFF เข้าสู่ระบบ → /staff",
+            "STAFF เปิด /staff/today และ /owner → ไม่มีสิทธิ์",
+            "MANAGER เข้าสู่ระบบ → /staff/today เห็นภาพรวมวันนี้",
+            "MANAGER เปิด /owner → ไม่มีสิทธิ์",
+            "OWNER เข้าสู่ระบบ → /owner"
+          ],
+          "videos": [],
+          "screenshots": [],
+          "traces": [],
+          "finishedAt": "2026-10-18T17:24:32.971Z",
           "notes": {}
         },
         {
@@ -3311,7 +3335,7 @@
           "priority": "P3",
           "expected": "C อา. 11 ต.ค. 1 ชม. ฿1,800 ลิงก์ 4 คน (คนละ ฿450) · /split/{token}: split-people data-value 4 · split-paid-count data-value 0 → กดจ่ายคนที่ 1, 2 → 2 → ยกเลิกคนที่ 1 → 1",
           "status": "passed",
-          "durationMs": 4951,
+          "durationMs": 2691,
           "error": "",
           "steps": [
             "จองและจ่าย C อา. 11 ต.ค. 10:00 แล้วสร้างลิงก์หาร 4 คน",
@@ -3322,7 +3346,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:56.529Z",
+          "finishedAt": "2026-10-18T17:24:33.350Z",
           "notes": {}
         },
         {
@@ -3334,7 +3358,7 @@
           "priority": "P2",
           "expected": "C พฤ. 15 ต.ค. 1 ชม. ฿1,800 · สร้างลิงก์ 6 คน → \"สร้างลิงก์หารค่าสนามแล้ว\" คนละ ฿300 · หลังสร้างไม่มีฟอร์ม split-create · ลูกทีมคนที่ 1 จ่ายแล้ว · สร้างครั้งที่ 2 (= 1 + 1) ด้วย 9 คน → 200 existing=true token เดิม people 6 perPerson 300 \"การจองนี้มีลิงก์หารค่าสนามแล้ว ใช้ลิงก์เดิม\" · ครั้งที่ 3 ใส่ชื่อ 3 คน → ลิงก์เดิมเช่นกัน · ลิงก์ยังมี 6 ส่วน paidCount 1",
           "status": "passed",
-          "durationMs": 6819,
+          "durationMs": 3961,
           "error": "",
           "steps": [
             "จองและจ่าย C 2026-10-15 21:00 × 1 (฿1,800 มัดจำ 900)",
@@ -3348,31 +3372,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:31:57.692Z",
-          "notes": {}
-        },
-        {
-          "project": "webkit",
-          "tc": "TC-STAFF-05",
-          "title": "TC-STAFF-05 สิทธิ์ตามบทบาทฝั่งร้าน และภาพรวมวันนี้ของผู้จัดการ",
-          "file": "tests/staff.spec.ts",
-          "module": "STAFF",
-          "priority": "P2",
-          "expected": "เข้าสู่ระบบแล้วไปหน้าหลัก: STAFF → /staff, MANAGER → /staff/today, OWNER → /owner · STAFF เปิด /staff/today และ /owner → forbidden-message · MANAGER เปิด /owner → forbidden-message · ภาพรวมวันนี้: today-slot-A-19 CONFIRMED, total-bookings 1, total-paid 2,400, total-due 0, today-rental-BIB-8 = 6",
-          "status": "passed",
-          "durationMs": 12219,
-          "error": "",
-          "steps": [
-            "STAFF เข้าสู่ระบบ → /staff",
-            "STAFF เปิด /staff/today และ /owner → ไม่มีสิทธิ์",
-            "MANAGER เข้าสู่ระบบ → /staff/today เห็นภาพรวมวันนี้",
-            "MANAGER เปิด /owner → ไม่มีสิทธิ์",
-            "OWNER เข้าสู่ระบบ → /owner"
-          ],
-          "videos": [],
-          "screenshots": [],
-          "traces": [],
-          "finishedAt": "2026-10-10T08:31:57.761Z",
+          "finishedAt": "2026-10-18T17:24:33.470Z",
           "notes": {}
         },
         {
@@ -3384,7 +3384,7 @@
           "priority": "P1",
           "expected": "การจองค้างจ่าย → \"ประกาศหาคู่แข่งได้เฉพาะการจองที่ยืนยันแล้วและยังไม่ถึงเวลาเริ่ม\" · C ศ. 18:00 ฿1,800 ประกาศ → \"ประกาศหาคู่แข่งแล้ว\" ทีมรับจ่าย 900 · /challenges ไม่มีเบอร์โทร · เจ้าของรับเอง → \"รับคำท้าของตัวเองไม่ได้\" · ทีมอื่นรับ → \"รับคำท้าแล้ว กรุณาชำระเงินภายใน 15 นาที\" จ่าย 900 → \"ชำระเงินสำเร็จ จับคู่แข่งเรียบร้อย\" MATCHED · เจ้าของเครดิต 900 (CHALLENGE) · เจ้าของยกเลิก → ถูกปฏิเสธ 409 CHALLENGE_MATCHED \"มีทีมรับคำท้าแล้ว ยกเลิกหรือเลื่อนการจองนี้ไม่ได้\" (cancel-booking-hint / cancel-confirm-reason data-value CHALLENGE_MATCHED) สถานะยัง CONFIRMED เครดิตยัง 900",
           "status": "passed",
-          "durationMs": 17058,
+          "durationMs": 9966,
           "error": "",
           "steps": [
             "เจ้าของ (สมาชิกใหม่) จอง C ศ. 16 ต.ค. 20:00 จ่ายเต็ม 1,800 และอีกการจองค้างจ่าย",
@@ -3400,13 +3400,13 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:03.629Z",
+          "finishedAt": "2026-10-18T17:24:37.437Z",
           "notes": {}
         }
       ]
     },
     "serial": {
-      "runAt": "2026-10-10T08:32:45.459Z",
+      "runAt": "2026-10-18T17:25:16.814Z",
       "gifMode": false,
       "rows": [
         {
@@ -3418,7 +3418,7 @@
           "priority": "P1",
           "expected": "ตอนนี้ 15:00: slot-A-16 free และจองได้ → /pay · ตอนนี้ 15:01: slot-B-16 past และจอง B 16:00 → \"ต้องจองก่อนเวลาเริ่มอย่างน้อย 1 ชั่วโมง\"",
           "status": "passed",
-          "durationMs": 2909,
+          "durationMs": 2105,
           "error": "",
           "steps": [
             "ตั้งเวลา 15:00 → รอบ 16:00 (ห่าง 60 นาที) ว่างและจองได้",
@@ -3427,7 +3427,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:08.750Z",
+          "finishedAt": "2026-10-18T17:24:40.949Z",
           "notes": {}
         },
         {
@@ -3439,7 +3439,7 @@
           "priority": "P1",
           "expected": "สร้าง 2 การจอง 10:00:00 · 10:15:00 จ่ายการจองที่ 1 → CONFIRMED · 10:15:01 เปิด /pay การจองที่ 2 → pay-expired \"หมดเวลาชำระเงิน รอบเวลานี้ว่างแล้ว\" สถานะ EXPIRED ช่องกลับเป็น free และจองใหม่ได้",
           "status": "passed",
-          "durationMs": 2381,
+          "durationMs": 2001,
           "error": "",
           "steps": [
             "10:00:00 สร้างการจอง ส. 10 ต.ค. A 09:00 และ A 10:00 (ยังไม่จ่าย)",
@@ -3450,7 +3450,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:11.144Z",
+          "finishedAt": "2026-10-18T17:24:42.961Z",
           "notes": {}
         },
         {
@@ -3462,7 +3462,7 @@
           "priority": "P1",
           "expected": "ต้น (เครดิต 1,200) จอง จ. 12 A 10:00 × 2 (฿1,600) ใช้เครดิต 1,200 จ่าย 200 · อา. 11 10:00 (เหลือ 24 ชม. พอดี) preview 1,400 → \"ยกเลิกแล้ว ได้รับเครดิตคืน ฿1,400\" CANCELLED · credit-balance 1,400 รายการ CANCEL +1,400",
           "status": "passed",
-          "durationMs": 2312,
+          "durationMs": 2166,
           "error": "",
           "steps": [
             "ต้นเข้าสู่ระบบ จอง A จ. 12 ต.ค. 10:00 × 2 ใช้เครดิต 1,200 แล้วจ่าย 200",
@@ -3472,7 +3472,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:13.467Z",
+          "finishedAt": "2026-10-18T17:24:45.136Z",
           "notes": {}
         },
         {
@@ -3484,7 +3484,7 @@
           "priority": "P1",
           "expected": "อา. 11 10:01 (เหลือ 23:59) preview 0 → \"ยกเลิกแล้ว ไม่ได้รับเครดิตคืน เพราะเหลือเวลาน้อยกว่า 24 ชั่วโมง\" CANCELLED ช่องกลับเป็น free · จ. 12 10:01 (เริ่มไปแล้ว 1 นาที) ยกเลิก → \"ยกเลิกได้ก่อนเวลาเริ่มเท่านั้น\" ยัง CONFIRMED",
           "status": "passed",
-          "durationMs": 3710,
+          "durationMs": 3651,
           "error": "",
           "steps": [
             "จองและจ่าย A และ B จ. 12 ต.ค. 10:00",
@@ -3494,7 +3494,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:17.191Z",
+          "finishedAt": "2026-10-18T17:24:48.796Z",
           "notes": {}
         },
         {
@@ -3506,7 +3506,7 @@
           "priority": "P1",
           "expected": "การจอง จ. 12 A 10:00 · อา. 11 10:01 เลื่อนไป 14:00 → \"เลื่อนได้เมื่อเหลือเวลาอย่างน้อย 24 ชั่วโมงก่อนเวลาเริ่ม\" · อา. 11 10:00 → \"เลื่อนการจองแล้ว\" booking-time 14:00",
           "status": "passed",
-          "durationMs": 2293,
+          "durationMs": 2695,
           "error": "",
           "steps": [
             "จองและจ่าย A จ. 12 ต.ค. 10:00",
@@ -3516,7 +3516,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:19.498Z",
+          "finishedAt": "2026-10-18T17:24:51.504Z",
           "notes": {}
         },
         {
@@ -3528,7 +3528,7 @@
           "priority": "P2",
           "expected": "ทีมที่ 1 รับ 10:00 · 10:15:01 จ่าย → \"หมดเวลาชำระเงิน ประกาศกลับมาเปิดรับแล้ว\" ประกาศเป็น OPEN · ทีมที่ 2 รับ 10:15:01 จ่ายตอน 10:29:01 (14 นาที) → \"ชำระเงินสำเร็จ จับคู่แข่งเรียบร้อย\" MATCHED",
           "status": "passed",
-          "durationMs": 6541,
+          "durationMs": 6281,
           "error": "",
           "steps": [
             "ต้นประกาศหาคู่แข่งจาก LN-900001 (CONFIRMED วันนี้ 19:00)",
@@ -3539,7 +3539,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:26.051Z",
+          "finishedAt": "2026-10-18T17:24:57.794Z",
           "notes": {}
         },
         {
@@ -3551,7 +3551,7 @@
           "priority": "P1",
           "expected": "การจองวันนี้ A 11:00 · 11:14 กดไม่มา → \"บันทึกไม่มาได้เมื่อเลยเวลาเริ่มอย่างน้อย 15 นาที\" ยัง CONFIRMED · 11:15 → \"บันทึกไม่มาแล้ว\" NO_SHOW (ไม่ระงับ) · เบอร์เดิมจองใหม่ได้ 201",
           "status": "passed",
-          "durationMs": 2804,
+          "durationMs": 2664,
           "error": "",
           "steps": [
             "ลูกค้าจองวันนี้ A 11:00 และจ่าย",
@@ -3562,7 +3562,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:28.867Z",
+          "finishedAt": "2026-10-18T17:25:00.466Z",
           "notes": {}
         },
         {
@@ -3574,7 +3574,7 @@
           "priority": "P1",
           "expected": "โจ้ไม่มาครั้งแรก 4 ต.ค. 19:15 · จอง 3 พ.ย. A 19:00 · 3 พ.ย. 19:15 กดไม่มา → \"บันทึกไม่มาแล้ว ลูกค้าถูกระงับการจองออนไลน์ถึง 3 ธ.ค. 2026 19:15\" · /my banned-notice, banned-until 2026-12-03T12:15:00Z · จองใหม่ → \"เบอร์นี้ถูกระงับการจองออนไลน์ จองได้อีกครั้ง 3 ธ.ค. 2026 19:15\"",
           "status": "passed",
-          "durationMs": 2520,
+          "durationMs": 2434,
           "error": "",
           "steps": [
             "25 ต.ค. โจ้จอง A 3 พ.ย. 19:00 และจ่าย",
@@ -3585,7 +3585,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:31.398Z",
+          "finishedAt": "2026-10-18T17:25:02.909Z",
           "notes": {}
         },
         {
@@ -3597,7 +3597,7 @@
           "priority": "P1",
           "expected": "โจ้ไม่มาครั้งแรก 4 ต.ค. · จอง 4 พ.ย. A 19:00 · 4 พ.ย. 19:15 กดไม่มา → \"บันทึกไม่มาแล้ว\" (ไม่ระงับ) · /my ไม่มี banned-notice · โจ้จองใหม่ได้ → /pay",
           "status": "passed",
-          "durationMs": 2535,
+          "durationMs": 2343,
           "error": "",
           "steps": [
             "25 ต.ค. โจ้จอง A 4 พ.ย. 19:00 และจ่าย",
@@ -3607,7 +3607,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:33.945Z",
+          "finishedAt": "2026-10-18T17:25:05.262Z",
           "notes": {}
         },
         {
@@ -3619,7 +3619,7 @@
           "priority": "P1",
           "expected": "การจองวันนี้ A และ B 12:00 จ่ายแล้ว · 11:59 (เหลือ 1 นาที) ยกเลิก A: ไม่มี cancel-booking-hint · preview 0 → \"ยกเลิกแล้ว ไม่ได้รับเครดิตคืน เพราะเหลือเวลาน้อยกว่า 24 ชั่วโมง\" CANCELLED · 12:00 (เหลือ 0 นาที) B: cancel-booking-hint data-value CANCEL_TOO_LATE \"ยกเลิกได้ก่อนเวลาเริ่มเท่านั้น\" · ขั้นยืนยัน preview 0 + cancel-confirm-reason CANCEL_TOO_LATE · ยืนยัน → error เดิม · API 409 CANCEL_TOO_LATE · ยัง CONFIRMED",
           "status": "passed",
-          "durationMs": 3623,
+          "durationMs": 3539,
           "error": "",
           "steps": [
             "10:00 จองและจ่าย A และ B วันนี้ (ศ. 9 ต.ค.) 12:00",
@@ -3630,7 +3630,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:37.580Z",
+          "finishedAt": "2026-10-18T17:25:08.810Z",
           "notes": {}
         },
         {
@@ -3642,7 +3642,7 @@
           "priority": "P1",
           "expected": "สมาชิกใหม่จอง A อา. 11 ต.ค. 09:00 (฿1,200 มัดจำ 600) ประกาศหาคู่แข่ง (ทีมรับจ่าย 600) · 10:00 ทีมอื่นกดรับ (AWAITING_PAYMENT) · reschedule-submit-hint data-value CHALLENGE_PENDING \"มีทีมกำลังชำระเงินรับคำท้า เลื่อนการจองได้หลังชำระเสร็จหรือหมดเวลา 15 นาที\" ไม่มี cancel-booking-hint · กดเลื่อนไป จ. 12 09:00 → error เดิม การจองไม่เปลี่ยน · 10:15:00 API เลื่อน → 409 CHALLENGE_PENDING · 10:15:01 คำท้ากลับเป็น OPEN → เลื่อนได้ \"เลื่อนการจองแล้ว ได้รับส่วนต่างเป็นเครดิต ฿400\" (฿800 − ฿1,200) · คำท้ายอดทีมรับใหม่ 400 (= 800 × 50%)",
           "status": "passed",
-          "durationMs": 2050,
+          "durationMs": 2475,
           "error": "",
           "steps": [
             "10:00 สมาชิกใหม่จองและจ่าย A อา. 11 ต.ค. 09:00 แล้วประกาศหาคู่แข่ง",
@@ -3654,7 +3654,7 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:39.641Z",
+          "finishedAt": "2026-10-18T17:25:11.293Z",
           "notes": {}
         },
         {
@@ -3666,7 +3666,7 @@
           "priority": "P1",
           "expected": "ต้นประกาศจาก LN-900001 (ทีมรับจ่าย ฿1,200 = ฿2,400 × 50%) · ทีมที่ 1 รับ 10:00:00 จ่าย 10:15:00 → \"ชำระเงินสำเร็จ จับคู่แข่งเรียบร้อย\" MATCHED · ต้นได้เครดิต CHALLENGE +1,200 (รวม 2,400) · ประกาศที่ 2 (B วันนี้ 19:00 ฿1,200 → ทีมรับ ฿600) ทีมที่ 2 รับ 10:15:00 จ่าย 10:30:01 → \"หมดเวลาชำระเงิน ประกาศกลับมาเปิดรับแล้ว\" ประกาศเป็น OPEN",
           "status": "passed",
-          "durationMs": 5484,
+          "durationMs": 5248,
           "error": "",
           "steps": [
             "ต้นประกาศหาคู่แข่งจาก LN-900001 → ทีมรับต้องจ่าย ฿1,200",
@@ -3680,13 +3680,13 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:45.137Z",
+          "finishedAt": "2026-10-18T17:25:16.550Z",
           "notes": {}
         }
       ]
     },
     "perf-chromium": {
-      "runAt": "2026-10-10T08:32:58.398Z",
+      "runAt": "2026-10-18T17:25:27.183Z",
       "gifMode": false,
       "rows": [
         {
@@ -3698,7 +3698,7 @@
           "priority": "P1",
           "expected": "ทุกสนามมี slot 8…23 = 16 ช่อง · ไม่มี slot-A-7 / slot-A-24 · book-start มีค่า 8…23 เท่านั้น (ไม่มี 7, 8.5) · ตารางโหลดจน data-ready ≤ 2 วินาที (NFR-08 วัดตอนรันเดี่ยว ทั้ง 3 เบราว์เซอร์)",
           "status": "passed",
-          "durationMs": 1349,
+          "durationMs": 1143,
           "error": "",
           "steps": [
             "เปิด /book?date=2026-10-12 จับเวลาจนพร้อม",
@@ -3709,15 +3709,15 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:49.279Z",
+          "finishedAt": "2026-10-18T17:25:20.005Z",
           "notes": {
-            "load-ms": "294"
+            "load-ms": "247"
           }
         }
       ]
     },
     "perf-firefox": {
-      "runAt": "2026-10-10T08:32:58.398Z",
+      "runAt": "2026-10-18T17:25:27.183Z",
       "gifMode": false,
       "rows": [
         {
@@ -3729,7 +3729,7 @@
           "priority": "P1",
           "expected": "ทุกสนามมี slot 8…23 = 16 ช่อง · ไม่มี slot-A-7 / slot-A-24 · book-start มีค่า 8…23 เท่านั้น (ไม่มี 7, 8.5) · ตารางโหลดจน data-ready ≤ 2 วินาที (NFR-08 วัดตอนรันเดี่ยว ทั้ง 3 เบราว์เซอร์)",
           "status": "passed",
-          "durationMs": 3417,
+          "durationMs": 2817,
           "error": "",
           "steps": [
             "เปิด /book?date=2026-10-12 จับเวลาจนพร้อม",
@@ -3740,15 +3740,15 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:54.164Z",
+          "finishedAt": "2026-10-18T17:25:23.690Z",
           "notes": {
-            "load-ms": "665"
+            "load-ms": "575"
           }
         }
       ]
     },
     "perf-webkit": {
-      "runAt": "2026-10-10T08:32:58.398Z",
+      "runAt": "2026-10-18T17:25:27.183Z",
       "gifMode": false,
       "rows": [
         {
@@ -3760,7 +3760,7 @@
           "priority": "P1",
           "expected": "ทุกสนามมี slot 8…23 = 16 ช่อง · ไม่มี slot-A-7 / slot-A-24 · book-start มีค่า 8…23 เท่านั้น (ไม่มี 7, 8.5) · ตารางโหลดจน data-ready ≤ 2 วินาที (NFR-08 วัดตอนรันเดี่ยว ทั้ง 3 เบราว์เซอร์)",
           "status": "passed",
-          "durationMs": 3116,
+          "durationMs": 2525,
           "error": "",
           "steps": [
             "เปิด /book?date=2026-10-12 จับเวลาจนพร้อม",
@@ -3771,9 +3771,9 @@
           "videos": [],
           "screenshots": [],
           "traces": [],
-          "finishedAt": "2026-10-10T08:32:58.267Z",
+          "finishedAt": "2026-10-18T17:25:27.071Z",
           "notes": {
-            "load-ms": "556"
+            "load-ms": "456"
           }
         }
       ]
