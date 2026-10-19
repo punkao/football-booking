@@ -24,3 +24,7 @@ e2e/test-report/videos/_before-7.5b/*
 # v2 database backups contain personal data (NFR-18 · ADR-13)
 db/backups/*
 !db/backups/.gitkeep
+
+# Playwright MCP run noise (browser console dumps, bridge log)
+screenshots/mcp/console-*.log
+screenshots/mcp/bridge-run.log
