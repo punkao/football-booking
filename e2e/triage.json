@@ -2,5 +2,17 @@
   "TC-BOOK-07": {
     "class": "flaky (ไม่ใช่บั๊กเว็บ / ไม่ใช่ test ผิด)",
     "note": "รอบ 7.5b-r2 เฉพาะ Firefox: ทุก step ของ test ผ่าน (ข้อความ error ชื่อ/เบอร์/PDPA ถูกต้อง ช่องยัง free ไม่มี console error) แต่ล้มตอน Playwright ปิด context: \"browserContext.close: Protocol error (Browser.removeBrowserContext): can't access property _maybeDontRestoreTabs\" — เป็นปัญหาของ Firefox driver ที่เคยพบในรอบก่อน (notes 5.1) · รอบ 7.5b-r1 ข้อเดียวกันผ่านทุกเบราว์เซอร์ · ไม่แก้ test"
+  },
+  "TC-CHAT-14": {
+    "class": "เว็บผิด",
+    "note": "บอทตอบ \"ไม่มีข้อมูล\" ทั้ง \"ช่วงไหนถูกสุด\" และ \"ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ\" ไม่มี 800 / 1,600 ตามที่ร้านขอใน US-39 (FR-35 ใช้บทสนทนาเดิมในห้อง) — ตรงกับ ⚠️ ใน TEST-RUN-MCP"
+  },
+  "TC-CHAT-15": {
+    "class": "เว็บผิด",
+    "note": "ข้อความที่ 2 \"งั้นสนาม B ล่ะ\" ได้ \"ไม่มีข้อมูล\" — บอทไม่ใช้วัน/เวลา 19:00 จากข้อความแรก (FR-35) ทั้งที่ตาราง /book slot-B-19 = free — ตรงกับ ⚠️ ใน TEST-RUN-MCP"
+  },
+  "TC-CHAT-16": {
+    "class": "เว็บผิด",
+    "note": "ตอบอังกฤษและบอก covered ถูก แต่ข้อความที่ 2 \"How much is it on Saturday night?\" ตอบราคาทุกสนาม (มี Field A/B) แทนสนาม C ที่คุยอยู่ — ไม่จำว่า \"it\" = สนาม C (FR-35) — ตรงกับ ⚠️ ใน TEST-RUN-MCP"
   }
 }

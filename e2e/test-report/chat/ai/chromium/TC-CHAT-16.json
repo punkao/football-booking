@@ -1,0 +1,57 @@
+{
+  "tc": "TC-CHAT-16",
+  "title": "TC-CHAT-16 ถามต่อเนื่องภาษาอังกฤษ (Mr. Daniel): covered? → Saturday night price",
+  "project": "chromium",
+  "chatMode": "ai",
+  "gifMode": false,
+  "status": "failed",
+  "finishedAt": "2026-10-19T18:37:24.261Z",
+  "turns": [
+    {
+      "user": "Is pitch C covered?",
+      "bot": "We have 3 fields. Field A: 5-a-side, open-air; Field B: 5-a-side, open-air; Field C: 7-a-side, covered.",
+      "cards": {}
+    },
+    {
+      "user": "How much is it on Saturday night?",
+      "bot": "Please tell me the field, date and start time and I will check it for you. Field A: THB 800/h (starting before 17:00 Mon–Fri) and THB 1,200/h (from 17:00, weekends and holidays); Field B: THB 800/h (starting before 17:00 Mon–Fri) and THB 1,200/h (from 17:00, weekends and holidays); Field C: THB 1,200/h (starting before 17:00 Mon–Fri) and THB 1,800/h (from 17:00, weekends and holidays).",
+      "cards": {}
+    }
+  ],
+  "checks": [
+    {
+      "kind": "ต้องมี",
+      "label": "คำตอบ 1 มี \"covered\"",
+      "ok": true,
+      "actual": "We have 3 fields. Field A: 5-a-side, open-air; Field B: 5-a-side, open-air; Field C: 7-a-side, covered."
+    },
+    {
+      "kind": "ต้องมี",
+      "label": "คำตอบ 2 มี \"1,800\"",
+      "ok": true,
+      "actual": "Please tell me the field, date and start time and I will check it for you. Field A: THB 800/h (starting before 17:00 Mon–Fri) and THB 1,200/h (from 17:00, weekends and holidays); Field B: THB 800/h (starting before 17:00"
+    },
+    {
+      "kind": "ต้องมี",
+      "label": "คำตอบ 2 อ้างถึงสนาม C",
+      "ok": true,
+      "actual": "Please tell me the field, date and start time and I will check it for you. Field A: THB 800/h (starting before 17:00 Mon–Fri) and THB 1,200/h (from 17:00, weekends and holidays); Field B: THB 800/h (starting before 17:00"
+    },
+    {
+      "kind": "ห้ามมี",
+      "label": "คำตอบ 2 มี \"Field A\" (ตอบทุกสนามแทนสนามที่คุยอยู่)",
+      "ok": false,
+      "actual": "Please tell me the field, date and start time and I will check it for you. Field A: THB 800/h (starting before 17:00 Mon–Fri) and THB 1,200/h (from 17:00, weekends and holidays); Field B: THB 800/h (starting before 17:00"
+    },
+    {
+      "kind": "ห้ามมี",
+      "label": "อักษรไทยในคำตอบ 1 หรือ 2",
+      "ok": true,
+      "actual": "We have 3 fields. Field A: 5-a-side, open-air; Field B: 5-a-side, open-air; Field C: 7-a-side, covered. → Please tell me the field, date and start time and I will check it for you. Field A: THB 800/h (starting before 17:00 Mon–Fri) and THB 1,200/h (from 17:00, weekends and holidays); Field B: THB 800/h (starting before 17:00"
+    }
+  ],
+  "notes": [],
+  "errors": [
+    "Error: ห้ามมี: คำตอบ 2 มี \"Field A\" (ตอบทุกสนามแทนสนามที่คุยอยู่) — ได้จริง: Please tell me the field, date and start time and I will check it for you. Field A: THB 800/h (starting before 17:00 Mon–Fri) and THB 1,200/h (from 17:00, weekends and holidays); Field B: THB 800/h (starting before 17:00"
+  ]
+}

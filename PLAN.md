@@ -125,7 +125,7 @@
 | A ฟังร้านรอบ 2 | ✅ สัมภาษณ์รอบ 2 + A-29–A-40 · BA S45–S71 · US-35–52 · 04 (contract 23 entity · FR 48 · BR 45 · NFR 24 · T-01–T-24) · Graph N2∥N3∥N4 ขนานจริง → N5 ผ่าน · TEST-DATA ร้านยืนยัน · BUILD-PROMPT v2 | A0–A5, B0 |
 | B สร้าง v2 | ✅ B1 ฐานระบบ · B2 ฟีเจอร์ · G4 `/code-review` 10 ข้อ + G5 `/security-review` → B3 แก้ครบ 12 ข้อ (ตรวจเอง: unit 88/88 · TEST-DATA 151/151 · ปลอม cookie OWNER ด้วย secret เก่า → 401 · v1 e2e 153/153) | B0–B3 |
 | C ทดสอบ + C+ MCP | 🔄 ส่วน A: EXPLORATION ✅ · แผน 8 หัวข้อ ✅ · TEST-CASES 128 ข้อ + เฉลย ✅ · PLAN-REVIEW ✅ · A5 รัน MCP (≈ 92/128 ภาพ · 4,334 call) กำลังทำ → `TEST-RUN-MCP.md` | C-A checkpoint `6f68682` |
-| C ส่วน B (แบ่งชิ้น กัน limit) | ⏳ agent ใหม่ทุกชิ้น บริบทเล็ก · commit หลังจบแต่ละชิ้น: **B-1** e2e CHAT + รายงานแชทบอท (ต้องมี/baseline/คำตอบจริง/GIF · mock + mock-llm) → **B-2** e2e STOCK SALE DASH REPORT TRACK DATA ROLE + TC เดิมที่แผนแก้ → **B-3** `plan-cases.json` + `e2e/index.html` (คอลัมน์เฉลย + ภาพ MCP) → `npm test` 2 รอบ → `test:gif` → **B-4** BUG-HUNT ส่วน 1–2 → เปิด BUGS.md เทียบ → กลับ BUG_MODE=0 | – |
+| C ส่วน B (แบ่งชิ้น กัน limit) | 🔄 B-1 ✅ (แชท 17/20 ทั้ง mock 3 เบราว์เซอร์ + ai ผ่าน mock-llm · ล้ม CHAT-14/15/16 = เว็บผิด FR-35 · CHATBOT-REPORT + GIF) · agent ใหม่ทุกชิ้น บริบทเล็ก · commit หลังจบแต่ละชิ้น: **B-1** e2e CHAT + รายงานแชทบอท (ต้องมี/baseline/คำตอบจริง/GIF · mock + mock-llm) → **B-2** e2e STOCK SALE DASH REPORT TRACK DATA ROLE + TC เดิมที่แผนแก้ → **B-3** `plan-cases.json` + `e2e/index.html` (คอลัมน์เฉลย + ภาพ MCP) → `npm test` 2 รอบ → `test:gif` → **B-4** BUG-HUNT ส่วน 1–2 → เปิด BUGS.md เทียบ → กลับ BUG_MODE=0 | – |
 | D รับช่วง+CR / E ปิดงาน | ⏳ | – |
 
 ### ด่านคุณภาพทุกส่วน (เพิ่ม 2026-10-18 · ผ่านด่านก่อนไปส่วนถัดไป)

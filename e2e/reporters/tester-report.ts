@@ -15,7 +15,7 @@ const OUT = path.join(ROOT, 'test-report');
 const GIF_DIR = path.join(OUT, 'gifs');
 const MP4_DIR = path.join(OUT, 'videos');
 const PROJECTS = ['chromium', 'firefox', 'webkit', 'serial', 'perf-chromium', 'perf-firefox', 'perf-webkit'];
-const MODULES = ['HOME', 'BOOK', 'PRICE', 'PAY', 'CANCEL', 'CREDIT', 'SERIES', 'RENT', 'MEMBER', 'TEAM', 'STAFF', 'OWNER', 'I18N', 'MOB', 'API'];
+const MODULES = ['HOME', 'BOOK', 'PRICE', 'PAY', 'CANCEL', 'CREDIT', 'SERIES', 'RENT', 'MEMBER', 'TEAM', 'STAFF', 'OWNER', 'I18N', 'MOB', 'API', 'CHAT'];
 
 type Row = {
   project: string;
