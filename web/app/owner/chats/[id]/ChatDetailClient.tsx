@@ -7,7 +7,7 @@ import { fmtDateTime, tx } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n";
 
 type Data = {
-  chat: { id: string; lang: string; createdAt: string; lastMessageAt: string; customerPhone: string | null };
+  chat: { ref: string; lang: string; createdAt: string; lastMessageAt: string; customerPhone: string | null };
   messages: { id: number; role: "USER" | "BOT"; text: string; bookingCode: string | null; createdAt: string }[];
 };
 

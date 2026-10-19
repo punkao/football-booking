@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { parseTestNow } from "@/lib/rules";
 import { pool, ensureDb } from "./db";
+import { forgetRedactionRun } from "./backoffice";
 
 /**
  * NFR-10: the seed of /api/test/reset is the very file the database ran when it was created (db/init/02-seed.sql),
@@ -50,6 +51,7 @@ export async function testEndpoint(req: NextRequest, kind: "reset" | "clock"): P
     await c.query("DELETE FROM app_settings WHERE key = 'clock'");
     if (now) await c.query("INSERT INTO app_settings(key, value) VALUES ('clock', $1)", [now.toISOString()]);
     await c.query("COMMIT");
+    if (kind === "reset") forgetRedactionRun();
   } catch (e) {
     await c.query("ROLLBACK").catch(() => undefined);
     console.error("[test]", e);

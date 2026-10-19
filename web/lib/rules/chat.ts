@@ -13,7 +13,9 @@ export const REAL_DISCOUNTS = [
 ] as const;
 
 export const CHAT_MAX_CHARS = 500; // NFR-17 / T-11
-export const CHAT_MAX_PER_MINUTE = 20; // NFR-17 / T-11
+export const CHAT_MAX_PER_MINUTE = 20; // NFR-17 / T-11 (per room)
+export const CHAT_MAX_PER_MINUTE_PER_IP = 20; // R2: per client IP, whatever room
+export const CHAT_MAX_ROOMS_PER_HOUR_PER_IP = 10; // R2: new rooms per client IP
 export const CHAT_HISTORY_TO_MODEL = 20; // 07-SAD 9.6 (team proposal)
 export const CHAT_RETENTION_DAYS = 90; // BR-45 / A-35
 export const LLM_TIMEOUT_MS_DEFAULT = 60_000; // NFR-16
@@ -28,6 +30,12 @@ export function checkChatText(text: unknown): RuleError | null {
 export function chatRateOk(previous: Date[], now: Date): boolean {
   const recent = previous.filter((t) => now.getTime() - t.getTime() < 60_000).length;
   return recent < CHAT_MAX_PER_MINUTE;
+}
+
+/** R2: a client that throws its cookie away still meets the per-IP limits */
+export function chatIpLimitOk(i: { roomsLastHour: number; messagesLastMinute: number; newRoom: boolean }): boolean {
+  if (i.newRoom && i.roomsLastHour >= CHAT_MAX_ROOMS_PER_HOUR_PER_IP) return false;
+  return i.messagesLastMinute < CHAT_MAX_PER_MINUTE_PER_IP;
 }
 
 export const TAG_NAMES = ["CHECK", "QUOTE", "BOOK"] as const;
@@ -141,9 +149,15 @@ export function priceGuardOk(text: string, allowed: number[]): boolean {
 }
 
 // ---------- BR-45 ----------
+/** digits of a Thai phone written any way (+66 → 0) */
+export function phoneDigits(phone: string): string {
+  const d = String(phone ?? "").replace(/\D/g, "");
+  return d.startsWith("66") && (d.length === 10 || d.length === 11) ? "0" + d.slice(2) : d;
+}
+
 /** back office shows 08x-xxx-1234 */
 export function maskPhone(phone: string): string {
-  const d = String(phone ?? "").replace(/\D/g, "");
+  const d = phoneDigits(phone);
   if (d.length < 6) return "x".repeat(d.length);
   return `${d.slice(0, 2)}x-xxx-${d.slice(-4)}`;
 }
@@ -153,14 +167,48 @@ export function chatNeedsRedaction(createdAt: Date, now: Date): boolean {
   return now.getTime() - createdAt.getTime() > CHAT_RETENTION_DAYS * DAY_MS;
 }
 
-export const PHONE_IN_TEXT = /0\d{1,2}[-\s]?\d{3}[-\s]?\d{3,4}/g;
+/** R12: Thai numbers of 9–10 digits with - or spaces anywhere, or +66 instead of the leading 0 */
+export const PHONE_IN_TEXT = /(?<![\d+])(?:\+66[\s-]?|0)\d(?:[\s-]?\d){7,8}(?!\d)/g;
+const SHOP_PHONE_DIGITS = phoneDigits(SHOP_CONTACT.phone);
 export const PHONES_REDACTED = "[ลบเบอร์แล้ว]";
 export const NAME_REDACTED = "[ลบชื่อแล้ว]";
 
-/** BR-45: remove phone numbers and the given names from a message (the rest is kept for statistics) */
+/** R5: shop words are never treated as a person's name */
+export const SHOP_WORDS = ["สนาม", "บอล", "น้องบอล", "ลูกหนัง", "อารีน่า", "ลูกบอล"];
+const LETTER = /[\u0E00-\u0E7FA-Za-z]/;
+
+/** a phone number in a text that belongs to a customer (the shop's own number stays) */
+export function isCustomerPhone(match: string): boolean {
+  return phoneDigits(match) !== SHOP_PHONE_DIGITS;
+}
+
+/**
+ * BR-45: remove phone numbers and the given names from a message (the rest is kept for statistics).
+ * R5: a name is removed only as a whole word (no Thai / English letter right before or after it), ≥ 2 letters, not a shop word.
+ */
 export function redactText(text: string, names: string[]): string {
-  let s = String(text).replace(PHONE_IN_TEXT, PHONES_REDACTED);
-  const list = [...new Set(names.map((n) => n.trim()).filter((n) => n.length >= 1))].sort((a, b) => b.length - a.length);
-  for (const n of list) s = s.split(n).join(NAME_REDACTED);
+  let s = String(text).replace(PHONE_IN_TEXT, (m) => (isCustomerPhone(m) ? PHONES_REDACTED : m));
+  const list = [...new Set(names.map((n) => n.trim()))]
+    .filter((n) => [...n].length >= 2 && !SHOP_WORDS.includes(n))
+    .sort((a, b) => b.length - a.length);
+  for (const n of list) {
+    let out = "";
+    let from = 0;
+    for (let i = s.indexOf(n); i >= 0; i = s.indexOf(n, i + 1)) {
+      const before = i > 0 ? s[i - 1] : "";
+      const after = s[i + n.length] ?? "";
+      if (i < from || LETTER.test(before) || LETTER.test(after)) continue;
+      out += s.slice(from, i) + NAME_REDACTED;
+      from = i + n.length;
+    }
+    s = out + s.slice(from);
+  }
   return s;
+}
+
+/** R3: the redaction job runs at most once an hour (app clock; a clock moved back runs again) */
+export function redactionDue(lastRun: Date | null, now: Date): boolean {
+  if (!lastRun) return true;
+  const d = now.getTime() - lastRun.getTime();
+  return d < 0 || d >= 60 * 60_000;
 }

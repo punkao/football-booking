@@ -108,7 +108,7 @@ async function main() {
   check(
     "V2.version",
     "GET /api/version → {schemaVersion, chatMode, bugMode} only",
-    v.status === 200 && JSON.stringify(Object.keys(v.json ?? {}).sort()) === '["bugMode","chatMode","schemaVersion"]' && v.json.schemaVersion === "005",
+    v.status === 200 && JSON.stringify(Object.keys(v.json ?? {}).sort()) === '["bugMode","chatMode","schemaVersion"]' && v.json.schemaVersion === "006",
     JSON.stringify(v.json),
   );
 

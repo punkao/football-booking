@@ -42,8 +42,17 @@ export function apology(lang: "th" | "en"): string {
     : `ขออภัยครับ ตอนนี้น้องบอลตอบไม่ได้ชั่วคราว กรุณาโทร ${SHOP_CONTACT.phone} หรือ LINE ${SHOP_CONTACT.line} ครับ`;
 }
 
-function numbersOf(r: ToolResult): number[] {
-  return Object.values(r).filter((v): v is number => typeof v === "number");
+/** R7: only the money fields of a result are prices (a start hour 18 or 1 hour is not ฿18 / ฿1) */
+const MONEY_FIELDS = ["fieldPrice", "totalPrice", "payNow", "dueAtField"] as const;
+function moneyOf(r: ToolResult): number[] {
+  const o = r as Record<string, unknown>;
+  return MONEY_FIELDS.map((k) => o[k]).filter((v): v is number => typeof v === "number");
+}
+
+/** R8: Thai answers end with "ครับ" — looked for before trailing punctuation, emoji and links, never added twice */
+export function withKrub(text: string): string {
+  const core = text.replace(/(?:\s*(?:https?:\/\/\S+|[^\p{L}\p{M}\p{N}\s]+))+\s*$/u, "").trimEnd();
+  return /ครับ$/.test(core) ? text : text.replace(/[\s.]+$/, "") + " ครับ";
 }
 
 export async function runTurn(input: {
@@ -80,7 +89,7 @@ export async function runTurn(input: {
     else if (tag.name === "QUOTE") result = await input.tools.quote(tag.args as ToolArgs);
     else result = await input.tools.book(tag.args as BookArgs);
     results.push(result);
-    for (const n of numbersOf(result)) allowed.add(n);
+    for (const n of moneyOf(result)) allowed.add(n);
     if (result.tag === "BOOK") {
       if (result.ok && result.draftToken) cards.push({ ...result, type: "confirm" });
     } else cards.push({ ...result, type: result.tag === "CHECK" ? "check" : "quote" });
@@ -89,6 +98,6 @@ export async function runTurn(input: {
   const last = results[results.length - 1];
   // BR-30: a reply with an amount the functions did not produce is replaced by the template of the real result
   if (!text || !priceGuardOk(text, [...allowed])) text = last ? describeResult(last, lang) : apology(lang);
-  if (lang === "th" && !/ครับ\s*$/.test(text)) text = text.replace(/[\s.]+$/, "") + " ครับ";
+  if (lang === "th") text = withKrub(text);
   return { reply: text, cards, results };
 }

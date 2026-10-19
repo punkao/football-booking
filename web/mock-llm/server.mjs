@@ -11,6 +11,9 @@ import { createServer } from "node:http";
 const { mockBrain } = await import(process.env.BRAIN_PATH || "/srv/lib/chat/mock.ts");
 const PORT = Number(process.env.PORT || 8080);
 const SLOW_MS = Number(process.env.MOCK_SLOW_MS || 65_000);
+// R10: like a real gateway, only a non-empty Bearer token equal to MOCK_LLM_TOKEN is answered (none configured = nothing is)
+const TOKEN = (process.env.MOCK_LLM_TOKEN || "").trim();
+if (!TOKEN) console.warn("[mock-llm] MOCK_LLM_TOKEN is not set: every request gets 401");
 
 function send(res, status, obj) {
   res.writeHead(status, { "content-type": "application/json" });
@@ -28,7 +31,8 @@ function lastCustomerText(messages) {
 createServer((req, res) => {
   if (req.method === "GET" && req.url === "/health") return send(res, 200, { ok: true });
   if (req.method !== "POST" || req.url !== "/v1/chat/completions") return send(res, 404, { error: { message: "not found" } });
-  if (!/^Bearer\s+\S*/.test(req.headers.authorization ?? "")) return send(res, 401, { error: { message: "missing bearer token" } });
+  const m = /^Bearer\s+(\S+)$/.exec(req.headers.authorization ?? "");
+  if (!TOKEN || !m || m[1] !== TOKEN) return send(res, 401, { error: { message: "invalid or missing bearer token" } });
   let raw = "";
   req.on("data", (c) => (raw += c));
   req.on("end", async () => {

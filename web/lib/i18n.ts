@@ -87,6 +87,7 @@ export const MESSAGES: Record<string, { th: string; en: string; status?: number 
   STOCK_INSUFFICIENT: { th: "ของไม่พอ ({item} มี {available})", en: "Not enough stock ({item}: {available} available)", status: 409 },
   STOCK_SAME_LOCATION: { th: "ต้นทางและปลายทางต้องเป็นคนละที่", en: "Source and destination must be different places", status: 400 },
   STOCK_NOT_FOR_SALE: { th: "ขายได้เฉพาะของหมวดของขาย ({item} ขายไม่ได้)", en: "Only sale items can be sold ({item} cannot be sold)", status: 400 },
+  STOCK_RESERVED: { th: "ลดไม่ได้ การจองที่ยังไม่จบจอง{item}ไว้ {reserved} ชิ้น", en: "Cannot reduce: bookings that have not ended hold {reserved} of {item}", status: 409 },
   STOCK_REASON_REQUIRED: { th: "กรุณาใส่เหตุผล", en: "Please enter a reason", status: 400 },
   STOCK_NO_CHANGE: { th: "จำนวนที่นับได้เท่ากับยอดในระบบ ไม่มีอะไรต้องปรับ", en: "The counted quantity equals the system quantity. Nothing to adjust", status: 400 },
   INVALID_METHOD: { th: "กรุณาเลือกช่องทางชำระ เงินสด หรือ พร้อมเพย์", en: "Please choose a payment method: cash or PromptPay", status: 400 },

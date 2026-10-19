@@ -1,11 +1,12 @@
 // Chatbot "น้องบอล" on the server (FR-32 – FR-36 · BR-29 – BR-32 · NFR-15 – NFR-17 · ADR-15 – ADR-17 · T-13).
 // The tools call evaluateBooking / createBooking — the very functions behind /api/quote and /api/bookings (BR-30).
-import { randomUUID, createHmac, timingSafeEqual } from "node:crypto";
+import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import {
   CHAT_HISTORY_TO_MODEL,
   LLM_TIMEOUT_MS_DEFAULT,
   addDays,
+  chatIpLimitOk,
   chatRateOk,
   checkChatText,
   computePrice,
@@ -28,34 +29,14 @@ import { holidayDates, loadCustomerByPhone, loadFields, loadRentalItems } from "
 import { createBooking, evaluateBooking } from "./bookings";
 import { availability } from "./features";
 import { withAccess } from "./access";
+import { ipRef, readDraft, signDraft } from "./crypto";
 import { redactOldChats } from "./backoffice";
 
 export const CHAT_COOKIE = "ln_chat";
 const DRAFT_MINUTES = 15;
-const SECRET = process.env.SESSION_SECRET || "luknang-arena-session-secret";
 
-// ---------- draftToken (ADR-17): HMAC, bound to the room, 15 minutes by the app clock ----------
+// ---------- draftToken (ADR-17 · R9): the same signed format as the cookies, kind "draft", bound to the room, 15 minutes
 type Draft = { sid: string; a: BookArgs; exp: number };
-
-function signDraft(d: Draft): string {
-  const body = Buffer.from(JSON.stringify(d)).toString("base64url");
-  return `${body}.${createHmac("sha256", SECRET).update("draft:" + body).digest("base64url")}`;
-}
-
-function readDraft(token: unknown): Draft | null {
-  if (typeof token !== "string") return null;
-  const i = token.lastIndexOf(".");
-  if (i < 0) return null;
-  const body = token.slice(0, i);
-  const mac = Buffer.from(token.slice(i + 1));
-  const expect = Buffer.from(createHmac("sha256", SECRET).update("draft:" + body).digest("base64url"));
-  if (mac.length !== expect.length || !timingSafeEqual(mac, expect)) return null;
-  try {
-    return JSON.parse(Buffer.from(body, "base64url").toString()) as Draft;
-  } catch {
-    return null;
-  }
-}
 
 // ---------- the model (ADR-16) ----------
 async function callModel(messages: ChatMsg[]): Promise<string> {
@@ -123,7 +104,7 @@ function toolsFor(ctx: Ctx, lang: "th" | "en", sid: string): Tools {
         const phone = normalizePhone(a.phone);
         const existing = await loadCustomerByPhone(null, phone);
         const ev = await evaluate(a, existing); // BR-16: a suspended phone can't book here either
-        const draftToken = signDraft({ sid, a: { ...a, phone }, exp: ctx.now.getTime() + DRAFT_MINUTES * 60_000 });
+        const draftToken = signDraft<Draft>({ sid, a: { ...a, phone }, exp: ctx.now.getTime() + DRAFT_MINUTES * 60_000 });
         return {
           tag: "BOOK", ok: true, ...a, phone, fieldPrice: ev.fieldPrice, totalPrice: ev.totalPrice, paymentPlan: ev.paymentPlan, payNow: ev.payNow,
           dueAtField: ev.dueAtField, draftToken,
@@ -155,6 +136,11 @@ async function systemPrompt(ctx: Ctx): Promise<string> {
   );
 }
 
+/** R2: first address of X-Forwarded-For (Next fills it with the socket address when the client sends none) */
+function clientIp(ctx: Ctx): string {
+  return (ctx.req.headers.get("x-forwarded-for") ?? "").split(",")[0].trim() || "unknown";
+}
+
 function cookieSession(ctx: Ctx): string | null {
   const v = ctx.req.cookies.get(CHAT_COOKIE)?.value;
   return v && /^[0-9a-f-]{36}$/i.test(v) ? v : null;
@@ -177,20 +163,33 @@ export async function chatSend(ctx: Ctx, b: Record<string, unknown>) {
   const lang = detectLang(text);
   await redactOldChats(ctx.now);
   let session = await sessionRow(cookieSession(ctx));
-  if (!session) {
+  // R2: limits per client IP too (a client that drops its cookie gets a new room each time) — all by the app clock
+  const ipHash = ipRef(clientIp(ctx));
+  const limits = (
+    await q<{ rooms: number; msgs: number }>(
+      `SELECT (SELECT count(*)::int FROM chat_sessions WHERE ip_hash = $1 AND created_at > $2) AS rooms,
+              (SELECT count(*)::int FROM chat_messages m JOIN chat_sessions s ON s.id = m.session_id
+                WHERE s.ip_hash = $1 AND m.role = 'USER' AND m.created_at > $3) AS msgs`,
+      [ipHash, new Date(ctx.now.getTime() - 3600_000), new Date(ctx.now.getTime() - 60_000)],
+    )
+  )[0];
+  if (!chatIpLimitOk({ roomsLastHour: limits.rooms, messagesLastMinute: limits.msgs, newRoom: !session })) throw new AppError("CHAT_RATE_LIMIT");
+  if (session) {
+    // NFR-17: 20 customer messages per minute per room
+    const recent = await q<{ created_at: Date }>(
+      "SELECT created_at FROM chat_messages WHERE session_id = $1 AND role = 'USER' AND created_at > $2",
+      [session.id, new Date(ctx.now.getTime() - 60_000)],
+    );
+    if (!chatRateOk(recent.map((r) => new Date(r.created_at)), ctx.now)) throw new AppError("CHAT_RATE_LIMIT");
+  } else {
+    // the room row is created only after every check passed
     const id = randomUUID();
     const customerId = customerIdFrom((n) => ctx.req.cookies.get(n)?.value);
-    await q("INSERT INTO chat_sessions(id, lang, customer_id, created_at, last_message_at) VALUES ($1, $2, $3, $4, $4)", [
-      id, lang, customerId, ctx.now,
+    await q("INSERT INTO chat_sessions(id, lang, customer_id, created_at, last_message_at, ip_hash) VALUES ($1, $2, $3, $4, $4, $5)", [
+      id, lang, customerId, ctx.now, ipHash,
     ]);
     session = { id, lang };
   }
-  // NFR-17: 20 customer messages per minute per room (by the app clock)
-  const recent = await q<{ created_at: Date }>(
-    "SELECT created_at FROM chat_messages WHERE session_id = $1 AND role = 'USER' AND created_at > $2",
-    [session.id, new Date(ctx.now.getTime() - 60_000)],
-  );
-  if (!chatRateOk(recent.map((r) => new Date(r.created_at)), ctx.now)) throw new AppError("CHAT_RATE_LIMIT");
   const history = await q<{ role: string; text: string }>(
     "SELECT role, text FROM (SELECT id, role, text FROM chat_messages WHERE session_id = $1 ORDER BY id DESC LIMIT $2) x ORDER BY id",
     [session.id, CHAT_HISTORY_TO_MODEL],
@@ -239,7 +238,7 @@ export async function chatBook(ctx: Ctx, b: Record<string, unknown>) {
   const own = cookieSession(ctx);
   if (!own || (b.sessionId !== undefined && b.sessionId !== own)) throw new AppError("CHAT_SESSION_NOT_FOUND");
   if (b.consent !== true) throw new AppError("CONSENT_REQUIRED");
-  const d = readDraft(b.draftToken);
+  const d = readDraft<Draft>(b.draftToken);
   if (!d || d.sid !== own) throw new AppError("CHAT_DRAFT_INVALID");
   if (ctx.now.getTime() > d.exp) throw new AppError("CHAT_DRAFT_EXPIRED");
   const session = await sessionRow(own);

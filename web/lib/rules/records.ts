@@ -103,3 +103,17 @@ export function rescheduleSettlement(i: { difference: number; amountPaid: number
     dueAtField: i.dueAtField - fromDue,
   };
 }
+
+/**
+ * 07-SAD 8.1 CSRF (R6): a data-changing request that carries an Origin must come from this site.
+ * "null" (sandboxed frame, file://, some redirects) is refused · no Origin at all (curl, test scripts) passes.
+ */
+export function checkOrigin(method: string, origin: string | null, host: string | null): boolean {
+  if (method === "GET" || method === "HEAD" || origin === null) return true;
+  if (origin === "null") return false;
+  try {
+    return new URL(origin).host === host;
+  } catch {
+    return false;
+  }
+}

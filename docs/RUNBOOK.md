@@ -19,12 +19,27 @@ FR-46 · FR-48 · NFR-20 · BR-43 · ADR-10/11/13 · T-22 · T-24
 
 ## 2. เปิด / ปิด
 
+### 2.0 ตั้งค่าลับก่อนเปิดครั้งแรก (R1 · NFR-18)
+
+`web/.env` ต้องมี `SESSION_SECRET` ยาว **อย่างน้อย 32 ตัวอักษรแบบสุ่ม** (ใช้ลงลายเซ็น cookie เข้าสู่ระบบ การ์ดยืนยันจองในแชท และรหัสอ้างอิงห้องแชทในหลังบ้าน)
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"   # คัดลอกผลไปใส่ SESSION_SECRET= ใน web/.env
+docker compose -f web/compose.yaml up -d                                          # เริ่ม web ใหม่ให้อ่านค่า
+```
+
+- ไม่ตั้ง / สั้นกว่า 32 / เป็นค่าตัวอย่างที่เคยอยู่ในโค้ด → **web ไม่ยอมเริ่ม** container ไม่ healthy · `docker logs football-web` มีบรรทัด `[startup] refusing to start: …` บอกวิธีตั้ง
+- ยกเว้นเครื่องทดสอบที่ตั้ง `ALLOW_TEST_RESET=1` แล้วเว้นว่าง: ใช้ค่าสุ่มชั่วคราวต่อการรัน (log เตือน `[secret] …`) ผู้ใช้ทุกคนหลุดจากระบบเมื่อ web เริ่มใหม่
+- เปลี่ยน secret = ทุกคนต้องเข้าสู่ระบบใหม่ · การ์ดยืนยันในแชทที่ค้างอยู่ใช้ไม่ได้ · รหัสอ้างอิงห้องแชทในหลังบ้านเปลี่ยน (ข้อมูลไม่หาย)
+- ห้าม commit `web/.env` · ถ้า secret หลุด ให้สุ่มใหม่แล้วเริ่ม web ใหม่ทันที
+- `MOCK_LLM_TOKEN` (เฉพาะทดสอบ `mock-llm`): สุ่มแบบเดียวกัน แล้วใช้ค่าเดียวกันเป็น `LLM_API_KEY` เมื่อเปิด `MODE=ai`
+
 ```bash
 docker compose -f db/compose.yaml up -d                # 1) ฐานข้อมูล รอ healthy
 docker compose -f web/compose.yaml up -d --build       # 2) เว็บ
 docker ps --format "{{.Names}} {{.Status}}"            # football-db / football-web ต้อง (healthy)
 curl http://localhost:3000/api/health                  # {"ok":true,"db":true}  (สัญญาเดิมของ v1 ห้ามเพิ่มช่อง)
-curl http://localhost:3000/api/version                 # {"schemaVersion":"005","chatMode":"mock","bugMode":0}
+curl http://localhost:3000/api/version                 # {"schemaVersion":"006","chatMode":"mock","bugMode":0}
 
 docker compose -f web/compose.yaml stop                # ปิดเว็บ
 docker compose -f db/compose.yaml stop                 # ปิดฐานข้อมูล (ข้อมูลอยู่ใน volume)
@@ -78,6 +93,7 @@ node scripts/migrate.mjs --down 005      # ถอยทีละขั้น จ
 | 003_stock | 6 ตารางคลัง · รายการของ 8 ชิ้น 2 ที่เก็บ · ย้าย `rental_items.stock` ของ v1 ไปเป็นจำนวนที่ COUNTER | ลบตารางคลัง (`rental_items` ยังอยู่ → v1 ใช้ต่อได้) |
 | 004_chat | `chat_sessions` + `chat_messages` (ห้ามแก้/ลบ ยกเว้นงานลบเบอร์ BR-45) | ลบ 2 ตาราง |
 | 005_constraints | `btree_gist` + `EXCLUDE` กันจองทับ + `CHECK` ทุกตัว · ตรวจข้อมูลเดิมก่อน เจอแถวผิด → หยุดพร้อมรายการ ไม่แก้ข้อมูลเอง | `DROP CONSTRAINT IF EXISTS` |
+| 006_chat_hardening | `chat_messages.redacted_at` (ลบชื่อ/เบอร์หลัง 90 วันครั้งเดียวต่อข้อความ) · `chat_sessions.ip_hash` (HMAC ของ IP สำหรับจำกัดจำนวนต่อ IP) | ลบ 2 คอลัมน์ (ข้อความและการจองไม่ถูกแตะ) |
 
 สคริปต์นับ `bookings` ก่อน/หลังทุกครั้ง ต้องเท่าเดิม (ค่าขอบ BR-43) · ทุกไฟล์ห่อ `BEGIN … COMMIT`
 

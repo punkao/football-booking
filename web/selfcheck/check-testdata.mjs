@@ -21,12 +21,15 @@ function check(id, desc, ok, detail = "") {
   if (!QUIET) console.log(`${ok ? "PASS" : "FAIL"}  ${id.padEnd(6)} ${desc}${ok ? "" : `  -> ${String(detail).slice(0, 240)}`}`);
 }
 
+let clientNo = 0;
 class Client {
   constructor() {
     this.jar = new Map();
+    // each Client is a different customer device → its own address (the chat limits per IP, R2)
+    this.ip = `203.0.113.${(++clientNo % 250) + 1}`;
   }
   async call(method, p, body) {
-    const headers = { "content-type": "application/json" };
+    const headers = { "content-type": "application/json", "x-forwarded-for": this.ip };
     if (this.jar.size) headers.cookie = [...this.jar].map(([k, v]) => `${k}=${v}`).join("; ");
     const res = await fetch(BASE + p, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
     for (const c of res.headers.getSetCookie?.() ?? []) {

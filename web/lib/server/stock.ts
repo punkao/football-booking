@@ -7,6 +7,10 @@ import {
   canAccess,
   canStockAction,
   checkReason,
+  checkRentalDecrease,
+  maxReserved,
+  slotStart,
+  todayOf,
   checkSellable,
   checkStockOut,
   checkTransfer,
@@ -62,6 +66,23 @@ async function movement(
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
     [m.itemId, m.type, m.qty, m.from, m.to, m.reason, m.staffId, m.saleId ?? null, now],
   );
+}
+
+/** R4: a RENTAL item's new total may not drop below what bookings that have not ended already hold */
+async function checkRentalTotal(c: Db, item: ItemRow, newTotal: number, now: Date): Promise<void> {
+  if (item.category !== "RENTAL") return;
+  const rows = (
+    await c.query(
+      `SELECT to_char(b.date, 'YYYY-MM-DD') AS date, b.start_hour, b.hours, br.qty, br.returned_qty
+         FROM booking_rentals br JOIN bookings b ON b.id = br.booking_id
+        WHERE br.item_id = $1 AND b.date >= $2 AND b.status IN ('PENDING_PAYMENT', 'CONFIRMED', 'CHECKED_IN', 'NO_SHOW')`,
+      [item.id, todayOf(now)],
+    )
+  ).rows as { date: string; start_hour: number; hours: number; qty: number; returned_qty: number }[];
+  const open = rows.filter((r) => slotStart(r.date, r.start_hour + r.hours).getTime() > now.getTime());
+  const reserved = maxReserved(open.map((r) => ({ date: r.date, startHour: r.start_hour, hours: r.hours, qty: r.qty, returnedQty: r.returned_qty })));
+  const e = checkRentalDecrease(newTotal, reserved);
+  if (e) fail({ ...e, params: { ...e.params, item: item.id } });
 }
 
 function intQty(v: unknown): number | undefined {
@@ -250,6 +271,7 @@ export async function stockDamage(ctx: Ctx, b: Record<string, unknown>) {
     const lv = await lockLevels(c, item.id);
     const e = checkStockOut(lv[loc], qty);
     if (e) fail({ ...e, params: { ...e.params, item: item.id } });
+    await checkRentalTotal(c, item, lv.STORE + lv.COUNTER - qty!, ctx.now);
     await setLevel(c, item.id, loc, lv[loc] - qty!);
     await movement(c, { itemId: item.id, type: "DAMAGE", qty: qty!, from: loc, to: null, reason: str(b.reason), staffId: staff.id }, ctx.now);
     await audit(c, staff.id, "STOCK_DAMAGE", item.id, { qty, location: loc, reason: str(b.reason) }, ctx.now);
@@ -270,6 +292,7 @@ export async function stockAdjust(ctx: Ctx, b: Record<string, unknown>) {
     const m = adjustMovement(loc, lv[loc], counted ?? NaN);
     if ("code" in m) fail(m);
     const mv = m as Exclude<typeof m, { code: string }>;
+    if (mv.delta < 0) await checkRentalTotal(c, item, lv.STORE + lv.COUNTER + mv.delta, ctx.now);
     await setLevel(c, item.id, loc, counted!);
     await movement(c, { itemId: item.id, type: "ADJUST", qty: mv.qty, from: mv.fromLocationId, to: mv.toLocationId, reason: str(b.reason), staffId: staff.id }, ctx.now);
     await audit(c, staff.id, "STOCK_ADJUST", item.id, { location: loc, before: lv[loc], counted, delta: mv.delta, reason: str(b.reason) }, ctx.now);

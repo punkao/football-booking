@@ -51,6 +51,7 @@ services:
     command: ["node", "/srv/mock-llm/server.mjs"]
     environment:
       MOCK_SLOW_MS: ${MOCK_SLOW_MS:-65000}
+      MOCK_LLM_TOKEN: ${MOCK_LLM_TOKEN:-}   # the web must send it as LLM_API_KEY (R10)
     volumes:
       - ./mock-llm:/srv/mock-llm:ro
       - ./lib:/srv/lib:ro

@@ -7,13 +7,14 @@
 
 ```bash
 cp db/.env.example db/.env      # ตั้ง POSTGRES_PASSWORD (ครั้งแรกครั้งเดียว)
-cp web/.env.example web/.env    # DATABASE_URL ใช้รหัสผ่านเดียวกัน · เครื่องทดสอบตั้ง ALLOW_TEST_RESET=1
+cp web/.env.example web/.env    # DATABASE_URL ใช้รหัสผ่านเดียวกัน · SESSION_SECRET ≥ 32 ตัวสุ่ม (บังคับ) · เครื่องทดสอบตั้ง ALLOW_TEST_RESET=1
 docker compose -f db/compose.yaml up -d            # 1) football-db (สร้าง network football-net + volume football-pgdata)
 docker compose -f web/compose.yaml up -d --build   # 2) football-web
 curl http://localhost:3000/api/health              # {"ok":true,"db":true}  (สัญญาเดิมของ v1 ไม่เพิ่มช่อง)
-curl http://localhost:3000/api/version             # {"schemaVersion":"005","chatMode":"mock","bugMode":0}
+curl http://localhost:3000/api/version             # {"schemaVersion":"006","chatMode":"mock","bugMode":0}
 ```
 
+- **`SESSION_SECRET` (web/.env) ต้องยาว ≥ 32 ตัวอักษรแบบสุ่ม** ไม่งั้น web ไม่ยอมเริ่ม (log `[startup] refusing to start: …`) · ยกเว้น `ALLOW_TEST_RESET=1` ที่ปล่อยว่างได้ (สุ่มค่าชั่วคราวต่อการรัน)
 - ข้อมูลอยู่ใน volume `football-pgdata` · **ห้าม `docker compose … down -v`** · ปิด: `docker compose -f web/compose.yaml stop` แล้ว `docker compose -f db/compose.yaml stop`
 - schema + ข้อมูลเริ่มต้นมาจาก `db/init/01-schema.sql` (= migration 001–005) + `db/init/02-seed.sql` (= `docs/TEST-DATA.md`) ตอนสร้าง volume ครั้งแรก · web ไม่สร้างตารางเอง
 - สำรอง / กู้คืน / migration: `docs/RUNBOOK.md` (`node scripts/backup.mjs` · `node scripts/restore.mjs latest` · `node scripts/migrate.mjs`)
@@ -28,7 +29,7 @@ curl -X POST http://localhost:3000/api/test/clock -H "content-type: application/
 BUG_MODE=1 docker compose -f web/compose.yaml up -d     # โหมดฝังบั๊ก (สร้าง container web ใหม่)
 BUG_MODE=0 docker compose -f web/compose.yaml up -d     # กลับเป็นปกติ
 docker compose -f web/compose.yaml --profile mock up -d mock-llm                                  # AI ปลอมแบบ OpenAI
-MODE=ai LLM_API_KEY=any-token docker compose -f web/compose.yaml up -d web                        # ใช้เส้นทาง ai ผ่าน mock-llm (LLM_BASE_URL ใน web/.env)
+MODE=ai LLM_API_KEY=<ค่า MOCK_LLM_TOKEN ใน web/.env> docker compose -f web/compose.yaml up -d web    # เส้นทาง ai ผ่าน mock-llm (ต้องใช้ token ตรงกัน)
 MODE=mock docker compose -f web/compose.yaml up -d web                                            # กลับเป็น mock
 ```
 
@@ -39,7 +40,7 @@ Invoke-RestMethod -Method Post http://localhost:3000/api/test/clock -ContentType
 $env:BUG_MODE="1"; docker compose -f web/compose.yaml up -d
 $env:BUG_MODE="0"; docker compose -f web/compose.yaml up -d
 docker compose -f web/compose.yaml --profile mock up -d mock-llm
-$env:MODE="ai"; $env:LLM_API_KEY="any-token"; docker compose -f web/compose.yaml up -d web
+$env:MODE="ai"; $env:LLM_API_KEY="<ค่า MOCK_LLM_TOKEN>"; docker compose -f web/compose.yaml up -d web
 $env:MODE="mock"; docker compose -f web/compose.yaml up -d web
 ```
 
@@ -575,7 +576,7 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 | `/owner/bookings` | `bk-search-code`, `bk-search-phone`, `bk-search-date`, `bk-search-submit`, `bk-results` (`data-count`), `bk-row-{code}`, `bk-link-{code}`, `bk-status-{code}`, `bk-empty` |
 | `/owner/bookings/[code]` | `history-back`, `history-status`, `history-total`, `history-paid`, `history-due`, `history-table` (`data-count`), `history-row-{i}`, `history-at-{i}`, `history-from-{i}`, `history-to-{i}`, `history-actor-{i}` (`data-value` = actor ดิบ · ข้อความ: ลูกค้า / แชทบอท / ระบบ / username), `history-payments` |
 | `/owner/reports` | `report-from`, `report-to`, `report-submit`, `report-error`, `report-csv`, `report-table` (`data-count`), `report-row-{date}`, `report-{date}-booking`, `-cash`, `-promptpay`, `-total`, `-credit`, `-bookings`, `-noshow`, `report-totals`, `report-total-booking`, `report-total-cash`, `report-total-promptpay`, `report-total-money`, `report-total-credit`, `report-total-bookings`, `report-total-noshow` |
-| `/owner/chats` | `chat-list` (`data-count`), `chat-row-{id}`, `chat-link-{id}`, `chat-list-empty` · ห้อง: `chat-detail-back`, `chat-detail` (`data-count`), `chat-detail-msg-{i}` (`data-role`), `chat-detail-booking-{code}` |
+| `/owner/chats` | `chat-list` (`data-count`), `chat-row-{ref}`, `chat-link-{ref}`, `chat-list-empty` (`ref` = รหัสอ้างอิงของหลังบ้าน ไม่ใช่รหัสห้องของลูกค้า) · ห้อง: `chat-detail-back`, `chat-detail` (`data-count`), `chat-detail-msg-{i}` (`data-role`), `chat-detail-booking-{code}` |
 | `/owner/audit` | `audit-from`, `audit-to`, `audit-staff`, `audit-action`, `audit-submit`, `audit-table` (`data-count`), `audit-row-{id}`, `audit-at-{id}`, `audit-user-{id}`, `audit-action-{id}` (`data-value`), `audit-target-{id}`, `audit-empty` |
 | ส่วนกลาง | `nav-stock`, `nav-backoffice`, `tab-dashboard`, `tab-bookings`, `tab-stock`, `tab-sale`, `tab-transfer`, `tab-manager-stock`, `tab-chats`, `tab-reports`, `tab-audit`, `bot-avatar` |
 
@@ -591,6 +592,7 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 | `STOCK_INSUFFICIENT` | 409 | ของไม่พอ ({item} มี {available}) | Not enough stock ({item}: {available} available) |
 | `STOCK_SAME_LOCATION` | 400 | ต้นทางและปลายทางต้องเป็นคนละที่ | Source and destination must be different places |
 | `STOCK_NOT_FOR_SALE` | 400 | ขายได้เฉพาะของหมวดของขาย ({item} ขายไม่ได้) | Only sale items can be sold ({item} cannot be sold) |
+| `STOCK_RESERVED` | 409 | ลดไม่ได้ การจองที่ยังไม่จบจอง{item}ไว้ {reserved} ชิ้น | Cannot reduce: bookings that have not ended hold {reserved} of {item} |
 | `STOCK_REASON_REQUIRED` | 400 | กรุณาใส่เหตุผล | Please enter a reason |
 | `STOCK_NO_CHANGE` | 400 | จำนวนที่นับได้เท่ากับยอดในระบบ ไม่มีอะไรต้องปรับ | The counted quantity equals the system quantity. Nothing to adjust |
 | `INVALID_METHOD` | 400 | กรุณาเลือกช่องทางชำระ เงินสด หรือ พร้อมเพย์ | Please choose a payment method: cash or PromptPay |
@@ -621,7 +623,7 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 | GET | `/api/version` | – | `{ schemaVersion, chatMode, bugMode }` | – |
 | GET | `/api/bookings/{code}` (เพิ่มช่อง) | เดิม | + `history: [{ toStatus, at }]` | เดิม |
 | GET | `/api/rentals/availability` (เปลี่ยนที่มา) | เดิม | `stock` = ผลรวม `StockLevel` ของ BIB/BALL ทุกที่เก็บ (BR-38) · ราคา = `StockItem.unitPrice` | – |
-| POST | `/api/chat` | `{ text }` (≤ 500) | `{ sessionId, reply, cards[], failed }` · cookie `ln_chat` (httpOnly) | – · 20 ข้อความ/นาที/ห้อง → 429 |
+| POST | `/api/chat` | `{ text }` (≤ 500) | `{ sessionId, reply, cards[], failed }` · cookie `ln_chat` (httpOnly) | – · 20 ข้อความ/นาที/ห้อง · 20 ข้อความ/นาที/IP · ห้องใหม่ 10 ห้อง/ชั่วโมง/IP → 429 `CHAT_RATE_LIMIT` (IP = ตัวแรกของ `X-Forwarded-For`) |
 | GET | `/api/chat` · `/api/chat/{sessionId}` | – | `{ sessionId, messages: [{ role, text, bookingCode, createdAt }] }` · ห้องของคนอื่น → 404 | เจ้าของ cookie |
 | POST | `/api/chat/book` | `{ draftToken, consent: true, sessionId? }` | 201 `{ code, status, payNow, payUrl, payDeadline, reply }` + cookie สิทธิ์ดูการจอง | เจ้าของ cookie · `consent` ไม่ใช่ `true` → `CONSENT_REQUIRED` |
 | GET | `/api/staff/stock` | – | `{ role, items: [{ id, name, category, unitPrice, reorderPoint, store, counter, total, below? }], alerts? }` | STAFF ขึ้นไป (`below`, `alerts` เฉพาะ MANAGER/OWNER) |
@@ -638,11 +640,12 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 | GET | `/api/owner/bookings/{code}/history` | – | `{ booking, payments[], history: [{ fromStatus, toStatus, actor, actorLabel, at }] }` | OWNER, MANAGER · PUT/PATCH/DELETE/POST → 404 |
 | GET | `/api/owner/reports` | `?from=&to=` | `{ from, to, days[], totals }` | OWNER |
 | GET | `/api/owner/reports.csv` | `?from=&to=` | `text/csv; charset=utf-8` · BOM · CRLF · `report-<from>-<to>.csv` · เขียน AuditLog `REPORT_EXPORT` | OWNER |
-| GET | `/api/owner/chats` · `/api/owner/chats/{id}` | `?from=&to=` | รายการห้อง / ข้อความ (เบอร์ปิดบางส่วน) | OWNER, MANAGER · เขียน → 404 |
+| GET | `/api/owner/chats` · `/api/owner/chats/{ref}` | `?from=&to=` | `{ chats: [{ ref, lang, createdAt, lastMessageAt, messages, firstText, bookingCodes, customerPhone }] }` / ข้อความในห้อง (เบอร์ปิดบางส่วน · เบอร์ร้านไม่ปิด) · `ref` = HMAC ของรหัสห้อง ใช้แทน cookie ลูกค้าไม่ได้ | OWNER, MANAGER · เขียน → 404 |
 | GET | `/api/owner/audit` | `?from=&to=&staffUserId=&action=` | `{ actions, staff, entries: [{ id, action, target, detail, at, username, staffName }] }` | OWNER · เขียน → 404 |
 
 - ไม่มีเส้นทางแก้/ลบ `BookingStatusHistory`, `AuditLog`, `StockMovement`, `ChatMessage` (เส้นที่ไม่มี → 404) · ฐานข้อมูลก็ห้ามด้วย trigger
-- คำขอที่เปลี่ยนข้อมูลซึ่งมี header `Origin` ต่างจากเว็บ → 403 `FORBIDDEN_ORIGIN` (ไม่มี `Origin` เช่น curl / Playwright `request` = ผ่าน)
+- คำขอที่เปลี่ยนข้อมูลซึ่งมี header `Origin` ต่างจากเว็บ หรือ `Origin: null` → 403 `FORBIDDEN_ORIGIN` (ไม่มี `Origin` เช่น curl / Playwright `request` = ผ่าน)
+- ของเช่า (BIB, BALL): ชำรุด / ปรับยอดลง จนยอดรวมต่ำกว่าจำนวนที่การจองสถานะกันสนามซึ่งยังไม่จบจองไว้สูงสุดในชั่วโมงใดชั่วโมงหนึ่ง → 409 `STOCK_RESERVED` (`params.reserved`) · ย้ายระหว่างที่เก็บทำได้ (ยอดรวมไม่เปลี่ยน)
 - CSV คอลัมน์: วันที่ · ยอดจอง · ขายเงินสด · ขายพร้อมเพย์ · ยอดขายรวม · รวมรับเงิน · หักเครดิต · จำนวนการจอง (วันเตะ) · สถานะทั้ง 7 · ส่วนลด · ค่าของเช่า · ชั่วโมงฟรีที่ใช้ · แถวสุดท้าย "รวม" · ช่องข้อความขึ้นต้น `= + - @` tab CR → เติม `'` · มี `,` `"` ขึ้นบรรทัด → ห่อ `"`
 
 ## 13. v2 · แชทบอท "น้องบอล"
@@ -661,7 +664,8 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 - ส่งประวัติ 20 ข้อความล่าสุดของห้องให้โมเดล · เก็บทุกข้อความใน `ChatMessage` (ข้อความที่แสดงจริง) · ห้องผูก cookie (UUID สุ่ม)
 - `MODE=mock` (ค่าเริ่มต้น): สมองตามกฎในโค้ด `lib/chat/mock.ts` ไม่มี network ถามเหมือนเดิมได้คำตอบเดิม · `MODE=ai`: `POST {LLM_BASE_URL}/chat/completions` + `Authorization: Bearer {LLM_API_KEY}` · timeout `LLM_TIMEOUT_MS` (60,000) → ขอโทษ + ช่องทางติดต่อ
 - `mock-llm` (profile `mock`, `LLM_BASE_URL=http://mock-llm:8080/v1`): ตอบแบบ OpenAI ด้วยสมองเดียวกับ mock · คำในข้อความลูกค้าเพื่อทดสอบ: `#slow` (ช้า 65 วินาที) · `#error` (HTTP 500) · `#faketag` (tag ปลอม/ผิดรูป) · `#think` (มี `<think>`)
-- BR-45: ข้อความที่เก่ากว่า 90 วัน (นาฬิกาของแอป) ถูกลบเบอร์และชื่อ (`[ลบเบอร์แล้ว]`, `[ลบชื่อแล้ว]`) ตอนเปิดประวัติแชทหรือส่งข้อความ · หลังบ้านเห็นเบอร์แบบ `08x-xxx-1234`
+- BR-45: ข้อความที่เก่ากว่า 90 วัน (นาฬิกาของแอป) ถูกลบเบอร์และชื่อ (`[ลบเบอร์แล้ว]`, `[ลบชื่อแล้ว]`) ครั้งเดียวต่อข้อความ (`redacted_at`) · งานนี้รันไม่เกินชั่วโมงละครั้งของนาฬิกาแอป (ตอนเปิดประวัติแชทหรือส่งข้อความ) · ชื่อถูกลบเฉพาะทั้งคำ ≥ 2 ตัวอักษร ไม่ลบคำของร้าน (สนาม บอล น้องบอล ลูกหนัง) · เบอร์ไทย 9–10 หลักทุกรูปแบบ (มี `-` ช่องว่าง หรือ `+66`) · เบอร์ร้าน 02-345-6789 ไม่ถูกลบ · หลังบ้านเห็นเบอร์แบบ `08x-xxx-1234`
+- `mock-llm` ตอบเฉพาะ `Authorization: Bearer <MOCK_LLM_TOKEN>` · web ไม่มี/ผิด `LLM_API_KEY` → ลูกค้าได้คำขอโทษ (`failed: true`)
 
 ## 14. สมมติฐานของผู้สร้าง (v2 · เรื่องที่เอกสารไม่บอก)
 
@@ -690,5 +694,6 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 | `npm test` | unit test `lib/rules/*.test.ts` + `lib/chat/*.test.ts` (รวม E75, E87, E88 และแชท mock E109–E120) |
 | `node selfcheck/check-testdata.mjs` | ยิง API ตาม TEST-DATA E01–E148 (ข้าม unit) + ตัวเลข 5.4 → "ผ่าน X / Y" · `--expect-bugs` พิมพ์แค่จำนวนที่ล้ม |
 | `node selfcheck/rules-check.mjs` | ชุดตรวจกฎ v1 (191 ข้อ) · `--expect-bugs` พิมพ์แค่จำนวน |
+| `node selfcheck/review-check.mjs` | ข้อตรวจรอบรีวิว R2 R4 R6 R11 (+ R10 เมื่อ `MODE=ai`) ผ่าน HTTP |
 | `node selfcheck/screens-v2.mjs` | ภาพทุกหน้าใหม่ 1280 / 375 px → `selfcheck/screens/v2-*.png` + ตรวจ console error / เลื่อนแนวนอน |
 | `node scripts/migrate.mjs` · `backup.mjs` · `restore.mjs` | ดู `docs/RUNBOOK.md` |

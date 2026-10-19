@@ -7,7 +7,7 @@ import { ErrorBox, Ready } from "@/components/ui";
 import { fmtDateTime, tx } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n";
 
-type Row = { id: string; lang: string; createdAt: string; lastMessageAt: string; messages: number; firstText: string; bookingCodes: string[]; customerPhone: string | null };
+type Row = { ref: string; lang: string; createdAt: string; lastMessageAt: string; messages: number; firstText: string; bookingCodes: string[]; customerPhone: string | null };
 
 // FR-36 · BR-45: chat rooms (newest first) · phone numbers masked (08x-xxx-1234) · read only
 export function ChatsClient({ lang, role }: { lang: Lang; role: string }) {
@@ -40,9 +40,9 @@ export function ChatsClient({ lang, role }: { lang: Lang; role: string }) {
             </thead>
             <tbody>
               {data.chats.map((c) => (
-                <tr key={c.id} data-testid={`chat-row-${c.id}`}>
+                <tr key={c.ref} data-testid={`chat-row-${c.ref}`}>
                   <td>
-                    <Link href={`/owner/chats/${c.id}`} data-testid={`chat-link-${c.id}`}>
+                    <Link href={`/owner/chats/${c.ref}`} data-testid={`chat-link-${c.ref}`}>
                       {fmtDateTime(lang, c.lastMessageAt)}
                     </Link>
                     {c.customerPhone && <div className="small muted">{c.customerPhone}</div>}

@@ -38,7 +38,7 @@ for (const t of ["อยากจองสนาม B พุธ 14 ต.ค. 10:0
   if (card) await post(chat, "/api/chat/book", { draftToken: card.draftToken, consent: true });
 }
 const chats = (await (await setup.request.get(BASE + "/api/owner/chats")).json()).chats;
-const chatId = chats.find((c) => c.bookingCodes.length)?.id ?? chats[0].id;
+const chatId = chats.find((c) => c.bookingCodes.length)?.ref ?? chats[0].ref;
 
 async function shoot(name, user, url, after, before) {
   for (const width of [1280, 375]) {

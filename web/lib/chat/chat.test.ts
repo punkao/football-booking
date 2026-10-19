@@ -238,3 +238,23 @@ test("BR-30 a price question about a taken slot still gives the price (same func
   assert.match(r.reply, /จ่ายเต็ม/);
   assert.match(r.reply, /ไม่ว่าง/);
 });
+
+test("R7 price guard: only money fields count as real prices (a start hour 18 is not ฿18)", async () => {
+  const { tools } = fakeTools();
+  let round = 0;
+  const lying = async () =>
+    round++ === 0 ? '[QUOTE]{"fieldId":"C","date":"2026-10-10","startHour":18,"hours":1}' : "พิเศษวันนี้ ฿18 ครับ";
+  const r = await runTurn({ system: SYSTEM, history: [], userText: "ราคา C เสาร์ 18:00", tools, llm: lying });
+  assert.ok(!/฿18(?!\d|,)/.test(r.reply), r.reply);
+  assert.match(r.reply, /฿1,800/);
+});
+
+test("R8 'ครับ' is not added twice when the answer ends with ครับ + punctuation, emoji or a link", async () => {
+  const { tools } = fakeTools();
+  for (const t of ["ได้เลยครับ?", "ได้เลยครับ!", "ได้เลยครับ 😊", "ดูที่ https://example.test/my ครับ", "ได้เลยครับ https://example.test/pay"]) {
+    const r = await runTurn({ system: SYSTEM, history: [], userText: "สวัสดี", tools, llm: async () => t });
+    assert.equal(r.reply, t, t);
+  }
+  const r = await runTurn({ system: SYSTEM, history: [], userText: "สวัสดี", tools, llm: async () => "ได้เลย!" });
+  assert.equal(r.reply, "ได้เลย! ครับ");
+});

@@ -76,3 +76,25 @@ export function checkSellable(category: string): RuleError | null {
 export function rentableTotal(qtys: number[]): number {
   return qtys.reduce((s, q) => s + Math.max(0, q), 0);
 }
+
+// ---------- R4: rentals already promised to bookings ----------
+export type RentalReservation = { date: string; startHour: number; hours: number; qty: number; returnedQty: number };
+
+/** the most bibs / balls in use at the same hour by field-blocking bookings that have not ended (returned ones are back) */
+export function maxReserved(uses: RentalReservation[]): number {
+  const perHour = new Map<string, number>();
+  for (const u of uses) {
+    const out = Math.max(0, u.qty - u.returnedQty);
+    if (!out) continue;
+    for (let h = u.startHour; h < u.startHour + u.hours; h++) {
+      const k = `${u.date}|${h}`;
+      perHour.set(k, (perHour.get(k) ?? 0) + out);
+    }
+  }
+  return Math.max(0, ...perHour.values());
+}
+
+/** R4: a rental total may not go below what bookings already hold */
+export function checkRentalDecrease(newTotal: number, reserved: number): RuleError | null {
+  return newTotal < reserved ? { code: "STOCK_RESERVED", params: { reserved } } : null;
+}

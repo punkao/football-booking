@@ -14,6 +14,8 @@ import {
   maskPhone,
   popularHours,
   redactText,
+  redactionDue,
+  isCustomerPhone,
   summarizeMoney,
   toCsv,
   todayOf,
@@ -26,6 +28,7 @@ import { extractName } from "@/lib/chat/mock";
 import { AppError, fail, requireStaff, str } from "./core";
 import type { Ctx, StaffRow } from "./core";
 import { audit, q, tx } from "./db";
+import { chatRef } from "./crypto";
 import { loadFields } from "./data";
 
 async function requireArea(ctx: Ctx, area: Area): Promise<StaffRow> {
@@ -250,40 +253,56 @@ export async function reportCsv(ctx: Ctx, from: string | null, to: string | null
 }
 
 // ---------- FR-36 / BR-45 chats ----------
-/** BR-45: messages older than 90 days lose names and phone numbers (lazy, like the payment expiry · ADR-03) */
+type RedactState = { __lnRedactAt?: Date | null };
+const rg = globalThis as unknown as RedactState;
+
+/**
+ * BR-45: messages older than 90 days lose names and phone numbers (lazy, like the payment expiry · ADR-03).
+ * R3: each message is handled once (`redacted_at`), and the job runs at most once an hour of the app clock.
+ */
 export async function redactOldChats(now: Date): Promise<number> {
+  if (!redactionDue(rg.__lnRedactAt ?? null, now)) return 0;
+  rg.__lnRedactAt = now;
   const limit = new Date(now.getTime() - CHAT_RETENTION_DAYS * DAY_MS);
-  const rows = await q<{ id: number; session_id: string; text: string; created_at: Date }>(
-    "SELECT id, session_id, text, created_at FROM chat_messages WHERE created_at < $1 ORDER BY session_id, id",
-    [limit],
-  );
-  const todo = rows.filter((r) => chatNeedsRedaction(new Date(r.created_at), now));
+  const todo = (
+    await q<{ id: number; session_id: string; text: string; created_at: Date }>(
+      "SELECT id, session_id, text, created_at FROM chat_messages WHERE redacted_at IS NULL AND created_at < $1 ORDER BY session_id, id",
+      [limit],
+    )
+  ).filter((r) => chatNeedsRedaction(new Date(r.created_at), now));
   if (!todo.length) return 0;
   const sessions = [...new Set(todo.map((r) => r.session_id))];
   const names = new Map<string, string[]>();
+  const booked = await q<{ session_id: string; name: string }>(
+    `SELECT DISTINCT m.session_id, b.customer_name AS name FROM chat_messages m JOIN bookings b ON b.code = m.booking_code
+      WHERE m.session_id = ANY($1::uuid[])`,
+    [sessions],
+  );
+  const typed = await q<{ session_id: string; text: string }>("SELECT session_id, text FROM chat_messages WHERE role = 'USER' AND session_id = ANY($1::uuid[])", [sessions]);
   for (const sid of sessions) {
-    const booked = await q<{ name: string }>(
-      "SELECT DISTINCT b.customer_name AS name FROM chat_messages m JOIN bookings b ON b.code = m.booking_code WHERE m.session_id = $1",
-      [sid],
-    );
-    const typed = await q<{ text: string }>("SELECT text FROM chat_messages WHERE session_id = $1 AND role = 'USER'", [sid]);
-    names.set(sid, [...booked.map((b) => b.name), ...typed.map((t) => extractName(t.text) ?? "").filter(Boolean)]);
+    names.set(sid, [
+      ...booked.filter((x) => x.session_id === sid).map((x) => x.name),
+      ...typed.filter((x) => x.session_id === sid).map((t) => extractName(t.text) ?? "").filter(Boolean),
+    ]);
   }
   let changed = 0;
   await tx(async (c) => {
     await c.query("SELECT set_config('app.redact', 'on', true)");
     for (const r of todo) {
       const next = redactText(r.text, names.get(r.session_id) ?? []);
-      if (next !== r.text) {
-        await c.query("UPDATE chat_messages SET text = $2 WHERE id = $1", [r.id, next]);
-        changed++;
-      }
+      await c.query("UPDATE chat_messages SET text = $2, redacted_at = $3 WHERE id = $1", [r.id, next, now]);
+      if (next !== r.text) changed++;
     }
   });
   return changed;
 }
 
-const maskText = (s: string) => s.replace(PHONE_IN_TEXT, (m) => maskPhone(m));
+/** R3: test reset empties the chat tables — the next request may run the job again */
+export function forgetRedactionRun(): void {
+  rg.__lnRedactAt = null;
+}
+
+const maskText = (s: string) => s.replace(PHONE_IN_TEXT, (m) => (isCustomerPhone(m) ? maskPhone(m) : m));
 
 export async function chatsList(ctx: Ctx, from: string | null, to: string | null) {
   await requireArea(ctx, "CHATS");
@@ -309,8 +328,9 @@ export async function chatsList(ctx: Ctx, from: string | null, to: string | null
     params,
   );
   return {
+    // R11: the back office never sees the room id (= the customer's cookie value), only an HMAC reference
     chats: rows.map((r) => ({
-      id: r.id,
+      ref: chatRef(String(r.id)),
       lang: r.lang,
       createdAt: r.created_at,
       lastMessageAt: r.last_message_at,
@@ -322,10 +342,13 @@ export async function chatsList(ctx: Ctx, from: string | null, to: string | null
   };
 }
 
-export async function chatDetail(ctx: Ctx, id: string) {
+export async function chatDetail(ctx: Ctx, ref: string) {
   await requireArea(ctx, "CHATS");
   await redactOldChats(ctx.now);
-  if (!/^[0-9a-f-]{36}$/i.test(id)) throw new AppError("CHAT_SESSION_NOT_FOUND");
+  if (!/^[0-9a-f]{32}$/.test(ref)) throw new AppError("CHAT_SESSION_NOT_FOUND");
+  const ids = await q<{ id: string }>("SELECT id FROM chat_sessions");
+  const id = ids.find((x) => chatRef(String(x.id)) === ref)?.id;
+  if (!id) throw new AppError("CHAT_SESSION_NOT_FOUND");
   const s = (await q<Record<string, unknown>>("SELECT s.id, s.lang, s.created_at, s.last_message_at, c.phone FROM chat_sessions s LEFT JOIN customers c ON c.id = s.customer_id WHERE s.id = $1", [id]))[0];
   if (!s) throw new AppError("CHAT_SESSION_NOT_FOUND");
   const msgs = await q<{ id: number; role: string; text: string; booking_code: string | null; created_at: Date }>(
@@ -333,7 +356,7 @@ export async function chatDetail(ctx: Ctx, id: string) {
     [id],
   );
   return {
-    chat: { id: s.id, lang: s.lang, createdAt: s.created_at, lastMessageAt: s.last_message_at, customerPhone: s.phone ? maskPhone(String(s.phone)) : null },
+    chat: { ref, lang: s.lang, createdAt: s.created_at, lastMessageAt: s.last_message_at, customerPhone: s.phone ? maskPhone(String(s.phone)) : null },
     messages: msgs.map((m) => ({ id: m.id, role: m.role, text: maskText(m.text), bookingCode: m.booking_code, createdAt: m.created_at })),
   };
 }

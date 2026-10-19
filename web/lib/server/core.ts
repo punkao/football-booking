@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { MESSAGES, fmtDateTime, money, msg, normLang, rentalName } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n";
 import { q, tx } from "./db";
-import { dbErrorCode } from "@/lib/rules";
+import { checkOrigin, dbErrorCode } from "@/lib/rules";
 import type { Db } from "./db";
 import { unsign } from "./crypto";
 
@@ -82,18 +82,8 @@ export function route<P = Record<string, string>>(fn: Handler<P>, opts: { expire
   return async (req: NextRequest, context: { params: Promise<P> }): Promise<Response> => {
     const lang = normLang(req.cookies.get("lang")?.value);
     // 07-SAD 8.1 CSRF: a browser request that changes data must come from this site (no Origin = not a browser form)
-    if (req.method !== "GET" && req.method !== "HEAD") {
-      const origin = req.headers.get("origin");
-      const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host");
-      if (origin && origin !== "null") {
-        let ok = false;
-        try {
-          ok = new URL(origin).host === host;
-        } catch {
-          ok = false;
-        }
-        if (!ok) return errorJson(lang, "FORBIDDEN_ORIGIN");
-      }
+    if (!checkOrigin(req.method, req.headers.get("origin"), req.headers.get("x-forwarded-host") ?? req.headers.get("host"))) {
+      return errorJson(lang, "FORBIDDEN_ORIGIN");
     }
     try {
       const now = await getNow();
@@ -151,8 +141,8 @@ export function accessCodesFrom(get: CookieGetter): string[] {
 export type StaffRow = { id: number; name: string; username: string; role: "OWNER" | "MANAGER" | "STAFF" };
 
 export async function staffFrom(get: CookieGetter): Promise<StaffRow | null> {
-  const sid = unsign<{ sid: number }>(get(STAFF_COOKIE))?.sid;
-  if (!sid) return null;
+  const sid = unsign<{ sid: unknown }>(get(STAFF_COOKIE))?.sid;
+  if (typeof sid !== "number" || !Number.isInteger(sid)) return null; // only a staff session, never another signed token
   const rows = await q<StaffRow>("SELECT id, name, username, role FROM staff_users WHERE id = $1", [sid]);
   return rows[0] ?? null;
 }
