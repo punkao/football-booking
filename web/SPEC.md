@@ -507,6 +507,7 @@ API ตอบ error รูปแบบเดียว `{ "error": { "code": "...
 | BR-39 | `checkReportRange`, `addMonths`, `canAccess("REPORTS")` (reports.ts) | `report`, `reportCsv` |
 | BR-40 | `summarizeMoney` (reports.ts) | `dashboard`, `report`, `reportCsv` |
 | BR-41 | `utilizationPercent` (reports.ts) | `dashboard` |
+| CR-03 | `splitBookingMoney`, `fieldUse`, `usePercent` (reports.ts) | `report`, `reportCsv`, หน้า `/owner/reports` |
 | BR-42 | `AUDIT_ACTIONS`, `isAuditAction`, `historyActorLabel` (records.ts) + trigger (migration 002) | `audit()` ใน `lib/server/db.ts`, `tx(…, { actor, now })` |
 | BR-43 | `planMigrations` (records.ts) | `scripts/migrate.mjs` |
 | BR-44 | `canAccess` (reports.ts) | `lib/server/backoffice.ts`, หน้า `/owner/*` |
@@ -577,7 +578,7 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 | `/owner/dashboard` | `dash-date`, `dash-today-total`, `dash-today-booking-money`, `dash-today-sales`, `dash-today-credit`, `dash-low-stock`, `dash-week-total`, `dash-chart`, `dash-bar-{YYYY-MM-DD}` (`data-value`), `dash-util-{A|B|C}` (`data-value` = %), `dash-hours`, `dash-hour-{8..23}` (`data-value`), `dash-status`, `dash-status-{STATUS}` |
 | `/owner/bookings` | `bk-search-code`, `bk-search-phone`, `bk-search-date`, `bk-search-submit`, `bk-results` (`data-count`), `bk-row-{code}`, `bk-link-{code}`, `bk-status-{code}`, `bk-empty` |
 | `/owner/bookings/[code]` | `history-back`, `history-status`, `history-total`, `history-paid`, `history-due`, `history-table` (`data-count`), `history-row-{i}`, `history-at-{i}`, `history-from-{i}`, `history-to-{i}`, `history-actor-{i}` (`data-value` = actor ดิบ · ข้อความ: ลูกค้า / แชทบอท / ระบบ / ชื่อพนักงาน `staff_users.name` (CR-02 / A-44 · อ่านตอนแสดง · หาไม่เจอ → username)), `history-payments` |
-| `/owner/reports` | `report-from`, `report-to`, `report-submit`, `report-error`, `report-csv`, `report-table` (`data-count`), `report-row-{date}`, `report-{date}-booking`, `-cash`, `-promptpay`, `-total`, `-credit`, `-bookings`, `-noshow`, `report-totals`, `report-total-booking`, `report-total-cash`, `report-total-promptpay`, `report-total-money`, `report-total-credit`, `report-total-bookings`, `report-total-noshow` |
+| `/owner/reports` | `report-from`, `report-to`, `report-submit`, `report-error`, `report-csv`, `report-table` (`data-count`), `report-row-{date}`, `report-{date}-booking`, `-cash`, `-promptpay`, `-total`, `-credit`, `-bookings`, `-noshow`, `report-{date}-booking-promptpay`, `report-{date}-booking-cash`, `report-field-use`, `report-field-{A|B|C}-hours`, `report-field-{A|B|C}-percent` (`data-value`), `report-totals`, `report-total-booking`, `report-total-booking-promptpay`, `report-total-booking-cash`, `report-total-cash`, `report-total-promptpay`, `report-total-money`, `report-total-credit`, `report-total-bookings`, `report-total-noshow` |
 | `/owner/chats` | `chat-list` (`data-count`), `chat-row-{ref}`, `chat-link-{ref}`, `chat-list-empty` (`ref` = รหัสอ้างอิงของหลังบ้าน ไม่ใช่รหัสห้องของลูกค้า) · ห้อง: `chat-detail-back`, `chat-detail` (`data-count`), `chat-detail-msg-{i}` (`data-role`), `chat-detail-booking-{code}` |
 | `/owner/audit` | `audit-from`, `audit-to`, `audit-staff`, `audit-action`, `audit-submit`, `audit-table` (`data-count`), `audit-row-{id}`, `audit-at-{id}`, `audit-user-{id}`, `audit-action-{id}` (`data-value`), `audit-target-{id}`, `audit-empty` |
 | ส่วนกลาง | `nav-stock`, `nav-backoffice`, `tab-dashboard`, `tab-bookings`, `tab-stock`, `tab-sale`, `tab-transfer`, `tab-manager-stock`, `tab-chats`, `tab-reports`, `tab-audit`, `bot-avatar` |
@@ -640,7 +641,7 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 | GET | `/api/owner/dashboard` | `?date=` (ไม่ส่ง = วันนี้) | `{ date, today: { total, bookingMoney, salesCash, salesPromptpay, salesMoney, creditUsed }, week[7], weekTotal, utilization[], popularHours[16], bookingsByStatus, lowStockCount }` | OWNER, MANAGER |
 | GET | `/api/owner/bookings` | `?code=&phone=&date=` | `{ bookings[] }` (สูงสุด 100) | OWNER, MANAGER |
 | GET | `/api/owner/bookings/{code}/history` | – | `{ booking, payments[], history: [{ fromStatus, toStatus, actor, actorLabel, at }] }` | OWNER, MANAGER · PUT/PATCH/DELETE/POST → 404 |
-| GET | `/api/owner/reports` | `?from=&to=` | `{ from, to, days[], totals }` | OWNER |
+| GET | `/api/owner/reports` | `?from=&to=` | `{ from, to, days[], totals, fieldUse[] }` · CR-03: `days[].bookingPromptpay/bookingCash/fieldHours{A,B,C}` · `totals.bookingPromptpay/bookingCash` (สองช่อง = `bookingMoney` เสมอ) · `fieldUse[] = { fieldId, hours, percent }` | OWNER |
 | GET | `/api/owner/reports.csv` | `?from=&to=` | `text/csv; charset=utf-8` · BOM · CRLF · `report-<from>-<to>.csv` · เขียน AuditLog `REPORT_EXPORT` | OWNER |
 | GET | `/api/owner/chats` · `/api/owner/chats/{ref}` | `?from=&to=` | `{ chats: [{ ref, lang, createdAt, lastMessageAt, messages, firstText, bookingCodes, customerPhone }] }` / ข้อความในห้อง (เบอร์ปิดบางส่วน · เบอร์ร้านไม่ปิด) · `ref` = HMAC ของรหัสห้อง ใช้แทน cookie ลูกค้าไม่ได้ | OWNER, MANAGER · เขียน → 404 |
 | GET | `/api/owner/audit` | `?from=&to=&staffUserId=&action=` | `{ actions, staff, entries: [{ id, action, target, detail, at, username, staffName }] }` | OWNER · เขียน → 404 |
@@ -648,7 +649,7 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 - ไม่มีเส้นทางแก้/ลบ `BookingStatusHistory`, `AuditLog`, `StockMovement`, `ChatMessage` (เส้นที่ไม่มี → 404) · ฐานข้อมูลก็ห้ามด้วย trigger
 - คำขอที่เปลี่ยนข้อมูลซึ่งมี header `Origin` ต่างจากเว็บ หรือ `Origin: null` → 403 `FORBIDDEN_ORIGIN` (ไม่มี `Origin` เช่น curl / Playwright `request` = ผ่าน)
 - ของเช่า (BIB, BALL): ชำรุด / ปรับยอดลง จนยอดรวมต่ำกว่าจำนวนที่การจองสถานะกันสนามซึ่งยังไม่จบจองไว้สูงสุดในชั่วโมงใดชั่วโมงหนึ่ง → 409 `STOCK_RESERVED` (`params.reserved`) · ย้ายระหว่างที่เก็บทำได้ (ยอดรวมไม่เปลี่ยน)
-- CSV คอลัมน์: วันที่ · ยอดจอง · ขายเงินสด · ขายพร้อมเพย์ · ยอดขายรวม · รวมรับเงิน · หักเครดิต · จำนวนการจอง (วันเตะ) · สถานะทั้ง 7 · ส่วนลด · ค่าของเช่า · ชั่วโมงฟรีที่ใช้ · แถวสุดท้าย "รวม" · ช่องข้อความขึ้นต้น `= + - @` tab CR → เติม `'` · มี `,` `"` ขึ้นบรรทัด → ห่อ `"`
+- CSV คอลัมน์: วันที่ · ยอดจอง · ขายเงินสด · ขายพร้อมเพย์ · ยอดขายรวม · รวมรับเงิน · หักเครดิต · จำนวนการจอง (วันเตะ) · สถานะทั้ง 7 · ส่วนลด · ค่าของเช่า · ชั่วโมงฟรีที่ใช้ · **ต่อท้าย (CR-03 · ห้ามแทรก/ย้ายคอลัมน์เดิม · สูตร Excel ของร้านอ้างตำแหน่ง)** มัดจำ/จ่ายผ่านพร้อมเพย์ (บาท) · เก็บหน้าสนาม (บาท) · ชั่วโมงใช้สนาม A · ใช้สนาม A (%) · B · C (รายวัน: ชั่วโมงของวัน ÷ 16 · แถวรวม: ทั้งช่วง ÷ (16 × วัน) · ทศนิยม 1 ตำแหน่ง) · แถวสุดท้าย "รวม" · ช่องข้อความขึ้นต้น `= + - @` tab CR → เติม `'` · มี `,` `"` ขึ้นบรรทัด → ห่อ `"`
 
 ## 13. v2 · แชทบอท "น้องบอล"
 
@@ -680,6 +681,7 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 | ยินยอม PDPA ในแชท | บอทถามในแชทก่อน (ตอบ "ไม่ยินยอม" = ไม่สร้าง) และการ์ดมีช่องติ๊กที่ต้องติ๊กเองก่อนกดยืนยัน (A-34) — ต้องผ่านทั้งสอง |
 | บอทต้องได้ "จำนวนชั่วโมง" | นับเป็น 1 ใน 7 อย่างของ BR-31 จึงถามถ้าไม่บอก (ถามราคา/ว่าง ไม่บอก = 1 ชั่วโมง) |
 | แดชบอร์ด "หักเครดิต" | เครดิตที่ใช้จ่ายการจอง (`CreditEntry` USED) นับตามวันที่ใช้ · รายงานแสดงคอลัมน์เดียวกัน |
+| รายงาน (CR-03): เงินค่าจองแยก พร้อมเพย์ / เก็บหน้าสนาม (ตาม `payments.method` · วันรับเงิน · เครดิตไม่นับ) · ชั่วโมงใช้สนามต่อสนาม (การจอง CONFIRMED / CHECKED_IN / NO_SHOW ตามวันเตะ · % = ชั่วโมง ÷ (16 × จำนวนวัน) ปัด 1 ตำแหน่ง · ไม่หักวันปิดฝน) · ยอดเดิมทุกตัวคงเดิม |
 | รายงาน: ส่วนลด ค่าของเช่า ชั่วโมงฟรี ไม่มา จำนวนการจองตามสถานะ | นับตามวันเตะ (T-20) · ยอดเงินนับตามวันรับเงิน (BR-40) · ช่วงวัน = 3 เดือนปฏิทิน (วันสิ้นสุด < วันเริ่ม + 3 เดือน · CR-02 / A-46: เดือนปลายทางไม่มีวันที่นั้น → ถึงวันสุดท้ายของเดือนได้ เช่น 30 พ.ย. → 28 ก.พ.) |
 | ประวัติการเคลื่อนไหวคลังของ seed | การขาย 2 ครั้งใน TEST-DATA 5.2 มี `StockMovement` SALE คู่กัน · AuditLog ของ seed ว่าง |
 | ปรับยอดให้เท่าเดิม | ปฏิเสธ `STOCK_NO_CHANGE` (ไม่มีอะไรให้บันทึก) |

@@ -87,6 +87,57 @@ export function summarizeMoney(from: string, to: string, payments: MoneyRow[], s
   };
 }
 
+/**
+ * CR-03 (1) / A-41: booking money split by channel, counted on the Bangkok day it was received (same rule as BR-40).
+ * PROMPTPAY → bookingPromptpay · CASH_AT_FIELD → bookingCash · CREDIT is not money (skipped) →
+ * bookingPromptpay + bookingCash always equals summarizeMoney().bookingMoney
+ */
+export function splitBookingMoney(from: string, to: string, payments: MoneyRow[]) {
+  const days = new Map(daysOf(from, to).map((d) => [d, { date: d, bookingPromptpay: 0, bookingCash: 0 }]));
+  for (const p of payments) {
+    const d = days.get(p.day);
+    if (!d) continue;
+    if (p.method === "PROMPTPAY") d.bookingPromptpay += p.amount;
+    else if (p.method === "CASH_AT_FIELD") d.bookingCash += p.amount;
+  }
+  const list = [...days.values()];
+  return {
+    days: list,
+    bookingPromptpay: list.reduce((s, d) => s + d.bookingPromptpay, 0),
+    bookingCash: list.reduce((s, d) => s + d.bookingCash, 0),
+  };
+}
+
+/** CR-03 (2): statuses that count as "used" for the hours report — paid · checked in · no-show (PENDING_PAYMENT is not paid yet) */
+export const USED_STATUSES = ["CONFIRMED", "CHECKED_IN", "NO_SHOW"] as const;
+
+/** CR-03 (2): hours ÷ (16 × days) × 100, rounded to 1 decimal (shop answer · differs from BR-41 whole percent on the dashboard) */
+export function usePercent(hours: number, dayCount: number): number {
+  const base = OPEN_HOURS_PER_DAY * dayCount;
+  return base > 0 ? Math.round((hours / base) * 1000) / 10 : 0;
+}
+
+/**
+ * CR-03 (2) / A-42: hours used per field by the day of play · percent = hours ÷ (16 × days in range), 1 decimal.
+ * Rain-closed / cancelled / expired / pending bookings are not counted; the base is not reduced for closed days.
+ */
+export function fieldUse(fieldIds: string[], from: string, to: string, bookings: { date: string; fieldId: string; hours: number; status: string }[]) {
+  const dayList = daysOf(from, to);
+  const perDay = new Map<string, Record<string, number>>(dayList.map((d) => [d, Object.fromEntries(fieldIds.map((f) => [f, 0]))]));
+  for (const b of bookings) {
+    const day = perDay.get(b.date);
+    if (!day || !(USED_STATUSES as readonly string[]).includes(b.status) || !(b.fieldId in day)) continue;
+    day[b.fieldId] += b.hours;
+  }
+  return {
+    days: dayList.map((date) => ({ date, fieldHours: perDay.get(date) as Record<string, number> })),
+    fields: fieldIds.map((fieldId) => {
+      const hours = dayList.reduce((s, d) => s + (perDay.get(d) as Record<string, number>)[fieldId], 0);
+      return { fieldId, hours, percent: usePercent(hours, dayList.length) };
+    }),
+  };
+}
+
 /** BR-41: blocked hours ÷ 16 × 100, rounded to a whole percent */
 export function utilizationPercent(blockedHours: number): number {
   return Math.round((blockedHours / OPEN_HOURS_PER_DAY) * 100);

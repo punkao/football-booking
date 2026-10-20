@@ -10,6 +10,8 @@ import type { Lang } from "@/lib/i18n";
 type Day = {
   date: string;
   bookingMoney: number;
+  bookingPromptpay: number;
+  bookingCash: number;
   salesCash: number;
   salesPromptpay: number;
   salesMoney: number;
@@ -22,7 +24,8 @@ type Report = {
   from: string;
   to: string;
   days: Day[];
-  totals: { bookingMoney: number; salesCash: number; salesPromptpay: number; salesMoney: number; total: number; creditUsed: number; bookings: number; noShow: number };
+  fieldUse: { fieldId: string; hours: number; percent: number }[];
+  totals: { bookingMoney: number; bookingPromptpay: number; bookingCash: number; salesCash: number; salesPromptpay: number; salesMoney: number; total: number; creditUsed: number; bookings: number; noShow: number };
 };
 
 // FR-44 · BR-39 / BR-40 (OWNER only): money by the day it was received · bookings by the day of play · CSV for Excel
@@ -90,6 +93,8 @@ export function ReportsClient({ lang, role }: { lang: Lang; role: string }) {
                 <tr>
                   <th>{tx(lang, "วันที่", "Date")}</th>
                   <th className="num">{tx(lang, "ยอดจอง", "Bookings money")}</th>
+                  <th className="num">{tx(lang, "มัดจำ/จ่ายผ่านพร้อมเพย์", "Booking PromptPay")}</th>
+                  <th className="num">{tx(lang, "เก็บหน้าสนาม", "Collected at field")}</th>
                   <th className="num">{tx(lang, "ขายเงินสด", "Sales cash")}</th>
                   <th className="num">{tx(lang, "ขายพร้อมเพย์", "Sales PromptPay")}</th>
                   <th className="num">{tx(lang, "รวมรับเงิน", "Total money")}</th>
@@ -103,6 +108,8 @@ export function ReportsClient({ lang, role }: { lang: Lang; role: string }) {
                   <tr key={d.date} data-testid={`report-row-${d.date}`}>
                     <td>{fmtDate(lang, d.date)}</td>
                     <td className="num"><Money lang={lang} value={d.bookingMoney} testid={`report-${d.date}-booking`} /></td>
+                    <td className="num"><Money lang={lang} value={d.bookingPromptpay} testid={`report-${d.date}-booking-promptpay`} /></td>
+                    <td className="num"><Money lang={lang} value={d.bookingCash} testid={`report-${d.date}-booking-cash`} /></td>
                     <td className="num"><Money lang={lang} value={d.salesCash} testid={`report-${d.date}-cash`} /></td>
                     <td className="num"><Money lang={lang} value={d.salesPromptpay} testid={`report-${d.date}-promptpay`} /></td>
                     <td className="num"><b><Money lang={lang} value={d.total} testid={`report-${d.date}-total`} /></b></td>
@@ -116,6 +123,8 @@ export function ReportsClient({ lang, role }: { lang: Lang; role: string }) {
                 <tr data-testid="report-totals">
                   <td>{tx(lang, "รวม", "Total")}</td>
                   <td className="num"><Money lang={lang} value={data.totals.bookingMoney} testid="report-total-booking" /></td>
+                  <td className="num"><Money lang={lang} value={data.totals.bookingPromptpay} testid="report-total-booking-promptpay" /></td>
+                  <td className="num"><Money lang={lang} value={data.totals.bookingCash} testid="report-total-booking-cash" /></td>
                   <td className="num"><Money lang={lang} value={data.totals.salesCash} testid="report-total-cash" /></td>
                   <td className="num"><Money lang={lang} value={data.totals.salesPromptpay} testid="report-total-promptpay" /></td>
                   <td className="num"><Money lang={lang} value={data.totals.total} testid="report-total-money" /></td>
@@ -126,6 +135,34 @@ export function ReportsClient({ lang, role }: { lang: Lang; role: string }) {
               </tfoot>
             </table>
           </div>
+          <h3 style={{ margin: "16px 0 8px" }}>{tx(lang, "ชั่วโมงใช้สนาม (ตามวันเตะ)", "Field hours used (by day of play)")}</h3>
+          <div className="table-wrap">
+            <table className="data-table" data-testid="report-field-use">
+              <thead>
+                <tr>
+                  <th>{tx(lang, "สนาม", "Field")}</th>
+                  <th className="num">{tx(lang, "ชั่วโมงที่ใช้", "Hours used")}</th>
+                  <th className="num">{tx(lang, "% ของชั่วโมงเปิด", "% of open hours")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.fieldUse.map((u) => (
+                  <tr key={u.fieldId} data-testid={`report-field-row-${u.fieldId}`}>
+                    <td>{tx(lang, "สนาม", "Field")} {u.fieldId}</td>
+                    <td className="num" data-testid={`report-field-${u.fieldId}-hours`} data-value={u.hours}>{u.hours}</td>
+                    <td className="num" data-testid={`report-field-${u.fieldId}-percent`} data-value={u.percent}>{u.percent.toFixed(1)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="small muted" style={{ margin: "8px 0 0" }}>
+            {tx(
+              lang,
+              "นับการจองที่จ่ายแล้ว เช็กอินแล้ว หรือไม่มา · เปอร์เซ็นต์ = ชั่วโมงที่ใช้ ÷ (16 ชม. × จำนวนวันในช่วง)",
+              "Paid, checked-in or no-show bookings · percent = hours used ÷ (16 h × days in range)",
+            )}
+          </p>
         </section>
       )}
     </main>

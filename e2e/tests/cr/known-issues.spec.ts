@@ -185,11 +185,15 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
     expect.soft((r.body?.days ?? []).length, 'จำนวนวันในรายงาน').toBe(91);
   });
 
-  test.fail('KI TC-REPORT-04 รายงาน CSV ต้องแยก "เก็บหน้าสนาม" และมีชั่วโมงต่อสนาม', ki(
-    'TC-REPORT-04', 'CR-03',
-    '[D A-41] มัดจำพร้อมเพย์ / เก็บหน้าสนาม 2 คอลัมน์ · [D A-42] ชั่วโมงต่อสนาม · CHANGE-REQUESTS/CR-03.md',
-    'owner GET /api/owner/reports.csv 3–9 ต.ค. → หัวคอลัมน์มี "หน้าสนาม" และชั่วโมงของสนาม A/B/C',
-  ), async ({ staffApi }) => {
+  // CR-03 แก้แล้ว (docs/impact/CR-03.md) → ถอด test.fail: เป็น test ปกติที่ต้องผ่าน · แท็ก @known-issue ออก
+  test('KI TC-REPORT-04 รายงาน CSV ต้องแยก "เก็บหน้าสนาม" และมีชั่วโมงต่อสนาม', {
+    ...ki(
+      'TC-REPORT-04', 'CR-03',
+      '[D A-41] มัดจำพร้อมเพย์ / เก็บหน้าสนาม 2 คอลัมน์ · [D A-42] ชั่วโมงต่อสนาม · CHANGE-REQUESTS/CR-03.md',
+      'owner GET /api/owner/reports.csv 3–9 ต.ค. → หัวคอลัมน์มี "หน้าสนาม" และชั่วโมงของสนาม A/B/C',
+    ),
+    tag: ['@CR-03', '@fixed'],
+  }, async ({ staffApi }) => {
     const o = await staffApi('owner');
     const r = await o.get('/api/owner/reports.csv?from=2026-10-03&to=2026-10-09');
     expect(r.status()).toBe(200);

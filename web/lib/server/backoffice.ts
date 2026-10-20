@@ -16,9 +16,12 @@ import {
   redactText,
   redactionDue,
   isCustomerPhone,
+  fieldUse,
+  splitBookingMoney,
   summarizeMoney,
   toCsv,
   todayOf,
+  usePercent,
   utilizationPercent,
   CHAT_RETENTION_DAYS,
   DAY_MS,
@@ -181,7 +184,16 @@ export async function report(ctx: Ctx, from: string | null, to: string | null) {
   const t = to as string;
   const { payments, sales } = await moneyRows(f, t);
   const money = summarizeMoney(f, t, payments, sales, ctx.bug);
+  const split = splitBookingMoney(f, t, payments); // CR-03 (1): PromptPay / collected at the field (sum = bookingMoney)
   const credit = await creditUsedByDay(f, t);
+  // CR-03 (2): hours used per field, by the day of play
+  const fieldIds = (await loadFields(null)).map((x) => x.id);
+  const fieldRows = await q<{ date: string; field_id: string; status: string; hours: number }>(
+    `SELECT to_char(date, 'YYYY-MM-DD') AS date, field_id, status, sum(hours)::int AS hours
+       FROM bookings WHERE date BETWEEN $1 AND $2 GROUP BY 1, 2, 3`,
+    [f, t],
+  );
+  const use = fieldUse(fieldIds, f, t, fieldRows.map((x) => ({ date: x.date, fieldId: x.field_id, hours: x.hours, status: x.status })));
   // counted by the day of play (BR-40 / T-20)
   const bk = await q<{ day: string; status: string; n: number; discount: number; rental: number; free: number }>(
     `SELECT to_char(date, 'YYYY-MM-DD') AS day, status, count(*)::int AS n, sum(discount)::int AS discount, sum(rental_price)::int AS rental,
@@ -193,6 +205,7 @@ export async function report(ctx: Ctx, from: string | null, to: string | null) {
     const rows = bk.filter((x) => x.day === d.date);
     const byStatus: Record<string, number> = {};
     for (const r of rows) byStatus[r.status] = r.n;
+    const day = split.days.find((x) => x.date === d.date);
     return {
       ...d,
       creditUsed: credit.get(d.date) ?? 0,
@@ -202,6 +215,10 @@ export async function report(ctx: Ctx, from: string | null, to: string | null) {
       discount: rows.reduce((s, r) => s + r.discount, 0),
       rentalPrice: rows.reduce((s, r) => s + r.rental, 0),
       freeHours: rows.reduce((s, r) => s + r.free, 0),
+      // CR-03: new keys are appended after the existing ones
+      bookingPromptpay: day?.bookingPromptpay ?? 0,
+      bookingCash: day?.bookingCash ?? 0,
+      fieldHours: use.days.find((x) => x.date === d.date)?.fieldHours ?? {},
     };
   });
   const sum = (k: "creditUsed" | "bookings" | "noShow" | "discount" | "rentalPrice" | "freeHours") => days.reduce((s, d) => s + d[k], 0);
@@ -221,7 +238,10 @@ export async function report(ctx: Ctx, from: string | null, to: string | null) {
       discount: sum("discount"),
       rentalPrice: sum("rentalPrice"),
       freeHours: sum("freeHours"),
+      bookingPromptpay: split.bookingPromptpay,
+      bookingCash: split.bookingCash,
     },
+    fieldUse: use.fields,
   };
 }
 
@@ -231,17 +251,22 @@ const CSV_STATUSES = ["PENDING_PAYMENT", "CONFIRMED", "CHECKED_IN", "NO_SHOW", "
 export async function reportCsv(ctx: Ctx, from: string | null, to: string | null): Promise<Response> {
   const staff = await requireArea(ctx, "REPORTS");
   const r = await report(ctx, from, to);
+  const fieldIds = r.fieldUse.map((x) => x.fieldId);
   const header = [
     "วันที่", "ยอดจอง (บาท)", "ขายเงินสด (บาท)", "ขายพร้อมเพย์ (บาท)", "ยอดขายรวม (บาท)", "รวมรับเงิน (บาท)", "หักเครดิต (บาท)",
     "จำนวนการจอง (วันเตะ)", ...CSV_STATUSES.map((s) => `สถานะ ${s}`), "ส่วนลด (บาท)", "ค่าของเช่า (บาท)", "ชั่วโมงฟรีที่ใช้",
+    // CR-03: new columns are appended at the END only (the shop's Excel formulas use column positions)
+    "มัดจำ/จ่ายผ่านพร้อมเพย์ (บาท)", "เก็บหน้าสนาม (บาท)", ...fieldIds.flatMap((f) => [`ชั่วโมงใช้สนาม ${f}`, `ใช้สนาม ${f} (%)`]),
   ];
   const rows = r.days.map((d) => [
     d.date, d.bookingMoney, d.salesCash, d.salesPromptpay, d.salesMoney, d.total, d.creditUsed, d.bookings,
     ...CSV_STATUSES.map((s) => d.byStatus[s] ?? 0), d.discount, d.rentalPrice, d.freeHours,
+    d.bookingPromptpay, d.bookingCash, ...fieldIds.flatMap((f) => [d.fieldHours[f] ?? 0, usePercent(d.fieldHours[f] ?? 0, 1)]),
   ]);
   rows.push([
     "รวม", r.totals.bookingMoney, r.totals.salesCash, r.totals.salesPromptpay, r.totals.salesMoney, r.totals.total, r.totals.creditUsed, r.totals.bookings,
     ...CSV_STATUSES.map((s) => r.days.reduce((a, d) => a + (d.byStatus[s] ?? 0), 0)), r.totals.discount, r.totals.rentalPrice, r.totals.freeHours,
+    r.totals.bookingPromptpay, r.totals.bookingCash, ...r.fieldUse.flatMap((u) => [u.hours, u.percent]),
   ]);
   const csv = toCsv(header, rows);
   await tx(async (c) => audit(c, staff.id, "REPORT_EXPORT", `${r.from}..${r.to}`, { from: r.from, to: r.to, rows: r.days.length }, ctx.now));
