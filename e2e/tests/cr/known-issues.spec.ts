@@ -10,7 +10,7 @@ import { BASE_URL, TODAY } from '../constants';
  *   (ย้ายเป็น test ปกติ หรือลบเพราะมีเทสต์ CR ครอบแล้ว) — ล็อกคู่กับ TC เดิมที่ล้มอยู่ใน e2e/tests/*.ts
  * - เป็น "ตัวทำซ้ำขั้นต่ำ" ของ TC เดิม (ไม่ลอกทุกขั้น) · แท็ก @known-issue @CR-0N ตาม CHANGE-REQUESTS/REGISTER.md
  * - ไม่ reset / ไม่เลื่อนเวลา (ไฟล์นี้รันพร้อม 3 เบราว์เซอร์และ spec อื่น) · ใช้ข้อมูล seed แบบอ่านอย่างเดียว หรือข้อมูลใหม่ที่ไม่ชน
- * - นับผล: บรรทัดสรุปของ Playwright รวม expected-fail ไว้ใน "passed" → นับด้วย --grep @known-issue (10 ข้อต่อเบราว์เซอร์ · หลัง CR-01 เหลือ 9: KI TC-ROLE-03 เป็น test ปกติแท็ก @fixed · หลัง CR-02 เหลือ 4: KI TC-BOOK-11 / TC-STAFF-06 / TC-REPORT-01 / TC-TRACK-01 / TC-DATA-01 เป็น test ปกติแท็ก @fixed)
+ * - นับผล: บรรทัดสรุปของ Playwright รวม expected-fail ไว้ใน "passed" → นับด้วย --grep @known-issue (10 ข้อต่อเบราว์เซอร์ · หลัง CR-01 เหลือ 9: KI TC-ROLE-03 เป็น test ปกติแท็ก @fixed · หลัง CR-02 เหลือ 4: KI TC-BOOK-11 / TC-STAFF-06 / TC-REPORT-01 / TC-TRACK-01 / TC-DATA-01 เป็น test ปกติแท็ก @fixed · หลัง CR-03 KI TC-REPORT-04 · หลัง CR-04 KI TC-CHAT-14/15/16 เป็น test ปกติแท็ก @fixed)
  */
 
 const SYS = 'เกิดข้อผิดพลาดในระบบ';
@@ -124,11 +124,15 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
     });
   });
 
-  test.fail('KI TC-CHAT-14 "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" ต้องตอบ 1,600', ki(
-    'TC-CHAT-14', 'CR-04',
-    '[D] US-39 · FR-35 · CHANGE-REQUESTS/CR-04.md',
-    'ห้องเดียวกัน: คำตอบ 1 มี 800 · คำตอบ 2 มี 1,600 · ไม่มี "ไม่มีข้อมูล"',
-  ), async ({ playwright, b }) => {
+  // CR-04 แก้แล้ว (docs/impact/CR-04.md) → ถอด test.fail: เป็น test ปกติที่ต้องผ่าน · แท็ก @known-issue ออก
+  test('KI TC-CHAT-14 "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" ต้องตอบ 1,600', {
+    ...ki(
+      'TC-CHAT-14', 'CR-04',
+      '[D] US-39 · FR-35 · CHANGE-REQUESTS/CR-04.md',
+      'ห้องเดียวกัน: คำตอบ 1 มี 800 · คำตอบ 2 มี 1,600 · ไม่มี "ไม่มีข้อมูล"',
+    ),
+    tag: ['@CR-04', '@fixed'],
+  }, async ({ playwright, b }) => {
     const room = await chatRoom(playwright, b);
     const a1 = await room.send('ช่วงไหนถูกสุด');
     const a2 = await room.send('ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ');
@@ -140,11 +144,15 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
     await room.ctx.dispose();
   });
 
-  test.fail('KI TC-CHAT-15 "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" ต้องตอบเรื่องสนาม B', ki(
-    'TC-CHAT-15', 'CR-04',
-    '[D] FR-35 "จำบทสนทนาในห้องเดียวกัน" · US-39 · CHANGE-REQUESTS/CR-04.md',
-    'คำตอบ 2 พูดถึง "สนาม B" (ใช้วัน/เวลาจากข้อความแรก) และไม่มี "ไม่มีข้อมูล"',
-  ), async ({ playwright, b }) => {
+  // CR-04 แก้แล้ว (docs/impact/CR-04.md) → ถอด test.fail: เป็น test ปกติที่ต้องผ่าน · แท็ก @known-issue ออก
+  test('KI TC-CHAT-15 "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" ต้องตอบเรื่องสนาม B', {
+    ...ki(
+      'TC-CHAT-15', 'CR-04',
+      '[D] FR-35 "จำบทสนทนาในห้องเดียวกัน" · US-39 · CHANGE-REQUESTS/CR-04.md',
+      'คำตอบ 2 พูดถึง "สนาม B" (ใช้วัน/เวลาจากข้อความแรก) และไม่มี "ไม่มีข้อมูล"',
+    ),
+    tag: ['@CR-04', '@fixed'],
+  }, async ({ playwright, b }) => {
     const room = await chatRoom(playwright, b);
     await room.send(`วันนี้ 19:00 สนาม A ว่างไหม`);
     const a2 = await room.send('งั้นสนาม B ล่ะ');
@@ -155,11 +163,15 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
     await room.ctx.dispose();
   });
 
-  test.fail('KI TC-CHAT-16 "Is pitch C covered?" → "How much is it on Saturday night?" ต้องตอบราคาสนาม C', ki(
-    'TC-CHAT-16', 'CR-04',
-    '[D] US-39 เกณฑ์ข้อ 2 · FR-35 · BR-07/08 · CHANGE-REQUESTS/CR-04.md',
-    'คำตอบ 2 มี 1,800 และไม่ตอบราคาสนาม A ("Field A") เพราะ "it" = สนาม C',
-  ), async ({ playwright, b }) => {
+  // CR-04 แก้แล้ว (docs/impact/CR-04.md) → ถอด test.fail: เป็น test ปกติที่ต้องผ่าน · แท็ก @known-issue ออก
+  test('KI TC-CHAT-16 "Is pitch C covered?" → "How much is it on Saturday night?" ต้องตอบราคาสนาม C', {
+    ...ki(
+      'TC-CHAT-16', 'CR-04',
+      '[D] US-39 เกณฑ์ข้อ 2 · FR-35 · BR-07/08 · CHANGE-REQUESTS/CR-04.md',
+      'คำตอบ 2 มี 1,800 และไม่ตอบราคาสนาม A ("Field A") เพราะ "it" = สนาม C',
+    ),
+    tag: ['@CR-04', '@fixed'],
+  }, async ({ playwright, b }) => {
     const room = await chatRoom(playwright, b);
     await room.send('Is pitch C covered?');
     const a2 = await room.send('How much is it on Saturday night?');

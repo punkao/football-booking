@@ -142,10 +142,11 @@ test("CR-04 the cheapest band follows the field being talked about; without a fi
 });
 
 test("CR-04 new values override: another field, another day, another hour, in the same room", async () => {
-  const r = await room(["สนาม A พรุ่งนี้ 19:00 ราคาเท่าไร", "สนาม C ล่ะ", "วันจันทร์ล่ะ", "ขอ 2 ชั่วโมง"]);
-  assert.deepEqual(r.calls, ["QUOTE A|2026-10-10|19|1", "QUOTE C|2026-10-10|19|1", "QUOTE C|2026-10-12|19|1", "QUOTE C|2026-10-12|19|2"]);
+  const r = await room(["สนาม A พรุ่งนี้ 10:00 ราคาเท่าไร", "สนาม C ล่ะ", "วันจันทร์ล่ะ", "ขอ 2 ชั่วโมง"]);
+  assert.deepEqual(r.calls, ["QUOTE A|2026-10-10|10|1", "QUOTE C|2026-10-10|10|1", "QUOTE C|2026-10-12|10|1", "QUOTE C|2026-10-12|10|2"]);
+  assert.match(r.replies[0], /฿1,200/); // Sat = evening rate all day
   assert.match(r.replies[1], /฿1,800/);
-  assert.match(r.replies[2], /฿1,200/);
+  assert.match(r.replies[2], /฿1,200/); // Mon 10:00 = day rate of C
   assert.match(r.replies[3], /฿2,400/);
 });
 
