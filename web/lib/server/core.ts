@@ -5,7 +5,8 @@ import type { Lang } from "@/lib/i18n";
 import { q, tx } from "./db";
 import { checkOrigin, dbErrorCode } from "@/lib/rules";
 import type { Db } from "./db";
-import { unsign } from "./crypto";
+import { readSession, sessionHash, signSession, unsign } from "./crypto";
+import type { SessionClaim, SessionKey } from "./crypto";
 
 export class AppError extends Error {
   code: string;
@@ -130,8 +131,46 @@ export const ACCESS_COOKIE = "ln_access";
 
 export type CookieGetter = (name: string) => string | undefined;
 
-export function customerIdFrom(get: CookieGetter): number | null {
-  return unsign<{ cid: number }>(get(CUSTOMER_COOKIE))?.cid ?? null;
+// CR-01: the login cookies — lifetime (seconds, the same as before CR-01) and what the signed payload carries
+type LoginCookie = typeof CUSTOMER_COOKIE | typeof STAFF_COOKIE;
+export const SESSION_MAX_AGE: Record<LoginCookie, number> = { [CUSTOMER_COOKIE]: 60 * 60 * 24 * 30, [STAFF_COOKIE]: 60 * 60 * 12 };
+const SESSION_KEY: Record<LoginCookie, SessionKey> = { [CUSTOMER_COOKIE]: "cid", [STAFF_COOKIE]: "sid" };
+const SESSION_KIND: Record<LoginCookie, string> = { [CUSTOMER_COOKIE]: "CUSTOMER", [STAFF_COOKIE]: "STAFF" };
+
+/** CR-01: a new login cookie value (a different token for every login) */
+export function newSession(cookie: LoginCookie, id: number): string {
+  return signSession(SESSION_KEY[cookie], id, SESSION_MAX_AGE[cookie]);
+}
+
+/**
+ * CR-01: the ONE check of a login cookie — signature, format, expiry (real time, not the app clock) and the logout list
+ * (migration 007). Every customer / staff session is read through here (customerIdFrom · staffFrom).
+ */
+async function checkSession(cookie: LoginCookie, token: string | undefined): Promise<SessionClaim | null> {
+  if (!token || !unsign(token)) return null; // no cookie / bad signature → no database work
+  const rows = await q<{ revoked: boolean; since: Date | null }>(
+    `SELECT EXISTS (SELECT 1 FROM revoked_sessions WHERE token_hash = $1) AS revoked,
+            (SELECT applied_at FROM schema_migrations WHERE version = '007') AS since`,
+    [sessionHash(token)],
+  );
+  if (!rows[0] || rows[0].revoked) return null;
+  return readSession(token, SESSION_KEY[cookie], SESSION_MAX_AGE[cookie], Date.now(), rows[0].since ? rows[0].since.getTime() : null);
+}
+
+/** CR-01: logout ends this one cookie on the server (other devices keep theirs) · rows past their expiry are removed */
+export async function revokeSession(cookie: LoginCookie, token: string | undefined): Promise<void> {
+  const s = await checkSession(cookie, token);
+  await q("DELETE FROM revoked_sessions WHERE expires_at < now()");
+  if (!s || !token) return;
+  await q("INSERT INTO revoked_sessions(token_hash, kind, expires_at) VALUES ($1, $2, $3) ON CONFLICT (token_hash) DO NOTHING", [
+    sessionHash(token),
+    SESSION_KIND[cookie],
+    new Date(s.expiresAt),
+  ]);
+}
+
+export async function customerIdFrom(get: CookieGetter): Promise<number | null> {
+  return (await checkSession(CUSTOMER_COOKIE, get(CUSTOMER_COOKIE)))?.id ?? null;
 }
 
 export function accessCodesFrom(get: CookieGetter): string[] {
@@ -141,9 +180,9 @@ export function accessCodesFrom(get: CookieGetter): string[] {
 export type StaffRow = { id: number; name: string; username: string; role: "OWNER" | "MANAGER" | "STAFF" };
 
 export async function staffFrom(get: CookieGetter): Promise<StaffRow | null> {
-  const sid = unsign<{ sid: unknown }>(get(STAFF_COOKIE))?.sid;
-  if (typeof sid !== "number" || !Number.isInteger(sid)) return null; // only a staff session, never another signed token
-  const rows = await q<StaffRow>("SELECT id, name, username, role FROM staff_users WHERE id = $1", [sid]);
+  const s = await checkSession(STAFF_COOKIE, get(STAFF_COOKIE)); // only a staff session, never another signed token
+  if (!s) return null;
+  const rows = await q<StaffRow>("SELECT id, name, username, role FROM staff_users WHERE id = $1", [s.id]);
   return rows[0] ?? null;
 }
 

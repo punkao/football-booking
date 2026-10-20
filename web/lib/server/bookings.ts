@@ -161,13 +161,13 @@ export async function evaluateBooking(
   return { ...price, field, date, startHour, hours, isHoliday: isHoliday(date, holidays), hourly, rentals, freeHourSlot: isFreeHourSlot(date, startHour) };
 }
 
-export function sessionCustomerId(ctx: Ctx): number | null {
+export async function sessionCustomerId(ctx: Ctx): Promise<number | null> {
   return customerIdFrom((n) => ctx.req.cookies.get(n)?.value);
 }
 
 /** quote for the price panel (FR-05) — no customer details needed */
 export async function quote(ctx: Ctx, b: Record<string, unknown>) {
-  const sessionCustomer = await loadCustomerById(null, sessionCustomerId(ctx));
+  const sessionCustomer = await loadCustomerById(null, await sessionCustomerId(ctx));
   const ev = await evaluateBooking(
     null,
     ctx,
@@ -237,7 +237,7 @@ export async function createBooking(ctx: Ctx, b: Record<string, unknown>, actor 
       if (rentals.some((r) => r.qty > 0)) await lockKey(c, `rent:${date}`);
     }
     const existing = phone ? await loadCustomerByPhone(c, phone) : null;
-    const sessionId = sessionCustomerId(ctx);
+    const sessionId = await sessionCustomerId(ctx);
     const isMember = !!existing?.passwordHash && existing.id === sessionId;
     // validate time/slot/rentals first (FR-03), customer details after
     const ev = await evaluateBooking(
@@ -290,7 +290,7 @@ export type Access = { phone?: string; ctx: Ctx; allowStaff?: boolean };
 
 export async function authorizeBooking(b: BookingRow, a: Access): Promise<void> {
   const get = (n: string) => a.ctx.req.cookies.get(n)?.value;
-  const sid = customerIdFrom(get);
+  const sid = await customerIdFrom(get);
   if (sid && sid === b.customerId) return;
   const phone = normalizePhone(a.phone);
   if (phone) {

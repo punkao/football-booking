@@ -404,7 +404,7 @@ API ตอบ error รูปแบบเดียว `{ "error": { "code": "...
 
 ## 5. API
 
-ทุกเส้นรับ/ตอบ JSON · เงินเป็นจำนวนเต็มบาท · เวลาเป็น ISO (UTC `Z`) · วันที่ `YYYY-MM-DD` · session เป็น cookie httpOnly (`ln_customer`, `ln_staff`, `ln_access` = รหัสการจองที่เบราว์เซอร์นี้สร้าง/ปลดล็อกด้วยเบอร์)
+ทุกเส้นรับ/ตอบ JSON · เงินเป็นจำนวนเต็มบาท · เวลาเป็น ISO (UTC `Z`) · วันที่ `YYYY-MM-DD` · session เป็น cookie httpOnly (`ln_customer`, `ln_staff`, `ln_access` = รหัสการจองที่เบราว์เซอร์นี้สร้าง/ปลดล็อกด้วยเบอร์) · CR-01: `ln_customer` / `ln_staff` = ลายเซ็นของ `{ cid|sid, jti, exp }` (ทุกการเข้าสู่ระบบได้ค่าไม่ซ้ำ · อายุ 30 วัน / 12 ชม. เท่าเดิม) · ออกจากระบบ = ยกเลิก cookie นั้นฝั่ง server (ตาราง `revoked_sessions` เก็บ SHA-256 ของ cookie) → cookie เดิมเรียก API ที่ต้องเข้าสู่ระบบได้ `UNAUTHORIZED` 401 · หน้าเว็บร้านพาไป `/staff/login` · เครื่องอื่นของบัญชีเดียวกันใช้ต่อได้ · cookie ที่ออกก่อนอัปเดต (`{ cid|sid }`) ใช้ได้ถึงเวลาติดตั้ง migration 007 + อายุเดิม
 
 | method | path | body / query | ตอบ (ย่อ) | error หลัก |
 |---|---|---|---|---|
@@ -422,7 +422,7 @@ API ตอบ error รูปแบบเดียว `{ "error": { "code": "...
 | POST | `/api/split/{token}/{shareId}/paid` | `{ paid: true|false }` | เหมือน GET | `SPLIT_NOT_FOUND` |
 | POST | `/api/customers/register` | `{ name, phone, password, consent: true }` | **201** `{ ok, customerId, message }` + เข้าสู่ระบบให้ | `ALREADY_REGISTERED`, `PASSWORD_TOO_SHORT` |
 | POST | `/api/customers/login` | `{ phone, password }` | `{ ok, customer: { id, name, phone } }` | `LOGIN_FAILED` 401 |
-| POST | `/api/customers/logout` | – | `{ ok: true }` | |
+| POST | `/api/customers/logout` | – | `{ ok: true }` · CR-01: cookie นี้ใช้ไม่ได้อีก (ฝั่ง server) · เครื่องอื่นไม่หลุด | |
 | GET | `/api/me` | – | `{ customer: { name, phone, isMember, creditBalance, paidHours, freeHoursUsed, freeHoursAvailable, hoursToNextFree, bannedUntil, isBanned }, creditEntries: [...], bookings: [...] }` | `UNAUTHORIZED` 401 |
 | POST | `/api/series/preview` | `{ fieldId, startDate, startHour, hours, weeks }` | `{ preview: { weeksRequested, weeksBooked, discountPercent, conflicts: [dates], weeks: [{ week, date, status, reason, fieldPrice, discount, totalPrice, payNow, paymentPlan }], totals: { fieldPrice, discount, totalPrice, payNow, dueAtField } } }` | `MEMBER_REQUIRED`, `SERIES_WEEKS_RANGE`, `TOO_SOON` |
 | POST | `/api/series` | preview + `{ consent: true, confirmPartial?: true }` | **201** `{ ok, seriesId, codes, payNow, next, message }` (ทุกสัปดาห์ `PENDING_PAYMENT` จ่ายรวมที่ `/api/bookings/{codes[0]}/pay`) | `SERIES_CONFLICT` 409 (มีสัปดาห์ชนแต่ไม่ส่ง confirmPartial), `SERIES_NONE_AVAILABLE` |
@@ -432,7 +432,7 @@ API ตอบ error รูปแบบเดียว `{ "error": { "code": "...
 | POST | `/api/challenges/{id}/accept` | `{ name, phone, consent: true }` | `{ ok, challenge: { status: "AWAITING_PAYMENT", amount, payDeadline }, secondsLeft }` | `CHALLENGE_NOT_OPEN`, `CHALLENGE_OWN` |
 | POST | `/api/challenges/{id}/pay` | `{ phone }` | `{ ok, challenge: { status: "MATCHED", amount } }` เครดิตเข้าเจ้าของการจอง · จ่ายได้ถึงครบ 15 นาทีพอดีหลังรับ (15 นาที 1 วินาที = ไม่ทัน) | `CHALLENGE_PAYMENT_EXPIRED`, `CHALLENGE_WRONG_PHONE`, `CHALLENGE_NOT_OPEN` (รวมถึงเมื่อการจองถูกยกเลิก/ปิดฝน/ไม่มาไปแล้ว) |
 | POST | `/api/staff/login` | `{ username, password }` | `{ ok, staff: { id, name, role }, next }` | `STAFF_LOGIN_FAILED` 401 |
-| POST | `/api/staff/logout` · GET `/api/staff/me` | | | |
+| POST | `/api/staff/logout` · GET `/api/staff/me` | | logout `{ ok: true }` · CR-01: cookie นี้ใช้ไม่ได้อีก (ฝั่ง server) · เครื่องอื่นไม่หลุด | me: `UNAUTHORIZED` 401 |
 | GET | `/api/staff/bookings/{code}` | STAFF+ | `{ booking: {..., customerName, phone, rentals}, actions: { canCheckin, checkinBlockedBy, canNoShow, noShowBlockedBy } }` (`checkin` / `no-show` / `return-rentals` ตอบรูปเดียวกัน) | 401/403/404 |
 | POST | `/api/staff/bookings/{code}/checkin` | STAFF+ | `{ ok, collected, booking }` → CHECKED_IN, Payment CASH_AT_FIELD, paidHours เพิ่ม | `INVALID_STATUS` |
 | POST | `/api/staff/bookings/{code}/no-show` | STAFF+ | `{ ok, bannedUntil, booking }` → NO_SHOW | `NO_SHOW_TOO_EARLY`, `INVALID_STATUS` |

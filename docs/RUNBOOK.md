@@ -94,6 +94,7 @@ node scripts/migrate.mjs --down 005      # ถอยทีละขั้น จ
 | 004_chat | `chat_sessions` + `chat_messages` (ห้ามแก้/ลบ ยกเว้นงานลบเบอร์ BR-45) | ลบ 2 ตาราง |
 | 005_constraints | `btree_gist` + `EXCLUDE` กันจองทับ + `CHECK` ทุกตัว · ตรวจข้อมูลเดิมก่อน เจอแถวผิด → หยุดพร้อมรายการ ไม่แก้ข้อมูลเอง | `DROP CONSTRAINT IF EXISTS` |
 | 006_chat_hardening | `chat_messages.redacted_at` (ลบชื่อ/เบอร์หลัง 90 วันครั้งเดียวต่อข้อความ) · `chat_sessions.ip_hash` (HMAC ของ IP สำหรับจำกัดจำนวนต่อ IP) | ลบ 2 คอลัมน์ (ข้อความและการจองไม่ถูกแตะ) |
+| 007_session_revocation | CR-01: ตาราง `revoked_sessions` (SHA-256 ของ cookie เข้าสู่ระบบที่กดออก + เวลาหมดอายุ · เว็บลบแถวที่หมดอายุเองตอน logout) · `applied_at` ของ 007 = เวลาเริ่มนับ cookie แบบก่อน CR-01 (ใช้ได้อีก 30 วัน / 12 ชม.) · **deploy: migration ก่อน rebuild เว็บ** | ลบตาราง (รายการ logout หาย) · **ถอยเว็บกลับ image เดิม (`football-web:before-cr01`) ก่อน แล้วค่อย `--down 007`** · ขึ้น 007 ใหม่ = เริ่มนับ 30 วันของ cookie แบบเดิมใหม่ |
 
 สคริปต์นับ `bookings` ก่อน/หลังทุกครั้ง ต้องเท่าเดิม (ค่าขอบ BR-43) · ทุกไฟล์ห่อ `BEGIN … COMMIT`
 

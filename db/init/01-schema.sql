@@ -8,3 +8,4 @@
 \ir ../migrations/004_chat.sql
 \ir ../migrations/005_constraints.sql
 \ir ../migrations/006_chat_hardening.sql
+\ir ../migrations/007_session_revocation.sql

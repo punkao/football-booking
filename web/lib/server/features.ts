@@ -97,7 +97,7 @@ export async function availability(ctx: Ctx, dateParam: string | null) {
 
 // ---------- FR-12 / FR-14 / FR-18: me ----------
 export async function me(ctx: Ctx) {
-  const c = await loadCustomerById(null, sessionCustomerId(ctx));
+  const c = await loadCustomerById(null, await sessionCustomerId(ctx));
   if (!c) throw new AppError("UNAUTHORIZED");
   const entries = await q<{ id: number; amount: number; reason: string; booking_id: number | null; created_at: Date; code: string | null }>(
     `SELECT ce.id, ce.amount, ce.reason, ce.booking_id, ce.created_at, b.code
@@ -132,7 +132,7 @@ function parseSeries(b: Record<string, unknown>): SeriesInput {
 }
 
 async function seriesPlan(db: Parameters<typeof loadField>[0], ctx: Ctx, input: SeriesInput) {
-  const customer = await loadCustomerById(db, sessionCustomerId(ctx));
+  const customer = await loadCustomerById(db, await sessionCustomerId(ctx));
   if (!customer || !customer.passwordHash) throw new AppError("MEMBER_REQUIRED");
   const field = await loadField(db, input.fieldId);
   if (!field) throw new AppError("INVALID_FIELD");

@@ -10,7 +10,7 @@ import { BASE_URL, TODAY } from '../constants';
  *   (ย้ายเป็น test ปกติ หรือลบเพราะมีเทสต์ CR ครอบแล้ว) — ล็อกคู่กับ TC เดิมที่ล้มอยู่ใน e2e/tests/*.ts
  * - เป็น "ตัวทำซ้ำขั้นต่ำ" ของ TC เดิม (ไม่ลอกทุกขั้น) · แท็ก @known-issue @CR-0N ตาม CHANGE-REQUESTS/REGISTER.md
  * - ไม่ reset / ไม่เลื่อนเวลา (ไฟล์นี้รันพร้อม 3 เบราว์เซอร์และ spec อื่น) · ใช้ข้อมูล seed แบบอ่านอย่างเดียว หรือข้อมูลใหม่ที่ไม่ชน
- * - นับผล: บรรทัดสรุปของ Playwright รวม expected-fail ไว้ใน "passed" → นับด้วย --grep @known-issue (10 ข้อต่อเบราว์เซอร์)
+ * - นับผล: บรรทัดสรุปของ Playwright รวม expected-fail ไว้ใน "passed" → นับด้วย --grep @known-issue (10 ข้อต่อเบราว์เซอร์ · หลัง CR-01 เหลือ 9: KI TC-ROLE-03 เป็น test ปกติแท็ก @fixed)
  */
 
 const SYS = 'เกิดข้อผิดพลาดในระบบ';
@@ -45,11 +45,15 @@ async function chatRoom(playwright: { request: { newContext: (o: object) => Prom
 }
 
 test.describe('known issues (ล็อกคู่ · test.fail)', () => {
-  test.fail('KI TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้', ki(
-    'TC-ROLE-03', 'CR-01',
-    '[R] OWASP Session Management · NFR-05 · CHANGE-REQUESTS/CR-01.md',
-    'สมาชิก logout แล้ว cookie เดิม GET /api/me → 401 · staff logout แล้ว cookie เดิม GET /api/staff/bookings/LN-900004 → 401',
-  ), async ({ anonApi, staffApi, playwright, b }) => {
+  // CR-01 แก้แล้ว (docs/impact/CR-01.md) → ถอด test.fail: เป็น test ปกติที่ต้องผ่าน · แท็ก @known-issue ออก (ไม่นับเป็น expected-fail อีก)
+  test('KI TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้', {
+    ...ki(
+      'TC-ROLE-03', 'CR-01',
+      '[R] OWASP Session Management · NFR-05 · CHANGE-REQUESTS/CR-01.md',
+      'สมาชิก logout แล้ว cookie เดิม GET /api/me → 401 · staff logout แล้ว cookie เดิม GET /api/staff/bookings/LN-900004 → 401',
+    ),
+    tag: ['@CR-01', '@fixed'],
+  }, async ({ anonApi, staffApi, playwright, b }) => {
     await test.step('สมาชิกใหม่เข้าสู่ระบบ เก็บ cookie แล้วออกจากระบบ → cookie เดิมต้องได้ 401', async () => {
       const api = await anonApi();
       const phone = uniquePhone(b);

@@ -184,7 +184,7 @@ export async function chatSend(ctx: Ctx, b: Record<string, unknown>) {
   } else {
     // the room row is created only after every check passed
     const id = randomUUID();
-    const customerId = customerIdFrom((n) => ctx.req.cookies.get(n)?.value);
+    const customerId = await customerIdFrom((n) => ctx.req.cookies.get(n)?.value);
     await q("INSERT INTO chat_sessions(id, lang, customer_id, created_at, last_message_at, ip_hash) VALUES ($1, $2, $3, $4, $4, $5)", [
       id, lang, customerId, ctx.now, ipHash,
     ]);

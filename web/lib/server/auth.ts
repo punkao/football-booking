@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { checkPassword, checkPhone, normalizePhone } from "@/lib/rules";
 import { msg } from "@/lib/i18n";
-import { AppError, CUSTOMER_COOKIE, STAFF_COOKIE, cookieOpts, fail, str } from "./core";
+import { AppError, CUSTOMER_COOKIE, SESSION_MAX_AGE, STAFF_COOKIE, cookieOpts, fail, newSession, str } from "./core";
 import type { Ctx } from "./core";
-import { hashPassword, sign, verifyPassword } from "./crypto";
+import { hashPassword, verifyPassword } from "./crypto";
 import { q } from "./db";
 import { loadCustomerByPhone } from "./data";
 
@@ -24,7 +24,7 @@ export async function register(ctx: Ctx, b: Record<string, unknown>) {
     [name, phone, hash],
   );
   const res = NextResponse.json({ ok: true, customerId: rows[0].id, message: msg(ctx.lang, "OK_REGISTERED") }, { status: 201 });
-  res.cookies.set(CUSTOMER_COOKIE, sign({ cid: rows[0].id }), cookieOpts);
+  res.cookies.set(CUSTOMER_COOKIE, newSession(CUSTOMER_COOKIE, rows[0].id), { ...cookieOpts, maxAge: SESSION_MAX_AGE[CUSTOMER_COOKIE] });
   return res;
 }
 
@@ -33,7 +33,7 @@ export async function customerLogin(_ctx: Ctx, b: Record<string, unknown>) {
   const c = phone ? await loadCustomerByPhone(null, phone) : null;
   if (!c || !verifyPassword(String(b.password ?? ""), c.passwordHash)) throw new AppError("LOGIN_FAILED");
   const res = NextResponse.json({ ok: true, customer: { id: c.id, name: c.name, phone: c.phone } });
-  res.cookies.set(CUSTOMER_COOKIE, sign({ cid: c.id }), cookieOpts);
+  res.cookies.set(CUSTOMER_COOKIE, newSession(CUSTOMER_COOKIE, c.id), { ...cookieOpts, maxAge: SESSION_MAX_AGE[CUSTOMER_COOKIE] });
   return res;
 }
 
@@ -48,6 +48,6 @@ export async function staffLogin(_ctx: Ctx, b: Record<string, unknown>) {
   if (!s || !verifyPassword(String(b.password ?? ""), s.password_hash)) throw new AppError("STAFF_LOGIN_FAILED");
   const home = s.role === "OWNER" ? "/owner" : s.role === "MANAGER" ? "/staff/today" : "/staff";
   const res = NextResponse.json({ ok: true, staff: { id: s.id, name: s.name, role: s.role }, next: home });
-  res.cookies.set(STAFF_COOKIE, sign({ sid: s.id }), { ...cookieOpts, maxAge: 60 * 60 * 12 });
+  res.cookies.set(STAFF_COOKIE, newSession(STAFF_COOKIE, s.id), { ...cookieOpts, maxAge: SESSION_MAX_AGE[STAFF_COOKIE] });
   return res;
 }

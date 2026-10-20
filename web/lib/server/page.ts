@@ -14,7 +14,7 @@ export async function pageLang(): Promise<Lang> {
 export async function pageCustomer() {
   const jar = await cookies();
   await ensureDb();
-  return loadCustomerById(null, customerIdFrom((n) => jar.get(n)?.value));
+  return loadCustomerById(null, await customerIdFrom((n) => jar.get(n)?.value));
 }
 
 export async function pageStaff(): Promise<StaffRow | null> {
