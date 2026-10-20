@@ -3,7 +3,7 @@
 ระบบจองสนามบอลที่รับมอบ (tag `v2-handover`) · แผนที่ระบบ: legacy/SYSTEM-MAP.md (ส่วน I กับดัก · ส่วน L CR → ไฟล์) · คำอ้างที่ตรวจแล้ว: legacy/HANDOVER-CHECK.md · คำถามค้างถึงร้าน: legacy/SPEC-GAPS.md · ตาข่าย: legacy/BASELINE.md, legacy/MUTANTS.md
 
 ## รันยังไง (จากโฟลเดอร์ `football-booking/`)
-- เปิด: `docker compose -f db/compose.yaml up -d` (รอ healthy) → `docker compose -f web/compose.yaml up -d --build` · เว็บ http://localhost:3000 · ตรวจ `curl http://localhost:3000/api/version` = schemaVersion 006 · bugMode 0 · chatMode mock
+- เปิด: `docker compose -f db/compose.yaml up -d` (รอ healthy) → `docker compose -f web/compose.yaml up -d --build` · เว็บ http://localhost:3000 · ตรวจ `curl http://localhost:3000/api/version` = schemaVersion ล่าสุดใน `db/migrations` · bugMode 0 · chatMode mock
 - `BUG_MODE` / `MODE` / `ALLOW_TEST_RESET` มาจาก `web/.env` หรือ shell (shell ชนะ): Git Bash `BUG_MODE=0 ALLOW_TEST_RESET=1 docker compose -f web/compose.yaml up -d` · PowerShell `$env:BUG_MODE="0"; docker compose …` แล้ว `Remove-Item Env:BUG_MODE`
 - สมองแชท: `node tools/chat-mode.mjs mock` (ค่าเริ่ม ไม่ออก network) · `node tools/chat-mode.mjs ai` = ผ่าน mock-llm ในเครื่องเท่านั้น · จบงานต้องกลับ `mock`
 - reset ข้อมูล + ล็อกเวลา ศ 9 ต.ค. 2569 10:00: `curl -X POST http://localhost:3000/api/test/reset -H "content-type: application/json" -d "{}"` · เลื่อนเวลา `POST /api/test/clock {"now":"<ISO>"}` (ทั้งคู่ 404 เมื่อ `ALLOW_TEST_RESET≠1`)
