@@ -43,4 +43,7 @@ push ได้ที่ `https://github.com/punkao/football-booking.git` (origin
 เปิด `web/BUGS.md` · เปิด `.env` หรือพิมพ์ค่าลับ · `docker compose down -v` / ลบ volume `football-pgdata` · `--expect-bugs` · แก้ test เดิม/ค่าที่คาดหวังโดยไม่มีแถว ORACLE-CHANGES ที่ผู้ใช้/lead อนุมัติ · push ไป repo อาจารย์ · แตะไฟล์ `อธิบาย.txt` (ของผู้ใช้)
 
 ## 7. ประโยคเริ่มงานสำหรับ session ใหม่
-> "อ่าน `HANDOFF.md` แล้วทำต่อจากข้อ 3 · ใช้ Sonnet ทำงาน · Opus รีวิว"
+เปิด Claude Code ที่โฟลเดอร์แม่ **`D:\work (outside)\Chanwacnich_TA`** (memory ของงานนี้ผูกกับ path นี้ · เปิด `football-booking` ตรง ๆ จะไม่เห็น memory) แล้วพิมพ์:
+> "อ่าน `football-booking/HANDOFF.md` แล้วทำต่อจากข้อ 3 ในโฟลเดอร์ football-booking · ใช้ Sonnet ทำงาน · Opus รีวิว"
+
+ทำงานในโฟลเดอร์ย่อย: ใช้ path เต็ม / `cd football-booking` ในคำสั่ง · subagent ให้ระบุ root `D:\work (outside)\Chanwacnich_TA\football-booking` · รั้ว `.claude/settings.json` ทำงานเฉพาะ session ที่เปิดที่ `football-booking` ตรง ๆ (ใช้ตอนทดสอบรั้วในส่วน E)
