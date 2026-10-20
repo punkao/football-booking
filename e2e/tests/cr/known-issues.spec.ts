@@ -1,5 +1,5 @@
 import type { APIRequestContext } from '@playwright/test';
-import { test, expect, open, uniquePhone, createBooking, payBooking, getJson, postJson, registerCustomer, loginCustomer, staffLoginPage } from '../fixtures';
+import { test, expect, open, uniquePhone, payBooking, getJson, postJson, registerCustomer, loginCustomer, staffLoginPage } from '../fixtures';
 import { BASE_URL, TODAY } from '../constants';
 
 /**
@@ -106,13 +106,20 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   }, async ({ anonApi, staffApi, b }) => {
     const date = '2026-10-21';
     let code = '';
-    await test.step(`จองสนาม C วันที่ ${date} ช่องที่ยังว่าง แล้วจ่าย (ลูกค้าใหม่)`, async () => {
+    await test.step(`จองสนาม C วันที่ ${date} ช่องที่ยังว่าง (12:00–20:00 เท่านั้น) แล้วจ่าย (ลูกค้าใหม่)`, async () => {
+      // 12–20 เท่านั้น: ไม่แตะ 09:00 / 23:00 ที่ TC-API-03 (api.spec.ts) ใช้ quote บน C 21 ต.ค. (เดิมสุ่มทุกชั่วโมง → SLOT_TAKEN เป็นบางครั้งบน firefox/webkit)
+      // ลองใหม่เมื่อชนกับ cr-02.spec (สุ่มช่วง 12–20 เหมือนกัน) หรือเบราว์เซอร์อื่น
       const api = await anonApi();
-      const av = await getJson(api, `/api/availability?date=${date}`);
-      const free: number[] = (av.body?.slots ?? []).filter((s: { fieldId: string; status: string }) => s.fieldId === 'C' && s.status === 'free').map((s: { hour: number }) => s.hour);
-      expect(free.length, 'สนาม C 21 ต.ค. ต้องมีช่องว่าง').toBeGreaterThan(0);
-      const start = free[(b * 5 + Math.floor(Math.random() * free.length)) % free.length];
-      code = (await createBooking(api, { fieldId: 'C', date, startHour: start, phone: uniquePhone(b), name: 'ล็อก STAFF-06' })).code;
+      for (let attempt = 0; attempt < 8 && !code; attempt++) {
+        const av = await getJson(api, `/api/availability?date=${date}`);
+        const free: number[] = (av.body?.slots ?? []).filter((s: { fieldId: string; status: string; hour: number }) => s.fieldId === 'C' && s.status === 'free' && s.hour >= 12 && s.hour <= 20).map((s: { hour: number }) => s.hour);
+        expect(free.length, 'สนาม C 21 ต.ค. 12:00–20:00 ต้องมีช่องว่าง').toBeGreaterThan(0);
+        const start = free[(b * 3 + Math.floor(Math.random() * free.length)) % free.length];
+        const r = await postJson(api, '/api/bookings', { fieldId: 'C', date, startHour: start, hours: 1, name: 'ล็อก STAFF-06', phone: uniquePhone(b), consent: true });
+        if (r.status === 201) code = r.body.booking.code;
+        else expect(r.status, `จอง C ${date} ${start}:00 → ${JSON.stringify(r.body)}`).toBe(409);
+      }
+      expect(code, 'ต้องจองช่องว่างได้').not.toBe('');
       await payBooking(api, code);
     });
     await test.step('staff กดเช็กอินวันนี้ (ยังไม่ถึงวันเตะ) → ต้องถูกปฏิเสธ', async () => {
