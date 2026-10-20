@@ -1,0 +1,44 @@
+{
+  "base": "http://127.0.0.1:3000",
+  "booking": "LN-100001",
+  "totalMs": 12665,
+  "redacted": 652,
+  "entries": 300,
+  "steps": [
+    {
+      "step": "01 customer: availability /book",
+      "ms": 330,
+      "url": "/book?date=2026-10-09"
+    },
+    {
+      "step": "02 customer: book B 9 Oct 18:00",
+      "ms": 678,
+      "url": "/pay/LN-100001"
+    },
+    {
+      "step": "03 customer: pay",
+      "ms": 1014,
+      "url": "/booking/LN-100001?done=paid"
+    },
+    {
+      "step": "04 member: /my login → logout",
+      "ms": 2025,
+      "url": "/my"
+    },
+    {
+      "step": "05 customer: chat with Nong Ball",
+      "ms": 267,
+      "url": "/"
+    },
+    {
+      "step": "06 staff: login → search → check-in → logout",
+      "ms": 3134,
+      "url": "/staff/login"
+    },
+    {
+      "step": "07 owner: dashboard → report → CSV → logout",
+      "ms": 3807,
+      "url": "/staff/login"
+    }
+  ]
+}

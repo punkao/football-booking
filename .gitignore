@@ -28,3 +28,8 @@ db/backups/*
 # Playwright MCP run noise (browser console dumps, bridge log)
 screenshots/mcp/console-*.log
 screenshots/mcp/bridge-run.log
+
+# legacy/ (chunk D-1): REA outputs are tens of MB and copies of the build · raw HAR files contain passwords + cookies
+legacy/rea-out/*
+!legacy/rea-out/rea.sh
+*.raw.har
