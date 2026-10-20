@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(e2e/tests/*.spec.ts)",
+      "Edit(e2e/tests/*.ts)",
+      "Edit(e2e/plan-cases.json)",
+      "Edit(docs/TEST-CASES.md)",
+      "Write(e2e/tests/*.spec.ts)",
+      "Write(e2e/tests/*.ts)",
+      "Write(e2e/plan-cases.json)",
+      "Write(docs/TEST-CASES.md)",
+      "Read(web/BUGS.md)",
+      "Read(**/.env)",
+      "Read(**/_solution/**)",
+      "Read(../Teaching_CWN2026/**/_solution/**)"
+    ]
+  }
+}

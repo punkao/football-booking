@@ -1,0 +1,4348 @@
+{
+  "cases": [
+    {
+      "body": {
+        "date": "2026-10-09",
+        "fields": [
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "A",
+            "name": "สนาม A",
+            "photo": "svg:field-A",
+            "size": 5
+          },
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "B",
+            "name": "สนาม B",
+            "photo": "svg:field-B",
+            "size": 5
+          },
+          {
+            "covered": true,
+            "dayRate": 1200,
+            "eveningRate": 1800,
+            "id": "C",
+            "name": "สนาม C",
+            "photo": "svg:field-C",
+            "size": 7
+          }
+        ],
+        "holidayName": null,
+        "isHoliday": false,
+        "maxDate": "2026-10-23",
+        "now": "2026-10-09T03:00:00.000Z",
+        "slots": [
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 8,
+            "price": 800,
+            "status": "past"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 9,
+            "price": 800,
+            "status": "past"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 10,
+            "price": 800,
+            "status": "past"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 11,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 12,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 13,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 14,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 15,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 16,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 19,
+            "price": 1200,
+            "status": "booked"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 20,
+            "price": 1200,
+            "status": "booked"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 8,
+            "price": 800,
+            "status": "past"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 9,
+            "price": 800,
+            "status": "past"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 10,
+            "price": 800,
+            "status": "past"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 11,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 12,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 13,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 14,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 15,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 16,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 8,
+            "price": 1200,
+            "status": "past"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 9,
+            "price": 1200,
+            "status": "past"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 10,
+            "price": 1200,
+            "status": "past"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 11,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 12,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 13,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 14,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 15,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 16,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 17,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 18,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 19,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 20,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 21,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 22,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 23,
+            "price": 1800,
+            "status": "free"
+          }
+        ],
+        "today": "2026-10-09",
+        "weekday": 5
+      },
+      "contentType": "application/json",
+      "id": "availability/2026-10-09",
+      "status": 200
+    },
+    {
+      "body": {
+        "date": "2026-10-12",
+        "fields": [
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "A",
+            "name": "สนาม A",
+            "photo": "svg:field-A",
+            "size": 5
+          },
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "B",
+            "name": "สนาม B",
+            "photo": "svg:field-B",
+            "size": 5
+          },
+          {
+            "covered": true,
+            "dayRate": 1200,
+            "eveningRate": 1800,
+            "id": "C",
+            "name": "สนาม C",
+            "photo": "svg:field-C",
+            "size": 7
+          }
+        ],
+        "holidayName": null,
+        "isHoliday": false,
+        "maxDate": "2026-10-23",
+        "now": "2026-10-09T03:00:00.000Z",
+        "slots": [
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 8,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 9,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 10,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 11,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 12,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 13,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 14,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 15,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 16,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 8,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 9,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 10,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 11,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 12,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 13,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 14,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 15,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 16,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 8,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 9,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 10,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 11,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 12,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 13,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 14,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 15,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 16,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 17,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 18,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 19,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 20,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 21,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 22,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 23,
+            "price": 1800,
+            "status": "free"
+          }
+        ],
+        "today": "2026-10-09",
+        "weekday": 1
+      },
+      "contentType": "application/json",
+      "id": "availability/2026-10-12",
+      "status": 200
+    },
+    {
+      "body": {
+        "date": "2026-10-13",
+        "fields": [
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "A",
+            "name": "สนาม A",
+            "photo": "svg:field-A",
+            "size": 5
+          },
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "B",
+            "name": "สนาม B",
+            "photo": "svg:field-B",
+            "size": 5
+          },
+          {
+            "covered": true,
+            "dayRate": 1200,
+            "eveningRate": 1800,
+            "id": "C",
+            "name": "สนาม C",
+            "photo": "svg:field-C",
+            "size": 7
+          }
+        ],
+        "holidayName": "วันคล้ายวันสวรรคต รัชกาลที่ 9",
+        "isHoliday": true,
+        "maxDate": "2026-10-23",
+        "now": "2026-10-09T03:00:00.000Z",
+        "slots": [
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 8,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 9,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 10,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 11,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 12,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 13,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 14,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 15,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 16,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 8,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 9,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 10,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 11,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 12,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 13,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 14,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 15,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 16,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 8,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 9,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 10,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 11,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 12,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 13,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 14,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 15,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 16,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 17,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 18,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 19,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 20,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 21,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 22,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 23,
+            "price": 1800,
+            "status": "free"
+          }
+        ],
+        "today": "2026-10-09",
+        "weekday": 2
+      },
+      "contentType": "application/json",
+      "id": "availability/2026-10-13",
+      "status": 200
+    },
+    {
+      "body": {
+        "date": "2026-10-16",
+        "fields": [
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "A",
+            "name": "สนาม A",
+            "photo": "svg:field-A",
+            "size": 5
+          },
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "B",
+            "name": "สนาม B",
+            "photo": "svg:field-B",
+            "size": 5
+          },
+          {
+            "covered": true,
+            "dayRate": 1200,
+            "eveningRate": 1800,
+            "id": "C",
+            "name": "สนาม C",
+            "photo": "svg:field-C",
+            "size": 7
+          }
+        ],
+        "holidayName": null,
+        "isHoliday": false,
+        "maxDate": "2026-10-23",
+        "now": "2026-10-09T03:00:00.000Z",
+        "slots": [
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 8,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 9,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 10,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 11,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 12,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 13,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 14,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 15,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 16,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 8,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 9,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 10,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 11,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 12,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 13,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 14,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 15,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 16,
+            "price": 800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 8,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 9,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 10,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 11,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 12,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 13,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 14,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 15,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 16,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 17,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 18,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 19,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 20,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 21,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 22,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 23,
+            "price": 1800,
+            "status": "free"
+          }
+        ],
+        "today": "2026-10-09",
+        "weekday": 5
+      },
+      "contentType": "application/json",
+      "id": "availability/2026-10-16",
+      "status": 200
+    },
+    {
+      "body": {
+        "date": "2026-10-17",
+        "fields": [
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "A",
+            "name": "สนาม A",
+            "photo": "svg:field-A",
+            "size": 5
+          },
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "B",
+            "name": "สนาม B",
+            "photo": "svg:field-B",
+            "size": 5
+          },
+          {
+            "covered": true,
+            "dayRate": 1200,
+            "eveningRate": 1800,
+            "id": "C",
+            "name": "สนาม C",
+            "photo": "svg:field-C",
+            "size": 7
+          }
+        ],
+        "holidayName": null,
+        "isHoliday": false,
+        "maxDate": "2026-10-23",
+        "now": "2026-10-09T03:00:00.000Z",
+        "slots": [
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 8,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 9,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 10,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 11,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 12,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 13,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 14,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 15,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 16,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 8,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 9,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 10,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 11,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 12,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 13,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 14,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 15,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 16,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 8,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 9,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 10,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 11,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 12,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 13,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 14,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 15,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 16,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 17,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 18,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 19,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 20,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 21,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 22,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 23,
+            "price": 1800,
+            "status": "free"
+          }
+        ],
+        "today": "2026-10-09",
+        "weekday": 6
+      },
+      "contentType": "application/json",
+      "id": "availability/2026-10-17",
+      "status": 200
+    },
+    {
+      "body": {
+        "date": "2026-10-23",
+        "fields": [
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "A",
+            "name": "สนาม A",
+            "photo": "svg:field-A",
+            "size": 5
+          },
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "B",
+            "name": "สนาม B",
+            "photo": "svg:field-B",
+            "size": 5
+          },
+          {
+            "covered": true,
+            "dayRate": 1200,
+            "eveningRate": 1800,
+            "id": "C",
+            "name": "สนาม C",
+            "photo": "svg:field-C",
+            "size": 7
+          }
+        ],
+        "holidayName": "วันปิยมหาราช",
+        "isHoliday": true,
+        "maxDate": "2026-10-23",
+        "now": "2026-10-09T03:00:00.000Z",
+        "slots": [
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 8,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 9,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 10,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 11,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 12,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 13,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 14,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 15,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 16,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "A",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 8,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 9,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 10,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 11,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 12,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 13,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 14,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 15,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 16,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 17,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 18,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 19,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 20,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 21,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 22,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "B",
+            "hour": 23,
+            "price": 1200,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 8,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 9,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 10,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 11,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 12,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 13,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 14,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 15,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 16,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 17,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 18,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 19,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 20,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 21,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 22,
+            "price": 1800,
+            "status": "free"
+          },
+          {
+            "available": true,
+            "fieldId": "C",
+            "hour": 23,
+            "price": 1800,
+            "status": "free"
+          }
+        ],
+        "today": "2026-10-09",
+        "weekday": 5
+      },
+      "contentType": "application/json",
+      "id": "availability/2026-10-23",
+      "status": 200
+    },
+    {
+      "body": {
+        "date": "2026-10-24",
+        "fields": [
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "A",
+            "name": "สนาม A",
+            "photo": "svg:field-A",
+            "size": 5
+          },
+          {
+            "covered": false,
+            "dayRate": 800,
+            "eveningRate": 1200,
+            "id": "B",
+            "name": "สนาม B",
+            "photo": "svg:field-B",
+            "size": 5
+          },
+          {
+            "covered": true,
+            "dayRate": 1200,
+            "eveningRate": 1800,
+            "id": "C",
+            "name": "สนาม C",
+            "photo": "svg:field-C",
+            "size": 7
+          }
+        ],
+        "holidayName": null,
+        "isHoliday": false,
+        "maxDate": "2026-10-23",
+        "now": "2026-10-09T03:00:00.000Z",
+        "slots": [
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 8,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 9,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 10,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 11,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 12,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 13,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 14,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 15,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 16,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 17,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 18,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 19,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 20,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 21,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 22,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "A",
+            "hour": 23,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 8,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 9,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 10,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 11,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 12,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 13,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 14,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 15,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 16,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 17,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 18,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 19,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 20,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 21,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 22,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "B",
+            "hour": 23,
+            "price": 1200,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 8,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 9,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 10,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 11,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 12,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 13,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 14,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 15,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 16,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 17,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 18,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 19,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 20,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 21,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 22,
+            "price": 1800,
+            "status": "out-of-range"
+          },
+          {
+            "available": false,
+            "fieldId": "C",
+            "hour": 23,
+            "price": 1800,
+            "status": "out-of-range"
+          }
+        ],
+        "today": "2026-10-09",
+        "weekday": 6
+      },
+      "contentType": "application/json",
+      "id": "availability/2026-10-24",
+      "status": 200
+    },
+    {
+      "body": {
+        "days": [
+          {
+            "bookingMoney": 600,
+            "bookings": 1,
+            "byStatus": {
+              "CHECKED_IN": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-03",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 600
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 1,
+            "byStatus": {
+              "NO_SHOW": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-04",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 1,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 600,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-05",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 600
+          },
+          {
+            "bookingMoney": 1200,
+            "bookings": 1,
+            "byStatus": {
+              "CHECKED_IN": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-06",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 1200
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 1,
+            "byStatus": {
+              "NO_SHOW": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-07",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 1,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 4800,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-08",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 60,
+            "salesPromptpay": 60,
+            "total": 4860
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 1,
+            "byStatus": {
+              "CONFIRMED": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-09",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 40,
+            "salesMoney": 40,
+            "salesPromptpay": 0,
+            "total": 40
+          }
+        ],
+        "from": "2026-10-03",
+        "to": "2026-10-09",
+        "totals": {
+          "bookingMoney": 7200,
+          "bookings": 5,
+          "creditUsed": 0,
+          "discount": 0,
+          "freeHours": 0,
+          "noShow": 2,
+          "rentalPrice": 0,
+          "salesCash": 40,
+          "salesMoney": 100,
+          "salesPromptpay": 60,
+          "total": 7300
+        }
+      },
+      "contentType": "application/json",
+      "id": "report/2026-10-03..2026-10-09",
+      "status": 200
+    },
+    {
+      "body": {
+        "days": [
+          {
+            "bookingMoney": 4800,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-08",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 60,
+            "salesPromptpay": 60,
+            "total": 4860
+          }
+        ],
+        "from": "2026-10-08",
+        "to": "2026-10-08",
+        "totals": {
+          "bookingMoney": 4800,
+          "bookings": 0,
+          "creditUsed": 0,
+          "discount": 0,
+          "freeHours": 0,
+          "noShow": 0,
+          "rentalPrice": 0,
+          "salesCash": 0,
+          "salesMoney": 60,
+          "salesPromptpay": 60,
+          "total": 4860
+        }
+      },
+      "contentType": "application/json",
+      "id": "report/2026-10-08..2026-10-08",
+      "status": 200
+    },
+    {
+      "body": {
+        "days": [
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-01",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 2400,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-02",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 2400
+          },
+          {
+            "bookingMoney": 600,
+            "bookings": 1,
+            "byStatus": {
+              "CHECKED_IN": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-03",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 600
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 1,
+            "byStatus": {
+              "NO_SHOW": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-04",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 1,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 600,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-05",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 600
+          },
+          {
+            "bookingMoney": 1200,
+            "bookings": 1,
+            "byStatus": {
+              "CHECKED_IN": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-06",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 1200
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 1,
+            "byStatus": {
+              "NO_SHOW": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-07",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 1,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 4800,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-08",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 60,
+            "salesPromptpay": 60,
+            "total": 4860
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 1,
+            "byStatus": {
+              "CONFIRMED": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-09",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 40,
+            "salesMoney": 40,
+            "salesPromptpay": 0,
+            "total": 40
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 1,
+            "byStatus": {
+              "CONFIRMED": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-10",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 1,
+            "byStatus": {
+              "CONFIRMED": 1
+            },
+            "creditUsed": 0,
+            "date": "2026-10-11",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-12",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-13",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-14",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-15",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-16",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-17",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-18",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-19",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-20",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-21",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-22",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-23",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-24",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-25",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-26",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-27",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-28",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-29",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-30",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-10-31",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-01",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-02",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-03",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-04",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-05",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-06",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-07",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-08",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-09",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-10",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-11",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-12",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-13",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-14",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-15",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-16",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-17",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-18",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-19",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-20",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-21",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-22",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-23",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-24",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-25",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-26",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-27",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-28",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-29",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-11-30",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-01",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-02",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-03",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-04",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-05",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-06",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-07",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-08",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-09",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-10",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-11",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-12",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-13",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-14",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-15",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-16",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-17",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-18",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-19",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-20",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-21",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-22",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-23",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-24",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-25",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-26",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-27",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-28",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-29",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-30",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          },
+          {
+            "bookingMoney": 0,
+            "bookings": 0,
+            "byStatus": {},
+            "creditUsed": 0,
+            "date": "2026-12-31",
+            "discount": 0,
+            "freeHours": 0,
+            "noShow": 0,
+            "rentalPrice": 0,
+            "salesCash": 0,
+            "salesMoney": 0,
+            "salesPromptpay": 0,
+            "total": 0
+          }
+        ],
+        "from": "2026-10-01",
+        "to": "2026-12-31",
+        "totals": {
+          "bookingMoney": 9600,
+          "bookings": 7,
+          "creditUsed": 0,
+          "discount": 0,
+          "freeHours": 0,
+          "noShow": 2,
+          "rentalPrice": 0,
+          "salesCash": 40,
+          "salesMoney": 100,
+          "salesPromptpay": 60,
+          "total": 9700
+        }
+      },
+      "contentType": "application/json",
+      "id": "report/2026-10-01..2026-12-31",
+      "status": 200
+    },
+    {
+      "body": {
+        "error": {
+          "code": "REPORT_RANGE_TOO_LONG",
+          "message": "ดูรายงานได้ครั้งละไม่เกิน 3 เดือน",
+          "params": {
+            "months": 3
+          }
+        }
+      },
+      "contentType": "application/json",
+      "id": "report/2026-10-01..2027-01-01",
+      "status": 400
+    },
+    {
+      "body": {
+        "error": {
+          "code": "REPORT_RANGE_TOO_LONG",
+          "message": "ดูรายงานได้ครั้งละไม่เกิน 3 เดือน",
+          "params": {
+            "months": 3
+          }
+        }
+      },
+      "contentType": "application/json",
+      "id": "report/2026-11-30..2027-02-28",
+      "status": 400
+    },
+    {
+      "body": {
+        "error": {
+          "code": "REPORT_RANGE_ORDER",
+          "message": "วันสิ้นสุดต้องไม่ก่อนวันเริ่ม"
+        }
+      },
+      "contentType": "application/json",
+      "id": "report/2026-10-10..2026-10-09",
+      "status": 400
+    },
+    {
+      "body": {
+        "bom": true,
+        "crlf": true,
+        "lines": [
+          "วันที่,ยอดจอง (บาท),ขายเงินสด (บาท),ขายพร้อมเพย์ (บาท),ยอดขายรวม (บาท),รวมรับเงิน (บาท),หักเครดิต (บาท),จำนวนการจอง (วันเตะ),สถานะ PENDING_PAYMENT,สถานะ CONFIRMED,สถานะ CHECKED_IN,สถานะ NO_SHOW,สถานะ CANCELLED,สถานะ EXPIRED,สถานะ RAIN_CLOSED,ส่วนลด (บาท),ค่าของเช่า (บาท),ชั่วโมงฟรีที่ใช้",
+          "2026-10-03,600,0,0,0,600,0,1,0,0,1,0,0,0,0,0,0,0",
+          "2026-10-04,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0",
+          "2026-10-05,600,0,0,0,600,0,0,0,0,0,0,0,0,0,0,0,0",
+          "2026-10-06,1200,0,0,0,1200,0,1,0,0,1,0,0,0,0,0,0,0",
+          "2026-10-07,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0",
+          "2026-10-08,4800,0,60,60,4860,0,0,0,0,0,0,0,0,0,0,0,0",
+          "2026-10-09,0,40,0,40,40,0,1,0,1,0,0,0,0,0,0,0,0",
+          "รวม,7200,40,60,100,7300,0,5,0,1,2,2,0,0,0,0,0,0",
+          ""
+        ]
+      },
+      "contentType": "text/csv",
+      "id": "csv/2026-10-03..2026-10-09",
+      "status": 200
+    },
+    {
+      "body": {
+        "bom": true,
+        "crlf": true,
+        "lines": [
+          "วันที่,ยอดจอง (บาท),ขายเงินสด (บาท),ขายพร้อมเพย์ (บาท),ยอดขายรวม (บาท),รวมรับเงิน (บาท),หักเครดิต (บาท),จำนวนการจอง (วันเตะ),สถานะ PENDING_PAYMENT,สถานะ CONFIRMED,สถานะ CHECKED_IN,สถานะ NO_SHOW,สถานะ CANCELLED,สถานะ EXPIRED,สถานะ RAIN_CLOSED,ส่วนลด (บาท),ค่าของเช่า (บาท),ชั่วโมงฟรีที่ใช้",
+          "2026-10-08,4800,0,60,60,4860,0,0,0,0,0,0,0,0,0,0,0,0",
+          "รวม,4800,0,60,60,4860,0,0,0,0,0,0,0,0,0,0,0,0",
+          ""
+        ]
+      },
+      "contentType": "text/csv",
+      "id": "csv/2026-10-08..2026-10-08",
+      "status": 200
+    }
+  ],
+  "meta": {
+    "count": 15,
+    "endpoint": "GET /api/availability · GET /api/owner/reports · GET /api/owner/reports.csv",
+    "label": "[E] ล็อกพฤติกรรมของระบบที่รับมอบ (v2-handover) ไม่ใช่ค่าที่ถูกตามร้าน",
+    "resetBody": {}
+  }
+}
