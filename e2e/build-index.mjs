@@ -7,6 +7,7 @@
 //   ตัดสินผ่าน/ไม่ผ่านแยกทีละเบราว์เซอร์ตามแผนหัวข้อ 6.4:
 //   P1 ผ่านครบ และผ่านรวม ≥ ⌈95% × 128⌉ · ไม่ได้รัน/ข้าม = ไม่ผ่าน · TC ที่รันใน serial (Chromium ครั้งเดียว) นับให้ทุกเบราว์เซอร์
 // ใช้: node build-index.mjs [--run test-report] [--out index.html] [--compare test-report/run-1] [--label "รอบ 2"]
+//      [--media test-report/bugmode2] (โฟลเดอร์ที่มี gifs/ videos/ · ค่าเริ่มต้น test-report) [--triage test-report/bugmode2/triage.json] (ค่าเริ่มต้น e2e/triage.json)
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -21,6 +22,8 @@ const CMP_DIR = arg('--compare') ? path.resolve(here, arg('--compare')) : '';
 const LABEL = arg('--label', '');
 const OUT_DIR = path.dirname(OUT);
 const REPORT = path.join(here, 'test-report');
+const MEDIA = arg('--media') ? path.resolve(here, arg('--media')) : REPORT;
+const TRIAGE = arg('--triage') ? path.resolve(here, arg('--triage')) : path.join(here, 'triage.json');
 const BROWSERS = ['chromium', 'firefox', 'webkit'];
 
 const readJson = (p, fb) => { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return fb; } };
@@ -86,12 +89,12 @@ function builderClaims() {
 // ---------------------------------------------------------------- หลักฐานวิดีโอ
 function media() {
   const list = (dir, ext) => { try { return fs.readdirSync(dir).filter((f) => f.endsWith(ext)); } catch { return []; } };
-  const gifs = list(path.join(REPORT, 'gifs'), '.gif');
-  const mp4s = list(path.join(REPORT, 'videos'), '.mp4');
+  const gifs = list(path.join(MEDIA, 'gifs'), '.gif');
+  const mp4s = list(path.join(MEDIA, 'videos'), '.mp4');
   const of = (files, tc, dir) => files
     .filter((f) => f === `${tc}${path.extname(f)}` || new RegExp(`^${tc}-\\d+\\.`).test(f))
     .sort((a, b) => a.length - b.length || a.localeCompare(b))
-    .map((f) => link(path.join(REPORT, dir, f)));
+    .map((f) => link(path.join(MEDIA, dir, f)));
   return { gifs, mp4s, of };
 }
 
@@ -100,7 +103,7 @@ const plan = buildPlanCases();
 const cases = plan.cases;
 const store = readJson(path.join(RUN_DIR, 'results.json'), { runs: {} });
 const info = readJson(path.join(RUN_DIR, 'run-info.json'), {});
-const triage = readJson(path.join(here, 'triage.json'), {});
+const triage = readJson(TRIAGE, {});
 const v = verdicts(store, cases);
 const sum = summary(v, cases);
 let cmp = null;
@@ -127,6 +130,7 @@ const data = {
   compare: cmp,
   claims: builderClaims(),
   counts: { gif: m.gifs.length, mp4: m.mp4s.length },
+  triageFile: path.relative(ROOT, TRIAGE).split(path.sep).join('/'),
   links: {
     // หน้าที่สร้างไว้ในโฟลเดอร์รอบ (test-report/run-N/index.html) ลิงก์ไปสำเนารายงานของรอบนั้นเอง
     chatbot: link(OUT_DIR === RUN_DIR && fs.existsSync(path.join(RUN_DIR, 'CHATBOT-REPORT.md')) ? path.join(RUN_DIR, 'CHATBOT-REPORT.md') : path.join(REPORT, 'CHATBOT-REPORT.md')),

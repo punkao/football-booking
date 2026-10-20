@@ -188,7 +188,7 @@ function render() {
       <p><b>แผนของเรา ([D] ร้าน / [R] กฎทั่วไป)</b></p>
       <p class="small">ผ่าน ${ourBest} · ${B.every((b) => d.summary[b].meets) ? '✅ ผ่านเกณฑ์ทุกเบราว์เซอร์' : '❌ ไม่ผ่านเกณฑ์' + ' (' + B.filter((b) => !d.summary[b].meets).join(', ') + ')'}</p>
       <p class="small">ข้อที่ล้มเพราะเว็บไม่ตรงกับ [D]/[R] (ทั้งที่ผู้สร้างอ้างว่ามีชุดตรวจเองครอบ TEST-DATA E01–E148): <b>${failDataOracle.length}</b> ข้อ — ${failDataOracle.map((t) => `<a href="#${t}">${t}</a>`).join(', ') || '–'}</p>
-      <p class="small muted">ข้อที่ล้มทั้งหมดในรอบนี้ ${allFail.length} ข้อ (รวมทุกเบราว์เซอร์) · จำแนกจาก <span class="mono">e2e/triage.json</span></p>
+      <p class="small muted">ข้อที่ล้มทั้งหมดในรอบนี้ ${allFail.length} ข้อ (รวมทุกเบราว์เซอร์) · จำแนกจาก <span class="mono">${esc(d.triageFile ?? "e2e/triage.json")}</span></p>
     </div>
   </div>
 

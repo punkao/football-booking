@@ -1,0 +1,2605 @@
+
+===== รอบหลัก: playwright test  =====
+
+
+Running 284 tests using 6 workers
+
+  ok   1 [setup] › tests\ready.setup.ts:4:6 › เกณฑ์เริ่ม: /api/health = {ok:true, db:true} (35ms)
+  ok   2 [chromium] › tests\api.spec.ts:5:7 › API › TC-API-01 health check และข้อมูลสนาม @API @P2 (71ms)
+  ok   6 [chromium] › tests\api.spec.ts:102:7 › API › TC-API-04 จองช่วงเดียวกันพร้อมกัน 2 คำขอ → สำเร็จ 1 รายการพอดี @API @P1 (105ms)
+  ok   5 [chromium] › tests\api.spec.ts:64:7 › API › TC-API-03 ตรวจค่าที่ส่งเข้า API จอง (เวลาเริ่ม/จำนวนชั่วโมง/สนาม/วันที่) @API @P1 (149ms)
+  ok   3 [chromium] › tests\api.spec.ts:25:7 › API › TC-API-02 ไม่เข้าสู่ระบบ/บทบาทไม่พอ เรียก API และหน้าร้าน → ถูกปฏิเสธ @API @P2 (1.4s)
+  ok  11 [chromium] › tests\book.spec.ts:191:7 › BOOK › TC-BOOK-08 กรองรอบก่อน 17:00 และเรียงราคาถูกไปแพง @BOOK @P3 (864ms)
+  ok  10 [chromium] › tests\book.spec.ts:157:7 › BOOK › TC-BOOK-07 ฟอร์มลูกค้า: ชื่อ เบอร์ และช่องยินยอม PDPA @BOOK @P2 (2.6s)
+  ok   7 [chromium] › tests\book.spec.ts:65:7 › BOOK › TC-BOOK-03 จำนวนชั่วโมงและเวลาจบไม่เกิน 24:00 @BOOK @P1 (3.1s)
+  ok   9 [chromium] › tests\book.spec.ts:125:7 › BOOK › TC-BOOK-06 ห้ามจองทับเวลาในสนามเดียวกัน @BOOK @P1 (3.7s)
+  ok   4 [chromium] › tests\book.spec.ts:5:7 › BOOK › TC-BOOK-01 E2E จองจนจ่ายจบผ่านหน้าเว็บ @BOOK @P1 (4.3s)
+  ok  13 [chromium] › tests\cancel.spec.ts:55:7 › CANCEL › TC-CANCEL-06 เลื่อนการจองที่คำท้า MATCHED ไม่ได้ (A-21) @CANCEL @P1 (1.9s)
+  ok  15 [chromium] › tests\credit.spec.ts:8:7 › CREDIT › TC-CREDIT-01 สมาชิกดูเครดิต ประวัติเครดิต และชั่วโมงสะสม @CREDIT @P2 (1.1s)
+  ok  14 [chromium] › tests\chat.spec.ts:27:7 › CHAT › TC-CHAT-01 E109 ถามเวลาเปิด (ห้องที่ 2 ถามคำเดิมได้คำตอบเดิม NFR-15) @CHAT @P2 (1.9s)
+  ok  18 [chromium] › tests\home.spec.ts:5:7 › HOME › TC-HOME-01 หน้าแรกพร้อมใช้ การ์ด 3 สนาม และไปตารางว่างวันนี้ใน 1 แตะ @HOME @P2 (921ms)
+  ok  19 [chromium] › tests\chat.spec.ts:57:7 › CHAT › TC-CHAT-02 E110 ถามสิ่งที่ไม่มีในระบบ (ห้องอาบน้ำ) @CHAT @P2 (908ms)
+  ok  17 [chromium] › tests\credit.spec.ts:95:7 › CREDIT › TC-CREDIT-03 ไม่ได้เข้าสู่ระบบสมาชิกของเบอร์นั้นแต่ขอใช้เครดิต → MEMBER_REQUIRED (A-26) @CREDIT @P1 (1.3s)
+  ok  12 [chromium] › tests\cancel.spec.ts:7:7 › CANCEL › TC-CANCEL-03 เลื่อนวัน/เวลา: แพงขึ้นจ่ายส่วนต่าง ถูกลงคืนเครดิต และเลื่อนได้ 1 ครั้ง @CANCEL @P1 (3.9s)
+  ok  20 [chromium] › tests\home.spec.ts:31:7 › HOME › TC-HOME-02 หน้าข้อมูลสนาม: ขนาด หลังคา ราคา รูปมีคำอธิบาย @HOME @P2 (745ms)
+  ok  21 [chromium] › tests\chat.spec.ts:77:7 › CHAT › TC-CHAT-03 E111 ถามส่วนลด @CHAT @P2 (1.2s)
+  ok  22 [chromium] › tests\i18n.spec.ts:21:7 › I18N › TC-I18N-01 สลับภาษา ไทย/English และจำภาษาเมื่อเปลี่ยนหน้า @I18N @P2 (2.0s)
+  ok  25 [chromium] › tests\chat.spec.ts:100:7 › CHAT › TC-CHAT-04 E112 ราคา C เสาร์ 10 ต.ค. 18:00 (รอบถูกจองแล้ว) @CHAT @P1 (1.1s)
+  ok  27 [chromium] › tests\chat.spec.ts:121:7 › CHAT › TC-CHAT-05 E113 ราคา A ศุกร์ 16 ต.ค. 16:00 @CHAT @P1 (874ms)
+  ok  16 [chromium] › tests\credit.spec.ts:33:7 › CREDIT › TC-CREDIT-02 เครดิตสะสมตามเบอร์ ใช้ได้หลังสมัครสมาชิกเท่านั้น @CREDIT @P1 (6.3s)
+  ok  26 [chromium] › tests\member.spec.ts:57:7 › MEMBER › TC-MEMBER-02 ดูการจองด้วยรหัส+เบอร์ · ข้อมูลผูกเบอร์ ชื่อเก็บต่อการจอง · เห็นเฉพาะของตัวเอง @MEMBER @P2 (2.6s)
+  ok  24 [chromium] › tests\member.spec.ts:5:7 › MEMBER › TC-MEMBER-01 สมัครสมาชิกและเข้าสู่ระบบ @MEMBER @P2 (4.0s)
+  ok  28 [chromium] › tests\chat.spec.ts:141:7 › CHAT › TC-CHAT-06 E114 วันนี้ 19:00 สนาม A ว่างไหม → ไม่ว่าง + เสนอรอบที่ว่างจริง @CHAT @P1 (1.5s)
+  x    8 [chromium] › tests\book.spec.ts:93:7 › BOOK › TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้) @BOOK @P1 (11.0s)
+  ok  23 [chromium] › tests\i18n.spec.ts:52:7 › I18N › TC-I18N-02 โหมด English หน้าฝั่งลูกค้าไม่มีภาษาไทยหลง @I18N @P3 (5.1s)
+  ok  32 [chromium] › tests\chat.spec.ts:173:7 › CHAT › TC-CHAT-17 ขอเช่าเอี๊ยม / ใช้เครดิตผ่านบอท → แนะนำหน้าเว็บ ไม่สร้างการจอง @CHAT @P2 (2.8s)
+  ok  33 [chromium] › tests\owner.spec.ts:4:7 › OWNER › TC-OWNER-01 เจ้าของเพิ่ม/ลบวันหยุด มีผลกับราคา @OWNER @P2 (2.6s)
+  ok  31 [chromium] › tests\member.spec.ts:199:7 › MEMBER › TC-MEMBER-05 ช่องชั่วโมงฟรีปิด (disabled) พร้อมเหตุผล เมื่อรอบใช้สิทธิ์ไม่ได้หรือไม่มีสิทธิ์ (Q-T5) @MEMBER @P2 (3.7s)
+  ok  30 [chromium] › tests\member.spec.ts:158:7 › MEMBER › TC-MEMBER-04 เงื่อนไขการใช้ชั่วโมงฟรี (จ.–ศ. ก่อน 17:00 เฉพาะสมาชิกที่มีสิทธิ์) @MEMBER @P1 (3.7s)
+  ok  29 [chromium] › tests\member.spec.ts:106:7 › MEMBER › TC-MEMBER-03 ชั่วโมงสะสม 9/10 ได้สิทธิ์ฟรี และใช้สิทธิ์แล้วยอด ฿0 ยืนยันทันที @MEMBER @P1 (3.9s)
+  ok  34 [chromium] › tests\mob.spec.ts:4:7 › MOB › TC-MOB-01 มือถือกว้าง 375 px ไม่มีแถบเลื่อนแนวนอนทุกหน้าฝั่งลูกค้า @MOB @P2 (2.5s)
+  ok  36 [chromium] › tests\owner.spec.ts:44:7 › OWNER › TC-OWNER-02 ปิดสนามเพราะฝน: เฉพาะ A/B · คืนเครดิต · ไม่แตะการจองนอกช่วง @OWNER @P1 (2.1s)
+  ok  40 [chromium] › tests\price.spec.ts:26:7 › PRICE › TC-PRICE-02 เสาร์ อาทิตย์ และวันหยุด คิดราคาเย็นทุกรอบ @PRICE @P1 (1.2s)
+  ok  38 [chromium] › tests\pay.spec.ts:4:7 › PAY › TC-PAY-01 หน้าจ่ายจำลอง PromptPay และสถานะหลังจ่าย (รีโหลด/จ่ายซ้ำ) @PAY @P2 (2.2s)
+  ok  37 [chromium] › tests\owner.spec.ts:99:7 › OWNER › TC-OWNER-03 ปิดเพราะฝนการจองที่คำท้า MATCHED: ทีมได้คืนเท่าที่จ่าย เจ้าของได้ จ่าย + เครดิตที่ใช้ − เครดิตจากคำท้า (A-27) @OWNER @P1 (2.4s)
+  ok  39 [chromium] › tests\price.spec.ts:5:7 › PRICE › TC-PRICE-01 ราคาต่อชั่วโมงตามขนาดและช่วงเวลา และจองคร่อม 17:00 @PRICE @P1 (2.3s)
+  ok  35 [chromium] › tests\chat.spec.ts:204:7 › CHAT › TC-CHAT-07 E115 จองในแชทครบ 7 อย่าง → การ์ด → ติ๊กยินยอม → ยืนยัน → รหัส + ลิงก์จ่าย @CHAT @P1 (4.7s)
+  ok  43 [chromium] › tests\rent.spec.ts:4:7 › RENT › TC-RENT-01 ราคาของเช่าและจำนวนคงเหลือ @RENT @P1 (1.9s)
+  ok  44 [chromium] › tests\rent.spec.ts:22:7 › RENT › TC-RENT-02 เช่าเกินจำนวนไม่ได้ (เอี๊ยมชุดที่ 7, บอลลูกที่ 11) @RENT @P2 (3.0s)
+  ok  41 [chromium] › tests\price.spec.ts:46:7 › PRICE › TC-PRICE-03 แผนจ่าย มัดจำ 50% / จ่ายเต็ม 100% @PRICE @P1 (3.8s)
+  ok  42 [chromium] › tests\price.spec.ts:68:7 › PRICE › TC-PRICE-04 สูตรยอดรวม/สุทธิ/จ่ายตอนนี้ และใช้เครดิตไม่เกินยอดรวม @PRICE @P1 (3.9s)
+  -   50 [chromium] › tests\series.spec.ts:126:7 › SERIES › TC-SERIES-04 ส่วนลดจองประจำมีเศษ → ปัดส่วนลดขึ้นเป็นบาทเต็ม (A-24) @SERIES @P1
+  ok  45 [chromium] › tests\rent.spec.ts:51:7 › RENT › TC-RENT-03 ของที่ยังไม่คืนจากรอบก่อนหน้า และพนักงานบันทึกคืน @RENT @P2 (3.5s)
+  ok  46 [chromium] › tests\chat.spec.ts:282:7 › CHAT › TC-CHAT-08 E116 ข้อมูลไม่ครบ (ไม่ให้เบอร์) → ถามเบอร์ ไม่สร้างการจอง @CHAT @P1 (2.5s)
+  ok  47 [chromium] › tests\series.spec.ts:14:7 › SERIES › TC-SERIES-01 จองประจำ: ต้องเป็นสมาชิก · 4–12 สัปดาห์ · ไม่ติดเพดาน 14 วัน · สัปดาห์แรกผ่าน BR-05 @SERIES @P1 (2.5s)
+  ok  48 [chromium] › tests\series.spec.ts:54:7 › SERIES › TC-SERIES-02 ราคาจองประจำ ส่วนลด 10% เมื่อ ≥ 8 สัปดาห์ และยอดจ่ายรวม @SERIES @P1 (1.8s)
+  ok  51 [chromium] › tests\staff.spec.ts:17:7 › STAFF › TC-STAFF-01 พนักงานค้นรหัส เห็นยอดเก็บหน้าสนาม และกดเก็บเงิน/เช็กอิน @STAFF @P1 (2.2s)
+  ok  49 [chromium] › tests\series.spec.ts:79:7 › SERIES › TC-SERIES-03 สัปดาห์ที่ชน: แสดงวันที่ จองเฉพาะสัปดาห์ว่าง ส่วนลดคิดจากที่จองได้จริง @SERIES @P1 (3.2s)
+  ok  54 [chromium] › tests\team.spec.ts:8:7 › TEAM › TC-TEAM-01 ลิงก์หารค่าสนาม ยอดต่อคน (ปัดขึ้น) และสถานะจ่ายรายคน @TEAM @P2 (3.3s)
+  ok  52 [chromium] › tests\staff.spec.ts:55:7 › STAFF › TC-STAFF-05 สิทธิ์ตามบทบาทฝั่งร้าน และภาพรวมวันนี้ของผู้จัดการ @STAFF @P2 (4.0s)
+  ok  56 [chromium] › tests\team.spec.ts:159:7 › TEAM › TC-TEAM-03 คำแสดงระดับทีม มือใหม่ / กลาง / เก่ง และกรองตามระดับ @TEAM @P3 (2.1s)
+  ok  53 [chromium] › tests\chat.spec.ts:306:7 › CHAT › TC-CHAT-09 E117 ข้อมูลครบแต่ไม่ยินยอม → ไม่สร้าง @CHAT @P1 (4.2s)
+  ok  58 [chromium] › tests\team.spec.ts:268:7 › TEAM › TC-TEAM-07 หน้าลิงก์หาร split-people และ split-paid-count มี data-value เป็นจำนวน @TEAM @P3 (1.5s)
+  ok  57 [chromium] › tests\team.spec.ts:207:7 › TEAM › TC-TEAM-06 สร้างลิงก์หารซ้ำได้ลิงก์เดิม จำนวนคนเดิม สถานะจ่ายไม่ถูกล้าง (1 การจอง 1 ลิงก์) @TEAM @P2 (3.2s)
+  x   60 [chromium] › tests\v2.spec.ts:76:7 › BOOK v2 › TC-BOOK-11 ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) @BOOK @P3 (1.8s)
+  ok  55 [chromium] › tests\team.spec.ts:60:7 › TEAM › TC-TEAM-02 ประกาศหาคู่แข่ง → ทีมอื่นรับ จ่ายครึ่งค่าสนาม → เครดิตเข้าเจ้าของ และยกเลิกไม่ได้ @TEAM @P1 (6.1s)
+  ok  63 [chromium] › tests\v2.spec.ts:149:7 › CANCEL v2 › TC-CANCEL-10 เลื่อนไปช่วงถูกลง: เครดิตส่วนต่าง และยอดเก็บหน้าสนาม @CANCEL @P2 (1.9s)
+  ok  59 [chromium] › tests\v2.spec.ts:37:7 › BOOK v2 › TC-BOOK-09 กดยืนยันจอง 2 ครั้งติดกันจริง → การจอง 1 รายการ @BOOK @P1 (4.6s)
+  ok  61 [chromium] › tests\chat.spec.ts:335:7 › CHAT › TC-CHAT-10 การ์ดยืนยัน (A-34): ไม่ติ๊กกดไม่ได้ · ติ๊กแล้วกดยืนยัน 2 ครั้ง → การจอง 1 @CHAT @P1 (4.4s)
+  ok  62 [chromium] › tests\v2.spec.ts:108:7 › PAY v2 › TC-PAY-03 กดยืนยันจ่าย 2 ครั้งติดกันจริง → Payment 1 แถว @PAY @P1 (4.3s)
+  ok  64 [chromium] › tests\v2.spec.ts:192:7 › CREDIT v2 › TC-CREDIT-04 แนน (ขาจร) ขอใช้เครดิต → MEMBER_REQUIRED · จองด้วยเบอร์เดิมเป็นลูกค้าคนเดิม @CREDIT @P1 (3.1s)
+  ok  68 [chromium] › tests\chat.spec.ts:381:7 › CHAT › TC-CHAT-11 E118 ขอให้บอทยกเลิก LN-900004 → แนะนำ "การจองของฉัน" ไม่ยกเลิกให้ @CHAT @P1 (1.3s)
+  ok  69 [chromium] › tests\v2.spec.ts:325:7 › MOB v2 › TC-MOB-02 แชทบนจอ 375 px ใช้ได้ ไม่มีแถบเลื่อนแนวนอน @MOB @P3 (949ms)
+  ok  66 [chromium] › tests\v2.spec.ts:257:7 › MEMBER v2 › TC-MEMBER-07 บีม (ถูกระงับถึง 6 พ.ย. 19:15) เห็นประกาศระงับ และจองออนไลน์ไม่ได้ @MEMBER @P1 (3.2s)
+  ok  71 [chromium] › tests\chat.spec.ts:401:7 › CHAT › TC-CHAT-12 E119 ถามผลบอล (นอกเรื่อง) → ปฏิเสธสุภาพ ชวนกลับเรื่องสนาม @CHAT @P3 (1.0s)
+  ok  74 [chromium] › tests\chat.spec.ts:423:7 › CHAT › TC-CHAT-13 E120 สั่งให้ข้ามกฎลดราคา C เหลือ 100 → ไม่ลด บอกราคาจริง @CHAT @P1 (1.5s)
+  ok  65 [chromium] › tests\v2.spec.ts:230:7 › MEMBER v2 › TC-MEMBER-06 ชั่วโมงสะสมของลูกค้าใน TEST-DATA: ต้น 7 · ฟ้า 9 · มิว 10 @MEMBER @P1 (6.1s)
+  ok  73 [chromium] › tests\v2.spec.ts:455:7 › ROLE › TC-ROLE-04 ไม่เข้าสู่ระบบเปิดหน้าหลังบ้าน v2 → ไปหน้าเข้าสู่ระบบ @ROLE @P2 (2.5s)
+  ok  70 [chromium] › tests\v2.spec.ts:360:7 › ROLE › TC-ROLE-01 สิทธิ์หลังบ้านตามบทบาท (BR-44) + E143 @ROLE @P1 (3.6s)
+  ok  76 [firefox] › tests\api.spec.ts:5:7 › API › TC-API-01 health check และข้อมูลสนาม @API @P2 (68ms)
+  ok  78 [firefox] › tests\api.spec.ts:102:7 › API › TC-API-04 จองช่วงเดียวกันพร้อมกัน 2 คำขอ → สำเร็จ 1 รายการพอดี @API @P1 (52ms)
+  x   72 [chromium] › tests\v2.spec.ts:416:7 › ROLE › TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) @ROLE @P1 (3.5s)
+  ok  79 [firefox] › tests\api.spec.ts:64:7 › API › TC-API-03 ตรวจค่าที่ส่งเข้า API จอง (เวลาเริ่ม/จำนวนชั่วโมง/สนาม/วันที่) @API @P1 (133ms)
+  x   75 [chromium] › tests\chat.spec.ts:443:7 › CHAT › TC-CHAT-14 ถามต่อเนื่อง: "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" (US-39 น้องมิว) @CHAT @P2 (1.8s)
+  ok  77 [firefox] › tests\api.spec.ts:25:7 › API › TC-API-02 ไม่เข้าสู่ระบบ/บทบาทไม่พอ เรียก API และหน้าร้าน → ถูกปฏิเสธ @API @P2 (2.5s)
+  x   83 [chromium] › tests\chat.spec.ts:465:7 › CHAT › TC-CHAT-15 ถามต่อเนื่อง: "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" @CHAT @P2 (2.9s)
+  ok  82 [firefox] › tests\book.spec.ts:65:7 › BOOK › TC-BOOK-03 จำนวนชั่วโมงและเวลาจบไม่เกิน 24:00 @BOOK @P1 (4.7s)
+  ok  80 [firefox] › tests\book.spec.ts:5:7 › BOOK › TC-BOOK-01 E2E จองจนจ่ายจบผ่านหน้าเว็บ @BOOK @P1 (6.8s)
+  ok  84 [firefox] › tests\book.spec.ts:125:7 › BOOK › TC-BOOK-06 ห้ามจองทับเวลาในสนามเดียวกัน @BOOK @P1 (5.5s)
+  ok  86 [firefox] › tests\book.spec.ts:157:7 › BOOK › TC-BOOK-07 ฟอร์มลูกค้า: ชื่อ เบอร์ และช่องยินยอม PDPA @BOOK @P2 (2.1s)
+  x   85 [chromium] › tests\chat.spec.ts:494:7 › CHAT › TC-CHAT-16 ถามต่อเนื่องภาษาอังกฤษ (Mr. Daniel): covered? → Saturday night price @CHAT @P2 (2.2s)
+  ok  87 [firefox] › tests\book.spec.ts:191:7 › BOOK › TC-BOOK-08 กรองรอบก่อน 17:00 และเรียงราคาถูกไปแพง @BOOK @P3 (1.3s)
+  ok  89 [firefox] › tests\cancel.spec.ts:55:7 › CANCEL › TC-CANCEL-06 เลื่อนการจองที่คำท้า MATCHED ไม่ได้ (A-21) @CANCEL @P1 (1.4s)
+  ok  92 [firefox] › tests\credit.spec.ts:8:7 › CREDIT › TC-CREDIT-01 สมาชิกดูเครดิต ประวัติเครดิต และชั่วโมงสะสม @CREDIT @P2 (1.4s)
+  ok  91 [chromium] › tests\chat.spec.ts:518:7 › CHAT › TC-CHAT-18 บีม (ถูกระงับ) จองผ่านบอท → ข้อความเดียวกับหน้าเว็บ ไม่สร้าง @CHAT @P1 (2.3s)
+  ok  90 [firefox] › tests\chat.spec.ts:27:7 › CHAT › TC-CHAT-01 E109 ถามเวลาเปิด (ห้องที่ 2 ถามคำเดิมได้คำตอบเดิม NFR-15) @CHAT @P2 (2.7s)
+  ok  88 [firefox] › tests\cancel.spec.ts:7:7 › CANCEL › TC-CANCEL-03 เลื่อนวัน/เวลา: แพงขึ้นจ่ายส่วนต่าง ถูกลงคืนเครดิต และเลื่อนได้ 1 ครั้ง @CANCEL @P1 (4.3s)
+  ok  95 [firefox] › tests\chat.spec.ts:57:7 › CHAT › TC-CHAT-02 E110 ถามสิ่งที่ไม่มีในระบบ (ห้องอาบน้ำ) @CHAT @P2 (1.8s)
+  ok  96 [firefox] › tests\credit.spec.ts:95:7 › CREDIT › TC-CREDIT-03 ไม่ได้เข้าสู่ระบบสมาชิกของเบอร์นั้นแต่ขอใช้เครดิต → MEMBER_REQUIRED (A-26) @CREDIT @P1 (1.6s)
+  ok  97 [firefox] › tests\chat.spec.ts:77:7 › CHAT › TC-CHAT-03 E111 ถามส่วนลด @CHAT @P2 (1.8s)
+  x   81 [firefox] › tests\book.spec.ts:93:7 › BOOK › TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้) @BOOK @P1 (13.7s)
+  ok  98 [firefox] › tests\home.spec.ts:5:7 › HOME › TC-HOME-01 หน้าแรกพร้อมใช้ การ์ด 3 สนาม และไปตารางว่างวันนี้ใน 1 แตะ @HOME @P2 (1.9s)
+  ok  99 [firefox] › tests\chat.spec.ts:100:7 › CHAT › TC-CHAT-04 E112 ราคา C เสาร์ 10 ต.ค. 18:00 (รอบถูกจองแล้ว) @CHAT @P1 (1.8s)
+  ok  93 [firefox] › tests\credit.spec.ts:33:7 › CREDIT › TC-CREDIT-02 เครดิตสะสมตามเบอร์ ใช้ได้หลังสมัครสมาชิกเท่านั้น @CREDIT @P1 (6.7s)
+  ok 100 [firefox] › tests\i18n.spec.ts:21:7 › I18N › TC-I18N-01 สลับภาษา ไทย/English และจำภาษาเมื่อเปลี่ยนหน้า @I18N @P2 (3.7s)
+  ok 102 [firefox] › tests\chat.spec.ts:121:7 › CHAT › TC-CHAT-05 E113 ราคา A ศุกร์ 16 ต.ค. 16:00 @CHAT @P1 (2.3s)
+  ok 105 [firefox] › tests\chat.spec.ts:141:7 › CHAT › TC-CHAT-06 E114 วันนี้ 19:00 สนาม A ว่างไหม → ไม่ว่าง + เสนอรอบที่ว่างจริง @CHAT @P1 (2.4s)
+  ok 101 [firefox] › tests\home.spec.ts:31:7 › HOME › TC-HOME-02 หน้าข้อมูลสนาม: ขนาด หลังคา ราคา รูปมีคำอธิบาย @HOME @P2 (4.9s)
+  x   67 [chromium] › tests\v2.spec.ts:289:7 › STAFF v2 › TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) @STAFF @P2 (27.9s)
+  ok  94 [chromium] › tests\chat.spec.ts:546:7 › CHAT › TC-CHAT-19 ข้อจำกัดข้อความ: ว่าง · 500 · 501 · เกิน 20 ข้อความ/นาที @CHAT @P3 (11.9s)
+  ok 104 [firefox] › tests\member.spec.ts:5:7 › MEMBER › TC-MEMBER-01 สมัครสมาชิกและเข้าสู่ระบบ @MEMBER @P2 (4.9s)
+  ok 103 [firefox] › tests\i18n.spec.ts:52:7 › I18N › TC-I18N-02 โหมด English หน้าฝั่งลูกค้าไม่มีภาษาไทยหลง @I18N @P3 (8.1s)
+  ok 107 [firefox] › tests\member.spec.ts:57:7 › MEMBER › TC-MEMBER-02 ดูการจองด้วยรหัส+เบอร์ · ข้อมูลผูกเบอร์ ชื่อเก็บต่อการจอง · เห็นเฉพาะของตัวเอง @MEMBER @P2 (3.5s)
+  ok 106 [firefox] › tests\chat.spec.ts:173:7 › CHAT › TC-CHAT-17 ขอเช่าเอี๊ยม / ใช้เครดิตผ่านบอท → แนะนำหน้าเว็บ ไม่สร้างการจอง @CHAT @P2 (5.9s)
+  ok 108 [firefox] › tests\member.spec.ts:199:7 › MEMBER › TC-MEMBER-05 ช่องชั่วโมงฟรีปิด (disabled) พร้อมเหตุผล เมื่อรอบใช้สิทธิ์ไม่ได้หรือไม่มีสิทธิ์ (Q-T5) @MEMBER @P2 (3.7s)
+  ok 112 [firefox] › tests\owner.spec.ts:4:7 › OWNER › TC-OWNER-01 เจ้าของเพิ่ม/ลบวันหยุด มีผลกับราคา @OWNER @P2 (5.1s)
+  ok 114 [firefox] › tests\owner.spec.ts:44:7 › OWNER › TC-OWNER-02 ปิดสนามเพราะฝน: เฉพาะ A/B · คืนเครดิต · ไม่แตะการจองนอกช่วง @OWNER @P1 (4.3s)
+  ok 110 [firefox] › tests\mob.spec.ts:4:7 › MOB › TC-MOB-01 มือถือกว้าง 375 px ไม่มีแถบเลื่อนแนวนอนทุกหน้าฝั่งลูกค้า @MOB @P2 (7.1s)
+  ok 115 [firefox] › tests\owner.spec.ts:99:7 › OWNER › TC-OWNER-03 ปิดเพราะฝนการจองที่คำท้า MATCHED: ทีมได้คืนเท่าที่จ่าย เจ้าของได้ จ่าย + เครดิตที่ใช้ − เครดิตจากคำท้า (A-27) @OWNER @P1 (3.1s)
+  ok 109 [firefox] › tests\member.spec.ts:106:7 › MEMBER › TC-MEMBER-03 ชั่วโมงสะสม 9/10 ได้สิทธิ์ฟรี และใช้สิทธิ์แล้วยอด ฿0 ยืนยันทันที @MEMBER @P1 (9.1s)
+  ok 111 [firefox] › tests\member.spec.ts:158:7 › MEMBER › TC-MEMBER-04 เงื่อนไขการใช้ชั่วโมงฟรี (จ.–ศ. ก่อน 17:00 เฉพาะสมาชิกที่มีสิทธิ์) @MEMBER @P1 (7.6s)
+  ok 113 [firefox] › tests\chat.spec.ts:204:7 › CHAT › TC-CHAT-07 E115 จองในแชทครบ 7 อย่าง → การ์ด → ติ๊กยินยอม → ยืนยัน → รหัส + ลิงก์จ่าย @CHAT @P1 (7.9s)
+  ok 117 [firefox] › tests\price.spec.ts:5:7 › PRICE › TC-PRICE-01 ราคาต่อชั่วโมงตามขนาดและช่วงเวลา และจองคร่อม 17:00 @PRICE @P1 (2.8s)
+  ok 116 [firefox] › tests\pay.spec.ts:4:7 › PAY › TC-PAY-01 หน้าจ่ายจำลอง PromptPay และสถานะหลังจ่าย (รีโหลด/จ่ายซ้ำ) @PAY @P2 (4.4s)
+  ok 118 [firefox] › tests\price.spec.ts:26:7 › PRICE › TC-PRICE-02 เสาร์ อาทิตย์ และวันหยุด คิดราคาเย็นทุกรอบ @PRICE @P1 (2.0s)
+  ok 122 [firefox] › tests\rent.spec.ts:4:7 › RENT › TC-RENT-01 ราคาของเช่าและจำนวนคงเหลือ @RENT @P1 (2.4s)
+  ok 123 [firefox] › tests\rent.spec.ts:22:7 › RENT › TC-RENT-02 เช่าเกินจำนวนไม่ได้ (เอี๊ยมชุดที่ 7, บอลลูกที่ 11) @RENT @P2 (3.3s)
+  ok 120 [firefox] › tests\price.spec.ts:68:7 › PRICE › TC-PRICE-04 สูตรยอดรวม/สุทธิ/จ่ายตอนนี้ และใช้เครดิตไม่เกินยอดรวม @PRICE @P1 (4.7s)
+  ok 121 [firefox] › tests\chat.spec.ts:282:7 › CHAT › TC-CHAT-08 E116 ข้อมูลไม่ครบ (ไม่ให้เบอร์) → ถามเบอร์ ไม่สร้างการจอง @CHAT @P1 (4.4s)
+  ok 119 [firefox] › tests\price.spec.ts:46:7 › PRICE › TC-PRICE-03 แผนจ่าย มัดจำ 50% / จ่ายเต็ม 100% @PRICE @P1 (5.3s)
+  -  129 [firefox] › tests\series.spec.ts:126:7 › SERIES › TC-SERIES-04 ส่วนลดจองประจำมีเศษ → ปัดส่วนลดขึ้นเป็นบาทเต็ม (A-24) @SERIES @P1
+  ok 124 [firefox] › tests\rent.spec.ts:51:7 › RENT › TC-RENT-03 ของที่ยังไม่คืนจากรอบก่อนหน้า และพนักงานบันทึกคืน @RENT @P2 (4.8s)
+  ok 126 [firefox] › tests\series.spec.ts:54:7 › SERIES › TC-SERIES-02 ราคาจองประจำ ส่วนลด 10% เมื่อ ≥ 8 สัปดาห์ และยอดจ่ายรวม @SERIES @P1 (3.2s)
+  ok 130 [firefox] › tests\staff.spec.ts:17:7 › STAFF › TC-STAFF-01 พนักงานค้นรหัส เห็นยอดเก็บหน้าสนาม และกดเก็บเงิน/เช็กอิน @STAFF @P1 (2.9s)
+  ok 125 [firefox] › tests\series.spec.ts:14:7 › SERIES › TC-SERIES-01 จองประจำ: ต้องเป็นสมาชิก · 4–12 สัปดาห์ · ไม่ติดเพดาน 14 วัน · สัปดาห์แรกผ่าน BR-05 @SERIES @P1 (5.4s)
+  ok 127 [firefox] › tests\series.spec.ts:79:7 › SERIES › TC-SERIES-03 สัปดาห์ที่ชน: แสดงวันที่ จองเฉพาะสัปดาห์ว่าง ส่วนลดคิดจากที่จองได้จริง @SERIES @P1 (4.2s)
+  ok 128 [firefox] › tests\chat.spec.ts:306:7 › CHAT › TC-CHAT-09 E117 ข้อมูลครบแต่ไม่ยินยอม → ไม่สร้าง @CHAT @P1 (7.1s)
+  ok 131 [firefox] › tests\staff.spec.ts:55:7 › STAFF › TC-STAFF-05 สิทธิ์ตามบทบาทฝั่งร้าน และภาพรวมวันนี้ของผู้จัดการ @STAFF @P2 (6.3s)
+  ok 134 [firefox] › tests\team.spec.ts:159:7 › TEAM › TC-TEAM-03 คำแสดงระดับทีม มือใหม่ / กลาง / เก่ง และกรองตามระดับ @TEAM @P3 (4.4s)
+  ok 132 [firefox] › tests\team.spec.ts:8:7 › TEAM › TC-TEAM-01 ลิงก์หารค่าสนาม ยอดต่อคน (ปัดขึ้น) และสถานะจ่ายรายคน @TEAM @P2 (5.4s)
+  ok 135 [firefox] › tests\team.spec.ts:207:7 › TEAM › TC-TEAM-06 สร้างลิงก์หารซ้ำได้ลิงก์เดิม จำนวนคนเดิม สถานะจ่ายไม่ถูกล้าง (1 การจอง 1 ลิงก์) @TEAM @P2 (5.3s)
+  ok 137 [firefox] › tests\team.spec.ts:268:7 › TEAM › TC-TEAM-07 หน้าลิงก์หาร split-people และ split-paid-count มี data-value เป็นจำนวน @TEAM @P3 (2.9s)
+  x  139 [firefox] › tests\v2.spec.ts:76:7 › BOOK v2 › TC-BOOK-11 ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) @BOOK @P3 (3.2s)
+  ok 133 [firefox] › tests\team.spec.ts:60:7 › TEAM › TC-TEAM-02 ประกาศหาคู่แข่ง → ทีมอื่นรับ จ่ายครึ่งค่าสนาม → เครดิตเข้าเจ้าของ และยกเลิกไม่ได้ @TEAM @P1 (9.8s)
+  ok 138 [firefox] › tests\v2.spec.ts:37:7 › BOOK v2 › TC-BOOK-09 กดยืนยันจอง 2 ครั้งติดกันจริง → การจอง 1 รายการ @BOOK @P1 (6.5s)
+  ok 141 [firefox] › tests\v2.spec.ts:149:7 › CANCEL v2 › TC-CANCEL-10 เลื่อนไปช่วงถูกลง: เครดิตส่วนต่าง และยอดเก็บหน้าสนาม @CANCEL @P2 (4.2s)
+  ok 136 [firefox] › tests\chat.spec.ts:335:7 › CHAT › TC-CHAT-10 การ์ดยืนยัน (A-34): ไม่ติ๊กกดไม่ได้ · ติ๊กแล้วกดยืนยัน 2 ครั้ง → การจอง 1 @CHAT @P1 (8.7s)
+  ok 140 [firefox] › tests\v2.spec.ts:108:7 › PAY v2 › TC-PAY-03 กดยืนยันจ่าย 2 ครั้งติดกันจริง → Payment 1 แถว @PAY @P1 (7.0s)
+  ok 147 [firefox] › tests\v2.spec.ts:325:7 › MOB v2 › TC-MOB-02 แชทบนจอ 375 px ใช้ได้ ไม่มีแถบเลื่อนแนวนอน @MOB @P3 (2.2s)
+  ok 146 [firefox] › tests\chat.spec.ts:381:7 › CHAT › TC-CHAT-11 E118 ขอให้บอทยกเลิก LN-900004 → แนะนำ "การจองของฉัน" ไม่ยกเลิกให้ @CHAT @P1 (3.1s)
+  x  142 [firefox] › tests\v2.spec.ts:230:7 › MEMBER v2 › TC-MEMBER-06 ชั่วโมงสะสมของลูกค้าใน TEST-DATA: ต้น 7 · ฟ้า 9 · มิว 10 @MEMBER @P1 (4.2s)
+  ok 144 [firefox] › tests\v2.spec.ts:257:7 › MEMBER v2 › TC-MEMBER-07 บีม (ถูกระงับถึง 6 พ.ย. 19:15) เห็นประกาศระงับ และจองออนไลน์ไม่ได้ @MEMBER @P1 (5.2s)
+  ok 149 [firefox] › tests\chat.spec.ts:401:7 › CHAT › TC-CHAT-12 E119 ถามผลบอล (นอกเรื่อง) → ปฏิเสธสุภาพ ชวนกลับเรื่องสนาม @CHAT @P3 (1.3s)
+  ok 151 [firefox] › tests\chat.spec.ts:423:7 › CHAT › TC-CHAT-13 E120 สั่งให้ข้ามกฎลดราคา C เหลือ 100 → ไม่ลด บอกราคาจริง @CHAT @P1 (2.4s)
+  ok 143 [firefox] › tests\v2.spec.ts:192:7 › CREDIT v2 › TC-CREDIT-04 แนน (ขาจร) ขอใช้เครดิต → MEMBER_REQUIRED · จองด้วยเบอร์เดิมเป็นลูกค้าคนเดิม @CREDIT @P1 (8.6s)
+  ok 148 [firefox] › tests\v2.spec.ts:360:7 › ROLE › TC-ROLE-01 สิทธิ์หลังบ้านตามบทบาท (BR-44) + E143 @ROLE @P1 (4.3s)
+  ok 150 [firefox] › tests\v2.spec.ts:455:7 › ROLE › TC-ROLE-04 ไม่เข้าสู่ระบบเปิดหน้าหลังบ้าน v2 → ไปหน้าเข้าสู่ระบบ @ROLE @P2 (3.9s)
+  ok 154 [webkit] › tests\api.spec.ts:5:7 › API › TC-API-01 health check และข้อมูลสนาม @API @P2 (72ms)
+  ok 156 [webkit] › tests\api.spec.ts:102:7 › API › TC-API-04 จองช่วงเดียวกันพร้อมกัน 2 คำขอ → สำเร็จ 1 รายการพอดี @API @P1 (53ms)
+  x  153 [firefox] › tests\chat.spec.ts:443:7 › CHAT › TC-CHAT-14 ถามต่อเนื่อง: "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" (US-39 น้องมิว) @CHAT @P2 (2.4s)
+  ok 158 [webkit] › tests\api.spec.ts:64:7 › API › TC-API-03 ตรวจค่าที่ส่งเข้า API จอง (เวลาเริ่ม/จำนวนชั่วโมง/สนาม/วันที่) @API @P1 (209ms)
+  ok 155 [webkit] › tests\api.spec.ts:25:7 › API › TC-API-02 ไม่เข้าสู่ระบบ/บทบาทไม่พอ เรียก API และหน้าร้าน → ถูกปฏิเสธ @API @P2 (1.6s)
+  x  152 [firefox] › tests\v2.spec.ts:416:7 › ROLE › TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) @ROLE @P1 (6.1s)
+  ok 157 [webkit] › tests\book.spec.ts:5:7 › BOOK › TC-BOOK-01 E2E จองจนจ่ายจบผ่านหน้าเว็บ @BOOK @P1 (5.7s)
+  ok 159 [webkit] › tests\book.spec.ts:65:7 › BOOK › TC-BOOK-03 จำนวนชั่วโมงและเวลาจบไม่เกิน 24:00 @BOOK @P1 (5.6s)
+  x  161 [firefox] › tests\chat.spec.ts:465:7 › CHAT › TC-CHAT-15 ถามต่อเนื่อง: "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" @CHAT @P2 (4.1s)
+  ok 164 [webkit] › tests\book.spec.ts:191:7 › BOOK › TC-BOOK-08 กรองรอบก่อน 17:00 และเรียงราคาถูกไปแพง @BOOK @P3 (1.8s)
+  ok 163 [webkit] › tests\book.spec.ts:157:7 › BOOK › TC-BOOK-07 ฟอร์มลูกค้า: ชื่อ เบอร์ และช่องยินยอม PDPA @BOOK @P2 (4.6s)
+  ok 162 [webkit] › tests\book.spec.ts:125:7 › BOOK › TC-BOOK-06 ห้ามจองทับเวลาในสนามเดียวกัน @BOOK @P1 (7.5s)
+  ok 166 [webkit] › tests\cancel.spec.ts:7:7 › CANCEL › TC-CANCEL-03 เลื่อนวัน/เวลา: แพงขึ้นจ่ายส่วนต่าง ถูกลงคืนเครดิต และเลื่อนได้ 1 ครั้ง @CANCEL @P1 (4.3s)
+  ok 167 [webkit] › tests\cancel.spec.ts:55:7 › CANCEL › TC-CANCEL-06 เลื่อนการจองที่คำท้า MATCHED ไม่ได้ (A-21) @CANCEL @P1 (2.4s)
+  x  160 [webkit] › tests\book.spec.ts:93:7 › BOOK › TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้) @BOOK @P1 (11.6s)
+  x  165 [firefox] › tests\chat.spec.ts:494:7 › CHAT › TC-CHAT-16 ถามต่อเนื่องภาษาอังกฤษ (Mr. Daniel): covered? → Saturday night price @CHAT @P2 (3.9s)
+  ok 169 [webkit] › tests\credit.spec.ts:8:7 › CREDIT › TC-CREDIT-01 สมาชิกดูเครดิต ประวัติเครดิต และชั่วโมงสะสม @CREDIT @P2 (1.8s)
+  ok 171 [webkit] › tests\credit.spec.ts:95:7 › CREDIT › TC-CREDIT-03 ไม่ได้เข้าสู่ระบบสมาชิกของเบอร์นั้นแต่ขอใช้เครดิต → MEMBER_REQUIRED (A-26) @CREDIT @P1 (2.6s)
+  x  145 [firefox] › tests\v2.spec.ts:289:7 › STAFF v2 › TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) @STAFF @P2 (26.2s)
+  ok 173 [webkit] › tests\home.spec.ts:5:7 › HOME › TC-HOME-01 หน้าแรกพร้อมใช้ การ์ด 3 สนาม และไปตารางว่างวันนี้ใน 1 แตะ @HOME @P2 (3.9s)
+  ok 174 [webkit] › tests\home.spec.ts:31:7 › HOME › TC-HOME-02 หน้าข้อมูลสนาม: ขนาด หลังคา ราคา รูปมีคำอธิบาย @HOME @P2 (2.2s)
+  ok 172 [firefox] › tests\chat.spec.ts:518:7 › CHAT › TC-CHAT-18 บีม (ถูกระงับ) จองผ่านบอท → ข้อความเดียวกับหน้าเว็บ ไม่สร้าง @CHAT @P1 (4.9s)
+  ok 170 [webkit] › tests\credit.spec.ts:33:7 › CREDIT › TC-CREDIT-02 เครดิตสะสมตามเบอร์ ใช้ได้หลังสมัครสมาชิกเท่านั้น @CREDIT @P1 (10.2s)
+  ok 177 [webkit] › tests\i18n.spec.ts:21:7 › I18N › TC-I18N-01 สลับภาษา ไทย/English และจำภาษาเมื่อเปลี่ยนหน้า @I18N @P2 (8.0s)
+  ok 179 [webkit] › tests\member.spec.ts:57:7 › MEMBER › TC-MEMBER-02 ดูการจองด้วยรหัส+เบอร์ · ข้อมูลผูกเบอร์ ชื่อเก็บต่อการจอง · เห็นเฉพาะของตัวเอง @MEMBER @P2 (5.5s)
+  ok 176 [webkit] › tests\member.spec.ts:5:7 › MEMBER › TC-MEMBER-01 สมัครสมาชิกและเข้าสู่ระบบ @MEMBER @P2 (9.9s)
+  ok 168 [webkit] › tests\chat.spec.ts:27:7 › CHAT › TC-CHAT-01 E109 ถามเวลาเปิด (ห้องที่ 2 ถามคำเดิมได้คำตอบเดิม NFR-15) @CHAT @P2 (16.7s)
+  ok 175 [webkit] › tests\i18n.spec.ts:52:7 › I18N › TC-I18N-02 โหมด English หน้าฝั่งลูกค้าไม่มีภาษาไทยหลง @I18N @P3 (11.7s)
+  ok 178 [firefox] › tests\chat.spec.ts:546:7 › CHAT › TC-CHAT-19 ข้อจำกัดข้อความ: ว่าง · 500 · 501 · เกิน 20 ข้อความ/นาที @CHAT @P3 (12.6s)
+  ok 180 [webkit] › tests\member.spec.ts:106:7 › MEMBER › TC-MEMBER-03 ชั่วโมงสะสม 9/10 ได้สิทธิ์ฟรี และใช้สิทธิ์แล้วยอด ฿0 ยืนยันทันที @MEMBER @P1 (5.4s)
+  ok 181 [webkit] › tests\member.spec.ts:158:7 › MEMBER › TC-MEMBER-04 เงื่อนไขการใช้ชั่วโมงฟรี (จ.–ศ. ก่อน 17:00 เฉพาะสมาชิกที่มีสิทธิ์) @MEMBER @P1 (4.6s)
+  ok 182 [webkit] › tests\member.spec.ts:199:7 › MEMBER › TC-MEMBER-05 ช่องชั่วโมงฟรีปิด (disabled) พร้อมเหตุผล เมื่อรอบใช้สิทธิ์ไม่ได้หรือไม่มีสิทธิ์ (Q-T5) @MEMBER @P2 (4.7s)
+  ok 183 [webkit] › tests\chat.spec.ts:57:7 › CHAT › TC-CHAT-02 E110 ถามสิ่งที่ไม่มีในระบบ (ห้องอาบน้ำ) @CHAT @P2 (5.4s)
+  ok 184 [webkit] › tests\mob.spec.ts:4:7 › MOB › TC-MOB-01 มือถือกว้าง 375 px ไม่มีแถบเลื่อนแนวนอนทุกหน้าฝั่งลูกค้า @MOB @P2 (4.8s)
+  ok 185 [webkit] › tests\owner.spec.ts:44:7 › OWNER › TC-OWNER-02 ปิดสนามเพราะฝน: เฉพาะ A/B · คืนเครดิต · ไม่แตะการจองนอกช่วง @OWNER @P1 (3.6s)
+  ok 188 [webkit] › tests\pay.spec.ts:4:7 › PAY › TC-PAY-01 หน้าจ่ายจำลอง PromptPay และสถานะหลังจ่าย (รีโหลด/จ่ายซ้ำ) @PAY @P2 (3.3s)
+  ok 186 [webkit] › tests\owner.spec.ts:99:7 › OWNER › TC-OWNER-03 ปิดเพราะฝนการจองที่คำท้า MATCHED: ทีมได้คืนเท่าที่จ่าย เจ้าของได้ จ่าย + เครดิตที่ใช้ − เครดิตจากคำท้า (A-27) @OWNER @P1 (3.6s)
+  ok 190 [webkit] › tests\price.spec.ts:5:7 › PRICE › TC-PRICE-01 ราคาต่อชั่วโมงตามขนาดและช่วงเวลา และจองคร่อม 17:00 @PRICE @P1 (3.2s)
+  ok 191 [webkit] › tests\price.spec.ts:26:7 › PRICE › TC-PRICE-02 เสาร์ อาทิตย์ และวันหยุด คิดราคาเย็นทุกรอบ @PRICE @P1 (2.1s)
+  ok 187 [webkit] › tests\owner.spec.ts:4:7 › OWNER › TC-OWNER-01 เจ้าของเพิ่ม/ลบวันหยุด มีผลกับราคา @OWNER @P2 (5.7s)
+  ok 189 [webkit] › tests\chat.spec.ts:77:7 › CHAT › TC-CHAT-03 E111 ถามส่วนลด @CHAT @P2 (5.5s)
+  ok 194 [webkit] › tests\rent.spec.ts:4:7 › RENT › TC-RENT-01 ราคาของเช่าและจำนวนคงเหลือ @RENT @P1 (2.6s)
+  ok 193 [webkit] › tests\price.spec.ts:68:7 › PRICE › TC-PRICE-04 สูตรยอดรวม/สุทธิ/จ่ายตอนนี้ และใช้เครดิตไม่เกินยอดรวม @PRICE @P1 (4.4s)
+  ok 192 [webkit] › tests\price.spec.ts:46:7 › PRICE › TC-PRICE-03 แผนจ่าย มัดจำ 50% / จ่ายเต็ม 100% @PRICE @P1 (6.4s)
+  ok 196 [webkit] › tests\rent.spec.ts:51:7 › RENT › TC-RENT-03 ของที่ยังไม่คืนจากรอบก่อนหน้า และพนักงานบันทึกคืน @RENT @P2 (4.5s)
+  -  201 [webkit] › tests\series.spec.ts:126:7 › SERIES › TC-SERIES-04 ส่วนลดจองประจำมีเศษ → ปัดส่วนลดขึ้นเป็นบาทเต็ม (A-24) @SERIES @P1
+  ok 195 [webkit] › tests\rent.spec.ts:22:7 › RENT › TC-RENT-02 เช่าเกินจำนวนไม่ได้ (เอี๊ยมชุดที่ 7, บอลลูกที่ 11) @RENT @P2 (6.5s)
+  ok 197 [webkit] › tests\chat.spec.ts:100:7 › CHAT › TC-CHAT-04 E112 ราคา C เสาร์ 10 ต.ค. 18:00 (รอบถูกจองแล้ว) @CHAT @P1 (5.1s)
+  ok 199 [webkit] › tests\series.spec.ts:54:7 › SERIES › TC-SERIES-02 ราคาจองประจำ ส่วนลด 10% เมื่อ ≥ 8 สัปดาห์ และยอดจ่ายรวม @SERIES @P1 (4.4s)
+  ok 202 [webkit] › tests\staff.spec.ts:17:7 › STAFF › TC-STAFF-01 พนักงานค้นรหัส เห็นยอดเก็บหน้าสนาม และกดเก็บเงิน/เช็กอิน @STAFF @P1 (3.0s)
+  ok 198 [webkit] › tests\series.spec.ts:14:7 › SERIES › TC-SERIES-01 จองประจำ: ต้องเป็นสมาชิก · 4–12 สัปดาห์ · ไม่ติดเพดาน 14 วัน · สัปดาห์แรกผ่าน BR-05 @SERIES @P1 (6.5s)
+  ok 200 [webkit] › tests\series.spec.ts:79:7 › SERIES › TC-SERIES-03 สัปดาห์ที่ชน: แสดงวันที่ จองเฉพาะสัปดาห์ว่าง ส่วนลดคิดจากที่จองได้จริง @SERIES @P1 (5.3s)
+  ok 203 [webkit] › tests\chat.spec.ts:121:7 › CHAT › TC-CHAT-05 E113 ราคา A ศุกร์ 16 ต.ค. 16:00 @CHAT @P1 (5.4s)
+  ok 207 [webkit] › tests\team.spec.ts:159:7 › TEAM › TC-TEAM-03 คำแสดงระดับทีม มือใหม่ / กลาง / เก่ง และกรองตามระดับ @TEAM @P3 (3.2s)
+  ok 205 [webkit] › tests\team.spec.ts:8:7 › TEAM › TC-TEAM-01 ลิงก์หารค่าสนาม ยอดต่อคน (ปัดขึ้น) และสถานะจ่ายรายคน @TEAM @P2 (5.7s)
+  ok 204 [webkit] › tests\staff.spec.ts:55:7 › STAFF › TC-STAFF-05 สิทธิ์ตามบทบาทฝั่งร้าน และภาพรวมวันนี้ของผู้จัดการ @STAFF @P2 (6.4s)
+  ok 208 [webkit] › tests\team.spec.ts:207:7 › TEAM › TC-TEAM-06 สร้างลิงก์หารซ้ำได้ลิงก์เดิม จำนวนคนเดิม สถานะจ่ายไม่ถูกล้าง (1 การจอง 1 ลิงก์) @TEAM @P2 (4.3s)
+  ok 210 [webkit] › tests\team.spec.ts:268:7 › TEAM › TC-TEAM-07 หน้าลิงก์หาร split-people และ split-paid-count มี data-value เป็นจำนวน @TEAM @P3 (2.7s)
+  x  212 [webkit] › tests\v2.spec.ts:76:7 › BOOK v2 › TC-BOOK-11 ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) @BOOK @P3 (2.6s)
+  ok 209 [webkit] › tests\chat.spec.ts:141:7 › CHAT › TC-CHAT-06 E114 วันนี้ 19:00 สนาม A ว่างไหม → ไม่ว่าง + เสนอรอบที่ว่างจริง @CHAT @P1 (4.9s)
+  ok 214 [webkit] › tests\v2.spec.ts:149:7 › CANCEL v2 › TC-CANCEL-10 เลื่อนไปช่วงถูกลง: เครดิตส่วนต่าง และยอดเก็บหน้าสนาม @CANCEL @P2 (3.6s)
+  ok 211 [webkit] › tests\v2.spec.ts:37:7 › BOOK v2 › TC-BOOK-09 กดยืนยันจอง 2 ครั้งติดกันจริง → การจอง 1 รายการ @BOOK @P1 (6.1s)
+  ok 215 [webkit] › tests\v2.spec.ts:192:7 › CREDIT v2 › TC-CREDIT-04 แนน (ขาจร) ขอใช้เครดิต → MEMBER_REQUIRED · จองด้วยเบอร์เดิมเป็นลูกค้าคนเดิม @CREDIT @P1 (3.6s)
+  ok 213 [webkit] › tests\v2.spec.ts:108:7 › PAY v2 › TC-PAY-03 กดยืนยันจ่าย 2 ครั้งติดกันจริง → Payment 1 แถว @PAY @P1 (6.1s)
+  ok 220 [webkit] › tests\v2.spec.ts:325:7 › MOB v2 › TC-MOB-02 แชทบนจอ 375 px ใช้ได้ ไม่มีแถบเลื่อนแนวนอน @MOB @P3 (1.6s)
+  ok 218 [webkit] › tests\v2.spec.ts:257:7 › MEMBER v2 › TC-MEMBER-07 บีม (ถูกระงับถึง 6 พ.ย. 19:15) เห็นประกาศระงับ และจองออนไลน์ไม่ได้ @MEMBER @P1 (5.4s)
+  ok 216 [webkit] › tests\chat.spec.ts:173:7 › CHAT › TC-CHAT-17 ขอเช่าเอี๊ยม / ใช้เครดิตผ่านบอท → แนะนำหน้าเว็บ ไม่สร้างการจอง @CHAT @P2 (7.9s)
+  ok 217 [webkit] › tests\v2.spec.ts:230:7 › MEMBER v2 › TC-MEMBER-06 ชั่วโมงสะสมของลูกค้าใน TEST-DATA: ต้น 7 · ฟ้า 9 · มิว 10 @MEMBER @P1 (7.3s)
+  ok 206 [webkit] › tests\team.spec.ts:60:7 › TEAM › TC-TEAM-02 ประกาศหาคู่แข่ง → ทีมอื่นรับ จ่ายครึ่งค่าสนาม → เครดิตเข้าเจ้าของ และยกเลิกไม่ได้ @TEAM @P1 (17.1s)
+  ok 221 [webkit] › tests\v2.spec.ts:360:7 › ROLE › TC-ROLE-01 สิทธิ์หลังบ้านตามบทบาท (BR-44) + E143 @ROLE @P1 (4.5s)
+  ok 224 [webkit] › tests\v2.spec.ts:455:7 › ROLE › TC-ROLE-04 ไม่เข้าสู่ระบบเปิดหน้าหลังบ้าน v2 → ไปหน้าเข้าสู่ระบบ @ROLE @P2 (2.0s)
+  x  222 [webkit] › tests\v2.spec.ts:416:7 › ROLE › TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) @ROLE @P1 (4.2s)
+  ok 223 [webkit] › tests\chat.spec.ts:204:7 › CHAT › TC-CHAT-07 E115 จองในแชทครบ 7 อย่าง → การ์ด → ติ๊กยินยอม → ยืนยัน → รหัส + ลิงก์จ่าย @CHAT @P1 (11.5s)
+  ok 225 [webkit] › tests\chat.spec.ts:282:7 › CHAT › TC-CHAT-08 E116 ข้อมูลไม่ครบ (ไม่ให้เบอร์) → ถามเบอร์ ไม่สร้างการจอง @CHAT @P1 (4.7s)
+  x  219 [webkit] › tests\v2.spec.ts:289:7 › STAFF v2 › TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) @STAFF @P2 (23.5s)
+  ok 226 [webkit] › tests\chat.spec.ts:306:7 › CHAT › TC-CHAT-09 E117 ข้อมูลครบแต่ไม่ยินยอม → ไม่สร้าง @CHAT @P1 (6.8s)
+  ok 227 [webkit] › tests\chat.spec.ts:335:7 › CHAT › TC-CHAT-10 การ์ดยืนยัน (A-34): ไม่ติ๊กกดไม่ได้ · ติ๊กแล้วกดยืนยัน 2 ครั้ง → การจอง 1 @CHAT @P1 (10.5s)
+  ok 228 [webkit] › tests\chat.spec.ts:381:7 › CHAT › TC-CHAT-11 E118 ขอให้บอทยกเลิก LN-900004 → แนะนำ "การจองของฉัน" ไม่ยกเลิกให้ @CHAT @P1 (2.8s)
+  ok 229 [webkit] › tests\chat.spec.ts:401:7 › CHAT › TC-CHAT-12 E119 ถามผลบอล (นอกเรื่อง) → ปฏิเสธสุภาพ ชวนกลับเรื่องสนาม @CHAT @P3 (2.7s)
+  ok 230 [webkit] › tests\chat.spec.ts:423:7 › CHAT › TC-CHAT-13 E120 สั่งให้ข้ามกฎลดราคา C เหลือ 100 → ไม่ลด บอกราคาจริง @CHAT @P1 (2.6s)
+  x  231 [webkit] › tests\chat.spec.ts:443:7 › CHAT › TC-CHAT-14 ถามต่อเนื่อง: "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" (US-39 น้องมิว) @CHAT @P2 (3.8s)
+  x  232 [webkit] › tests\chat.spec.ts:465:7 › CHAT › TC-CHAT-15 ถามต่อเนื่อง: "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" @CHAT @P2 (4.6s)
+  x  233 [webkit] › tests\chat.spec.ts:494:7 › CHAT › TC-CHAT-16 ถามต่อเนื่องภาษาอังกฤษ (Mr. Daniel): covered? → Saturday night price @CHAT @P2 (4.6s)
+  ok 234 [webkit] › tests\chat.spec.ts:518:7 › CHAT › TC-CHAT-18 บีม (ถูกระงับ) จองผ่านบอท → ข้อความเดียวกับหน้าเว็บ ไม่สร้าง @CHAT @P1 (4.6s)
+  ok 235 [webkit] › tests\chat.spec.ts:546:7 › CHAT › TC-CHAT-19 ข้อจำกัดข้อความ: ว่าง · 500 · 501 · เกิน 20 ข้อความ/นาที @CHAT @P3 (39.4s)
+  ok 236 [serial] › tests\chat.serial.spec.ts:25:5 › TC-CHAT-20 หลังบ้านเห็นประวัติแชท (เบอร์ปิดบางส่วน) และลบชื่อ/เบอร์เมื่อเกิน 90 วัน @CHAT @P2 (7.4s)
+  ok 237 [serial] › tests\time.serial.spec.ts:17:5 › TC-BOOK-05 จองวันนี้ต้องห่าง "ตอนนี้" อย่างน้อย 1 ชั่วโมง (15:00 → 16:00 ได้ / 15:01 ไม่ได้) @BOOK @P1 (2.1s)
+  ok 238 [serial] › tests\time.serial.spec.ts:42:5 › TC-PAY-02 จ่ายภายใน 15 นาที (15:00 ทัน / 15:01 ไม่ทัน) และรอบกลับมาว่าง @PAY @P1 (1.8s)
+  ok 239 [serial] › tests\time.serial.spec.ts:79:5 › TC-CANCEL-01 ยกเลิกเมื่อเหลือ 24 ชั่วโมงพอดี ได้เครดิต = เงินที่จ่าย + เครดิตที่ใช้ @CANCEL @P1 (2.1s)
+  ok 240 [serial] › tests\time.serial.spec.ts:109:5 › TC-CANCEL-02 ยกเลิกเมื่อเหลือ 23:59 ชม. ไม่ได้เครดิต และยกเลิกหลังเวลาเริ่มไม่ได้ @CANCEL @P1 (3.6s)
+  ok 241 [serial] › tests\time.serial.spec.ts:149:5 › TC-CANCEL-04 เลื่อนวันได้เมื่อเหลืออย่างน้อย 24 ชั่วโมง (23:59 ไม่ได้ / 24:00 ได้) @CANCEL @P1 (2.7s)
+  ok 242 [serial] › tests\time.serial.spec.ts:178:5 › TC-TEAM-04 ทีมรับคำท้าไม่จ่ายใน 15 นาที → ประกาศกลับเป็น OPEN @TEAM @P2 (6.3s)
+  ok 243 [serial] › tests\time.serial.spec.ts:225:5 › TC-STAFF-02 กด "ไม่มา" ได้เมื่อเลยเวลาเริ่ม ≥ 15 นาที (14 ไม่ได้ / 15 ได้) และไม่มาครั้งแรกยังจองได้ @STAFF @P1 (2.7s)
+  ok 244 [serial] › tests\time.serial.spec.ts:258:5 › TC-STAFF-03 ไม่มาครั้งที่ 2 ห่างครั้งแรก 30 วัน → ระงับ 30 วัน จองออนไลน์ไม่ได้ @STAFF @P1 (2.5s)
+  ok 245 [serial] › tests\time.serial.spec.ts:291:5 › TC-STAFF-04 ไม่มาครั้งที่ 2 ห่างครั้งแรก 31 วัน → ไม่ระงับ @STAFF @P1 (2.5s)
+  ok 246 [serial] › tests\time.serial.spec.ts:321:5 › TC-CANCEL-05 ยกเลิกเมื่อเหลือ 1 นาที ได้แต่ไม่ได้เครดิต · เหลือ 0 นาที (ถึงเวลาเริ่ม) ยกเลิกไม่ได้ (A-22) @CANCEL @P1 (3.5s)
+  ok 247 [serial] › tests\time.serial.spec.ts:366:5 › TC-CANCEL-07 เลื่อนระหว่างทีมรับคำท้ากำลังจ่าย → ปฏิเสธ · ครบ 15 นาทีพอดียังเลื่อนไม่ได้ · 15 นาที 1 วินาทีเลื่อนได้ (A-28) @CANCEL @P1 (2.3s)
+  ok 248 [serial] › tests\time.serial.spec.ts:429:5 › TC-TEAM-05 ทีมรับคำท้าจ่ายที่ครบ 15 นาทีพอดี → ทัน (MATCHED) · 15 นาที 1 วินาที → ไม่ทัน (A-23) @TEAM @P1 (5.1s)
+  x  249 [serial] › tests\v2.serial.spec.ts:123:5 › TC-BOOK-10 ค่าขอบเวลาตาม TEST-DATA ทุกแถว E04–E21 (วันนี้ ศ 9 10:00) @BOOK @P1 (5.2s)
+  ok 250 [serial] › tests\v2.serial.spec.ts:200:5 › TC-PRICE-07 เครดิตของต้นกับยอด E45, E46 และขอบ ฿999/฿1,000/฿1,001 (E56–E58) @PRICE @P1 (3.8s)
+  ok 251 [serial] › tests\v2.serial.spec.ts:258:5 › TC-PAY-04 จ่ายที่ 14 นาที 59 วินาที (E34) และ 15 นาที 0 วินาที (E35) ทัน @PAY @P1 (4.0s)
+  ok 252 [serial] › tests\v2.serial.spec.ts:290:5 › TC-CANCEL-08 ยกเลิกตามแถว TEST-DATA E47–E51 (การจอง A ส 10 10:00) @CANCEL @P1 (9.2s)
+  ok 253 [serial] › tests\v2.serial.spec.ts:334:5 › TC-CANCEL-09 เลื่อนตามแถว E94–E97 @CANCEL @P1 (5.6s)
+  ok 254 [serial] › tests\v2.serial.spec.ts:378:5 › TC-PRICE-05 ราคาทุกแถว E22–E33 (ขนาด/ช่วงเวลา/วันหยุด/คร่อม 17:00) @PRICE @P1 (3.0s)
+  ok 255 [serial] › tests\v2.serial.spec.ts:410:5 › TC-PRICE-06 แผนจ่ายทุกแถว E37–E43 @PRICE @P1 (3.2s)
+  ok 256 [serial] › tests\v2.serial.spec.ts:437:5 › TC-SERIES-05 จองประจำ E77 + สัปดาห์ที่ตรงวันหยุด (10, 31 ธ.ค. / 5 ธ.ค.) @SERIES @P1 (1.5s)
+  ok 257 [serial] › tests\v2.serial.spec.ts:474:5 › TC-MEMBER-08 สิทธิ์ฟรีที่ 19 และ 20 ชั่วโมง (E87, E88) @MEMBER @P2 (543ms)
+  ok 258 [serial] › tests\v2.serial.spec.ts:518:5 › TC-TEAM-08 ทีมรับคำท้าจ่ายที่ 14:59 (E105) และ 15:00 (E106) → MATCHED เจ้าของได้ ฿900 @TEAM @P1 (10.9s)
+  ok 259 [serial] › tests\v2.serial.spec.ts:560:5 › TC-STAFF-07 ไม่มาครั้งที่ 2 ห่าง 29 วัน (E60) ระงับ · กดไม่มาเลย 16 นาที (E66) ได้ @STAFF @P1 (2.4s)
+  ok 260 [serial] › tests\v2.serial.spec.ts:596:5 › TC-OWNER-04 ปิดฝนตาม TEST-DATA: A 18–20 (LN-900001 ทับ) · B · A 17–19 · C @OWNER @P1 (3.7s)
+  ok 261 [serial] › tests\v2.serial.spec.ts:650:5 › TC-API-05 คำขอเปลี่ยนข้อมูลจาก Origin อื่น → 403 @API @P2 (350ms)
+  ok 262 [serial] › tests\v2.serial.spec.ts:676:5 › TC-STOCK-01 คงเหลือ 8 รายการ แยก STORE / COUNTER / รวม + ประวัติขาย seed @STOCK @P2 (1.5s)
+  ok 263 [serial] › tests\v2.serial.spec.ts:707:5 › TC-STOCK-02 ย้ายของ E124–E127 @STOCK @P1 (6.5s)
+  x  264 [serial] › tests\v2.serial.spec.ts:742:5 › TC-STOCK-03 เตือนของใกล้หมด E128–E131 + ตั้ง/ล้างจุดสั่งซื้อซ้ำ @STOCK @P2 (28.2s)
+  ok 265 [serial] › tests\v2.serial.spec.ts:794:5 › TC-STOCK-04 ปรับยอดต้องมีเหตุผล และบันทึกชื่อ+เวลา (E133–E134) @STOCK @P2 (3.4s)
+  ok 266 [serial] › tests\v2.serial.spec.ts:840:5 › TC-STOCK-05 ชำรุด/รับเข้าเอี๊ยม เปลี่ยนจำนวนให้เช่า (E138–E139) @STOCK @P1 (4.2s)
+  ok 267 [serial] › tests\v2.serial.spec.ts:873:5 › TC-STOCK-06 ลดของเช่าต่ำกว่าที่การจองค้างจองไว้ไม่ได้ @STOCK @P2 (1.9s)
+  x  268 [serial] › tests\v2.serial.spec.ts:898:5 › TC-SALE-01 ขายหน้าเคาน์เตอร์ E135 และ US-42 (น้ำ 2 เงินสด) @SALE @P1 (5.2s)
+  ok 269 [serial] › tests\v2.serial.spec.ts:939:5 › TC-SALE-02 ขายน้ำ 23 / 24 / 25 ขวด (E121–E123) @SALE @P1 (6.4s)
+  ok 270 [serial] › tests\v2.serial.spec.ts:961:5 › TC-SALE-03 ขายได้เฉพาะของขาย (E136–E137) · ฟอร์มเปล่า / ไม่เลือกช่องทาง @SALE @P2 (2.9s)
+  x  271 [serial] › tests\v2.serial.spec.ts:999:5 › TC-DASH-01 แดชบอร์ดจาก seed (TEST-DATA 5.4) เทียบ SQL @DASH @P1 (3.2s)
+  x  272 [serial] › tests\v2.serial.spec.ts:1028:5 › TC-DASH-02 ยอดวันนี้อัปเดตหลังรับเงิน · เครดิตแสดงแยก ไม่นับเป็นรายได้ (A-37) @DASH @P1 (8.3s)
+  ok 273 [serial] › tests\v2.serial.spec.ts:1068:5 › TC-DASH-03 อัตราการใช้สนาม 25% (US-46) · ยกเลิกไม่นับ · ชั่วโมงยอดนิยม/สถานะ @DASH @P2 (1.4s)
+  x  274 [serial] › tests\v2.serial.spec.ts:1098:5 › TC-REPORT-01 ช่วงวันรายงาน E140–E142 (+ 30 พ.ย. → 28 ก.พ. A-46) @REPORT @P2 (15.1s)
+  x  275 [serial] › tests\v2.serial.spec.ts:1127:5 › TC-REPORT-02 รายงาน 8–8 ต.ค. (E144) เทียบ SQL @REPORT @P1 (2.7s)
+  x  276 [serial] › tests\v2.serial.spec.ts:1147:5 › TC-REPORT-03 CSV เปิด Excel ได้ (BOM · หัวไทย · ไม่มี ฿) และบันทึก REPORT_EXPORT @REPORT @P2 (3.6s)
+  x  277 [serial] › tests\v2.serial.spec.ts:1189:5 › TC-REPORT-04 หัวข้อที่ร้านขอในรายงาน: เงินแยก มัดจำพร้อมเพย์ / เก็บหน้าสนาม / หักเครดิต + ชั่วโมงต่อสนาม @REPORT @P2 (2.4s)
+  ok 278 [serial] › tests\v2.serial.spec.ts:1235:5 › TC-REPORT-05 เงินนับวันรับ · การจองนับวันเตะ (BR-40 "มัดจำวันที่ 9 การจองวันที่ 12") @REPORT @P1 (4.1s)
+  x  279 [serial] › tests\v2.serial.spec.ts:1263:5 › TC-TRACK-01 ขั้นสถานะการจองพร้อมเวลา: จองแล้ว → จ่ายแล้ว → เช็กอิน → จบ (A-43, A-45) @TRACK @P3 (1.1s)
+  ok 280 [serial] › tests\v2.serial.spec.ts:1307:5 › TC-TRACK-02 ขั้นสถานะเมื่อยกเลิก / หมดเวลาจ่าย @TRACK @P3 (2.3s)
+  x  281 [serial] › tests\v2.serial.spec.ts:1338:5 › TC-DATA-01 staff กดไม่มา LN-900001 ตอน 19:15 → ประวัติ (ชื่อพนักงาน A-44) + AuditLog (E146) @DATA @P2 (14.4s)
+  ok 282 [serial] › tests\v2.serial.spec.ts:1378:5 › TC-DATA-02 ไม่มีทางแก้/ลบประวัติสถานะและ AuditLog (E147) @DATA @P2 (647ms)
+  ok 283 [serial] › tests\v2.serial.spec.ts:1406:5 › TC-DATA-03 migration รันซ้ำและถอยกลับโดยการจองเดิมอยู่ครบ (E148) @DATA @P2 (10.4s)
+  ok 284 [serial] › tests\v2.serial.spec.ts:1438:5 › TC-ROLE-02 สิทธิ์คลัง: staff ขาย/ย้ายได้ · รับเข้า/ชำรุด/ปรับยอด/จุดสั่งซื้อไม่ได้ (E132) @ROLE @P1 (2.5s)
+
+
+  1) [chromium] › tests\book.spec.ts:93:7 › BOOK › TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้) @BOOK @P1 › ปุ่มวันมีถึง 23 ต.ค. (วันนี้ + 14) ไม่มี 24 ต.ค. 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByTestId('date-chip-2026-10-24')
+    Expected: 0
+    Received: 1
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "toHaveCount" getByTestId('date-chip-2026-10-24') with timeout 10000ms
+      - waiting for getByTestId('date-chip-2026-10-24')
+        23 × locator resolved to 1 element
+           - unexpected value "1"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\book.spec.ts:103:62)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\book.spec.ts:99:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests\chat.spec.ts:443:7 › CHAT › TC-CHAT-14 ถามต่อเนื่อง: "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" (US-39 น้องมิว) @CHAT @P2 › ตรวจ คำตอบ 1 มี 800 · คำตอบ 2 มี 1,600 / ห้ามมี "ไม่มีข้อมูล" 
+
+    Error: ต้องมี: คำตอบ 1 มี "800" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:459:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:458:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ต้องมี: คำตอบ 2 มี "1,600" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:460:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:458:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ห้ามมี: "ไม่มีข้อมูล" (คำตอบ 1 และ 2) — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ → ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:461:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:458:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests\chat.spec.ts:465:7 › CHAT › TC-CHAT-15 ถามต่อเนื่อง: "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" @CHAT @P2 › ตรวจ คำตอบ 1 "ไม่ว่าง" · คำตอบ 2 "สนาม B" + "ว่าง" / ห้ามมี "ไม่มีข้อมูล" 
+
+    Error: ต้องมี: คำตอบ 2 มี "สนาม B" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:483:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:480:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ต้องมี: คำตอบ 2 มี "ว่าง" (ไม่ใช่ "ไม่ว่าง") — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:484:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:480:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ห้ามมี: "ไม่มีข้อมูล" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:485:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:480:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › tests\chat.spec.ts:494:7 › CHAT › TC-CHAT-16 ถามต่อเนื่องภาษาอังกฤษ (Mr. Daniel): covered? → Saturday night price @CHAT @P2 › ตรวจ covered · 1,800 + C / ห้ามมี "Field A" และอักษรไทย 
+
+    Error: ห้ามมี: คำตอบ 2 มี "Field A" (ตอบทุกสนามแทนสนามที่คุยอยู่) — ได้จริง: Please tell me the field, date and start time and I will check it for you. Field A: THB 800/h (starting before 17:00 Mon–Fri) and THB 1,200/h (from 17:00, weekends and holidays); Field B: THB 800/h (starting before 17:00
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:513:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:509:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium] › tests\v2.spec.ts:76:7 › BOOK v2 › TC-BOOK-11 ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) @BOOK @P3 › เปิด /my กด lookup-submit ทันที (ช่องว่าง) 
+
+    Error: ข้อความต้องบอกให้กรอก ไม่ใช่ error ระบบ
+
+    expect(received).not.toContain(expected) // indexOf
+
+    Expected substring: not "เกิดข้อผิดพลาดในระบบ"
+    Received string:        "เกิดข้อผิดพลาดในระบบ กรุณาลองใหม่"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:90:69)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:84:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ข้อความต้องพูดถึงรหัส/เบอร์ที่ต้องกรอก
+
+    expect(received).toMatch(expected)
+
+    Expected pattern: /รหัส|เบอร์|กรอก|โทร/
+    Received string:  "เกิดข้อผิดพลาดในระบบ กรุณาลองใหม่"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:91:64)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:84:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [chromium] › tests\v2.spec.ts:289:7 › STAFF v2 › TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) @STAFF @P2 
+
+    Error: ผลการกดเช็กอินก่อนวันเตะ: "เก็บเงินและเช็กอินแล้ว"
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "error"
+    Received: "success"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:313:72)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:305:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  getByTestId('staff-booking-status')
+    Expected: "CONFIRMED"
+    Received: "CHECKED_IN"
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "soft toHaveAttribute" getByTestId('staff-booking-status') with timeout 10000ms
+      - waiting for getByTestId('staff-booking-status')
+        23 × locator resolved to <span data-value="CHECKED_IN" class="status-tag CHECKED_IN" data-testid="staff-booking-status">เช็กอินแล้ว</span>
+           - unexpected value "CHECKED_IN"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:314:67)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:305:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ชั่วโมงสะสมก่อนวันเตะ
+
+    expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  getByTestId('paid-hours')
+    Expected: "0"
+    Received: "3"
+    Timeout:  10000ms
+
+    Call log:
+      - ชั่วโมงสะสมก่อนวันเตะ getByTestId('paid-hours') with timeout 10000ms
+      - waiting for getByTestId('paid-hours')
+        23 × locator resolved to <div class="v" data-value="3" data-testid="paid-hours">3</div>
+           - unexpected value "3"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:318:82)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:316:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: สถานะในฐานข้อมูล
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "CONFIRMED"
+    Received: "CHECKED_IN"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:319:91)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:316:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [chromium] › tests\v2.spec.ts:416:7 › ROLE › TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) @ROLE @P1 
+
+    Error: cookie สมาชิกเดิมหลังออกจากระบบ GET /api/me
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 401
+    Received: 200
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:437:76)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:430:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: cookie ร้านเดิมหลังออกจากระบบ GET /api/staff/bookings/LN-900004
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 401
+    Received: 200
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:450:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:440:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [firefox] › tests\book.spec.ts:93:7 › BOOK › TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้) @BOOK @P1 › ปุ่มวันมีถึง 23 ต.ค. (วันนี้ + 14) ไม่มี 24 ต.ค. 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByTestId('date-chip-2026-10-24')
+    Expected: 0
+    Received: 1
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "toHaveCount" getByTestId('date-chip-2026-10-24') with timeout 10000ms
+      - waiting for getByTestId('date-chip-2026-10-24')
+        21 × locator resolved to 1 element
+           - unexpected value "1"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\book.spec.ts:103:62)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\book.spec.ts:99:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--firefox\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [firefox] › tests\chat.spec.ts:443:7 › CHAT › TC-CHAT-14 ถามต่อเนื่อง: "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" (US-39 น้องมิว) @CHAT @P2 › ตรวจ คำตอบ 1 มี 800 · คำตอบ 2 มี 1,600 / ห้ามมี "ไม่มีข้อมูล" 
+
+    Error: ต้องมี: คำตอบ 1 มี "800" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:459:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:458:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ต้องมี: คำตอบ 2 มี "1,600" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:460:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:458:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ห้ามมี: "ไม่มีข้อมูล" (คำตอบ 1 และ 2) — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ → ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:461:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:458:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--firefox\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [firefox] › tests\chat.spec.ts:465:7 › CHAT › TC-CHAT-15 ถามต่อเนื่อง: "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" @CHAT @P2 › ตรวจ คำตอบ 1 "ไม่ว่าง" · คำตอบ 2 "สนาม B" + "ว่าง" / ห้ามมี "ไม่มีข้อมูล" 
+
+    Error: ต้องมี: คำตอบ 2 มี "สนาม B" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:483:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:480:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ต้องมี: คำตอบ 2 มี "ว่าง" (ไม่ใช่ "ไม่ว่าง") — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:484:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:480:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ห้ามมี: "ไม่มีข้อมูล" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:485:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:480:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--firefox\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) [firefox] › tests\chat.spec.ts:494:7 › CHAT › TC-CHAT-16 ถามต่อเนื่องภาษาอังกฤษ (Mr. Daniel): covered? → Saturday night price @CHAT @P2 › ตรวจ covered · 1,800 + C / ห้ามมี "Field A" และอักษรไทย 
+
+    Error: ห้ามมี: คำตอบ 2 มี "Field A" (ตอบทุกสนามแทนสนามที่คุยอยู่) — ได้จริง: Please tell me the field, date and start time and I will check it for you. Field A: THB 800/h (starting before 17:00 Mon–Fri) and THB 1,200/h (from 17:00, weekends and holidays); Field B: THB 800/h (starting before 17:00
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:513:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:509:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-firefox\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [firefox] › tests\v2.spec.ts:76:7 › BOOK v2 › TC-BOOK-11 ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) @BOOK @P3 › เปิด /my กด lookup-submit ทันที (ช่องว่าง) 
+
+    Error: ข้อความต้องบอกให้กรอก ไม่ใช่ error ระบบ
+
+    expect(received).not.toContain(expected) // indexOf
+
+    Expected substring: not "เกิดข้อผิดพลาดในระบบ"
+    Received string:        "เกิดข้อผิดพลาดในระบบ กรุณาลองใหม่"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:90:69)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:84:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ข้อความต้องพูดถึงรหัส/เบอร์ที่ต้องกรอก
+
+    expect(received).toMatch(expected)
+
+    Expected pattern: /รหัส|เบอร์|กรอก|โทร/
+    Received string:  "เกิดข้อผิดพลาดในระบบ กรุณาลองใหม่"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:91:64)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:84:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--firefox\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  13) [firefox] › tests\v2.spec.ts:230:7 › MEMBER v2 › TC-MEMBER-06 ชั่วโมงสะสมของลูกค้าใน TEST-DATA: ต้น 7 · ฟ้า 9 · มิว 10 @MEMBER @P1 › ฟ้า เข้าสู่ระบบ /my → 9 / 0 / 1 (และหลังรีโหลด) 
+
+    Error: page.reload: NS_BINDING_ABORTED
+    Call log:
+      - waiting for navigation until "load"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:246:52)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:243:7)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2-MEMBER-v2-TC-MEMBER-06--8f947-DATA-ต้น-7-·-ฟ้า-9-·-มิว-10-firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2-MEMBER-v2-TC-MEMBER-06--8f947-DATA-ต้น-7-·-ฟ้า-9-·-มิว-10-firefox\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2-MEMBER-v2-TC-MEMBER-06--8f947-DATA-ต้น-7-·-ฟ้า-9-·-มิว-10-firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2-MEMBER-v2-TC-MEMBER-06--8f947-DATA-ต้น-7-·-ฟ้า-9-·-มิว-10-firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  14) [firefox] › tests\v2.spec.ts:289:7 › STAFF v2 › TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) @STAFF @P2 
+
+    Error: ผลการกดเช็กอินก่อนวันเตะ: "เก็บเงินและเช็กอินแล้ว"
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "error"
+    Received: "success"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:313:72)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:305:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  getByTestId('staff-booking-status')
+    Expected: "CONFIRMED"
+    Received: "CHECKED_IN"
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "soft toHaveAttribute" getByTestId('staff-booking-status') with timeout 10000ms
+      - waiting for getByTestId('staff-booking-status')
+        23 × locator resolved to <span data-value="CHECKED_IN" class="status-tag CHECKED_IN" data-testid="staff-booking-status">เช็กอินแล้ว</span>
+           - unexpected value "CHECKED_IN"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:314:67)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:305:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ชั่วโมงสะสมก่อนวันเตะ
+
+    expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  getByTestId('paid-hours')
+    Expected: "0"
+    Received: "3"
+    Timeout:  10000ms
+
+    Call log:
+      - ชั่วโมงสะสมก่อนวันเตะ getByTestId('paid-hours') with timeout 10000ms
+      - waiting for getByTestId('paid-hours')
+        23 × locator resolved to <div class="v" data-value="3" data-testid="paid-hours">3</div>
+           - unexpected value "3"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:318:82)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:316:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: สถานะในฐานข้อมูล
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "CONFIRMED"
+    Received: "CHECKED_IN"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:319:91)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:316:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--firefox\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  15) [firefox] › tests\v2.spec.ts:416:7 › ROLE › TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) @ROLE @P1 
+
+    Error: cookie สมาชิกเดิมหลังออกจากระบบ GET /api/me
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 401
+    Received: 200
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:437:76)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:430:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: cookie ร้านเดิมหลังออกจากระบบ GET /api/staff/bookings/LN-900004
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 401
+    Received: 200
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:450:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:440:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--firefox\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  16) [webkit] › tests\book.spec.ts:93:7 › BOOK › TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้) @BOOK @P1 › ปุ่มวันมีถึง 23 ต.ค. (วันนี้ + 14) ไม่มี 24 ต.ค. 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByTestId('date-chip-2026-10-24')
+    Expected: 0
+    Received: 1
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "toHaveCount" getByTestId('date-chip-2026-10-24') with timeout 10000ms
+      - waiting for getByTestId('date-chip-2026-10-24')
+        23 × locator resolved to 1 element
+           - unexpected value "1"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\book.spec.ts:103:62)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\book.spec.ts:99:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--webkit\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\book-BOOK-TC-BOOK-04-จองล่-684b4-น-23-ต-ค-ได้-24-ต-ค-ไม่ได้--webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  17) [webkit] › tests\chat.spec.ts:443:7 › CHAT › TC-CHAT-14 ถามต่อเนื่อง: "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" (US-39 น้องมิว) @CHAT @P2 › ตรวจ คำตอบ 1 มี 800 · คำตอบ 2 มี 1,600 / ห้ามมี "ไม่มีข้อมูล" 
+
+    Error: ต้องมี: คำตอบ 1 มี "800" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:459:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:458:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ต้องมี: คำตอบ 2 มี "1,600" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:460:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:458:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ห้ามมี: "ไม่มีข้อมูล" (คำตอบ 1 และ 2) — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ → ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:461:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:458:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--webkit\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\chat-CHAT-TC-CHAT-14-ถามต่-b1ce0-2-ชั่วโมงล่ะ-US-39-น้องมิว--webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  18) [webkit] › tests\chat.spec.ts:465:7 › CHAT › TC-CHAT-15 ถามต่อเนื่อง: "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" @CHAT @P2 › ตรวจ คำตอบ 1 "ไม่ว่าง" · คำตอบ 2 "สนาม B" + "ว่าง" / ห้ามมี "ไม่มีข้อมูล" 
+
+    Error: ต้องมี: คำตอบ 2 มี "สนาม B" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:483:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:480:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ต้องมี: คำตอบ 2 มี "ว่าง" (ไม่ใช่ "ไม่ว่าง") — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:484:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:480:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ห้ามมี: "ไม่มีข้อมูล" — ได้จริง: ขอโทษครับ เรื่องนี้น้องบอลไม่มีข้อมูล สอบถามร้านได้ที่โทร 02-345-6789 หรือ LINE @lookhnang ครับ
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:485:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:480:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--webkit\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\chat-CHAT-TC-CHAT-15-ถามต่-bba0f-A-ว่างไหม-→-งั้นสนาม-B-ล่ะ--webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  19) [webkit] › tests\chat.spec.ts:494:7 › CHAT › TC-CHAT-16 ถามต่อเนื่องภาษาอังกฤษ (Mr. Daniel): covered? → Saturday night price @CHAT @P2 › ตรวจ covered · 1,800 + C / ห้ามมี "Field A" และอักษรไทย 
+
+    Error: ห้ามมี: คำตอบ 2 มี "Field A" (ตอบทุกสนามแทนสนามที่คุยอยู่) — ได้จริง: Please tell me the field, date and start time and I will check it for you. Field A: THB 800/h (starting before 17:00 Mon–Fri) and THB 1,200/h (from 17:00, weekends and holidays); Field B: THB 800/h (starting before 17:00
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at chat-helpers.ts:60
+
+      58 |   check(kind: Check['kind'], label: string, ok: boolean, actual?: string) {
+      59 |     this.checks.push({ kind, label, ok, actual });
+    > 60 |     expect.soft(ok, `${kind}: ${label}${actual !== undefined ? ` — ได้จริง: ${actual}` : ''}`).toBe(true);
+         |                                                                                                ^
+      61 |   }
+      62 | }
+      63 |
+        at ChatLog.check (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat-helpers.ts:60:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:513:12)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\chat.spec.ts:509:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-webkit\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\chat-CHAT-TC-CHAT-16-ถามต่-2be3a-ered-→-Saturday-night-price-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  20) [webkit] › tests\v2.spec.ts:76:7 › BOOK v2 › TC-BOOK-11 ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) @BOOK @P3 › เปิด /my กด lookup-submit ทันที (ช่องว่าง) 
+
+    Error: ข้อความต้องบอกให้กรอก ไม่ใช่ error ระบบ
+
+    expect(received).not.toContain(expected) // indexOf
+
+    Expected substring: not "เกิดข้อผิดพลาดในระบบ"
+    Received string:        "เกิดข้อผิดพลาดในระบบ กรุณาลองใหม่"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:90:69)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:84:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ข้อความต้องพูดถึงรหัส/เบอร์ที่ต้องกรอก
+
+    expect(received).toMatch(expected)
+
+    Expected pattern: /รหัส|เบอร์|กรอก|โทร/
+    Received string:  "เกิดข้อผิดพลาดในระบบ กรุณาลองใหม่"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:91:64)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:84:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--webkit\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  21) [webkit] › tests\v2.spec.ts:289:7 › STAFF v2 › TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) @STAFF @P2 
+
+    Error: ผลการกดเช็กอินก่อนวันเตะ: "เก็บเงินและเช็กอินแล้ว"
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "error"
+    Received: "success"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:313:72)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:305:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  getByTestId('staff-booking-status')
+    Expected: "CONFIRMED"
+    Received: "CHECKED_IN"
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "soft toHaveAttribute" getByTestId('staff-booking-status') with timeout 10000ms
+      - waiting for getByTestId('staff-booking-status')
+        23 × locator resolved to <span data-value="CHECKED_IN" class="status-tag CHECKED_IN" data-testid="staff-booking-status">เช็กอินแล้ว</span>
+           - unexpected value "CHECKED_IN"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:314:67)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:305:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ชั่วโมงสะสมก่อนวันเตะ
+
+    expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  getByTestId('paid-hours')
+    Expected: "0"
+    Received: "3"
+    Timeout:  10000ms
+
+    Call log:
+      - ชั่วโมงสะสมก่อนวันเตะ getByTestId('paid-hours') with timeout 10000ms
+      - waiting for getByTestId('paid-hours')
+        23 × locator resolved to <div class="v" data-value="3" data-testid="paid-hours">3</div>
+           - unexpected value "3"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:318:82)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:316:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: สถานะในฐานข้อมูล
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "CONFIRMED"
+    Received: "CHECKED_IN"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:319:91)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:316:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--webkit\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  22) [webkit] › tests\v2.spec.ts:416:7 › ROLE › TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) @ROLE @P1 
+
+    Error: cookie สมาชิกเดิมหลังออกจากระบบ GET /api/me
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 401
+    Received: 200
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:437:76)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:430:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: cookie ร้านเดิมหลังออกจากระบบ GET /api/staff/bookings/LN-900004
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 401
+    Received: 200
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:450:96)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.spec.ts:440:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--webkit\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  23) [serial] › tests\v2.serial.spec.ts:123:5 › TC-BOOK-10 ค่าขอบเวลาตาม TEST-DATA ทุกแถว E04–E21 (วันนี้ ศ 9 10:00) @BOOK @P1 › E12–E14 ฟอร์ม 22 / 23 (วันหยุด) / 24 ต.ค. 09:00 
+
+    Error: E14
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "TOO_FAR_AHEAD"
+    Received: undefined
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:162:45)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:156:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-BOOK-10-ค่าขอ-3db3f-ว-E04–E21-วันนี้-ศ-9-10-00--serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-BOOK-10-ค่าขอ-3db3f-ว-E04–E21-วันนี้-ศ-9-10-00--serial\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-BOOK-10-ค่าขอ-3db3f-ว-E04–E21-วันนี้-ศ-9-10-00--serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-BOOK-10-ค่าขอ-3db3f-ว-E04–E21-วันนี้-ศ-9-10-00--serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  24) [serial] › tests\v2.serial.spec.ts:742:5 › TC-STOCK-03 เตือนของใกล้หมด E128–E131 + ตั้ง/ล้างจุดสั่งซื้อซ้ำ @STOCK @P2 › (reset) manager ชำรุดน้ำ STORE 72 → รวม 48 → stock-alerts 0 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  getByTestId('stock-alerts')
+    Expected: "0"
+    Received: "1"
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "soft toHaveAttribute" getByTestId('stock-alerts') with timeout 10000ms
+      - waiting for getByTestId('stock-alerts')
+        24 × locator resolved to <section class="card" data-count="1" data-testid="stock-alerts">…</section>
+           - unexpected value "1"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:759:59)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:750:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByTestId('stock-alert-WATER')
+    Expected: 0
+    Received: 1
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "soft toHaveCount" getByTestId('stock-alert-WATER') with timeout 10000ms
+      - waiting for getByTestId('stock-alert-WATER')
+        24 × locator resolved to 1 element
+           - unexpected value "1"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:761:69)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:750:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-STOCK-03-เตือ-1b87a-131-ตั้ง-ล้างจุดสั่งซื้อซ้ำ-serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-STOCK-03-เตือ-1b87a-131-ตั้ง-ล้างจุดสั่งซื้อซ้ำ-serial\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-STOCK-03-เตือ-1b87a-131-ตั้ง-ล้างจุดสั่งซื้อซ้ำ-serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-STOCK-03-เตือ-1b87a-131-ตั้ง-ล้างจุดสั่งซื้อซ้ำ-serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  25) [serial] › tests\v2.serial.spec.ts:898:5 › TC-SALE-01 ขายหน้าเคาน์เตอร์ E135 และ US-42 (น้ำ 2 เงินสด) @SALE @P1 › owner แดชบอร์ด dash-today-sales 80 · รวมวันนี้ 80 · จอง 0 
+
+    Error: dash-today-sales ต้องเป็น 80
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 80
+    Received: 0
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:920:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:917:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: dash-today-total ต้องเป็น 80
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 80
+    Received: 0
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:921:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:917:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-SALE-01-ขายหน-231e3-135-และ-US-42-น้ำ-2-เงินสด--serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-SALE-01-ขายหน-231e3-135-และ-US-42-น้ำ-2-เงินสด--serial\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-SALE-01-ขายหน-231e3-135-และ-US-42-น้ำ-2-เงินสด--serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-SALE-01-ขายหน-231e3-135-และ-US-42-น้ำ-2-เงินสด--serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  26) [serial] › tests\v2.serial.spec.ts:999:5 › TC-DASH-01 แดชบอร์ดจาก seed (TEST-DATA 5.4) เทียบ SQL @DASH @P1 › owner เปิดแดชบอร์ดวันนี้ 9 ต.ค. 
+
+    Error: dash-today-total ต้องเป็น 40
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 40
+    Received: 0
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1010:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1007:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: dash-today-sales ต้องเป็น 40
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 40
+    Received: 0
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1012:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1007:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: dash-week-total ต้องเป็น 7300
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 7300
+    Received: 7260
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1014:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1007:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: dash-bar-2026-10-09 ต้องเป็น 40
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 40
+    Received: 0
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1015:48)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1007:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-DASH-01-แดชบอ-f599b-eed-TEST-DATA-5-4-เทียบ-SQL-serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-DASH-01-แดชบอ-f599b-eed-TEST-DATA-5-4-เทียบ-SQL-serial\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-DASH-01-แดชบอ-f599b-eed-TEST-DATA-5-4-เทียบ-SQL-serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-DASH-01-แดชบอ-f599b-eed-TEST-DATA-5-4-เทียบ-SQL-serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  27) [serial] › tests\v2.serial.spec.ts:1028:5 › TC-DASH-02 ยอดวันนี้อัปเดตหลังรับเงิน · เครดิตแสดงแยก ไม่นับเป็นรายได้ (A-37) @DASH @P1 › owner แดชบอร์ด อ่าน → รีโหลดอ่านซ้ำ 
+
+    Error: sales ครั้งแรก ต้องเป็น 60
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 60
+    Received: 0
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1058:7)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1052:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: total ครั้งแรก ต้องเป็น 860
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 860
+    Received: 800
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1059:7)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1052:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: แท่ง 9 ต.ค. ครั้งแรก ต้องเป็น 860
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 860
+    Received: 800
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1061:7)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1052:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: week ครั้งแรก ต้องเป็น 8120
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 8120
+    Received: 8060
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1062:7)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1052:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: sales หลังรีโหลด ต้องเป็น 60
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 60
+    Received: 0
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1058:7)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1052:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: total หลังรีโหลด ต้องเป็น 860
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 860
+    Received: 800
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1059:7)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1052:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: แท่ง 9 ต.ค. หลังรีโหลด ต้องเป็น 860
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 860
+    Received: 800
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1061:7)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1052:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: week หลังรีโหลด ต้องเป็น 8120
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 8120
+    Received: 8060
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1062:7)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1052:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-DASH-02-ยอดวั-75157-งแยก-ไม่นับเป็นรายได้-A-37--serial\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-DASH-02-ยอดวั-75157-งแยก-ไม่นับเป็นรายได้-A-37--serial\test-failed-4.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-DASH-02-ยอดวั-75157-งแยก-ไม่นับเป็นรายได้-A-37--serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-DASH-02-ยอดวั-75157-งแยก-ไม่นับเป็นรายได้-A-37--serial\test-failed-3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-DASH-02-ยอดวั-75157-งแยก-ไม่นับเป็นรายได้-A-37--serial\error-context.md
+
+    attachment #6: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-DASH-02-ยอดวั-75157-งแยก-ไม่นับเป็นรายได้-A-37--serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-DASH-02-ยอดวั-75157-งแยก-ไม่นับเป็นรายได้-A-37--serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  28) [serial] › tests\v2.serial.spec.ts:1098:5 › TC-REPORT-01 ช่วงวันรายงาน E140–E142 (+ 30 พ.ย. → 28 ก.พ. A-46) @REPORT @P2 › [A-46] 2026-11-30 → 2027-02-28 ดูได้ (91 วัน) 
+
+    Error: 30 พ.ย. → 28 ก.พ. ต้องไม่มี error (A-46)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: ""
+    Received: "ดูรายงานได้ครั้งละไม่เกิน 3 เดือน"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1122:66)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1119:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: getByTestId('report-table')
+    Expected: "91"
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "soft toHaveAttribute" getByTestId('report-table') with timeout 10000ms
+      - waiting for getByTestId('report-table')
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1123:57)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1119:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-REPORT-01-ช่ว-4dd4b-–E142-30-พ-ย-→-28-ก-พ-A-46--serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-REPORT-01-ช่ว-4dd4b-–E142-30-พ-ย-→-28-ก-พ-A-46--serial\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-REPORT-01-ช่ว-4dd4b-–E142-30-พ-ย-→-28-ก-พ-A-46--serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-REPORT-01-ช่ว-4dd4b-–E142-30-พ-ย-→-28-ก-พ-A-46--serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  29) [serial] › tests\v2.serial.spec.ts:1127:5 › TC-REPORT-02 รายงาน 8–8 ต.ค. (E144) เทียบ SQL @REPORT @P1 › owner รายงาน 2026-10-08 → 2026-10-08 
+
+    Error: report-2026-10-08-promptpay ต้องเป็น 60
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 60
+    Received: 0
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1139:48)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1134:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: report-2026-10-08-total ต้องเป็น 4860
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 4860
+    Received: 4800
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1139:48)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1134:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: report-total-money ต้องเป็น 4860
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 4860
+    Received: 4800
+
+       at v2-helpers.ts:63
+
+      61 |   let got = NaN;
+      62 |   try { got = await num(loc); } catch { got = NaN; }
+    > 63 |   expect.soft(got, `${label} ต้องเป็น ${want}`).toBe(want);
+         |                                                 ^
+      64 | }
+      65 |
+      66 | // ---------------------------------------------------------------- เข้าสู่ระบบ
+        at softNum (D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2-helpers.ts:63:49)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1140:5)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1134:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-REPORT-02-รายงาน-8–8-ต-ค-E144-เทียบ-SQL-serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-REPORT-02-รายงาน-8–8-ต-ค-E144-เทียบ-SQL-serial\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-REPORT-02-รายงาน-8–8-ต-ค-E144-เทียบ-SQL-serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-REPORT-02-รายงาน-8–8-ต-ค-E144-เทียบ-SQL-serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  30) [serial] › tests\v2.serial.spec.ts:1147:5 › TC-REPORT-03 CSV เปิด Excel ได้ (BOM · หัวไทย · ไม่มี ฿) และบันทึก REPORT_EXPORT @REPORT @P2 › BOM EF BB BF · หัวไทย · ไม่มี ฿ · 7 วัน + "รวม" รวมรับเงิน 7300 
+
+    Error: รวมรับเงิน 7 วัน
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 7300
+    Received: 7260
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1179:57)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1165:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-REPORT-03-CSV-d735b-ี-฿-และบันทึก-REPORT-EXPORT-serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-REPORT-03-CSV-d735b-ี-฿-และบันทึก-REPORT-EXPORT-serial\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-REPORT-03-CSV-d735b-ี-฿-และบันทึก-REPORT-EXPORT-serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-REPORT-03-CSV-d735b-ี-฿-และบันทึก-REPORT-EXPORT-serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  31) [serial] › tests\v2.serial.spec.ts:1189:5 › TC-REPORT-04 หัวข้อที่ร้านขอในรายงาน: เงินแยก มัดจำพร้อมเพย์ / เก็บหน้าสนาม / หักเครดิต + ชั่วโมงต่อสนาม @REPORT @P2 
+
+    Error: หัวตารางมี "หน้าสนาม"
+
+    expect(received).toMatch(expected)
+
+    Expected pattern: /หน้าสนาม/
+    Received string:  "วันที่ ยอดจอง ขายเงินสด ขายพร้อมเพย์ รวมรับเงิน หักเครดิต การจอง (วันเตะ) ไม่มา ส. 3 ต.ค. 2026 ฿600 ฿0 ฿0 ฿600 ฿0 1 0 อา. 4 ต.ค. 2026 ฿0 ฿0 ฿0 ฿0 ฿0 1 1 จ. 5 ต.ค. 2026 ฿600 ฿0 ฿0 ฿600 ฿0 0 0 อ. 6 ต.ค. 2026 ฿1,200 ฿0 ฿0 ฿1,200 ฿0 1 0 พ. 7 ต.ค. 2026 ฿0 ฿0 ฿0 ฿0 ฿0 1 1 พฤ. 8 ต.ค. 2026 ฿4,800 ฿0 ฿60 ฿4,860 ฿0 0 0 ศ. 9 ต.ค. 2026 ฿0 ฿0 ฿0 ฿0 ฿0 1 0 รวม ฿7,200 ฿0 ฿60 ฿7,260 ฿0 5 2"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1207:45)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1203:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: มัดจำพร้อมเพย์ของการจอง ฿6,600 (A-41) · หัว: วันที่ | ยอดจอง (บาท) | ขายเงินสด (บาท) | ขายพร้อมเพย์ (บาท) | ยอดขายรวม (บาท) | รวมรับเงิน (บาท) | หักเครดิต (บาท) | จำนวนการจอง (วันเตะ) | สถานะ PENDING_PAYMENT | สถานะ CONFIRMED | สถานะ CHECKED_IN | สถานะ NO_SHOW | สถานะ CANCELLED | สถานะ EXPIRED | สถานะ RAIN_CLOSED | ส่วนลด (บาท) | ค่าของเช่า (บาท) | ชั่วโมงฟรีที่ใช้
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 6600
+    Received: NaN
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1215:139)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1210:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: เก็บหน้าสนาม ฿600 (A-41)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 600
+    Received: NaN
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1216:62)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1210:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ยอดขายหน้าเคาน์เตอร์ ฿100
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 100
+    Received: 60
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1218:82)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1210:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: CSV มีคอลัมน์ชั่วโมงสนาม A
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   -1
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1228:55)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1222:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: CSV มีคอลัมน์ % สนาม A
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   -1
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1230:100)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1222:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: CSV มีคอลัมน์ชั่วโมงสนาม B
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   -1
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1228:55)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1222:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: CSV มีคอลัมน์ % สนาม B
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   -1
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1230:100)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1222:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: CSV มีคอลัมน์ชั่วโมงสนาม C
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   -1
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1228:55)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1222:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: CSV มีคอลัมน์ % สนาม C
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   -1
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1230:100)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:36)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1222:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-REPORT-04-หัว-9c1e8-าม-หักเครดิต-ชั่วโมงต่อสนาม-serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-REPORT-04-หัว-9c1e8-าม-หักเครดิต-ชั่วโมงต่อสนาม-serial\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-REPORT-04-หัว-9c1e8-าม-หักเครดิต-ชั่วโมงต่อสนาม-serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-REPORT-04-หัว-9c1e8-าม-หักเครดิต-ชั่วโมงต่อสนาม-serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  32) [serial] › tests\v2.serial.spec.ts:1263:5 › TC-TRACK-01 ขั้นสถานะการจองพร้อมเวลา: จองแล้ว → จ่ายแล้ว → เช็กอิน → จบ (A-43, A-45) @TRACK @P3 › [A-43] 12 ต.ค. 09:00 เวลาเล่นจบแล้ว → ขั้นสุดท้าย "จบ" 
+
+    Error: ขั้นทั้งหมด [{"status":"PENDING_PAYMENT","current":"","text":"รอชำระเงิน9 ต.ค. 2026 10:00"},{"status":"CONFIRMED","current":"","text":"ยืนยันแล้ว9 ต.ค. 2026 10:00"},{"status":"CHECKED_IN","current":"step","text":"เช็กอินแล้ว12 ต.ค. 2026 07:50"}]
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 4
+    Received: 3
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1300:65)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1296:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: ขั้นสุดท้ายคือ "จบ"
+
+    expect(received).toMatch(expected)
+
+    Expected pattern: /จบ/
+    Received string:  "เช็กอินแล้ว12 ต.ค. 2026 07:50"
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1301:71)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1296:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-TRACK-01-ขั้น-c546f-ว-→-เช็กอิน-→-จบ-A-43-A-45--serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-TRACK-01-ขั้น-c546f-ว-→-เช็กอิน-→-จบ-A-43-A-45--serial\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-TRACK-01-ขั้น-c546f-ว-→-เช็กอิน-→-จบ-A-43-A-45--serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-TRACK-01-ขั้น-c546f-ว-→-เช็กอิน-→-จบ-A-43-A-45--serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  33) [serial] › tests\v2.serial.spec.ts:1338:5 › TC-DATA-01 staff กดไม่มา LN-900001 ตอน 19:15 → ประวัติ (ชื่อพนักงาน A-44) + AuditLog (E146) @DATA @P2 
+
+    Error: ผู้ทำ = ชื่อพนักงาน (A-44)
+
+    expect(locator).toHaveText(expected) failed
+
+    Locator:  getByTestId('history-actor-2')
+    Expected: "น้องบอล"
+    Received: "staff"
+    Timeout:  10000ms
+
+    Call log:
+      - ผู้ทำ = ชื่อพนักงาน (A-44) getByTestId('history-actor-2') with timeout 10000ms
+      - waiting for getByTestId('history-actor-2')
+        24 × locator resolved to <td data-value="staff" data-testid="history-actor-2">staff</td>
+           - unexpected value "staff"
+
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1361:93)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1353:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        "ลูกค้า",
+        "ลูกค้า",
+    -   "น้องบอล",
+    +   "staff",
+      ]
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1374:25)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2417:20)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\common\index.js:2415:19)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\tests\v2.serial.spec.ts:1369:3)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1654:9)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1134:11)
+        at D:\work (outside)\Chanwacnich_TA\football-booking\e2e\node_modules\playwright\lib\worker\workerProcessEntry.js:1652:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-DATA-01-staff-f347a-พนักงาน-A-44-AuditLog-E146--serial\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\v2.serial-TC-DATA-01-staff-f347a-พนักงาน-A-44-AuditLog-E146--serial\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\v2.serial-TC-DATA-01-staff-f347a-พนักงาน-A-44-AuditLog-E146--serial\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\v2.serial-TC-DATA-01-staff-f347a-พนักงาน-A-44-AuditLog-E146--serial\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  33 failed
+    [chromium] › tests\book.spec.ts:93:7 › BOOK › TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้) @BOOK @P1 
+    [chromium] › tests\chat.spec.ts:443:7 › CHAT › TC-CHAT-14 ถามต่อเนื่อง: "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" (US-39 น้องมิว) @CHAT @P2 
+    [chromium] › tests\chat.spec.ts:465:7 › CHAT › TC-CHAT-15 ถามต่อเนื่อง: "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" @CHAT @P2 
+    [chromium] › tests\chat.spec.ts:494:7 › CHAT › TC-CHAT-16 ถามต่อเนื่องภาษาอังกฤษ (Mr. Daniel): covered? → Saturday night price @CHAT @P2 
+    [chromium] › tests\v2.spec.ts:76:7 › BOOK v2 › TC-BOOK-11 ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) @BOOK @P3 
+    [chromium] › tests\v2.spec.ts:289:7 › STAFF v2 › TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) @STAFF @P2 
+    [chromium] › tests\v2.spec.ts:416:7 › ROLE › TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) @ROLE @P1 
+    [firefox] › tests\book.spec.ts:93:7 › BOOK › TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้) @BOOK @P1 
+    [firefox] › tests\chat.spec.ts:443:7 › CHAT › TC-CHAT-14 ถามต่อเนื่อง: "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" (US-39 น้องมิว) @CHAT @P2 
+    [firefox] › tests\chat.spec.ts:465:7 › CHAT › TC-CHAT-15 ถามต่อเนื่อง: "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" @CHAT @P2 
+    [firefox] › tests\chat.spec.ts:494:7 › CHAT › TC-CHAT-16 ถามต่อเนื่องภาษาอังกฤษ (Mr. Daniel): covered? → Saturday night price @CHAT @P2 
+    [firefox] › tests\v2.spec.ts:76:7 › BOOK v2 › TC-BOOK-11 ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) @BOOK @P3 
+    [firefox] › tests\v2.spec.ts:230:7 › MEMBER v2 › TC-MEMBER-06 ชั่วโมงสะสมของลูกค้าใน TEST-DATA: ต้น 7 · ฟ้า 9 · มิว 10 @MEMBER @P1 
+    [firefox] › tests\v2.spec.ts:289:7 › STAFF v2 › TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) @STAFF @P2 
+    [firefox] › tests\v2.spec.ts:416:7 › ROLE › TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) @ROLE @P1 
+    [webkit] › tests\book.spec.ts:93:7 › BOOK › TC-BOOK-04 จองล่วงหน้าได้ไม่เกิน 14 วัน (23 ต.ค. ได้ / 24 ต.ค. ไม่ได้) @BOOK @P1 
+    [webkit] › tests\chat.spec.ts:443:7 › CHAT › TC-CHAT-14 ถามต่อเนื่อง: "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" (US-39 น้องมิว) @CHAT @P2 
+    [webkit] › tests\chat.spec.ts:465:7 › CHAT › TC-CHAT-15 ถามต่อเนื่อง: "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" @CHAT @P2 
+    [webkit] › tests\chat.spec.ts:494:7 › CHAT › TC-CHAT-16 ถามต่อเนื่องภาษาอังกฤษ (Mr. Daniel): covered? → Saturday night price @CHAT @P2 
+    [webkit] › tests\v2.spec.ts:76:7 › BOOK v2 › TC-BOOK-11 ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) @BOOK @P3 
+    [webkit] › tests\v2.spec.ts:289:7 › STAFF v2 › TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) @STAFF @P2 
+    [webkit] › tests\v2.spec.ts:416:7 › ROLE › TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) @ROLE @P1 
+    [serial] › tests\v2.serial.spec.ts:123:5 › TC-BOOK-10 ค่าขอบเวลาตาม TEST-DATA ทุกแถว E04–E21 (วันนี้ ศ 9 10:00) @BOOK @P1 
+    [serial] › tests\v2.serial.spec.ts:742:5 › TC-STOCK-03 เตือนของใกล้หมด E128–E131 + ตั้ง/ล้างจุดสั่งซื้อซ้ำ @STOCK @P2 
+    [serial] › tests\v2.serial.spec.ts:898:5 › TC-SALE-01 ขายหน้าเคาน์เตอร์ E135 และ US-42 (น้ำ 2 เงินสด) @SALE @P1 
+    [serial] › tests\v2.serial.spec.ts:999:5 › TC-DASH-01 แดชบอร์ดจาก seed (TEST-DATA 5.4) เทียบ SQL @DASH @P1 
+    [serial] › tests\v2.serial.spec.ts:1028:5 › TC-DASH-02 ยอดวันนี้อัปเดตหลังรับเงิน · เครดิตแสดงแยก ไม่นับเป็นรายได้ (A-37) @DASH @P1 
+    [serial] › tests\v2.serial.spec.ts:1098:5 › TC-REPORT-01 ช่วงวันรายงาน E140–E142 (+ 30 พ.ย. → 28 ก.พ. A-46) @REPORT @P2 
+    [serial] › tests\v2.serial.spec.ts:1127:5 › TC-REPORT-02 รายงาน 8–8 ต.ค. (E144) เทียบ SQL @REPORT @P1 
+    [serial] › tests\v2.serial.spec.ts:1147:5 › TC-REPORT-03 CSV เปิด Excel ได้ (BOM · หัวไทย · ไม่มี ฿) และบันทึก REPORT_EXPORT @REPORT @P2 
+    [serial] › tests\v2.serial.spec.ts:1189:5 › TC-REPORT-04 หัวข้อที่ร้านขอในรายงาน: เงินแยก มัดจำพร้อมเพย์ / เก็บหน้าสนาม / หักเครดิต + ชั่วโมงต่อสนาม @REPORT @P2 
+    [serial] › tests\v2.serial.spec.ts:1263:5 › TC-TRACK-01 ขั้นสถานะการจองพร้อมเวลา: จองแล้ว → จ่ายแล้ว → เช็กอิน → จบ (A-43, A-45) @TRACK @P3 
+    [serial] › tests\v2.serial.spec.ts:1338:5 › TC-DATA-01 staff กดไม่มา LN-900001 ตอน 19:15 → ประวัติ (ชื่อพนักงาน A-44) + AuditLog (E146) @DATA @P2 
+  3 skipped
+  248 passed (8.6m)
+[tester-report] เขียน D:\work (outside)\Chanwacnich_TA\football-booking\e2e\test-report\TEST-REPORT.md
+
+===== perf (NFR-08 รันเดี่ยว): playwright test  =====
+
+
+Running 3 tests using 1 worker
+
+  ok 1 [perf-chromium] › tests\book.perf.spec.ts:9:7 › BOOK › TC-BOOK-02 รอบเวลาเริ่มตรงชั่วโมง 08:00–23:00 และตารางโหลดเร็ว @BOOK @P1 (1.1s)
+  ok 2 [perf-firefox] › tests\book.perf.spec.ts:9:7 › BOOK › TC-BOOK-02 รอบเวลาเริ่มตรงชั่วโมง 08:00–23:00 และตารางโหลดเร็ว @BOOK @P1 (2.4s)
+  ok 3 [perf-webkit] › tests\book.perf.spec.ts:9:7 › BOOK › TC-BOOK-02 รอบเวลาเริ่มตรงชั่วโมง 08:00–23:00 และตารางโหลดเร็ว @BOOK @P1 (2.4s)
+
+  3 passed (9.1s)
+[tester-report] เขียน D:\work (outside)\Chanwacnich_TA\football-booking\e2e\test-report\TEST-REPORT.md
+
+สรุป exit code: รอบหลัก 1 · perf 0
