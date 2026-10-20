@@ -10,7 +10,7 @@ import { BASE_URL, TODAY } from '../constants';
  *   (ย้ายเป็น test ปกติ หรือลบเพราะมีเทสต์ CR ครอบแล้ว) — ล็อกคู่กับ TC เดิมที่ล้มอยู่ใน e2e/tests/*.ts
  * - เป็น "ตัวทำซ้ำขั้นต่ำ" ของ TC เดิม (ไม่ลอกทุกขั้น) · แท็ก @known-issue @CR-0N ตาม CHANGE-REQUESTS/REGISTER.md
  * - ไม่ reset / ไม่เลื่อนเวลา (ไฟล์นี้รันพร้อม 3 เบราว์เซอร์และ spec อื่น) · ใช้ข้อมูล seed แบบอ่านอย่างเดียว หรือข้อมูลใหม่ที่ไม่ชน
- * - นับผล: บรรทัดสรุปของ Playwright รวม expected-fail ไว้ใน "passed" → นับด้วย --grep @known-issue (10 ข้อต่อเบราว์เซอร์ · หลัง CR-01 เหลือ 9: KI TC-ROLE-03 เป็น test ปกติแท็ก @fixed)
+ * - นับผล: บรรทัดสรุปของ Playwright รวม expected-fail ไว้ใน "passed" → นับด้วย --grep @known-issue (10 ข้อต่อเบราว์เซอร์ · หลัง CR-01 เหลือ 9: KI TC-ROLE-03 เป็น test ปกติแท็ก @fixed · หลัง CR-02 เหลือ 4: KI TC-BOOK-11 / TC-STAFF-06 / TC-REPORT-01 / TC-TRACK-01 / TC-DATA-01 เป็น test ปกติแท็ก @fixed)
  */
 
 const SYS = 'เกิดข้อผิดพลาดในระบบ';
@@ -73,11 +73,15 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
     });
   });
 
-  test.fail('KI TC-BOOK-11 ค้นการจองโดยไม่กรอก → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ)', ki(
-    'TC-BOOK-11', 'CR-02',
-    '[R] ข้อความ error ต้องบอกสิ่งที่ผู้ใช้ต้องแก้ · FR-09 · CHANGE-REQUESTS/CR-02.md ข้อ 5',
-    '/my กด lookup-submit ทันที → ข้อความพูดถึงรหัส/เบอร์ที่ต้องกรอก และไม่ใช่ "เกิดข้อผิดพลาดในระบบ"',
-  ), async ({ page }) => {
+  // CR-02 แก้แล้ว (docs/impact/CR-02.md) → ถอด test.fail: เป็น test ปกติที่ต้องผ่าน · แท็ก @known-issue ออก
+  test('KI TC-BOOK-11 ค้นการจองโดยไม่กรอก → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ)', {
+    ...ki(
+      'TC-BOOK-11', 'CR-02',
+      '[R] ข้อความ error ต้องบอกสิ่งที่ผู้ใช้ต้องแก้ · FR-09 · CHANGE-REQUESTS/CR-02.md ข้อ 5',
+      '/my กด lookup-submit ทันที → ข้อความพูดถึงรหัส/เบอร์ที่ต้องกรอก และไม่ใช่ "เกิดข้อผิดพลาดในระบบ"',
+    ),
+    tag: ['@CR-02', '@fixed'],
+  }, async ({ page }) => {
     await test.step('เปิด /my กดค้นทั้งที่ช่องว่าง', async () => {
       await open(page, '/my');
       await page.getByTestId('lookup-submit').click();
@@ -91,11 +95,15 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
     });
   });
 
-  test.fail('KI TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ต้องถูกปฏิเสธ', ki(
-    'TC-STAFF-06', 'CR-02',
-    '[D A-45] เช็กอินได้เฉพาะวันเตะ · CHANGE-REQUESTS/CR-02.md ข้อ 1',
-    'วันนี้ 9 ต.ค. · การจองวันที่ 21 ต.ค. ที่จ่ายแล้ว → staff POST checkin ได้ 4xx และสถานะยัง CONFIRMED',
-  ), async ({ anonApi, staffApi, b }) => {
+  // CR-02 แก้แล้ว (docs/impact/CR-02.md) → ถอด test.fail: เป็น test ปกติที่ต้องผ่าน · แท็ก @known-issue ออก
+  test('KI TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ต้องถูกปฏิเสธ', {
+    ...ki(
+      'TC-STAFF-06', 'CR-02',
+      '[D A-45] เช็กอินได้เฉพาะวันเตะ · CHANGE-REQUESTS/CR-02.md ข้อ 1',
+      'วันนี้ 9 ต.ค. · การจองวันที่ 21 ต.ค. ที่จ่ายแล้ว → staff POST checkin ได้ 4xx และสถานะยัง CONFIRMED',
+    ),
+    tag: ['@CR-02', '@fixed'],
+  }, async ({ anonApi, staffApi, b }) => {
     const date = '2026-10-21';
     let code = '';
     await test.step(`จองสนาม C วันที่ ${date} ช่องที่ยังว่าง แล้วจ่าย (ลูกค้าใหม่)`, async () => {
@@ -162,11 +170,15 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
     await room.ctx.dispose();
   });
 
-  test.fail('KI TC-REPORT-01 รายงาน 30 พ.ย. 2569 → 28 ก.พ. 2570 ต้องดูได้', ki(
-    'TC-REPORT-01', 'CR-02',
-    '[D A-46] 30 พ.ย. → 28 ก.พ. ดูได้ · BR-39 · CHANGE-REQUESTS/CR-02.md ข้อ 4',
-    'owner GET /api/owner/reports?from=2026-11-30&to=2027-02-28 → 200 และ 91 วัน',
-  ), async ({ staffApi }) => {
+  // CR-02 แก้แล้ว (docs/impact/CR-02.md) → ถอด test.fail: เป็น test ปกติที่ต้องผ่าน · แท็ก @known-issue ออก
+  test('KI TC-REPORT-01 รายงาน 30 พ.ย. 2569 → 28 ก.พ. 2570 ต้องดูได้', {
+    ...ki(
+      'TC-REPORT-01', 'CR-02',
+      '[D A-46] 30 พ.ย. → 28 ก.พ. ดูได้ · BR-39 · CHANGE-REQUESTS/CR-02.md ข้อ 4',
+      'owner GET /api/owner/reports?from=2026-11-30&to=2027-02-28 → 200 และ 91 วัน',
+    ),
+    tag: ['@CR-02', '@fixed'],
+  }, async ({ staffApi }) => {
     const o = await staffApi('owner');
     const r = await getJson(o, '/api/owner/reports?from=2026-11-30&to=2027-02-28');
     expect.soft(r.status, JSON.stringify(r.body?.error ?? {})).toBe(200);
@@ -186,11 +198,15 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
     for (const f of ['A', 'B', 'C']) expect.soft(head, `หัว CSV มีชั่วโมงสนาม ${f}`).toMatch(new RegExp(`(ชั่วโมง|ชม).*สนาม\\s*${f}|สนาม\\s*${f}.*(ชั่วโมง|ชม)`));
   });
 
-  test.fail('KI TC-TRACK-01 การจองที่เช็กอินแล้วและเล่นจบแล้ว → ขั้นสุดท้ายคือ "จบ"', ki(
-    'TC-TRACK-01', 'CR-02',
-    '[D A-43] ขั้น "จบ" หลังเวลาเล่นจบเป็นขั้นสุดท้าย · US-49 · CHANGE-REQUESTS/CR-02.md ข้อ 3 · seed LN-900005 (CHECKED_IN 3 ต.ค. 18:00–20:00)',
-    '/booking/LN-900005 (วันนี้ 9 ต.ค. เล่นจบไปแล้ว) → ขั้นสุดท้ายของ timeline มีคำว่า "จบ"',
-  ), async ({ page }) => {
+  // CR-02 แก้แล้ว (docs/impact/CR-02.md) → ถอด test.fail: เป็น test ปกติที่ต้องผ่าน · แท็ก @known-issue ออก
+  test('KI TC-TRACK-01 การจองที่เช็กอินแล้วและเล่นจบแล้ว → ขั้นสุดท้ายคือ "จบ"', {
+    ...ki(
+      'TC-TRACK-01', 'CR-02',
+      '[D A-43] ขั้น "จบ" หลังเวลาเล่นจบเป็นขั้นสุดท้าย · US-49 · CHANGE-REQUESTS/CR-02.md ข้อ 3 · seed LN-900005 (CHECKED_IN 3 ต.ค. 18:00–20:00)',
+      '/booking/LN-900005 (วันนี้ 9 ต.ค. เล่นจบไปแล้ว) → ขั้นสุดท้ายของ timeline มีคำว่า "จบ"',
+    ),
+    tag: ['@CR-02', '@fixed'],
+  }, async ({ page }) => {
     await test.step('ปลดล็อกการจองด้วยรหัส + เบอร์ (seed ทีมเก่า) แล้วเปิดหน้า', async () => {
       const r = await page.request.get('/api/bookings/LN-900005?phone=0877777777');
       expect(r.status()).toBe(200);
@@ -203,11 +219,15 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
     });
   });
 
-  test.fail('KI TC-DATA-01 ประวัติการจองต้องแสดงชื่อพนักงาน ไม่ใช่ username', ki(
-    'TC-DATA-01', 'CR-02',
-    '[D A-44] ประวัติแสดงชื่อพนักงาน · BR-42 · CHANGE-REQUESTS/CR-02.md ข้อ 2 · seed LN-900008 แถวที่ 3 ทำโดย staff (ชื่อ น้องบอล)',
-    'owner เปิด /owner/bookings/LN-900008 → history-actor-2 = "น้องบอล"',
-  ), async ({ page }) => {
+  // CR-02 แก้แล้ว (docs/impact/CR-02.md) → ถอด test.fail: เป็น test ปกติที่ต้องผ่าน · แท็ก @known-issue ออก
+  test('KI TC-DATA-01 ประวัติการจองต้องแสดงชื่อพนักงาน ไม่ใช่ username', {
+    ...ki(
+      'TC-DATA-01', 'CR-02',
+      '[D A-44] ประวัติแสดงชื่อพนักงาน · BR-42 · CHANGE-REQUESTS/CR-02.md ข้อ 2 · seed LN-900008 แถวที่ 3 ทำโดย staff (ชื่อ น้องบอล)',
+      'owner เปิด /owner/bookings/LN-900008 → history-actor-2 = "น้องบอล"',
+    ),
+    tag: ['@CR-02', '@fixed'],
+  }, async ({ page }) => {
     await staffLoginPage(page, 'owner');
     await open(page, '/owner/bookings/LN-900008');
     await expect(page.getByTestId('history-table')).toHaveAttribute('data-count', '3');

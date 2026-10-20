@@ -17,11 +17,21 @@ export function addMonths(date: string, n: number): string {
   return `${ny}-${String(nm).padStart(2, "0")}-${String(Math.min(d, last)).padStart(2, "0")}`;
 }
 
-/** BR-39 / T-09: end not before start · at most 3 calendar months counting both days (1 Oct – 31 Dec ok) */
+/**
+ * BR-39 / CR-02 (4) / A-46: the last end date allowed for a report starting on `from` —
+ * the day before the same day 3 months later (1 Oct → 31 Dec) · when that month has no such day,
+ * the month's last day itself (30 Nov → 28 Feb · 31 Aug → 30 Nov)
+ */
+export function reportMaxEnd(from: string): string {
+  const same = addMonths(from, REPORT_MAX_MONTHS); // day clamped to the month's last day
+  return same.slice(8) === from.slice(8) ? addDays(same, -1) : same;
+}
+
+/** BR-39 / T-09: end not before start · at most 3 calendar months counting both days (1 Oct – 31 Dec ok · 30 Nov – 28 Feb ok) */
 export function checkReportRange(from: unknown, to: unknown): RuleError | null {
   if (!isValidDateStr(from) || !isValidDateStr(to)) return { code: "INVALID_DATE" };
   if (to < from) return { code: "REPORT_RANGE_ORDER" };
-  if (to >= addMonths(from, REPORT_MAX_MONTHS)) return { code: "REPORT_RANGE_TOO_LONG", params: { months: REPORT_MAX_MONTHS } };
+  if (to > reportMaxEnd(from)) return { code: "REPORT_RANGE_TOO_LONG", params: { months: REPORT_MAX_MONTHS } };
   return null;
 }
 

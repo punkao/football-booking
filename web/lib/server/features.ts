@@ -7,6 +7,7 @@ import {
   challengeAmount,
   challengeDeadlineFrom,
   checkChallengeCreate,
+  checkCheckin,
   checkClosures,
   checkHours,
   checkLeadTime,
@@ -418,8 +419,8 @@ async function staffBookingView(ctx: Ctx, code: string) {
   const bk = await getBookingOr404(null, code);
   const cust = await loadCustomerById(null, bk.customerId);
   const rentals = await loadBookingRentals(null, bk.id);
-  // F-02: what the front desk can do now, and why not (same rules as the API)
-  const checkinBlockedBy = bk.status === "CONFIRMED" ? null : "INVALID_STATUS";
+  // F-02: what the front desk can do now, and why not (same rules as the API) · CR-02 (1): only on the day of play
+  const checkinBlockedBy = checkCheckin(bk.status, bk.date, ctx.now)?.code ?? null;
   const noShowBlockedBy = checkNoShow(bk.status, slotStart(bk.date, bk.startHour), ctx.now)?.code ?? null;
   return {
     booking: {
@@ -442,7 +443,7 @@ export async function staffCheckin(ctx: Ctx, code: string) {
   const staff = await requireStaff(ctx, ["STAFF", "MANAGER", "OWNER"]);
   const collected = await tx(async (c) => {
     const bk = await getBookingOr404(c, code, true);
-    if (bk.status !== "CONFIRMED") throw new AppError("INVALID_STATUS");
+    fail(checkCheckin(bk.status, bk.date, ctx.now)); // CR-02 (1) / A-45: CONFIRMED and the day of play
     if (bk.dueAtField > 0) {
       await c.query("INSERT INTO payments(booking_id, amount, method, paid_at) VALUES ($1, $2, 'CASH_AT_FIELD', $3)", [bk.id, bk.dueAtField, ctx.now]);
     }

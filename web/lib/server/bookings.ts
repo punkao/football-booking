@@ -11,6 +11,7 @@ import {
   checkRentalQty,
   checkReschedule,
   computePrice,
+  finishedAt,
   discountAmount,
   fieldPriceFor,
   freeHoursAvailable,
@@ -324,6 +325,16 @@ export async function getBookingOr404(db: Db | null, code: string, forUpdate = f
 }
 
 /** FR-08 / FR-09: full details + what the customer can do now */
+/**
+ * FR-45 status steps (rows of booking_status_history) + CR-02 (3) / A-43: the derived "finished" step at the slot's end
+ * (not a status and not a history row — `derived: true`)
+ */
+function timeline(rows: { to_status: string; created_at: Date }[], finished: Date | null) {
+  const steps: { toStatus: string; at: Date; derived?: true }[] = rows.map((h) => ({ toStatus: h.to_status, at: h.created_at }));
+  if (finished) steps.push({ toStatus: "FINISHED", at: finished, derived: true });
+  return steps;
+}
+
 export async function bookingDetail(ctx: Ctx, b: BookingRow) {
   const customer = await loadCustomerById(null, b.customerId);
   const rentals = await loadBookingRentals(null, b.id);
@@ -397,7 +408,7 @@ export async function bookingDetail(ctx: Ctx, b: BookingRow) {
           }
         : null,
     },
-    history: history.map((h) => ({ toStatus: h.to_status, at: h.created_at })),
+    history: timeline(history, finishedAt(b.status, b.date, b.startHour, b.hours, ctx.now)),
     now: ctx.now,
     secondsLeft: b.status === "PENDING_PAYMENT" ? Math.max(0, Math.floor((new Date(b.payDeadline).getTime() - ctx.now.getTime()) / 1000)) : 0,
     payTotal: b.seriesId && b.status === "PENDING_PAYMENT" ? pendingSeries.reduce((s, x) => s + x.pay_now, 0) : b.payNow,

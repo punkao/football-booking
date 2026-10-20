@@ -1,6 +1,6 @@
 // BR-01, BR-10, BR-13, BR-14, BR-15, BR-16, BR-17, BR-25, BR-26: booking lifecycle rules. Pure functions.
 import type { RuleError } from "./schedule.ts";
-import { DAY_MS, HOUR_MS, MINUTE_MS, bkkParts, daysBetween } from "./time.ts";
+import { DAY_MS, HOUR_MS, MINUTE_MS, bkkParts, daysBetween, slotStart } from "./time.ts";
 
 // ---------- BR-01 ----------
 export const FIELDS_RAIN_CLOSABLE = ["A", "B"]; // outdoor fields only
@@ -74,6 +74,24 @@ export function checkNoShow(status: string, start: Date, now: Date): RuleError |
   if (status !== "CONFIRMED") return { code: "INVALID_STATUS" };
   if (now.getTime() - start.getTime() < NO_SHOW_GRACE_MINUTES * MINUTE_MS) return { code: "NO_SHOW_TOO_EARLY" };
   return null;
+}
+
+// ---------- CR-02 (A-45 / A-43) ----------
+/** CR-02 (1) / A-45: check-in only for CONFIRMED and only on the day of play (Bangkok calendar date), any time of that day */
+export function checkCheckin(status: string, date: string, now: Date): RuleError | null {
+  if (status !== "CONFIRMED") return { code: "INVALID_STATUS" };
+  if (bkkParts(now).date !== date) return { code: "CHECKIN_NOT_PLAY_DAY" };
+  return null;
+}
+
+/**
+ * CR-02 (3) / A-43: the "finished" timeline step is derived, not a status — CHECKED_IN and the slot's end has been
+ * reached → the end time of the slot (shown as the step's time) · anything else → null
+ */
+export function finishedAt(status: string, date: string, startHour: number, hours: number, now: Date): Date | null {
+  if (status !== "CHECKED_IN") return null;
+  const end = slotStart(date, startHour + hours);
+  return now.getTime() >= end.getTime() ? end : null;
 }
 
 /**

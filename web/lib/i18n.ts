@@ -45,6 +45,8 @@ export const MESSAGES: Record<string, { th: string; en: string; status?: number 
   RESCHEDULE_TOO_LATE: { th: "เลื่อนได้เมื่อเหลือเวลาอย่างน้อย 24 ชั่วโมงก่อนเวลาเริ่ม", en: "Rescheduling requires at least 24 hours before the start time", status: 409 },
   RESCHEDULE_SAME: { th: "กรุณาเลือกวันหรือเวลาใหม่ที่ต่างจากเดิม", en: "Please choose a different date or time", status: 400 },
   NO_SHOW_TOO_EARLY: { th: "บันทึกไม่มาได้เมื่อเลยเวลาเริ่มอย่างน้อย 15 นาที", en: "No-show can be recorded only 15 minutes after the start time", status: 409 },
+  CHECKIN_NOT_PLAY_DAY: { th: "เช็กอินได้เฉพาะวันเตะเท่านั้น", en: "Check-in is only allowed on the day of play", status: 409 },
+  LOOKUP_REQUIRED: { th: "กรุณากรอกรหัสการจองและเบอร์โทรให้ครบ", en: "Please enter both the booking code and the phone number", status: 400 },
   SERIES_WEEKS_RANGE: { th: "จองประจำได้ 4–12 สัปดาห์", en: "Recurring bookings must be 4–12 weeks", status: 400 },
   SERIES_CONFLICT: { th: "มีสัปดาห์ที่ชน: {dates} กรุณายืนยันจองเฉพาะสัปดาห์ที่ว่าง", en: "Some weeks are taken: {dates}. Please confirm booking only the free weeks", status: 409 },
   SERIES_NONE_AVAILABLE: { th: "ไม่มีสัปดาห์ที่ว่างให้จอง", en: "No free weeks to book", status: 409 },
@@ -191,6 +193,7 @@ export const STATUS_LABEL: Record<string, { th: string; en: string }> = {
   CANCELLED: { th: "ยกเลิกแล้ว", en: "Cancelled" },
   EXPIRED: { th: "หมดเวลาชำระ", en: "Expired" },
   RAIN_CLOSED: { th: "ปิดเพราะฝน", en: "Closed (rain)" },
+  FINISHED: { th: "จบ", en: "Finished" }, // CR-02 (3) / A-43: timeline step only (derived) — not a booking status
   OPEN: { th: "เปิดรับ", en: "Open" },
   AWAITING_PAYMENT: { th: "รอทีมรับจ่ายเงิน", en: "Awaiting payment" },
   MATCHED: { th: "จับคู่แล้ว", en: "Matched" },

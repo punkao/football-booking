@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { ErrorBox, Money, OkBox, Ready } from "@/components/ui";
 import { api } from "@/lib/client";
-import { CREDIT_REASON_LABEL, fieldName, fmtDate, fmtDateTime, label, statusLabel, timeRange, tx } from "@/lib/i18n";
+import { CREDIT_REASON_LABEL, fieldName, fmtDate, fmtDateTime, label, msg, statusLabel, timeRange, tx } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n";
 
 type Me = {
@@ -74,8 +74,15 @@ export function MyClient({ lang, loggedIn }: { lang: Lang; loggedIn: boolean }) 
     });
   const lookup = () =>
     run(async () => {
-      const r = await api(lang, `/api/bookings/${encodeURIComponent(lk.code.trim().toUpperCase())}?phone=${encodeURIComponent(lk.phone)}`);
-      if (r.ok) router.push(`/booking/${encodeURIComponent(lk.code.trim().toUpperCase())}`);
+      const code = lk.code.trim().toUpperCase();
+      const phone = lk.phone.trim();
+      // CR-02 (5): booking code or phone left empty → ask to fill both (an empty code used to end as "internal error")
+      if (!code || !phone) {
+        setError(msg(lang, "LOOKUP_REQUIRED"));
+        return;
+      }
+      const r = await api(lang, `/api/bookings/${encodeURIComponent(code)}?phone=${encodeURIComponent(phone)}`);
+      if (r.ok) router.push(`/booking/${encodeURIComponent(code)}`);
       else setError(r.error.message);
     });
   const logout = () =>

@@ -32,8 +32,12 @@ const ACTOR_LABEL: Record<string, { th: string; en: string }> = {
   SYSTEM: { th: "ระบบ", en: "System" },
 };
 
-export function historyActorLabel(actor: string, lang: "th" | "en"): string {
-  return ACTOR_LABEL[actor]?.[lang] ?? actor;
+/**
+ * CR-02 (2) / A-44: CUSTOMER / BOT / SYSTEM keep their words · a staff actor shows the staff member's display name
+ * (`staffName`, looked up when the history is read — the stored row keeps the username, BR-42) · no name → the stored value
+ */
+export function historyActorLabel(actor: string, lang: "th" | "en", staffName?: string | null): string {
+  return ACTOR_LABEL[actor]?.[lang] ?? (staffName || actor);
 }
 
 /** TEST-DATA section 1 / T-18: "today" of the web during tests */

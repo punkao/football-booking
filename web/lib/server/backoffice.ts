@@ -154,8 +154,11 @@ export async function bookingHistory(ctx: Ctx, code: string) {
     )
   )[0];
   if (!b) throw new AppError("BOOKING_NOT_FOUND");
-  const h = await q<{ from_status: string | null; to_status: string; actor: string; created_at: Date }>(
-    "SELECT from_status, to_status, actor, created_at FROM booking_status_history WHERE booking_id = $1 ORDER BY created_at, id",
+  // CR-02 (2) / A-44: the staff display name is looked up when reading (history rows are append-only and keep the username)
+  const h = await q<{ from_status: string | null; to_status: string; actor: string; created_at: Date; staff_name: string | null }>(
+    `SELECT h.from_status, h.to_status, h.actor, h.created_at, s.name AS staff_name
+       FROM booking_status_history h LEFT JOIN staff_users s ON s.username = h.actor
+      WHERE h.booking_id = $1 ORDER BY h.created_at, h.id`,
     [b.id],
   );
   const payments = await q<{ amount: number; method: string; paid_at: Date }>("SELECT amount, method, paid_at FROM payments WHERE booking_id = $1 ORDER BY paid_at, id", [b.id]);
@@ -166,7 +169,7 @@ export async function bookingHistory(ctx: Ctx, code: string) {
       customerName: b.customer_name, phone: b.phone,
     },
     payments: payments.map((p) => ({ amount: p.amount, method: p.method, paidAt: p.paid_at })),
-    history: h.map((x) => ({ fromStatus: x.from_status, toStatus: x.to_status, actor: x.actor, actorLabel: historyActorLabel(x.actor, ctx.lang), at: x.created_at })),
+    history: h.map((x) => ({ fromStatus: x.from_status, toStatus: x.to_status, actor: x.actor, actorLabel: historyActorLabel(x.actor, ctx.lang, x.staff_name), at: x.created_at })),
   };
 }
 

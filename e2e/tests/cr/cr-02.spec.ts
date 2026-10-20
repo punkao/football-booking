@@ -119,10 +119,10 @@ test.describe('CR-02 แก้ 5 จุดให้ตรงกับที่�
       expect.soft(a.map((x) => x.text)).toEqual(['ลูกค้า', 'ลูกค้า', 'น้องบอล']);
     });
     await test.step('หน้าเว็บภาษาอังกฤษ → Customer, Customer, น้องบอล (ชื่อพนักงานมีชื่อเดียว)', async () => {
-      await page.context().addCookies([{ name: 'lang', value: 'en', url: page.url() }]);
+      await page.context().addCookies([{ name: 'lang', value: 'en', url: new URL('/', page.url()).toString() }]);
       const a = await actors('LN-900008');
       expect.soft(a.map((x) => x.text)).toEqual(['Customer', 'Customer', 'น้องบอล']);
-      await page.context().addCookies([{ name: 'lang', value: 'th', url: page.url() }]);
+      await page.context().addCookies([{ name: 'lang', value: 'th', url: new URL('/', page.url()).toString() }]);
     });
     await test.step('[E sql] แถวประวัติเดิมในฐานข้อมูลยังเป็น username (ไม่ถูกแก้ย้อนหลัง)', async () => {
       expect(sql(`select string_agg(h.actor, ',' order by h.created_at, h.id) from booking_status_history h join bookings b on b.id=h.booking_id where b.code='LN-900008'`)).toBe('CUSTOMER,CUSTOMER,staff');
