@@ -444,6 +444,8 @@ async function main() {
     const staff = new Client();
     await staffLogin(staff, "staff", "Staff1234");
     const c2 = await bookPaid(ton, { fieldId: "A", date: "2026-10-12", startHour: 9, hours: 2, phone: "0811111111", name: "ต้น" });
+    // CR-02 / A-45: check-in only on the day of play (ORACLE-CHANGES · lead อนุมัติ 2026-10-21) — expected values unchanged
+    await clock("2026-10-12T09:00:00+07:00");
     await staff.post(`/api/staff/bookings/${c2}/checkin`, {});
     me = (await ton.get("/api/me")).json.customer;
     check("BR-23.9", "9 hours → no free hour", me.paidHours === 9 && me.freeHoursAvailable === 0, JSON.stringify(me));
@@ -452,6 +454,7 @@ async function main() {
     check("FR-23.checkin", "check-in collects due and sets CHECKED_IN", ci.status === 200 && ci.json?.booking?.status === "CHECKED_IN" && ci.json?.booking?.dueAtField === 0 && ci.json?.collected === 400);
     me = (await ton.get("/api/me")).json.customer;
     check("BR-23.10", "10 hours → 1 free hour", me.paidHours === 10 && me.freeHoursAvailable === 1, JSON.stringify(me));
+    await clock(NOW); // back to Fri 9 Oct 10:00 for the BR-24 checks below
 
     const mew = new Client();
     await login(mew, "0822222222", "Mew12345");

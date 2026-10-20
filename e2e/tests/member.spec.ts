@@ -1,4 +1,4 @@
-import { test, expect, open, waitReady, uniquePhone, createBooking, payBooking, getBooking, getJson, postJson, registerCustomer, loginCustomer, expectError, expectSuccess , setCheckedStable } from './fixtures';
+import { test, expect, open, waitReady, uniquePhone, createBooking, getBooking, getJson, postJson, loginCustomer, expectError, expectSuccess, setCheckedStable } from './fixtures';
 import { SEED } from './constants';
 
 test.describe('MEMBER', () => {
@@ -103,57 +103,7 @@ test.describe('MEMBER', () => {
     });
   });
 
-  test('TC-MEMBER-03 ชั่วโมงสะสม 9/10 ได้สิทธิ์ฟรี และใช้สิทธิ์แล้วยอด ฿0 ยืนยันทันที', {
-    tag: ['@MEMBER', '@P1'],
-    annotation: { type: 'expected', description: 'เช็กอิน 9 ชม. → paid-hours 9, free-hours-available 0, free-hours-next 1 · ครบ 10 → free-hours-available 1 · จอง C 1 ชม. ใช้สิทธิ์: price-free-hour 1,200 price-total 0 → /booking/{code}?done=free "ยืนยันการจองแล้ว (ยอดที่ต้องจ่าย ฿0)" CONFIRMED · สิทธิ์เหลือ 0' },
-  }, async ({ page, pick, b, staffApi }) => {
-    const [date9, field9] = pick([['2026-10-19', 'B'], ['2026-10-19', 'C'], ['2026-10-22', 'C']] as const);
-    const freeHour = pick([8, 9, 10] as const);
-    const phone = uniquePhone(b);
-    const staff = await staffApi('staff');
-    await test.step('สมัครสมาชิกใหม่', async () => {
-      await registerCustomer(page.request, { name: 'นักเตะสะสม', phone });
-    });
-    await test.step(`จอง ${field9} ${date9} 08:00 × 9 ชม. จ่าย แล้วพนักงานเช็กอิน`, async () => {
-      const bk = await createBooking(page.request, { fieldId: field9, date: date9, startHour: 8, hours: 9, phone, name: 'นักเตะสะสม' });
-      await payBooking(page.request, bk.code);
-      const r = await postJson(staff, `/api/staff/bookings/${bk.code}/checkin`, {});
-      expect(r.status, JSON.stringify(r.body)).toBe(200);
-    });
-    await test.step('สะสม 9 (= 10 − 1) → ยังไม่มีสิทธิ์ อีก 1 ชั่วโมง', async () => {
-      await open(page, '/my');
-      await expect(page.getByTestId('paid-hours')).toHaveAttribute('data-value', '9');
-      await expect(page.getByTestId('free-hours-available')).toHaveAttribute('data-value', '0');
-      await expect(page.getByTestId('free-hours-next')).toHaveAttribute('data-value', '1');
-    });
-    await test.step(`จองเพิ่ม 1 ชม. (${field9} 17:00) จ่าย เช็กอิน → สะสม 10 ได้ 1 สิทธิ์`, async () => {
-      const bk = await createBooking(page.request, { fieldId: field9, date: date9, startHour: 17, hours: 1, phone, name: 'นักเตะสะสม' });
-      await payBooking(page.request, bk.code);
-      const r = await postJson(staff, `/api/staff/bookings/${bk.code}/checkin`, {});
-      expect(r.status, JSON.stringify(r.body)).toBe(200);
-      await open(page, '/my');
-      await expect(page.getByTestId('paid-hours')).toHaveAttribute('data-value', '10');
-      await expect(page.getByTestId('free-hours-available')).toHaveAttribute('data-value', '1');
-    });
-    await test.step(`ใช้สิทธิ์ฟรีจอง C อ. 20 ต.ค. ${freeHour}:00 1 ชม. → ยอด ฿0 ยืนยันทันที`, async () => {
-      await open(page, `/book/new?field=C&date=2026-10-20&start=${freeHour}`);
-      await expect(page.getByTestId('use-free-hour')).toBeEnabled();
-      await setCheckedStable(page.getByTestId('use-free-hour'), true);
-      await expect(page.getByTestId('price-free-hour')).toHaveAttribute('data-value', '1200');
-      await expect(page.getByTestId('price-total')).toHaveAttribute('data-value', '0');
-      await expect(page.getByTestId('price-pay-now')).toHaveAttribute('data-value', '0');
-      await setCheckedStable(page.getByTestId('pdpa-consent'), true);
-      await page.getByTestId('book-submit').click();
-      await expect(page).toHaveURL(/\/booking\/LN-\d{6}\?done=free/);
-      await waitReady(page);
-      await expectSuccess(page, 'ยืนยันการจองแล้ว (ยอดที่ต้องจ่าย ฿0)');
-      await expect(page.getByTestId('booking-status')).toHaveAttribute('data-value', 'CONFIRMED');
-    });
-    await test.step('สิทธิ์ชั่วโมงฟรีเหลือ 0', async () => {
-      await open(page, '/my');
-      await expect(page.getByTestId('free-hours-available')).toHaveAttribute('data-value', '0');
-    });
-  });
+  // TC-MEMBER-03 ย้ายไป member.serial.spec.ts (CR-02 / A-45 เช็กอินได้เฉพาะวันเตะ → ต้อง setClock เป็นวันเตะ · ORACLE-CHANGES lead อนุมัติ 2026-10-21)
 
   test('TC-MEMBER-04 เงื่อนไขการใช้ชั่วโมงฟรี (จ.–ศ. ก่อน 17:00 เฉพาะสมาชิกที่มีสิทธิ์)', {
     tag: ['@MEMBER', '@P1'],

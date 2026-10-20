@@ -1,4 +1,4 @@
-import { test, expect, open, waitReady, uniquePhone, createBooking, payBooking, staffLoginPage, expectSuccess } from './fixtures';
+import { test, expect, open, waitReady } from './fixtures';
 import { SEED } from './constants';
 import type { Page } from '@playwright/test';
 
@@ -14,43 +14,7 @@ async function staffLoginUi(page: Page, role: 'owner' | 'manager' | 'staff') {
 }
 
 test.describe('STAFF', () => {
-  test('TC-STAFF-01 พนักงานค้นรหัส เห็นยอดเก็บหน้าสนาม และกดเก็บเงิน/เช็กอิน', {
-    tag: ['@STAFF', '@P1'],
-    annotation: { type: 'expected', description: 'อา. 11 ต.ค. A ฿1,200 มัดจำ 600: ค้นรหัส → CONFIRMED เก็บหน้าสนาม 600 จ่ายแล้ว 600 ชื่อลูกค้าตรง · กดเช็กอิน → "เก็บเงินและเช็กอินแล้ว" CHECKED_IN จ่ายแล้ว 1,200 ค้าง 0 · ลูกค้าเห็น CHECKED_IN' },
-  }, async ({ page, pick, b }) => {
-    const hour = pick([10, 11, 12] as const);
-    const name = 'ลูกค้าหน้าสนาม';
-    let code = '';
-    await test.step(`ลูกค้าจอง A อา. 11 ต.ค. ${hour}:00 จ่ายมัดจำ`, async () => {
-      code = (await createBooking(page.request, { fieldId: 'A', date: '2026-10-11', startHour: hour, phone: uniquePhone(b), name })).code;
-      const paid = await payBooking(page.request, code);
-      expect(paid.amount).toBe(600);
-    });
-    await test.step('พนักงานเข้าสู่ระบบ แล้วค้นด้วยรหัสการจอง', async () => {
-      await staffLoginPage(page, 'staff');
-      await open(page, '/staff');
-      await page.getByTestId('staff-search-code').fill(code);
-      await page.getByTestId('staff-search-submit').click();
-      await expect(page.getByTestId('staff-booking-code')).toHaveText(code);
-      await expect(page.getByTestId('staff-booking-status')).toHaveAttribute('data-value', 'CONFIRMED');
-      await expect(page.getByTestId('staff-customer-name')).toHaveText(name);
-      await expect(page.getByTestId('staff-due-at-field')).toHaveAttribute('data-value', '600');
-      await expect(page.getByTestId('staff-amount-paid')).toHaveAttribute('data-value', '600');
-    });
-    await test.step('กด "เก็บเงินแล้ว / เช็กอิน"', async () => {
-      await page.getByTestId('staff-checkin').click();
-      await expectSuccess(page, 'เก็บเงินและเช็กอินแล้ว');
-      await expect(page.getByTestId('staff-booking-status')).toHaveAttribute('data-value', 'CHECKED_IN');
-      await expect(page.getByTestId('staff-amount-paid')).toHaveAttribute('data-value', '1200');
-      await expect(page.getByTestId('staff-due-at-field')).toHaveAttribute('data-value', '0');
-    });
-    await test.step('ลูกค้าเปิดหน้าการจอง เห็น CHECKED_IN ค้าง 0', async () => {
-      await open(page, `/booking/${code}`);
-      await expect(page.getByTestId('booking-status')).toHaveAttribute('data-value', 'CHECKED_IN');
-      await expect(page.getByTestId('due-at-field')).toHaveAttribute('data-value', '0');
-      await expect(page.getByTestId('amount-paid')).toHaveAttribute('data-value', '1200');
-    });
-  });
+  // TC-STAFF-01 ย้ายไป staff.serial.spec.ts (CR-02 / A-45 เช็กอินได้เฉพาะวันเตะ → ต้อง setClock เป็นวันเตะ · ORACLE-CHANGES lead อนุมัติ 2026-10-21)
 
   test('TC-STAFF-05 สิทธิ์ตามบทบาทฝั่งร้าน และภาพรวมวันนี้ของผู้จัดการ', {
     tag: ['@STAFF', '@P2'],
