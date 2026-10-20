@@ -44,7 +44,7 @@
     "note": "ร้านตอบ A-44: ประวัติต้องแสดงชื่อพนักงาน \"น้องบอล\" — เว็บแสดง username \"staff\" (LN-900001 แถวล่าสุด และ LN-900008 แถวที่ 3) · ข้อความไม่มา เวลา 19:15 และ audit NO_SHOW ถูกต้อง"
   },
   "TC-DATA-03": {
-    "class": "ไม่ได้รัน",
-    "note": "ต้องรัน scripts/backup.mjs (เขียน db/backups) และ migrate --down (ลบข้อมูลตารางใหม่) ซึ่งนอกสิทธิ์รอบนี้ → test.skip (เปิดด้วย RUN_MIGRATION_TEST=1) · แผน 6.4: ไม่ได้รัน = นับไม่ผ่าน"
+    "class": "ผ่าน (ผู้ดูแลรัน)",
+    "note": "tester ไม่มีสิทธิ์รันสคริปต์ db · ผู้ดูแลรัน RUN_MIGRATION_TEST=1 เมื่อ 20 ต.ค. 2569: backup → migrate ×2 → --down 006 → migrate กลับ · bookings 8 ทุกขั้น → ผ่าน · รอบเต็ม B-3 ตั้ง RUN_MIGRATION_TEST=1"
   }
 }
