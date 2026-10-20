@@ -1,7 +1,7 @@
 # SYSTEM-MAP (= CODEBASE-MAP) — แผนที่ระบบ "ลูกหนัง อารีน่า" v2 สำหรับทีมดูแลรายใหม่
 
 ทำเมื่อ 2026-10-20 · tag `v2-handover` = `faa3f2e` · HEAD `95a5513` (ต่างแค่ `CHANGE-REQUESTS/`) · ทำโดยเปิดไฟล์จริงทุกแถว (white-box) + `psql` (ตา DB) + HAR / REA (grey/black-box ดู `API-INVENTORY.md`, `REA-INVENTORY.md`)
-กติกา: ทุกแถวมี `ไฟล์:บรรทัด` ที่เปิดดูแล้ว · ไม่มีแถว "เดา" · เรื่องที่ยังไม่รู้อยู่ส่วน L
+กติกา: ทุกแถวมี `ไฟล์:บรรทัด` ที่เปิดดูแล้ว · ไม่มีแถว "เดา" · เรื่องที่ยังไม่รู้อยู่ส่วน K · ตาราง CR → `file:line` อยู่ท้ายไฟล์ (ส่วน L)
 path ในตารางเป็นแบบย่อ: `rules/` = `web/lib/rules/` · `server/` = `web/lib/server/` · `chat/` = `web/lib/chat/` · `app/` = `web/app/` · `mig/` = `db/migrations/`
 
 ## A. สถาปัตยกรรม (2 compose project · 1 network)
@@ -281,7 +281,32 @@ handler 404 ตั้งใจ 20 ตัว (`testNotFound` `server/testing.ts:1
 | CSV หัวคอลัมน์ไทยเขียนตาย · ร้านมีสูตร Excel ผูกลำดับคอลัมน์ (CR-03) | `server/backoffice.ts:225-242` |
 | e2e ผูก seed + วันล็อก 9 ต.ค. 10:00 · reset ทุกครั้งก่อนรัน | `rules/records.ts:40` · `e2e/global-setup.ts` |
 
-## J. CR → ไฟล์/ฟังก์ชันที่จะต้องแตะ (ยังไม่ลงมือ · ให้ทำ impact เต็มในแผน L5)
+## J. นับแถวของแผนที่นี้
+
+| ส่วน | แถว |
+|---|---:|
+| A สถาปัตยกรรม | 11 |
+| B หน้าเว็บ | 26 (ครอบ 32 page.tsx + widget) |
+| C API | 60 (+ 20 ตัว 404 รวม 1 แถว) |
+| D โมดูล server | 18 |
+| E กฎ | 32 |
+| F1 ตาราง | 18 (ครอบ 25 ตาราง) |
+| F2 trigger | 6 |
+| F3 migration | 7 |
+| G แชทบอท | 12 |
+| H seam | 9 |
+| I กับดัก | 11 |
+| L CR → file:line | 9 |
+| **รวม** | **219** |
+
+## K. ยังไม่รู้ (ต้องหาหลักฐานเพิ่ม · ไม่เดา)
+
+1. role `football` ของเว็บเป็น superuser — ตั้งใจไหม หรือแค่ค่าเริ่มของ image (ไม่มีเอกสารบอก) → ถามผู้ดูแลเครื่อง / SPEC-GAPS G-36
+2. การจองแข่งกัน 2 คำขอได้ 201 + 409 — ไม่รู้ว่าชั้นไหนหยุด (advisory lock `server/bookings.ts:236` + `checkNoOverlap` หรือ EXCLUDE) เพราะทั้งสองตอบ `SLOT_TAKEN` เหมือนกัน · พิสูจน์ได้ด้วยการปิดทีละชั้นในสำเนาฐาน (mutant แผน L4)
+3. e2e ชุดเดิมมีเคสที่ "เช็กอินล่วงหน้า" หรือ "ราคา 1,200 หลัง 1 พ.ย." เป็นค่าคาดหวังไหม — ต้อง grep `e2e/tests` ตอนทำ impact (L5)
+4. `MODE=ai` กับโมเดลจริงจะจำบทสนทนาได้แค่ไหน (CR-04) — ตอนนี้เห็นแค่ทาง mock
+
+## L. CR → ไฟล์/ฟังก์ชันที่จะต้องแตะ (ยังไม่ลงมือ · ให้ทำ impact เต็มในแผน L5)
 
 | CR | เรื่อง | จุดที่ต้องแตะ (ไฟล์:บรรทัด) | DB | เทสต์ที่เกี่ยว (เดิม) |
 |---|---|---|---|---|
@@ -294,28 +319,3 @@ handler 404 ตั้งใจ 20 ตัว (`testNotFound` `server/testing.ts:1
 | **CR-03** รายงานแยกช่องทางเงิน + ชั่วโมงสนาม | แยก `bookingMoney` ตาม `payments.method` · ชั่วโมง/% ต่อสนามตามช่วง | `server/backoffice.ts:42-54` (`moneyRows` ต้องส่ง method ออกมา) · `rules/reports.ts:43-78` (`summarizeMoney` · `DayMoney`) · `server/backoffice.ts:174-223` (`report`) · CSV `server/backoffice.ts:225-252` (ต่อคอลัมน์ท้าย อย่าสลับลำดับ) · `rules/reports.ts:81` (`utilizationPercent` ปัจจุบันต่อวัน) · UI `app/owner/reports/ReportsClient.tsx:12-25,105-119` · แดชบอร์ดใช้ `summarizeMoney` ร่วม `server/backoffice.ts:72` | อ่านอย่างเดียว | TC-REPORT-04 (แดง) · TEST-DATA ตัวเลข 5.4 · unit BR-40/41 `rules/v2.test.ts` |
 | **CR-04** น้องบอลจำเรื่องที่คุย | ใช้ วัน/เวลา/สนาม จากข้อความก่อนในห้อง + ตอบช่วงราคาถูกสุด | `chat/mock.ts:244-258` (ใช้แค่ `text` ปัจจุบัน) · `collect` `:151-164` (มีอยู่แล้วสำหรับการจอง) · `RE_PRICE` `:118` (ไม่จับ "ถูกสุด") · fallback `:277-278` · prompt `chat/prompt.ts:53-71` (ทาง ai) · ประวัติส่งแล้ว `server/chat.ts:193-205` · EN `chat/templates.ts:7` | – | TC-CHAT-14/15/16 (แดง) · check-testdata E109–E120 · unit `lib/chat/chat.test.ts` · `mock-llm/server.test.mjs` |
 | **CR-05** ราคาเย็นสนาม 5 คน ฿1,300 ตั้งแต่ 1 พ.ย. 2569 | ราคามีวันมีผล · การจองเดิมไม่เปลี่ยนยอด | `rules/pricing.ts:28-39` (`hourlyRate` `fieldPriceFor` รับ `Rates` ไม่มีวันที่) · ผู้เรียก `server/bookings.ts:142,148,160,508-509` · `server/features.ts:82,160` · `server/chat.ts:95` · `server/data.ts:59` (`loadFields`) · หน้าแรก `server/schema.ts:5-9` + `app/page.tsx:67,85` · `/fields` `app/fields/page.tsx:44-51` · `/api/availability` `server/features.ts:93` · แชท `chat/prompt.ts:40,55` · `chat/mock.ts:132-141` · price guard `chat/engine.ts:68` · seed `db/init/02-seed.sql:16-19` (ต้องคงค่าเดิมให้ e2e) · เลื่อนวันคิดราคาใหม่ `server/bookings.ts:499-514` (ต้องถามร้าน) · จองประจำข้าม 1 พ.ย. `server/features.ts:149-162` | migration 007: ตารางราคาตามช่วงวัน (เช่น `field_rates(field_id, effective_from, day_rate, evening_rate)`) + down · ห้ามแตะ `bookings.field_price/total_price` เดิม (ทดสอบบน `PROD-LIKE-DATA` 16 การจองหลัง 1 พ.ย.) | TC ราคา BR-07/08 ทั้งหมด · unit `rules/rules.test.ts` · check-testdata (ราคา 1,200) · e2e ที่เลื่อนนาฬิกาเลย 1 พ.ย. (ถ้ามี) |
-
-## K. นับแถวของแผนที่นี้
-
-| ส่วน | แถว |
-|---|---:|
-| A สถาปัตยกรรม | 11 |
-| B หน้าเว็บ | 26 (ครอบ 32 page.tsx + widget) |
-| C API | 60 (+ 20 ตัว 404 รวม 1 แถว) |
-| D โมดูล server | 18 |
-| E กฎ | 31 |
-| F1 ตาราง | 19 (ครอบ 25 ตาราง) |
-| F2 trigger | 6 |
-| F3 migration | 7 |
-| G แชทบอท | 11 |
-| H seam | 9 |
-| I กับดัก | 11 |
-| J CR | 9 |
-| **รวม** | **218** |
-
-## L. ยังไม่รู้ (ต้องหาหลักฐานเพิ่ม · ไม่เดา)
-
-1. role `football` ของเว็บเป็น superuser — ตั้งใจไหม หรือแค่ค่าเริ่มของ image (ไม่มีเอกสารบอก) → ถามผู้ดูแลเครื่อง / SPEC-GAPS G-14
-2. การจองแข่งกัน 2 คำขอได้ 201 + 409 — ไม่รู้ว่าชั้นไหนหยุด (advisory lock `server/bookings.ts:236` + `checkNoOverlap` หรือ EXCLUDE) เพราะทั้งสองตอบ `SLOT_TAKEN` เหมือนกัน · พิสูจน์ได้ด้วยการปิดทีละชั้นในสำเนาฐาน (mutant แผน L4)
-3. e2e ชุดเดิมมีเคสที่ "เช็กอินล่วงหน้า" หรือ "ราคา 1,200 หลัง 1 พ.ย." เป็นค่าคาดหวังไหม — ต้อง grep `e2e/tests` ตอนทำ impact (L5)
-4. `MODE=ai` กับโมเดลจริงจะจำบทสนทนาได้แค่ไหน (CR-04) — ตอนนี้เห็นแค่ทาง mock

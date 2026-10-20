@@ -155,5 +155,5 @@ HTTP (`node probe-api.mjs` หลัง reset · รหัสผ่านบั�
 
 - ข้อแตกต่างระหว่างเอกสารกับโค้ด → คำถามถึงร้านใน `legacy/SPEC-GAPS.md` (ห้ามตัดสินเองว่าฝั่งไหนถูก)
 - H4 / H5 ถอยกลับ + backup/restore → ซ้อมจริงบนฐาน prod-like (`legacy/PROD-LIKE-DATA.md`) ในแผน L7
-- H14 append-only: ถ้าร้านต้องการ "แก้ย้อนหลังไม่ได้" จริง ต้องแยก role ฐานข้อมูลของเว็บ (ไม่ใช่ superuser) → คำถาม G-14 ใน SPEC-GAPS
+- H14 append-only: ถ้าร้านต้องการ "แก้ย้อนหลังไม่ได้" จริง ต้องแยก role ฐานข้อมูลของเว็บ (ไม่ใช่ superuser) → คำถาม G-36 ใน SPEC-GAPS
 - ระบบถูก reset กลับ seed ปกติแล้ว: `/api/version` = `{"schemaVersion":"006","chatMode":"mock","bugMode":0}`
