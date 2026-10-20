@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="th" data-report-bug-mode="__BUGMODE__">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ผลทดสอบ ลูกหนัง อารีน่า</title>
+<!-- สร้างโดย e2e/build-index.mjs จาก index.template.html — อย่าแก้ index.html ด้วยมือ -->
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --text: #1b1f24; --muted: #5d6673; --line: #dde1e6;
+  --pass: #137333; --pass-bg: #e6f4ea; --fail: #b3261e; --fail-bg: #fce8e6; --warn: #8a5a00; --warn-bg: #fef3d6;
+  --accent: #1a5fb4; --chip: #eef1f5; --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111418; --panel: #1a1e24; --text: #e6e9ed; --muted: #9aa3ad; --line: #2c323a;
+    --pass: #7fd69a; --pass-bg: #16301f; --fail: #ff8f86; --fail-bg: #3a1b19; --warn: #f1c46b; --warn-bg: #3a2f14;
+    --accent: #8ab4f8; --chip: #252a31;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111418; --panel: #1a1e24; --text: #e6e9ed; --muted: #9aa3ad; --line: #2c323a;
+  --pass: #7fd69a; --pass-bg: #16301f; --fail: #ff8f86; --fail-bg: #3a1b19; --warn: #f1c46b; --warn-bg: #3a2f14;
+  --accent: #8ab4f8; --chip: #252a31;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 "Sarabun", "Noto Sans Thai", "Leelawadee UI", system-ui, sans-serif; }
+main { max-width: 1400px; margin: 0 auto; padding: 20px 16px 60px; }
+h1 { font-size: 1.5rem; margin: 0 0 4px; }
+h2 { font-size: 1.15rem; margin: 28px 0 10px; }
+a { color: var(--accent); }
+.muted { color: var(--muted); }
+.small { font-size: .85rem; }
+.mono { font-family: var(--mono); font-size: .85em; }
+.head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
+.badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-weight: 600; font-size: .85rem; background: var(--chip); }
+.badge.mode0 { background: var(--pass-bg); color: var(--pass); }
+.badge.mode1 { background: var(--fail-bg); color: var(--fail); }
+.boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 16px; }
+.box { background: var(--panel); border: 1px solid var(--line); border-left: 6px solid var(--fail); border-radius: 10px; padding: 14px 16px; }
+.box.ok { border-left-color: var(--pass); }
+.box h3 { margin: 0; font-size: 1rem; text-transform: capitalize; display: flex; justify-content: space-between; gap: 8px; }
+.verdict { font-weight: 700; }
+.ok .verdict { color: var(--pass); }
+.box:not(.ok) .verdict { color: var(--fail); }
+.box .big { font-size: 1.6rem; font-weight: 700; margin: 6px 0 0; font-variant-numeric: tabular-nums; }
+.box ul { margin: 6px 0 0; padding-left: 18px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
+.panel p { margin: 6px 0; }
+.claims { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 760px) { .claims { grid-template-columns: 1fr; } }
+.claims li { margin: 4px 0; }
+.links { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+.filters input[type=search], .filters select { font: inherit; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); }
+.filters input[type=search] { flex: 1 1 220px; min-width: 0; }
+.filters label { display: inline-flex; gap: 6px; align-items: center; }
+.tablewrap { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { position: sticky; top: 0; background: var(--panel); font-size: .85rem; color: var(--muted); z-index: 1; }
+td.id { white-space: nowrap; font-weight: 600; }
+td.exp { max-width: 380px; font-size: .88rem; }
+td.st { white-space: nowrap; text-align: center; }
+.st span { display: inline-block; min-width: 2.2em; padding: 1px 8px; border-radius: 6px; font-weight: 600; }
+.s-passed { background: var(--pass-bg); color: var(--pass); }
+.s-failed { background: var(--fail-bg); color: var(--fail); }
+.s-skipped, .s-notrun { background: var(--warn-bg); color: var(--warn); }
+.src { display: block; font-size: .72rem; color: var(--muted); font-weight: 400; }
+.prio { font-weight: 700; }
+.prio.P1 { color: var(--fail); }
+tr.tri td { background: var(--fail-bg); font-size: .88rem; border-bottom: 2px solid var(--line); }
+.tri .cls { font-weight: 700; }
+details summary { cursor: pointer; color: var(--accent); }
+pre.err { white-space: pre-wrap; word-break: break-word; font-family: var(--mono); font-size: .78rem; margin: 6px 0 0; color: var(--text); }
+.ev a { margin-right: 6px; white-space: nowrap; }
+.flips td, .flips th { padding: 4px 8px; }
+@media (max-width: 760px) {
+  .tablewrap { background: transparent; border: 0; overflow: visible; }
+  table.cases thead { display: none; }
+  table.cases, table.cases tbody, table.cases tr, table.cases td { display: block; width: 100%; }
+  table.cases tr.tc { background: var(--panel); border: 1px solid var(--line); border-radius: 10px 10px 0 0; margin-top: 12px; padding: 6px 0; }
+  table.cases tr.tc.last { border-radius: 10px; }
+  table.cases tr.tri { border: 1px solid var(--line); border-top: 0; border-radius: 0 0 10px 10px; overflow: hidden; }
+  table.cases td { border: 0; padding: 3px 12px; max-width: none; text-align: left; }
+  table.cases td[data-l]::before { content: attr(data-l) " · "; color: var(--muted); font-size: .8rem; }
+  table.cases td.st { display: inline-block; width: auto; padding-right: 4px; }
+  table.cases td.st::before { content: attr(data-l) " "; }
+}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const DATA = /*__DATA__*/null;
+const B = ['chromium', 'firefox', 'webkit'];
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const ST = { passed: '✅', failed: '❌', skipped: '⏭ ข้าม', notrun: '— ไม่ได้รัน' };
+const fmt = (iso) => iso ? new Date(iso).toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' }) : '-';
+const mode = String(DATA.info.bugModeFromHtml ?? '?');
+
+function boxes(sum, small) {
+  return B.map((b) => {
+    const s = sum[b];
+    const fails = s.failed.length ? `<ul class="small">${s.failed.map((t) => `<li><a href="#${t}">${t}</a>${s.notRun.includes(t) ? ' (ข้าม/ไม่ได้รัน = ไม่ผ่าน)' : ''}</li>`).join('')}</ul>` : '<p class="small muted">ไม่มีข้อที่ล้ม</p>';
+    return `<div class="box ${s.meets ? 'ok' : ''}">
+      <h3><span>${b}</span><span class="verdict">${s.meets ? '✅ ผ่านเกณฑ์' : '❌ ไม่ผ่านเกณฑ์'}</span></h3>
+      <p class="big">${s.pass}<span class="muted small"> / ${s.total} ผ่าน (ต้อง ≥ ${s.need})</span></p>
+      <p class="small">P1 ผ่าน <b>${s.p1pass}/${s.p1total}</b> ${s.p1pass === s.p1total ? '✅' : '❌ (ต้องครบ)'} · ผ่านรวม ${s.pass >= s.need ? '✅' : '❌'} ${(100 * s.pass / s.total).toFixed(1)}%</p>
+      ${small ? '' : `<details${s.failed.length && s.failed.length <= 12 ? ' open' : ''}><summary class="small">ไม่ผ่าน ${s.failed.length} ข้อ</summary>${fails}</details>`}
+    </div>`;
+  }).join('');
+}
+
+function cell(r, b) {
+  const x = r.res[b];
+  const src = x.src === 'serial' ? (b === 'chromium' ? 'serial' : 'นับจาก serial') : x.src.startsWith('perf') ? `perf${x.loadMs ? ' ' + x.loadMs + ' ms' : ''}` : '';
+  const title = x.error ? ` title="${esc(x.error)}"` : '';
+  return `<td class="st" data-l="${b}"><span class="s-${x.status}"${title}>${ST[x.status]}</span>${src ? `<span class="src">${src}</span>` : ''}</td>`;
+}
+
+function rows(list) {
+  return list.map((r, i) => {
+    const failing = B.some((b) => r.res[b].status !== 'passed');
+    const ev = [
+      ...r.gifs.map((g, k) => `<a href="${esc(g)}" target="_blank">GIF${r.gifs.length > 1 ? k + 1 : ''}</a>`),
+      ...r.mp4s.map((g, k) => `<a href="${esc(g)}" target="_blank">MP4${r.mp4s.length > 1 ? k + 1 : ''}</a>`),
+      r.mcpImage ? `<a href="${esc(r.mcpImage)}" target="_blank">ภาพ MCP${r.mcpVerdict && r.mcpVerdict !== '✅' ? ' ' + esc(r.mcpVerdict) : ''}</a>` : '',
+    ].filter(Boolean).join(' ') || '<span class="muted">–</span>';
+    const exp = r.expected.length > 170
+      ? `<details><summary>${esc(r.expectedShort)}</summary>${esc(r.expected)}${r.reasoning ? `<p class="muted">วิธีคิด: ${esc(r.reasoning)}</p>` : ''}</details>`
+      : `${esc(r.expected)}${r.reasoning ? `<div class="muted small">วิธีคิด: ${esc(r.reasoning)}</div>` : ''}`;
+    let tri = '';
+    if (failing) {
+      const t = r.triage;
+      const errB = B.find((b) => r.res[b].error);
+      const failedIn = B.filter((b) => r.res[b].status !== 'passed').map((b) => `${b}${r.res[b].status === 'notrun' ? ' (ไม่ได้รัน)' : r.res[b].status === 'skipped' ? ' (ข้าม)' : ''}`).join(', ');
+      tri = `<tr class="tri" data-k="${esc(r.id)}"><td colspan="9">
+        <span class="cls">${t ? esc(t.class) : 'ยังไม่ได้จำแนก'}</span> · ไม่ผ่านใน ${esc(failedIn)}${t?.note ? `<div>${esc(t.note)}</div>` : ''}
+        ${errB ? `<details><summary class="small">ข้อความ error (${errB})</summary><pre class="err">${esc(r.res[errB].error)}</pre></details>` : ''}
+      </td></tr>`;
+    }
+    return `<tr class="tc${failing ? '' : ' last'}" id="${esc(r.id)}" data-k="${esc(r.id)}">
+      <td class="id" data-l="รหัส">${esc(r.id)}</td>
+      <td data-l="สิ่งที่ทดสอบ">${esc(r.title)}<div class="muted small">${esc(r.module)} · ${esc(r.technique)}</div></td>
+      <td data-l="ระดับ"><span class="prio ${esc(r.priority)}">${esc(r.priority)}</span></td>
+      <td data-l="ที่มา" class="small">${esc(r.source)}</td>
+      <td data-l="เฉลย" class="exp">${exp}</td>
+      ${B.map((b) => cell(r, b)).join('')}
+      <td data-l="หลักฐาน" class="ev small">${ev}</td>
+    </tr>${tri}`;
+  }).join('');
+}
+
+function render() {
+  const d = DATA;
+  const mods = [...new Set(d.rows.map((r) => r.module))];
+  const ourBest = B.map((b) => `${b} ${d.summary[b].pass}/${d.summary[b].total}`).join(' · ');
+  const allFail = [...new Set(B.flatMap((b) => d.summary[b].failed))];
+  const failDataOracle = allFail.filter((t) => { const r = d.rows.find((x) => x.id === t); return /\[D\]|\[R\]/.test(r.source) && r.triage && /เว็บผิด/.test(r.triage.class); });
+  const cmp = d.compare;
+  document.getElementById('app').innerHTML = `
+  <div class="head">
+    <div>
+      <h1>ผลทดสอบ ลูกหนัง อารีน่า${d.label ? ' · ' + esc(d.label) : ''}</h1>
+      <div class="muted small">แผน 128 TC (P1 74) · สร้างหน้า ${fmt(d.builtAt)} · เริ่มรัน ${fmt(d.info.startedAt)} · เวลาที่ล็อกในระบบ <span class="mono">${esc(d.info.lockedNow ?? '-')}</span></div>
+    </div>
+    <div><span class="badge mode${esc(mode)}">โหมด data-bug-mode = ${esc(mode)}${mode === '0' ? ' (ปกติ)' : mode === '1' ? ' (บั๊ก)' : ''}</span></div>
+  </div>
+
+  <h2>เกณฑ์ผ่าน (Exit · แผนหัวข้อ 6.4) แยกทีละเบราว์เซอร์</h2>
+  <p class="small muted">① P1 ผ่านครบ 74/74 และ ② ผ่านรวม ≥ ⌈95% × 128⌉ = 122 · ไม่ได้รัน/ข้าม = ไม่ผ่าน · TC ที่รันใน <span class="mono">serial</span> (Chromium ครั้งเดียว: 🕒 เลื่อนเวลา, API ล้วน, ต้องใช้ข้อมูล seed ตรงตัว) นับผลเดียวกันให้ทุกเบราว์เซอร์ · TC-BOOK-02 นับจาก perf ของเบราว์เซอร์นั้น</p>
+  <div class="boxes">${boxes(d.summary)}</div>
+  ${cmp ? `<h2>เทียบกับ ${esc(cmp.label)} (ผลนิ่งไหม)</h2>
+  <div class="panel">
+    <p class="small">${esc(cmp.label)} (รันเมื่อ ${fmt(cmp.runAt)}): ${B.map((b) => `${b} ${cmp.summary[b].pass}/128 P1 ${cmp.summary[b].p1pass}/74 ${cmp.summary[b].meets ? '✅' : '❌'}`).join(' · ')}</p>
+    ${cmp.flips.length ? `<table class="flips small"><thead><tr><th>TC</th><th>เบราว์เซอร์</th><th>${esc(cmp.label)}</th><th>รอบนี้</th><th>จำแนก</th></tr></thead><tbody>${cmp.flips.map((f) => { const t = d.rows.find((r) => r.id === f.tc)?.triage; return `<tr><td><a href="#${f.tc}">${f.tc}</a></td><td>${f.browser}${f.src === 'serial' ? ' (serial = ทุกเบราว์เซอร์)' : ''}</td><td>${ST[f.before]}</td><td>${ST[f.after]}</td><td>${esc(t?.class ?? '')}</td></tr>`; }).join('')}</tbody></table>` : '<p><b>ผลเหมือนกันทุก TC ทุกเบราว์เซอร์</b> (ไม่มีข้อที่ผ่าน↔ล้มสลับกัน)</p>'}
+  </div>` : ''}
+
+  <h2>[A] คำอ้างของผู้สร้าง เทียบกับแผนของเรา</h2>
+  <div class="claims">
+    <div class="panel">
+      <p><b>[A] ผู้สร้างอ้าง (selfcheck)</b> <span class="muted small">— อ่านจาก SPEC / RUNBOOK เท่านั้น ไม่ได้เปิดหรือรัน <span class="mono">web/selfcheck/</span></span></p>
+      <ul class="small">${d.claims.map((c) => `<li><span class="mono">${esc(c.file)}:${c.line}</span> — ${esc(c.text)}</li>`).join('') || '<li>ไม่พบคำอ้าง</li>'}</ul>
+      <p class="small muted">สรุป: ผู้สร้างบอกว่ามีชุดตรวจเอง (rules-check v1 191 ข้อ · check-testdata E01–E148 พิมพ์ "ผ่าน X / Y") แต่ในเอกสารไม่ได้ระบุผลจริงเป็นตัวเลข จึงนับเป็นคำอ้าง [A] ที่ยังไม่พิสูจน์ (EXPLORATION A-23) ไม่ใช้เป็น oracle</p>
+    </div>
+    <div class="panel">
+      <p><b>แผนของเรา ([D] ร้าน / [R] กฎทั่วไป)</b></p>
+      <p class="small">ผ่าน ${ourBest} · ${B.every((b) => d.summary[b].meets) ? '✅ ผ่านเกณฑ์ทุกเบราว์เซอร์' : '❌ ไม่ผ่านเกณฑ์' + ' (' + B.filter((b) => !d.summary[b].meets).join(', ') + ')'}</p>
+      <p class="small">ข้อที่ล้มเพราะเว็บไม่ตรงกับ [D]/[R] (ทั้งที่ผู้สร้างอ้างว่ามีชุดตรวจเองครอบ TEST-DATA E01–E148): <b>${failDataOracle.length}</b> ข้อ — ${failDataOracle.map((t) => `<a href="#${t}">${t}</a>`).join(', ') || '–'}</p>
+      <p class="small muted">ข้อที่ล้มทั้งหมดในรอบนี้ ${allFail.length} ข้อ (รวมทุกเบราว์เซอร์) · จำแนกจาก <span class="mono">e2e/triage.json</span></p>
+    </div>
+  </div>
+
+  <h2>รายงานและหลักฐาน</h2>
+  <div class="panel small">
+    <div class="links">
+      <a href="${esc(d.links.chatbot)}">CHATBOT-REPORT.md (แชทบอท: ต้องมี · baseline · คำตอบจริง)</a>
+      <a href="${esc(d.links.report)}">TEST-REPORT.md</a>
+      <a href="${esc(d.links.html)}">Playwright HTML report</a>
+      <a href="${esc(d.links.plan)}">แผน 09-TEST-PLAN.md</a>
+      <a href="${esc(d.links.cases)}">TEST-CASES.md (เฉลย)</a>
+      <a href="${esc(d.links.mcp)}">TEST-RUN-MCP.md</a>
+    </div>
+    <p>GIF ${d.counts.gif} ไฟล์ · MP4 ${d.counts.mp4} ไฟล์ (จาก <span class="mono">npm run test:gif</span> = Chromium + serial + perf-chromium · TC ที่ยิง API อย่างเดียวไม่มีวิดีโอ) · ภาพ MCP ${d.rows.filter((r) => r.mcpImage).length} ภาพ</p>
+    <p class="muted">project ที่รัน: ${d.runAts.map((r) => `${esc(r.project)} ${r.n} test (${fmt(r.runAt)})`).join(' · ')}</p>
+  </div>
+
+  <h2>ทุก TC (${d.rows.length})</h2>
+  <div class="filters">
+    <input type="search" id="q" placeholder="ค้นหา รหัส / สิ่งที่ทดสอบ / เฉลย" aria-label="ค้นหา">
+    <select id="mod" aria-label="โมดูล"><option value="">ทุกโมดูล</option>${mods.map((m) => `<option>${m}</option>`).join('')}</select>
+    <select id="pr" aria-label="ระดับ"><option value="">ทุกระดับ</option><option>P1</option><option>P2</option><option>P3</option></select>
+    <label><input type="checkbox" id="fo"> เฉพาะที่ไม่ผ่าน</label>
+    <span id="cnt" class="muted small"></span>
+  </div>
+  <div class="tablewrap">
+    <table class="cases">
+      <thead><tr><th>รหัส</th><th>สิ่งที่ทดสอบ</th><th>ระดับ</th><th>ที่มา</th><th>เฉลย</th><th>chromium</th><th>firefox</th><th>webkit</th><th>GIF · MP4 · MCP</th></tr></thead>
+      <tbody id="tb"></tbody>
+    </table>
+  </div>`;
+  const apply = () => {
+    const q = document.getElementById('q').value.trim().toLowerCase();
+    const mo = document.getElementById('mod').value, pr = document.getElementById('pr').value, fo = document.getElementById('fo').checked;
+    const list = d.rows.filter((r) => (!mo || r.module === mo) && (!pr || r.priority === pr) &&
+      (!fo || B.some((b) => r.res[b].status !== 'passed')) &&
+      (!q || `${r.id} ${r.title} ${r.expected} ${r.source}`.toLowerCase().includes(q)));
+    document.getElementById('tb').innerHTML = rows(list);
+    document.getElementById('cnt').textContent = `แสดง ${list.length} / ${d.rows.length}`;
+  };
+  ['q', 'mod', 'pr', 'fo'].forEach((id) => document.getElementById(id).addEventListener('input', apply));
+  apply();
+}
+render();
+</script>
+</body>
+</html>

@@ -1,4 +1,38 @@
-## 5. บันทึกของ tester รอบ 7.5b (2026-10-10, BUG_MODE = 0)
+## 4. บันทึกของ tester รอบ B-3 · แผน v2 128 TC (2026-10-20, BUG_MODE = 0, MODE = mock)
+
+หน้าสรุปหลัก: [`e2e/index.html`](../index.html) (ดับเบิลคลิกเปิดได้ · สร้างด้วย `node build-index.mjs` หลังรัน) · เก็บแยกรอบ: [`run-1/`](run-1/) · [`run-2/`](run-2/) (results.json · run-info.json · TEST-REPORT.md · CHATBOT-REPORT.md · index.html) · ทั้ง 2 รอบตั้ง `RUN_MIGRATION_TEST=1` (หัวหน้าทีมอนุมัติ) → TC-DATA-03 ได้รัน
+
+### 4.1 ผลตามเกณฑ์ Exit (แผน 6.4 · ตัดสินแยกทีละเบราว์เซอร์ · ไม่ได้รัน/ข้าม = ไม่ผ่าน · serial นับให้ทุกเบราว์เซอร์)
+
+| รอบ | chromium ผ่าน · P1 | firefox ผ่าน · P1 | webkit ผ่าน · P1 | ผ่านเกณฑ์ (ต้อง P1 74/74 และ ≥ 122/128) |
+|---|---|---|---|---|
+| 1 | 117/128 · 72/74 | 116/128 · 71/74 | 117/128 · 72/74 | ❌ ทั้ง 3 เบราว์เซอร์ |
+| 2 | 117/128 · 72/74 | 117/128 · 72/74 | 117/128 · 72/74 | ❌ ทั้ง 3 เบราว์เซอร์ |
+
+ราย project (ผ่าน/ล้ม/ข้าม): รอบ 1 chromium 71/6/1 · firefox 70/7/1 · webkit 71/6/1 · serial 45/4/0 · perf 3/0/0 — รอบ 2 chromium 71/6/1 · firefox 71/6/1 · webkit 71/6/1 · serial 45/4/0 · perf 3/0/0
+
+- ไม่ผ่านทุกเบราว์เซอร์ทั้ง 2 รอบ (11 TC): P1 = **TC-ROLE-03** (เว็บผิด · session ไม่ถูกยกเลิกหลัง logout) + **TC-SERIES-04** (ข้าม · ทดสอบผ่านเว็บไม่ได้ = นับไม่ผ่าน) · P2/P3 = TC-BOOK-11, TC-STAFF-06, TC-CHAT-14, TC-CHAT-15, TC-CHAT-16 (เปิดหน้าเว็บ ล้มเองทุกเบราว์เซอร์) และ TC-REPORT-01, TC-REPORT-04, TC-TRACK-01, TC-DATA-01 (serial · นับให้ทุกเบราว์เซอร์) — ทั้งหมดจำแนกเป็น "เว็บผิด" ใน `triage.json` ยกเว้น SERIES-04
+- ผ่านรวม 117 ≥ 122 ไม่ถึง (ขาด 5) และ P1 ขาด 2 → **ไม่ผ่าน Exit** ตรงกับที่แผนคาดไว้ในหัวข้อ 6.4 "สถานะ ณ วันเขียนแผน"
+- TC-DATA-03 (migration ซ้ำ + ถอยกลับ) **ผ่าน** ทั้ง 2 รอบ
+- NFR-08 (TC-BOOK-02 รันเดี่ยว): รอบ 1 chromium 245 / firefox 526 / webkit 372 ms · รอบ 2 222 / 502 / 479 ms → ผ่าน ≤ 2,000 ms
+
+### 4.2 ผลนิ่งไหม (รอบ 1 เทียบรอบ 2)
+
+| TC | เบราว์เซอร์ | รอบ 1 | รอบ 2 | สาเหตุ |
+|---|---|---|---|---|
+| TC-MEMBER-06 (P1) | firefox | ❌ | ✅ | **flaky** — ค่าที่ตรวจตรงเฉลยทั้งหมด แต่ `page.reload()` ได้ `NS_BINDING_ABORTED` (Firefox ยกเลิกการรีโหลดเพราะการนำทางหลังเข้าสู่ระบบยังค้าง) ไม่มี expect ใดล้ม · ไม่ใช่บั๊กเว็บ · ไม่แก้ test รอบนี้ |
+
+นอกจากข้อนี้ ผลทุก TC ทุกเบราว์เซอร์เหมือนกันทั้ง 2 รอบ
+
+รอบ GIF (`npm run test:gif`, slowMo 650 ms, ไม่ใช้ตัดสิน · ตั้ง `RUN_MIGRATION_TEST=1` เช่นกัน): chromium + serial ผ่าน 117 ล้ม 10 ข้าม 1 · perf-chromium ผ่าน — ข้อที่ล้มชุดเดียวกับรอบปกติทุกข้อ · ได้ **GIF 138 / MP4 138** ไฟล์ ครอบ 122/128 TC (ที่ไม่มีวิดีโอ: TC-API-01, -03, -04, -05, TC-DATA-02 ยิง API อย่างเดียว · TC-DATA-03 รันสคริปต์ db) · ffmpeg แปลงครบ ไม่มีไฟล์ที่แปลงไม่สำเร็จ
+
+### 4.3 สิ่งที่เปลี่ยนรอบนี้
+
+- `docs/09-TEST-PLAN.md` 6.4 เพิ่มกติกานับ (หัวหน้าทีมตัดสิน): TC ที่ต้องใช้ข้อมูล seed ตรงตัว รันครั้งเดียวใน serial (Chromium) นับให้ทุกเบราว์เซอร์ — STOCK, SALE, DASH, REPORT, OWNER-04, PRICE-05/06/07, SERIES-05, ROLE-02
+- `triage.json`: เพิ่ม TC-SERIES-04 (ไม่ได้รัน), TC-MEMBER-06 (flaky) · ปรับ TC-DATA-03 (รันเองในรอบเต็มแล้ว)
+- ไม่ได้แก้ test หรือผลที่คาดหวังใด ๆ
+- ใหม่: `plan-cases.json` (จาก `build-plan-cases.mjs`) · `index.html` (จาก `build-index.mjs` + `index.template.html`)
+
 
 ตารางสรุปข้างบนคือผล **รอบที่ 2** ของ `npm test` (รอบหลัก + perf) · รอบ GIF เก็บแยก ไม่ใช้ตัดสิน · รายงานก่อนรอบนี้: [`TEST-REPORT-before-7.5b.md`](TEST-REPORT-before-7.5b.md) · รอบ 1: [`TEST-REPORT-7.5b-r1.md`](TEST-REPORT-7.5b-r1.md) · รอบ 2: [`TEST-REPORT-7.5b-r2.md`](TEST-REPORT-7.5b-r2.md)
 

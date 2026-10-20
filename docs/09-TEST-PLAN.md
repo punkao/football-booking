@@ -403,6 +403,7 @@ FR ที่ไม่มี TC: **0 / 48** · BR ที่ไม่มี TC: **
 | Entry | `docker ps`: `football-db` และ `football-web` เป็น `(healthy)` · `GET /api/health` = `{"ok":true,"db":true}` · `GET /api/version` `bugMode` ตรงกับรอบที่ตั้งใจ · `POST /api/test/reset {}` ตอบ `ok: true` · ไม่ผ่านข้อใด → หยุด ไม่เริ่มรัน |
 | Exit (ตัดสิน **แยกทีละเบราว์เซอร์** Chromium / Firefox / WebKit) | ① **P1 ผ่านทั้งหมด 74/74** และ ② **ผ่านรวม ≥ 95% ของ 128 ข้อ = ⌈121.6⌉ = 122 ข้อ** (ปัดขึ้น · ล้มได้ไม่เกิน 6) · **ไม่ได้รัน / ข้าม = ไม่ผ่าน** |
 | กติกานับ | TC ที่เป็น API ล้วน (TC-API-01–05, TC-DATA-02) และ TC 🕒 (`serial` บน Chromium) รันครั้งเดียว แล้ว**นับผลเดียวกันให้ทุกเบราว์เซอร์** · TC ที่เปิดหน้าเว็บนับจากผลของเบราว์เซอร์นั้นเอง · TC-SERIES-04 (unit) และ TC-DATA-03 (สคริปต์) ไม่ได้รันผ่านเว็บ → นับไม่ผ่านจนกว่าจะมีหลักฐานผลรัน |
+| กติกานับ (เพิ่ม · หัวหน้าทีมตัดสิน รอบ B-3) | TC ที่ต้องใช้สภาพข้อมูล seed ตรงตัว รันครั้งเดียวใน `serial` (Chromium) แล้ว**นับผลเดียวกันให้ทุกเบราว์เซอร์** เพราะ oracle คือข้อมูลฝั่งเซิร์ฟเวอร์ ไม่ใช่การแสดงผล: TC-STOCK-01–06 · TC-SALE-01–03 · TC-DASH-01–03 · TC-REPORT-01–05 · TC-OWNER-04 · TC-PRICE-05, TC-PRICE-06, TC-PRICE-07 · TC-SERIES-05 · TC-ROLE-02 |
 | หลักฐาน | ทุก test ที่เปิดหน้าเว็บมี GIF + MP4 (ส่วน B) · รอบ MCP มีภาพ `exploration/mcp-run/<TC>.png` และ `screenshots/mcp/trace.jsonl` |
 | สถานะ ณ วันเขียนแผน (จาก TEST-RUN-1 + TEST-RUN-MCP) | ⚠️ คาดว่าไม่ผ่าน Exit: P1 ที่ไม่ตรงใน MCP = TC-ROLE-03 (บั๊ก) + TC-TEAM-02 (ขั้นแรกอ่านจากจอไม่ได้) · ไม่ตรง/ไม่ได้รันรวม (TEST-RUN-1 + MCP) เกิน 6 ข้อ — ดู [`TEST-RUN-MCP.md`](TEST-RUN-MCP.md) |
 

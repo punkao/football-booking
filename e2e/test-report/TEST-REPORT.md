@@ -1,6 +1,6 @@
 # TEST REPORT — ลูกหนัง อารีน่า
 
-สร้างเมื่อ 20/10/2569 15:41:51 · เวลาที่ล็อกในระบบ `2026-10-09T10:00:00+07:00` · **BUG_MODE = 0** (อ่านจาก `<html data-bug-mode>`) · ผลรวมรอบล่าสุดของแต่ละ project (Playwright: passed)
+สร้างเมื่อ 20/10/2569 16:25:40 · เวลาที่ล็อกในระบบ `2026-10-09T10:00:00+07:00` · **BUG_MODE = 0** (อ่านจาก `<html data-bug-mode>`) · ผลรวมรอบล่าสุดของแต่ละ project (Playwright: passed)
 
 แผนทดสอบ: [`docs/09-TEST-PLAN.md`](../../docs/09-TEST-PLAN.md) · HTML report: `npm run report`
 
@@ -8,20 +8,20 @@
 
 | project | รันเมื่อ | ผ่าน | ล้ม | ข้าม | รวม |
 |---|---|---|---|---|---|
-| chromium | 20/10/2569 15:41:41 | 71 | 6 | 1 | 78 |
-| firefox | 20/10/2569 15:41:41 | 71 | 6 | 1 | 78 |
-| webkit | 20/10/2569 15:41:41 | 71 | 6 | 1 | 78 |
-| serial | 20/10/2569 15:41:41 | 44 | 4 | 1 | 49 |
-| perf-chromium | 20/10/2569 15:41:51 | 1 | 0 | 0 | 1 |
-| perf-firefox | 20/10/2569 15:41:51 | 1 | 0 | 0 | 1 |
-| perf-webkit | 20/10/2569 15:41:51 | 1 | 0 | 0 | 1 |
+| chromium | 20/10/2569 16:02:09 | 71 | 6 | 1 | 78 |
+| firefox | 20/10/2569 16:02:09 | 71 | 6 | 1 | 78 |
+| webkit | 20/10/2569 16:02:09 | 71 | 6 | 1 | 78 |
+| serial | 20/10/2569 16:02:09 | 45 | 4 | 0 | 49 |
+| perf-chromium | 20/10/2569 16:02:19 | 1 | 0 | 0 | 1 |
+| perf-firefox | 20/10/2569 16:02:19 | 1 | 0 | 0 | 1 |
+| perf-webkit | 20/10/2569 16:02:19 | 1 | 0 | 0 | 1 |
 
-รอบอัดหลักฐาน (`npm run test:gif`, slowMo 650 ms — ไม่ใช้ตัดสินผล): setup ผ่าน 1 ล้ม 0 ข้าม 0 · chromium ผ่าน 62 ล้ม 3 ข้าม 1 · serial ผ่าน 12 ล้ม 1 ข้าม 0 · perf-chromium ผ่าน 1 ล้ม 0 ข้าม 0
+รอบอัดหลักฐาน (`npm run test:gif`, slowMo 650 ms — ไม่ใช้ตัดสินผล): setup ผ่าน 1 ล้ม 0 ข้าม 0 · chromium ผ่าน 71 ล้ม 6 ข้าม 1 · serial ผ่าน 45 ล้ม 4 ข้าม 0 · perf-chromium ผ่าน 1 ล้ม 0 ข้าม 0
 
-- ผ่านรวม **260/282 = 92.2%** (เกณฑ์ ≥ 95%, ไม่นับข้อที่ข้าม)
+- ผ่านรวม **261/283 = 92.2%** (เกณฑ์ ≥ 95%, ไม่นับข้อที่ข้าม)
 - P1 ที่ล้ม: **3** ผล (เกณฑ์ 0) → TC-ROLE-03
 - **ผ่านเกณฑ์: ❌ ไม่ผ่าน**
-- NFR-08 (TC-BOOK-02 รันเดี่ยว) เวลาเปิด /book จน data-ready: chromium 230 ms · firefox 514 ms · webkit 344 ms (เกณฑ์ ≤ 2,000 ms)
+- NFR-08 (TC-BOOK-02 รันเดี่ยว) เวลาเปิด /book จน data-ready: chromium 222 ms · firefox 502 ms · webkit 479 ms (เกณฑ์ ≤ 2,000 ms)
 
 ## 2. ผลตามโมดูล
 
@@ -48,32 +48,32 @@
 
 | TC | สิ่งที่ทดสอบ | ระดับ | chromium | firefox | webkit | serial | GIF | MP4 |
 |---|---|---|---|---|---|---|---|---|
-| TC-DASH-01 | แดชบอร์ดจาก seed (TEST-DATA 5.4) เทียบ SQL | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-DASH-02 | ยอดวันนี้อัปเดตหลังรับเงิน · เครดิตแสดงแยก ไม่นับเป็นรายได้ (A-37) | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-DASH-03 | อัตราการใช้สนาม 25% (US-46) · ยกเลิกไม่นับ · ชั่วโมงยอดนิยม/สถานะ | P2 | – | – | – | ✅ ผ่าน | – | – |
-| TC-DATA-01 | staff กดไม่มา LN-900001 ตอน 19:15 → ประวัติ (ชื่อพนักงาน A-44) + AuditLog (E146) | P2 | – | – | – | ❌ ล้ม | – | – |
+| TC-DASH-01 | แดชบอร์ดจาก seed (TEST-DATA 5.4) เทียบ SQL | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-DASH-01.gif) | [mp4](videos/TC-DASH-01.mp4) |
+| TC-DASH-02 | ยอดวันนี้อัปเดตหลังรับเงิน · เครดิตแสดงแยก ไม่นับเป็นรายได้ (A-37) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-DASH-02.gif) | [mp4](videos/TC-DASH-02.mp4) |
+| TC-DASH-03 | อัตราการใช้สนาม 25% (US-46) · ยกเลิกไม่นับ · ชั่วโมงยอดนิยม/สถานะ | P2 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-DASH-03.gif) | [mp4](videos/TC-DASH-03.mp4) |
+| TC-DATA-01 | staff กดไม่มา LN-900001 ตอน 19:15 → ประวัติ (ชื่อพนักงาน A-44) + AuditLog (E146) | P2 | – | – | – | ❌ ล้ม | [gif](gifs/TC-DATA-01.gif) | [mp4](videos/TC-DATA-01.mp4) |
 | TC-DATA-02 | ไม่มีทางแก้/ลบประวัติสถานะและ AuditLog (E147) | P2 | – | – | – | ✅ ผ่าน | – | – |
-| TC-DATA-03 | migration รันซ้ำและถอยกลับโดยการจองเดิมอยู่ครบ (E148) | P2 | – | – | – | ⏭ ข้าม | – | – |
-| TC-REPORT-01 | ช่วงวันรายงาน E140–E142 (+ 30 พ.ย. → 28 ก.พ. A-46) | P2 | – | – | – | ❌ ล้ม | – | – |
-| TC-REPORT-02 | รายงาน 8–8 ต.ค. (E144) เทียบ SQL | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-REPORT-03 | CSV เปิด Excel ได้ (BOM · หัวไทย · ไม่มี ฿) และบันทึก REPORT_EXPORT | P2 | – | – | – | ✅ ผ่าน | – | – |
-| TC-REPORT-04 | หัวข้อที่ร้านขอในรายงาน: เงินแยก มัดจำพร้อมเพย์ / เก็บหน้าสนาม / หักเครดิต + ชั่วโมงต่อสนาม | P2 | – | – | – | ❌ ล้ม | – | – |
-| TC-REPORT-05 | เงินนับวันรับ · การจองนับวันเตะ (BR-40 "มัดจำวันที่ 9 การจองวันที่ 12") | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-ROLE-01 | สิทธิ์หลังบ้านตามบทบาท (BR-44) + E143 | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
-| TC-ROLE-02 | สิทธิ์คลัง: staff ขาย/ย้ายได้ · รับเข้า/ชำรุด/ปรับยอด/จุดสั่งซื้อไม่ได้ (E132) | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-ROLE-03 | ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) | P1 | ❌ ล้ม | ❌ ล้ม | ❌ ล้ม | – | – | – |
-| TC-ROLE-04 | ไม่เข้าสู่ระบบเปิดหน้าหลังบ้าน v2 → ไปหน้าเข้าสู่ระบบ | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
-| TC-SALE-01 | ขายหน้าเคาน์เตอร์ E135 และ US-42 (น้ำ 2 เงินสด) | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-SALE-02 | ขายน้ำ 23 / 24 / 25 ขวด (E121–E123) | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-SALE-03 | ขายได้เฉพาะของขาย (E136–E137) · ฟอร์มเปล่า / ไม่เลือกช่องทาง | P2 | – | – | – | ✅ ผ่าน | – | – |
-| TC-STOCK-01 | คงเหลือ 8 รายการ แยก STORE / COUNTER / รวม + ประวัติขาย seed | P2 | – | – | – | ✅ ผ่าน | – | – |
-| TC-STOCK-02 | ย้ายของ E124–E127 | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-STOCK-03 | เตือนของใกล้หมด E128–E131 + ตั้ง/ล้างจุดสั่งซื้อซ้ำ | P2 | – | – | – | ✅ ผ่าน | – | – |
-| TC-STOCK-04 | ปรับยอดต้องมีเหตุผล และบันทึกชื่อ+เวลา (E133–E134) | P2 | – | – | – | ✅ ผ่าน | – | – |
-| TC-STOCK-05 | ชำรุด/รับเข้าเอี๊ยม เปลี่ยนจำนวนให้เช่า (E138–E139) | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-STOCK-06 | ลดของเช่าต่ำกว่าที่การจองค้างจองไว้ไม่ได้ | P2 | – | – | – | ✅ ผ่าน | – | – |
-| TC-TRACK-01 | ขั้นสถานะการจองพร้อมเวลา: จองแล้ว → จ่ายแล้ว → เช็กอิน → จบ (A-43, A-45) | P3 | – | – | – | ❌ ล้ม | – | – |
-| TC-TRACK-02 | ขั้นสถานะเมื่อยกเลิก / หมดเวลาจ่าย | P3 | – | – | – | ✅ ผ่าน | – | – |
+| TC-DATA-03 | migration รันซ้ำและถอยกลับโดยการจองเดิมอยู่ครบ (E148) | P2 | – | – | – | ✅ ผ่าน | – | – |
+| TC-REPORT-01 | ช่วงวันรายงาน E140–E142 (+ 30 พ.ย. → 28 ก.พ. A-46) | P2 | – | – | – | ❌ ล้ม | [gif](gifs/TC-REPORT-01.gif) | [mp4](videos/TC-REPORT-01.mp4) |
+| TC-REPORT-02 | รายงาน 8–8 ต.ค. (E144) เทียบ SQL | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-REPORT-02.gif) | [mp4](videos/TC-REPORT-02.mp4) |
+| TC-REPORT-03 | CSV เปิด Excel ได้ (BOM · หัวไทย · ไม่มี ฿) และบันทึก REPORT_EXPORT | P2 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-REPORT-03.gif) | [mp4](videos/TC-REPORT-03.mp4) |
+| TC-REPORT-04 | หัวข้อที่ร้านขอในรายงาน: เงินแยก มัดจำพร้อมเพย์ / เก็บหน้าสนาม / หักเครดิต + ชั่วโมงต่อสนาม | P2 | – | – | – | ❌ ล้ม | [gif](gifs/TC-REPORT-04.gif) | [mp4](videos/TC-REPORT-04.mp4) |
+| TC-REPORT-05 | เงินนับวันรับ · การจองนับวันเตะ (BR-40 "มัดจำวันที่ 9 การจองวันที่ 12") | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-REPORT-05.gif) | [mp4](videos/TC-REPORT-05.mp4) |
+| TC-ROLE-01 | สิทธิ์หลังบ้านตามบทบาท (BR-44) + E143 | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-ROLE-01.gif) | [mp4](videos/TC-ROLE-01.mp4) |
+| TC-ROLE-02 | สิทธิ์คลัง: staff ขาย/ย้ายได้ · รับเข้า/ชำรุด/ปรับยอด/จุดสั่งซื้อไม่ได้ (E132) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-ROLE-02.gif) | [mp4](videos/TC-ROLE-02.mp4) |
+| TC-ROLE-03 | ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้ (สมาชิก + ร้าน) | P1 | ❌ ล้ม | ❌ ล้ม | ❌ ล้ม | – | [gif](gifs/TC-ROLE-03.gif) | [mp4](videos/TC-ROLE-03.mp4) |
+| TC-ROLE-04 | ไม่เข้าสู่ระบบเปิดหน้าหลังบ้าน v2 → ไปหน้าเข้าสู่ระบบ | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-ROLE-04.gif) | [mp4](videos/TC-ROLE-04.mp4) |
+| TC-SALE-01 | ขายหน้าเคาน์เตอร์ E135 และ US-42 (น้ำ 2 เงินสด) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-SALE-01.gif) | [mp4](videos/TC-SALE-01.mp4) |
+| TC-SALE-02 | ขายน้ำ 23 / 24 / 25 ขวด (E121–E123) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-SALE-02.gif) | [mp4](videos/TC-SALE-02.mp4) |
+| TC-SALE-03 | ขายได้เฉพาะของขาย (E136–E137) · ฟอร์มเปล่า / ไม่เลือกช่องทาง | P2 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-SALE-03.gif) | [mp4](videos/TC-SALE-03.mp4) |
+| TC-STOCK-01 | คงเหลือ 8 รายการ แยก STORE / COUNTER / รวม + ประวัติขาย seed | P2 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-STOCK-01.gif) | [mp4](videos/TC-STOCK-01.mp4) |
+| TC-STOCK-02 | ย้ายของ E124–E127 | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-STOCK-02.gif) | [mp4](videos/TC-STOCK-02.mp4) |
+| TC-STOCK-03 | เตือนของใกล้หมด E128–E131 + ตั้ง/ล้างจุดสั่งซื้อซ้ำ | P2 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-STOCK-03.gif) | [mp4](videos/TC-STOCK-03.mp4) |
+| TC-STOCK-04 | ปรับยอดต้องมีเหตุผล และบันทึกชื่อ+เวลา (E133–E134) | P2 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-STOCK-04.gif) | [mp4](videos/TC-STOCK-04.mp4) |
+| TC-STOCK-05 | ชำรุด/รับเข้าเอี๊ยม เปลี่ยนจำนวนให้เช่า (E138–E139) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-STOCK-05.gif) | [mp4](videos/TC-STOCK-05.mp4) |
+| TC-STOCK-06 | ลดของเช่าต่ำกว่าที่การจองค้างจองไว้ไม่ได้ | P2 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-STOCK-06.gif) | [mp4](videos/TC-STOCK-06.mp4) |
+| TC-TRACK-01 | ขั้นสถานะการจองพร้อมเวลา: จองแล้ว → จ่ายแล้ว → เช็กอิน → จบ (A-43, A-45) | P3 | – | – | – | ❌ ล้ม | [gif](gifs/TC-TRACK-01.gif) | [mp4](videos/TC-TRACK-01.mp4) |
+| TC-TRACK-02 | ขั้นสถานะเมื่อยกเลิก / หมดเวลาจ่าย | P3 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-TRACK-02.gif) | [mp4](videos/TC-TRACK-02.mp4) |
 | TC-HOME-01 | หน้าแรกพร้อมใช้ การ์ด 3 สนาม และไปตารางว่างวันนี้ใน 1 แตะ | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-HOME-01.gif) | [mp4](videos/TC-HOME-01.mp4) |
 | TC-HOME-02 | หน้าข้อมูลสนาม: ขนาด หลังคา ราคา รูปมีคำอธิบาย | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-HOME-02.gif) | [mp4](videos/TC-HOME-02.mp4) |
 | TC-BOOK-01 | E2E จองจนจ่ายจบผ่านหน้าเว็บ | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-BOOK-01.gif) | [mp4](videos/TC-BOOK-01.mp4) |
@@ -84,20 +84,20 @@
 | TC-BOOK-06 | ห้ามจองทับเวลาในสนามเดียวกัน | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-BOOK-06.gif) | [mp4](videos/TC-BOOK-06.mp4) |
 | TC-BOOK-07 | ฟอร์มลูกค้า: ชื่อ เบอร์ และช่องยินยอม PDPA | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-BOOK-07.gif) | [mp4](videos/TC-BOOK-07.mp4) |
 | TC-BOOK-08 | กรองรอบก่อน 17:00 และเรียงราคาถูกไปแพง | P3 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-BOOK-08.gif) | [mp4](videos/TC-BOOK-08.mp4) |
-| TC-BOOK-09 | กดยืนยันจอง 2 ครั้งติดกันจริง → การจอง 1 รายการ | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
-| TC-BOOK-10 | ค่าขอบเวลาตาม TEST-DATA ทุกแถว E04–E21 (วันนี้ ศ 9 10:00) | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-BOOK-11 | ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) | P3 | ❌ ล้ม | ❌ ล้ม | ❌ ล้ม | – | – | – |
+| TC-BOOK-09 | กดยืนยันจอง 2 ครั้งติดกันจริง → การจอง 1 รายการ | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-BOOK-09.gif) | [mp4](videos/TC-BOOK-09.mp4) |
+| TC-BOOK-10 | ค่าขอบเวลาตาม TEST-DATA ทุกแถว E04–E21 (วันนี้ ศ 9 10:00) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-BOOK-10.gif) | [mp4](videos/TC-BOOK-10.mp4) |
+| TC-BOOK-11 | ค้นการจองโดยไม่กรอกอะไร / ไม่กรอกเบอร์ → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ) | P3 | ❌ ล้ม | ❌ ล้ม | ❌ ล้ม | – | [gif](gifs/TC-BOOK-11.gif) | [mp4](videos/TC-BOOK-11.mp4) |
 | TC-PRICE-01 | ราคาต่อชั่วโมงตามขนาดและช่วงเวลา และจองคร่อม 17:00 | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-PRICE-01.gif) | [mp4](videos/TC-PRICE-01.mp4) |
 | TC-PRICE-02 | เสาร์ อาทิตย์ และวันหยุด คิดราคาเย็นทุกรอบ | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-PRICE-02.gif) | [mp4](videos/TC-PRICE-02.mp4) |
 | TC-PRICE-03 | แผนจ่าย มัดจำ 50% / จ่ายเต็ม 100% | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-PRICE-03.gif) | [mp4](videos/TC-PRICE-03.mp4) |
 | TC-PRICE-04 | สูตรยอดรวม/สุทธิ/จ่ายตอนนี้ และใช้เครดิตไม่เกินยอดรวม | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-PRICE-04.gif) | [mp4](videos/TC-PRICE-04.mp4) |
-| TC-PRICE-05 | ราคาทุกแถว E22–E33 (ขนาด/ช่วงเวลา/วันหยุด/คร่อม 17:00) | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-PRICE-06 | แผนจ่ายทุกแถว E37–E43 | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-PRICE-07 | เครดิตของต้นกับยอด E45, E46 และขอบ ฿999/฿1,000/฿1,001 (E56–E58) | P1 | – | – | – | ✅ ผ่าน | – | – |
+| TC-PRICE-05 | ราคาทุกแถว E22–E33 (ขนาด/ช่วงเวลา/วันหยุด/คร่อม 17:00) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-PRICE-05.gif) | [mp4](videos/TC-PRICE-05.mp4) |
+| TC-PRICE-06 | แผนจ่ายทุกแถว E37–E43 | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-PRICE-06.gif) | [mp4](videos/TC-PRICE-06.mp4) |
+| TC-PRICE-07 | เครดิตของต้นกับยอด E45, E46 และขอบ ฿999/฿1,000/฿1,001 (E56–E58) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-PRICE-07.gif) | [mp4](videos/TC-PRICE-07.mp4) |
 | TC-PAY-01 | หน้าจ่ายจำลอง PromptPay และสถานะหลังจ่าย (รีโหลด/จ่ายซ้ำ) | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-PAY-01.gif) | [mp4](videos/TC-PAY-01.mp4) |
 | TC-PAY-02 | จ่ายภายใน 15 นาที (15:00 ทัน / 15:01 ไม่ทัน) และรอบกลับมาว่าง | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-PAY-02.gif) | [mp4](videos/TC-PAY-02.mp4) |
-| TC-PAY-03 | กดยืนยันจ่าย 2 ครั้งติดกันจริง → Payment 1 แถว | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
-| TC-PAY-04 | จ่ายที่ 14 นาที 59 วินาที (E34) และ 15 นาที 0 วินาที (E35) ทัน | P1 | – | – | – | ✅ ผ่าน | – | – |
+| TC-PAY-03 | กดยืนยันจ่าย 2 ครั้งติดกันจริง → Payment 1 แถว | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-PAY-03.gif) | [mp4](videos/TC-PAY-03.mp4) |
+| TC-PAY-04 | จ่ายที่ 14 นาที 59 วินาที (E34) และ 15 นาที 0 วินาที (E35) ทัน | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-PAY-04.gif) | [mp4](videos/TC-PAY-04.mp4) |
 | TC-CANCEL-01 | ยกเลิกเมื่อเหลือ 24 ชั่วโมงพอดี ได้เครดิต = เงินที่จ่าย + เครดิตที่ใช้ | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-CANCEL-01.gif) | [mp4](videos/TC-CANCEL-01.mp4) |
 | TC-CANCEL-02 | ยกเลิกเมื่อเหลือ 23:59 ชม. ไม่ได้เครดิต และยกเลิกหลังเวลาเริ่มไม่ได้ | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-CANCEL-02.gif) | [mp4](videos/TC-CANCEL-02.mp4) |
 | TC-CANCEL-03 | เลื่อนวัน/เวลา: แพงขึ้นจ่ายส่วนต่าง ถูกลงคืนเครดิต และเลื่อนได้ 1 ครั้ง | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-CANCEL-03.gif) | [mp4](videos/TC-CANCEL-03.mp4) |
@@ -105,18 +105,18 @@
 | TC-CANCEL-05 | ยกเลิกเมื่อเหลือ 1 นาที ได้แต่ไม่ได้เครดิต · เหลือ 0 นาที (ถึงเวลาเริ่ม) ยกเลิกไม่ได้ (A-22) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-CANCEL-05.gif) | [mp4](videos/TC-CANCEL-05.mp4) |
 | TC-CANCEL-06 | เลื่อนการจองที่คำท้า MATCHED ไม่ได้ (A-21) | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-CANCEL-06.gif) | [mp4](videos/TC-CANCEL-06.mp4) |
 | TC-CANCEL-07 | เลื่อนระหว่างทีมรับคำท้ากำลังจ่าย → ปฏิเสธ · ครบ 15 นาทีพอดียังเลื่อนไม่ได้ · 15 นาที 1 วินาทีเลื่อนได้ (A-28) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-CANCEL-07.gif) | [mp4](videos/TC-CANCEL-07.mp4) |
-| TC-CANCEL-08 | ยกเลิกตามแถว TEST-DATA E47–E51 (การจอง A ส 10 10:00) | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-CANCEL-09 | เลื่อนตามแถว E94–E97 | P1 | – | – | – | ✅ ผ่าน | – | – |
-| TC-CANCEL-10 | เลื่อนไปช่วงถูกลง: เครดิตส่วนต่าง และยอดเก็บหน้าสนาม | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
+| TC-CANCEL-08 | ยกเลิกตามแถว TEST-DATA E47–E51 (การจอง A ส 10 10:00) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-CANCEL-08.gif) | [mp4](videos/TC-CANCEL-08.mp4) |
+| TC-CANCEL-09 | เลื่อนตามแถว E94–E97 | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-CANCEL-09.gif) | [mp4](videos/TC-CANCEL-09.mp4) |
+| TC-CANCEL-10 | เลื่อนไปช่วงถูกลง: เครดิตส่วนต่าง และยอดเก็บหน้าสนาม | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-CANCEL-10.gif) | [mp4](videos/TC-CANCEL-10.mp4) |
 | TC-CREDIT-01 | สมาชิกดูเครดิต ประวัติเครดิต และชั่วโมงสะสม | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-CREDIT-01.gif) | [mp4](videos/TC-CREDIT-01.mp4) |
 | TC-CREDIT-02 | เครดิตสะสมตามเบอร์ ใช้ได้หลังสมัครสมาชิกเท่านั้น | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-CREDIT-02.gif) | [mp4](videos/TC-CREDIT-02.mp4) |
 | TC-CREDIT-03 | ไม่ได้เข้าสู่ระบบสมาชิกของเบอร์นั้นแต่ขอใช้เครดิต → MEMBER_REQUIRED (A-26) | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-CREDIT-03.gif) | [mp4](videos/TC-CREDIT-03.mp4) |
-| TC-CREDIT-04 | แนน (ขาจร) ขอใช้เครดิต → MEMBER_REQUIRED · จองด้วยเบอร์เดิมเป็นลูกค้าคนเดิม | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
+| TC-CREDIT-04 | แนน (ขาจร) ขอใช้เครดิต → MEMBER_REQUIRED · จองด้วยเบอร์เดิมเป็นลูกค้าคนเดิม | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-CREDIT-04.gif) | [mp4](videos/TC-CREDIT-04.mp4) |
 | TC-SERIES-01 | จองประจำ: ต้องเป็นสมาชิก · 4–12 สัปดาห์ · ไม่ติดเพดาน 14 วัน · สัปดาห์แรกผ่าน BR-05 | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-SERIES-01.gif) | [mp4](videos/TC-SERIES-01.mp4) |
 | TC-SERIES-02 | ราคาจองประจำ ส่วนลด 10% เมื่อ ≥ 8 สัปดาห์ และยอดจ่ายรวม | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-SERIES-02.gif) | [mp4](videos/TC-SERIES-02.mp4) |
 | TC-SERIES-03 | สัปดาห์ที่ชน: แสดงวันที่ จองเฉพาะสัปดาห์ว่าง ส่วนลดคิดจากที่จองได้จริง | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-SERIES-03.gif) | [mp4](videos/TC-SERIES-03.mp4) |
 | TC-SERIES-04 | ส่วนลดจองประจำมีเศษ → ปัดส่วนลดขึ้นเป็นบาทเต็ม (A-24) | P1 | ⏭ ข้าม | ⏭ ข้าม | ⏭ ข้าม | – | [gif](gifs/TC-SERIES-04.gif) | [mp4](videos/TC-SERIES-04.mp4) |
-| TC-SERIES-05 | จองประจำ E77 + สัปดาห์ที่ตรงวันหยุด (10, 31 ธ.ค. / 5 ธ.ค.) | P1 | – | – | – | ✅ ผ่าน | – | – |
+| TC-SERIES-05 | จองประจำ E77 + สัปดาห์ที่ตรงวันหยุด (10, 31 ธ.ค. / 5 ธ.ค.) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-SERIES-05.gif) | [mp4](videos/TC-SERIES-05.mp4) |
 | TC-RENT-01 | ราคาของเช่าและจำนวนคงเหลือ | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-RENT-01.gif) | [mp4](videos/TC-RENT-01.mp4) |
 | TC-RENT-02 | เช่าเกินจำนวนไม่ได้ (เอี๊ยมชุดที่ 7, บอลลูกที่ 11) | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-RENT-02.gif) | [mp4](videos/TC-RENT-02.mp4) |
 | TC-RENT-03 | ของที่ยังไม่คืนจากรอบก่อนหน้า และพนักงานบันทึกคืน | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-RENT-03.gif) | [mp4](videos/TC-RENT-03.mp4) |
@@ -125,9 +125,9 @@
 | TC-MEMBER-03 | ชั่วโมงสะสม 9/10 ได้สิทธิ์ฟรี และใช้สิทธิ์แล้วยอด ฿0 ยืนยันทันที | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-MEMBER-03.gif) | [mp4](videos/TC-MEMBER-03.mp4) |
 | TC-MEMBER-04 | เงื่อนไขการใช้ชั่วโมงฟรี (จ.–ศ. ก่อน 17:00 เฉพาะสมาชิกที่มีสิทธิ์) | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-MEMBER-04.gif) | [mp4](videos/TC-MEMBER-04.mp4) |
 | TC-MEMBER-05 | ช่องชั่วโมงฟรีปิด (disabled) พร้อมเหตุผล เมื่อรอบใช้สิทธิ์ไม่ได้หรือไม่มีสิทธิ์ (Q-T5) | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-MEMBER-05.gif) | [mp4](videos/TC-MEMBER-05.mp4) |
-| TC-MEMBER-06 | ชั่วโมงสะสมของลูกค้าใน TEST-DATA: ต้น 7 · ฟ้า 9 · มิว 10 | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
-| TC-MEMBER-07 | บีม (ถูกระงับถึง 6 พ.ย. 19:15) เห็นประกาศระงับ และจองออนไลน์ไม่ได้ | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
-| TC-MEMBER-08 | สิทธิ์ฟรีที่ 19 และ 20 ชั่วโมง (E87, E88) | P2 | – | – | – | ✅ ผ่าน | – | – |
+| TC-MEMBER-06 | ชั่วโมงสะสมของลูกค้าใน TEST-DATA: ต้น 7 · ฟ้า 9 · มิว 10 | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-MEMBER-06.gif) | [mp4](videos/TC-MEMBER-06.mp4) |
+| TC-MEMBER-07 | บีม (ถูกระงับถึง 6 พ.ย. 19:15) เห็นประกาศระงับ และจองออนไลน์ไม่ได้ | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-MEMBER-07.gif) | [mp4](videos/TC-MEMBER-07.mp4) |
+| TC-MEMBER-08 | สิทธิ์ฟรีที่ 19 และ 20 ชั่วโมง (E87, E88) | P2 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-MEMBER-08.gif) | [mp4](videos/TC-MEMBER-08.mp4) |
 | TC-TEAM-01 | ลิงก์หารค่าสนาม ยอดต่อคน (ปัดขึ้น) และสถานะจ่ายรายคน | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-TEAM-01.gif) | [mp4](videos/TC-TEAM-01.mp4) |
 | TC-TEAM-02 | ประกาศหาคู่แข่ง → ทีมอื่นรับ จ่ายครึ่งค่าสนาม → เครดิตเข้าเจ้าของ และยกเลิกไม่ได้ | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-TEAM-02.gif) | [mp4](videos/TC-TEAM-02.mp4) |
 | TC-TEAM-03 | คำแสดงระดับทีม มือใหม่ / กลาง / เก่ง และกรองตามระดับ | P3 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-TEAM-03.gif) | [mp4](videos/TC-TEAM-03.mp4) |
@@ -135,22 +135,22 @@
 | TC-TEAM-05 | ทีมรับคำท้าจ่ายที่ครบ 15 นาทีพอดี → ทัน (MATCHED) · 15 นาที 1 วินาที → ไม่ทัน (A-23) | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-TEAM-05.gif) | [mp4](videos/TC-TEAM-05.mp4) |
 | TC-TEAM-06 | สร้างลิงก์หารซ้ำได้ลิงก์เดิม จำนวนคนเดิม สถานะจ่ายไม่ถูกล้าง (1 การจอง 1 ลิงก์) | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-TEAM-06.gif) | [mp4](videos/TC-TEAM-06.mp4) |
 | TC-TEAM-07 | หน้าลิงก์หาร split-people และ split-paid-count มี data-value เป็นจำนวน | P3 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-TEAM-07.gif) | [mp4](videos/TC-TEAM-07.mp4) |
-| TC-TEAM-08 | ทีมรับคำท้าจ่ายที่ 14:59 (E105) และ 15:00 (E106) → MATCHED เจ้าของได้ ฿900 | P1 | – | – | – | ✅ ผ่าน | – | – |
+| TC-TEAM-08 | ทีมรับคำท้าจ่ายที่ 14:59 (E105) และ 15:00 (E106) → MATCHED เจ้าของได้ ฿900 | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-TEAM-08.gif) | [mp4](videos/TC-TEAM-08.mp4) |
 | TC-STAFF-01 | พนักงานค้นรหัส เห็นยอดเก็บหน้าสนาม และกดเก็บเงิน/เช็กอิน | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-STAFF-01.gif) | [mp4](videos/TC-STAFF-01.mp4) |
 | TC-STAFF-02 | กด "ไม่มา" ได้เมื่อเลยเวลาเริ่ม ≥ 15 นาที (14 ไม่ได้ / 15 ได้) และไม่มาครั้งแรกยังจองได้ | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-STAFF-02.gif) | [mp4](videos/TC-STAFF-02.mp4) |
 | TC-STAFF-03 | ไม่มาครั้งที่ 2 ห่างครั้งแรก 30 วัน → ระงับ 30 วัน จองออนไลน์ไม่ได้ | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-STAFF-03.gif) | [mp4](videos/TC-STAFF-03.mp4) |
 | TC-STAFF-04 | ไม่มาครั้งที่ 2 ห่างครั้งแรก 31 วัน → ไม่ระงับ | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-STAFF-04.gif) | [mp4](videos/TC-STAFF-04.mp4) |
 | TC-STAFF-05 | สิทธิ์ตามบทบาทฝั่งร้าน และภาพรวมวันนี้ของผู้จัดการ | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-STAFF-05.gif) | [mp4](videos/TC-STAFF-05.mp4) |
-| TC-STAFF-06 | เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) | P2 | ❌ ล้ม | ❌ ล้ม | ❌ ล้ม | – | – | – |
-| TC-STAFF-07 | ไม่มาครั้งที่ 2 ห่าง 29 วัน (E60) ระงับ · กดไม่มาเลย 16 นาที (E66) ได้ | P1 | – | – | – | ✅ ผ่าน | – | – |
+| TC-STAFF-06 | เช็กอินการจองที่ยังไม่ถึงวันเตะ → ไม่ได้ (A-45) | P2 | ❌ ล้ม | ❌ ล้ม | ❌ ล้ม | – | [gif](gifs/TC-STAFF-06.gif) | [mp4](videos/TC-STAFF-06.mp4) |
+| TC-STAFF-07 | ไม่มาครั้งที่ 2 ห่าง 29 วัน (E60) ระงับ · กดไม่มาเลย 16 นาที (E66) ได้ | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-STAFF-07.gif) | [mp4](videos/TC-STAFF-07.mp4) |
 | TC-OWNER-01 | เจ้าของเพิ่ม/ลบวันหยุด มีผลกับราคา | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-OWNER-01.gif) | [mp4](videos/TC-OWNER-01.mp4) |
 | TC-OWNER-02 | ปิดสนามเพราะฝน: เฉพาะ A/B · คืนเครดิต · ไม่แตะการจองนอกช่วง | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-OWNER-02.gif) | [mp4](videos/TC-OWNER-02.mp4) |
 | TC-OWNER-03 | ปิดเพราะฝนการจองที่คำท้า MATCHED: ทีมได้คืนเท่าที่จ่าย เจ้าของได้ จ่าย + เครดิตที่ใช้ − เครดิตจากคำท้า (A-27) | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-OWNER-03.gif) | [mp4](videos/TC-OWNER-03.mp4) |
-| TC-OWNER-04 | ปิดฝนตาม TEST-DATA: A 18–20 (LN-900001 ทับ) · B · A 17–19 · C | P1 | – | – | – | ✅ ผ่าน | – | – |
+| TC-OWNER-04 | ปิดฝนตาม TEST-DATA: A 18–20 (LN-900001 ทับ) · B · A 17–19 · C | P1 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-OWNER-04.gif) | [mp4](videos/TC-OWNER-04.mp4) |
 | TC-I18N-01 | สลับภาษา ไทย/English และจำภาษาเมื่อเปลี่ยนหน้า | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-I18N-01.gif) | [mp4](videos/TC-I18N-01.mp4) |
 | TC-I18N-02 | โหมด English หน้าฝั่งลูกค้าไม่มีภาษาไทยหลง | P3 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-I18N-02.gif) | [mp4](videos/TC-I18N-02.mp4) |
 | TC-MOB-01 | มือถือกว้าง 375 px ไม่มีแถบเลื่อนแนวนอนทุกหน้าฝั่งลูกค้า | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-MOB-01.gif) | [mp4](videos/TC-MOB-01.mp4) |
-| TC-MOB-02 | แชทบนจอ 375 px ใช้ได้ ไม่มีแถบเลื่อนแนวนอน | P3 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
+| TC-MOB-02 | แชทบนจอ 375 px ใช้ได้ ไม่มีแถบเลื่อนแนวนอน | P3 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-MOB-02.gif) | [mp4](videos/TC-MOB-02.mp4) |
 | TC-API-01 | health check และข้อมูลสนาม | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
 | TC-API-02 | ไม่เข้าสู่ระบบ/บทบาทไม่พอ เรียก API และหน้าร้าน → ถูกปฏิเสธ | P2 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-API-02.gif) | [mp4](videos/TC-API-02.mp4) |
 | TC-API-03 | ตรวจค่าที่ส่งเข้า API จอง (เวลาเริ่ม/จำนวนชั่วโมง/สนาม/วันที่) | P1 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | – | – |
@@ -177,7 +177,7 @@
 | TC-CHAT-19 | ข้อจำกัดข้อความ: ว่าง · 500 · 501 · เกิน 20 ข้อความ/นาที | P3 | ✅ ผ่าน | ✅ ผ่าน | ✅ ผ่าน | – | [gif](gifs/TC-CHAT-19.gif) | [mp4](videos/TC-CHAT-19.mp4) |
 | TC-CHAT-20 | หลังบ้านเห็นประวัติแชท (เบอร์ปิดบางส่วน) และลบชื่อ/เบอร์เมื่อเกิน 90 วัน | P2 | – | – | – | ✅ ผ่าน | [gif](gifs/TC-CHAT-20.gif) | [mp4](videos/TC-CHAT-20.mp4) |
 
-หลักฐาน: GIF 86 ไฟล์ · MP4 86 ไฟล์ (จาก `npm run test:gif` = Chromium + serial + perf-chromium) · ไม่มีวิดีโอ: TC-DASH-01, TC-DASH-02, TC-DASH-03, TC-DATA-01, TC-DATA-02, TC-DATA-03, TC-REPORT-01, TC-REPORT-02, TC-REPORT-03, TC-REPORT-04, TC-REPORT-05, TC-ROLE-01, TC-ROLE-02, TC-ROLE-03, TC-ROLE-04, TC-SALE-01, TC-SALE-02, TC-SALE-03, TC-STOCK-01, TC-STOCK-02, TC-STOCK-03, TC-STOCK-04, TC-STOCK-05, TC-STOCK-06, TC-TRACK-01, TC-TRACK-02, TC-BOOK-09, TC-BOOK-10, TC-BOOK-11, TC-PRICE-05, TC-PRICE-06, TC-PRICE-07, TC-PAY-03, TC-PAY-04, TC-CANCEL-08, TC-CANCEL-09, TC-CANCEL-10, TC-CREDIT-04, TC-SERIES-05, TC-MEMBER-06, TC-MEMBER-07, TC-MEMBER-08, TC-TEAM-08, TC-STAFF-06, TC-STAFF-07, TC-OWNER-04, TC-MOB-02, TC-API-01, TC-API-03, TC-API-04, TC-API-05 (เรียก API อย่างเดียว ไม่เปิดหน้าเว็บ หรือข้ามเพราะทดสอบไม่ได้)
+หลักฐาน: GIF 138 ไฟล์ · MP4 138 ไฟล์ (จาก `npm run test:gif` = Chromium + serial + perf-chromium) · ไม่มีวิดีโอ: TC-DATA-02, TC-DATA-03, TC-API-01, TC-API-03, TC-API-04, TC-API-05 (เรียก API อย่างเดียว ไม่เปิดหน้าเว็บ หรือข้ามเพราะทดสอบไม่ได้)
 
 ## 4. ข้อบกพร่อง (Defects)
 
@@ -190,7 +190,7 @@
 | เบราว์เซอร์ที่ล้ม | serial |
 | ผลที่คาดหวัง | clock 19:15 staff /staff?code=LN-900001 กดไม่มา → "บันทึกไม่มาแล้ว" · owner /owner/bookings/LN-900001 แถวล่าสุด ยืนยันแล้ว → ไม่มา ผู้ทำ "น้องบอล" (ชื่อพนักงาน A-44) เวลา 9 ต.ค. 2026 19:15 · /owner/audit NO_SHOW ผู้ใช้ staff target LN-900001 · LN-900008 มี 3 แถว (ลูกค้า, ลูกค้า, น้องบอล) |
 | ผลจริง | ผู้ทำ = ชื่อพนักงาน (A-44) · ตรวจที่ getByTestId('history-actor-2') · คาดหวัง "น้องบอล" · แต่ได้จริง "staff" |
-| หลักฐาน | [screenshot serial](../test-results/v2.serial-TC-DATA-01-staff-f347a-พนักงาน-A-44-AuditLog-E146--serial/test-failed-1.png) · [trace serial](../test-results/v2.serial-TC-DATA-01-staff-f347a-พนักงาน-A-44-AuditLog-E146--serial/trace.zip) |
+| หลักฐาน | [GIF](gifs/TC-DATA-01.gif) · [MP4](videos/TC-DATA-01.mp4) · [screenshot serial](../test-results/v2.serial-TC-DATA-01-staff-f347a-พนักงาน-A-44-AuditLog-E146--serial/test-failed-1.png) · [trace serial](../test-results/v2.serial-TC-DATA-01-staff-f347a-พนักงาน-A-44-AuditLog-E146--serial/trace.zip) |
 | ไฟล์ test | `tests/v2.serial.spec.ts` |
 
 ขั้นตอนทำซ้ำ:
@@ -209,7 +209,7 @@
 | เบราว์เซอร์ที่ล้ม | serial |
 | ผลที่คาดหวัง | E140 1 ต.ค.–31 ธ.ค. → report-table data-count 92 · E141 1 ต.ค.–1 ม.ค. → "ดูรายงานได้ครั้งละไม่เกิน 3 เดือน" · E142 10 → 9 ต.ค. → "วันสิ้นสุดต้องไม่ก่อนวันเริ่ม" · [A-46] 30 พ.ย. 2026 → 28 ก.พ. 2027 แสดงรายงาน 91 วัน |
 | ผลจริง | 30 พ.ย. → 28 ก.พ. ต้องไม่มี error (A-46) · ตรวจที่ getByTestId('report-table') · คาดหวัง "" · แต่ได้จริง "ดูรายงานได้ครั้งละไม่เกิน 3 เดือน" |
-| หลักฐาน | [screenshot serial](../test-results/v2.serial-TC-REPORT-01-ช่ว-4dd4b-–E142-30-พ-ย-→-28-ก-พ-A-46--serial/test-failed-1.png) · [trace serial](../test-results/v2.serial-TC-REPORT-01-ช่ว-4dd4b-–E142-30-พ-ย-→-28-ก-พ-A-46--serial/trace.zip) |
+| หลักฐาน | [GIF](gifs/TC-REPORT-01.gif) · [MP4](videos/TC-REPORT-01.mp4) · [screenshot serial](../test-results/v2.serial-TC-REPORT-01-ช่ว-4dd4b-–E142-30-พ-ย-→-28-ก-พ-A-46--serial/test-failed-1.png) · [trace serial](../test-results/v2.serial-TC-REPORT-01-ช่ว-4dd4b-–E142-30-พ-ย-→-28-ก-พ-A-46--serial/trace.zip) |
 | ไฟล์ test | `tests/v2.serial.spec.ts` |
 
 ขั้นตอนทำซ้ำ:
@@ -228,7 +228,7 @@
 | เบราว์เซอร์ที่ล้ม | serial |
 | ผลที่คาดหวัง | รายงาน 3–9 ต.ค. (หน้าเว็บ + CSV) มีตัวเลขแยก: มัดจำพร้อมเพย์ของการจอง ฿6,600 · เก็บหน้าสนาม ฿600 (2 คอลัมน์ A-41) · หักเครดิต ฿0 · ชั่วโมงที่ใช้ของแต่ละสนาม ชั่วโมง + % (A-42 · ค่าตาม SQL) · จำนวนการจองแยกสถานะ · ส่วนลด · ชั่วโมงฟรี · ค่าของเช่า · ยอดขายหน้าเคาน์เตอร์ ฿100 |
 | ผลจริง | หัวตารางมี "หน้าสนาม" · คาดหวัง /หน้าสนาม/ · แต่ได้จริง "วันที่ ยอดจอง ขายเงินสด ขายพร้อมเพย์ รวมรับเงิน หักเครดิต การจอง (วันเตะ) ไม่มา ส. 3 ต.ค. 2026 ฿600 ฿0 ฿0 ฿600 ฿0 1 0 อา. 4 ต.ค. 2026 ฿0 ฿0 ฿0 ฿0 ฿0 1 1 จ. 5 ต.ค. 2026 ฿600 ฿0 ฿0 ฿600 ฿0 0 0 อ. 6 ต.ค. 2026 ฿1,200 ฿0 ฿0 ฿1,200 ฿0 1 0 พ. 7 ต.ค. 2026 ฿0 ฿0 ฿0 ฿0 ฿0 1 1 พฤ. 8 ต.ค. 2026 ฿4,800 ฿0 ฿60 ฿4,860 ฿0 0 0 ศ. 9 ต.ค. 2026 ฿0 ฿40 ฿0 ฿40 ฿0 1 0 รวม ฿7,200 ฿40 ฿60 ฿7,300 ฿0 5 2" |
-| หลักฐาน | [screenshot serial](../test-results/v2.serial-TC-REPORT-04-หัว-9c1e8-าม-หักเครดิต-ชั่วโมงต่อสนาม-serial/test-failed-1.png) · [trace serial](../test-results/v2.serial-TC-REPORT-04-หัว-9c1e8-าม-หักเครดิต-ชั่วโมงต่อสนาม-serial/trace.zip) |
+| หลักฐาน | [GIF](gifs/TC-REPORT-04.gif) · [MP4](videos/TC-REPORT-04.mp4) · [screenshot serial](../test-results/v2.serial-TC-REPORT-04-หัว-9c1e8-าม-หักเครดิต-ชั่วโมงต่อสนาม-serial/test-failed-1.png) · [trace serial](../test-results/v2.serial-TC-REPORT-04-หัว-9c1e8-าม-หักเครดิต-ชั่วโมงต่อสนาม-serial/trace.zip) |
 | ไฟล์ test | `tests/v2.serial.spec.ts` |
 
 ขั้นตอนทำซ้ำ:
@@ -247,7 +247,7 @@
 | เบราว์เซอร์ที่ล้ม | chromium, firefox, webkit |
 | ผลที่คาดหวัง | หลังกด logout / staff-logout แล้วใช้ cookie เดิมเรียก /api/me → 401 · /api/staff/bookings/LN-900004 → 401 |
 | ผลจริง | cookie สมาชิกเดิมหลังออกจากระบบ GET /api/me · คาดหวัง 401 · แต่ได้จริง 200 |
-| หลักฐาน | [screenshot chromium](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--chromium/test-failed-1.png) · [trace chromium](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--chromium/trace.zip) · [screenshot firefox](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--firefox/test-failed-1.png) · [trace firefox](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--firefox/trace.zip) · [screenshot webkit](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--webkit/test-failed-1.png) · [trace webkit](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--webkit/trace.zip) |
+| หลักฐาน | [GIF](gifs/TC-ROLE-03.gif) · [MP4](videos/TC-ROLE-03.mp4) · [screenshot chromium](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--chromium/test-failed-1.png) · [trace chromium](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--chromium/trace.zip) · [screenshot firefox](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--firefox/test-failed-1.png) · [trace firefox](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--firefox/trace.zip) · [screenshot webkit](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--webkit/test-failed-1.png) · [trace webkit](../test-results/v2-ROLE-TC-ROLE-03-ออกจากร-5e6cf-มต้องใช้ไม่ได้-สมาชิก-ร้าน--webkit/trace.zip) |
 | ไฟล์ test | `tests/v2.spec.ts` |
 
 ขั้นตอนทำซ้ำ:
@@ -265,7 +265,7 @@
 | เบราว์เซอร์ที่ล้ม | serial |
 | ผลที่คาดหวัง | จอง จ 12 A 08 จ่าย: booking-timeline data-count 2 PENDING_PAYMENT, CONFIRMED เวลา "9 ต.ค. 2026 10:00" · วันเตะ 12 ต.ค. 07:50 staff เช็กอิน → 3 ขั้น ขั้นสุดท้าย CHECKED_IN aria-current="step" ไม่มีชื่อพนักงาน · 12 ต.ค. 09:00 (เล่นจบ) → ขั้นสุดท้าย "จบ" (aria-current) ต่อจากเช็กอิน |
 | ผลจริง | ขั้นทั้งหมด [{"status":"PENDING_PAYMENT","current":"","text":"รอชำระเงิน9 ต.ค. 2026 10:00"},{"status":"CONFIRMED","current":"","text":"ยืนยันแล้ว9 ต.ค. 2026 10:00"},{"status":"CHECKED_IN","current":"step","text":"เช็กอินแล้ว12 ต.ค. 2026 07:50"}] · คาดหวัง 4 · แต่ได้จริง 3 |
-| หลักฐาน | [screenshot serial](../test-results/v2.serial-TC-TRACK-01-ขั้น-c546f-ว-→-เช็กอิน-→-จบ-A-43-A-45--serial/test-failed-1.png) · [trace serial](../test-results/v2.serial-TC-TRACK-01-ขั้น-c546f-ว-→-เช็กอิน-→-จบ-A-43-A-45--serial/trace.zip) |
+| หลักฐาน | [GIF](gifs/TC-TRACK-01.gif) · [MP4](videos/TC-TRACK-01.mp4) · [screenshot serial](../test-results/v2.serial-TC-TRACK-01-ขั้น-c546f-ว-→-เช็กอิน-→-จบ-A-43-A-45--serial/test-failed-1.png) · [trace serial](../test-results/v2.serial-TC-TRACK-01-ขั้น-c546f-ว-→-เช็กอิน-→-จบ-A-43-A-45--serial/trace.zip) |
 | ไฟล์ test | `tests/v2.serial.spec.ts` |
 
 ขั้นตอนทำซ้ำ:
@@ -283,7 +283,7 @@
 | เบราว์เซอร์ที่ล้ม | chromium, firefox, webkit |
 | ผลที่คาดหวัง | /my กด lookup-submit ทันที และใส่เฉพาะรหัส LN-900004 → error-message บอกให้กรอกรหัส/เบอร์ (ไม่ผูกคำ) · ไม่ใช่ "เกิดข้อผิดพลาดในระบบ กรุณาลองใหม่" |
 | ผลจริง | ข้อความต้องบอกให้กรอก ไม่ใช่ error ระบบ · คาดหวัง not "เกิดข้อผิดพลาดในระบบ" · แต่ได้จริง "เกิดข้อผิดพลาดในระบบ กรุณาลองใหม่" |
-| หลักฐาน | [screenshot chromium](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--chromium/test-failed-1.png) · [trace chromium](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--chromium/trace.zip) · [screenshot firefox](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--firefox/test-failed-1.png) · [trace firefox](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--firefox/trace.zip) · [screenshot webkit](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--webkit/test-failed-1.png) · [trace webkit](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--webkit/trace.zip) |
+| หลักฐาน | [GIF](gifs/TC-BOOK-11.gif) · [MP4](videos/TC-BOOK-11.mp4) · [screenshot chromium](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--chromium/test-failed-1.png) · [trace chromium](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--chromium/trace.zip) · [screenshot firefox](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--firefox/test-failed-1.png) · [trace firefox](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--firefox/trace.zip) · [screenshot webkit](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--webkit/test-failed-1.png) · [trace webkit](../test-results/v2-BOOK-v2-TC-BOOK-11-ค้นก-491cf-กให้กรอก-ไม่ใช่-error-ระบบ--webkit/trace.zip) |
 | ไฟล์ test | `tests/v2.spec.ts` |
 
 ขั้นตอนทำซ้ำ:
@@ -300,7 +300,7 @@
 | เบราว์เซอร์ที่ล้ม | chromium, firefox, webkit |
 | ผลที่คาดหวัง | วันนี้ ศ 9 · สมาชิกใหม่จอง อ 20 B 10–13 จ่าย · staff กด staff-checkin → ถูกปฏิเสธ (error-message) สถานะยัง CONFIRMED · /my paid-hours ยัง 0 (ไม่เพิ่ม 3) |
 | ผลจริง | ผลการกดเช็กอินก่อนวันเตะ: "เก็บเงินและเช็กอินแล้ว" · ตรวจที่ getByTestId('staff-booking-status') · คาดหวัง "error" · แต่ได้จริง "success" |
-| หลักฐาน | [screenshot chromium](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--chromium/test-failed-1.png) · [trace chromium](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--chromium/trace.zip) · [screenshot firefox](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--firefox/test-failed-1.png) · [trace firefox](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--firefox/trace.zip) · [screenshot webkit](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--webkit/test-failed-1.png) · [trace webkit](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--webkit/trace.zip) |
+| หลักฐาน | [GIF](gifs/TC-STAFF-06.gif) · [MP4](videos/TC-STAFF-06.mp4) · [screenshot chromium](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--chromium/test-failed-1.png) · [trace chromium](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--chromium/trace.zip) · [screenshot firefox](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--firefox/test-failed-1.png) · [trace firefox](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--firefox/trace.zip) · [screenshot webkit](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--webkit/test-failed-1.png) · [trace webkit](../test-results/v2-STAFF-v2-TC-STAFF-06-เช-3c555-ไม่ถึงวันเตะ-→-ไม่ได้-A-45--webkit/trace.zip) |
 | ไฟล์ test | `tests/v2.spec.ts` |
 
 ขั้นตอนทำซ้ำ:
@@ -361,7 +361,41 @@
 1. ห้องเดียวกัน: "Is pitch C covered?" แล้ว "How much is it on Saturday night?"
 2. ตรวจ covered · 1,800 + C / ห้ามมี "Field A" และอักษรไทย ❌
 
-## 5. บันทึกของ tester รอบ 7.5b (2026-10-10, BUG_MODE = 0)
+## 4. บันทึกของ tester รอบ B-3 · แผน v2 128 TC (2026-10-20, BUG_MODE = 0, MODE = mock)
+
+หน้าสรุปหลัก: [`e2e/index.html`](../index.html) (ดับเบิลคลิกเปิดได้ · สร้างด้วย `node build-index.mjs` หลังรัน) · เก็บแยกรอบ: [`run-1/`](run-1/) · [`run-2/`](run-2/) (results.json · run-info.json · TEST-REPORT.md · CHATBOT-REPORT.md · index.html) · ทั้ง 2 รอบตั้ง `RUN_MIGRATION_TEST=1` (หัวหน้าทีมอนุมัติ) → TC-DATA-03 ได้รัน
+
+### 4.1 ผลตามเกณฑ์ Exit (แผน 6.4 · ตัดสินแยกทีละเบราว์เซอร์ · ไม่ได้รัน/ข้าม = ไม่ผ่าน · serial นับให้ทุกเบราว์เซอร์)
+
+| รอบ | chromium ผ่าน · P1 | firefox ผ่าน · P1 | webkit ผ่าน · P1 | ผ่านเกณฑ์ (ต้อง P1 74/74 และ ≥ 122/128) |
+|---|---|---|---|---|
+| 1 | 117/128 · 72/74 | 116/128 · 71/74 | 117/128 · 72/74 | ❌ ทั้ง 3 เบราว์เซอร์ |
+| 2 | 117/128 · 72/74 | 117/128 · 72/74 | 117/128 · 72/74 | ❌ ทั้ง 3 เบราว์เซอร์ |
+
+ราย project (ผ่าน/ล้ม/ข้าม): รอบ 1 chromium 71/6/1 · firefox 70/7/1 · webkit 71/6/1 · serial 45/4/0 · perf 3/0/0 — รอบ 2 chromium 71/6/1 · firefox 71/6/1 · webkit 71/6/1 · serial 45/4/0 · perf 3/0/0
+
+- ไม่ผ่านทุกเบราว์เซอร์ทั้ง 2 รอบ (11 TC): P1 = **TC-ROLE-03** (เว็บผิด · session ไม่ถูกยกเลิกหลัง logout) + **TC-SERIES-04** (ข้าม · ทดสอบผ่านเว็บไม่ได้ = นับไม่ผ่าน) · P2/P3 = TC-BOOK-11, TC-STAFF-06, TC-CHAT-14, TC-CHAT-15, TC-CHAT-16 (เปิดหน้าเว็บ ล้มเองทุกเบราว์เซอร์) และ TC-REPORT-01, TC-REPORT-04, TC-TRACK-01, TC-DATA-01 (serial · นับให้ทุกเบราว์เซอร์) — ทั้งหมดจำแนกเป็น "เว็บผิด" ใน `triage.json` ยกเว้น SERIES-04
+- ผ่านรวม 117 ≥ 122 ไม่ถึง (ขาด 5) และ P1 ขาด 2 → **ไม่ผ่าน Exit** ตรงกับที่แผนคาดไว้ในหัวข้อ 6.4 "สถานะ ณ วันเขียนแผน"
+- TC-DATA-03 (migration ซ้ำ + ถอยกลับ) **ผ่าน** ทั้ง 2 รอบ
+- NFR-08 (TC-BOOK-02 รันเดี่ยว): รอบ 1 chromium 245 / firefox 526 / webkit 372 ms · รอบ 2 222 / 502 / 479 ms → ผ่าน ≤ 2,000 ms
+
+### 4.2 ผลนิ่งไหม (รอบ 1 เทียบรอบ 2)
+
+| TC | เบราว์เซอร์ | รอบ 1 | รอบ 2 | สาเหตุ |
+|---|---|---|---|---|
+| TC-MEMBER-06 (P1) | firefox | ❌ | ✅ | **flaky** — ค่าที่ตรวจตรงเฉลยทั้งหมด แต่ `page.reload()` ได้ `NS_BINDING_ABORTED` (Firefox ยกเลิกการรีโหลดเพราะการนำทางหลังเข้าสู่ระบบยังค้าง) ไม่มี expect ใดล้ม · ไม่ใช่บั๊กเว็บ · ไม่แก้ test รอบนี้ |
+
+นอกจากข้อนี้ ผลทุก TC ทุกเบราว์เซอร์เหมือนกันทั้ง 2 รอบ
+
+รอบ GIF (`npm run test:gif`, slowMo 650 ms, ไม่ใช้ตัดสิน · ตั้ง `RUN_MIGRATION_TEST=1` เช่นกัน): chromium + serial ผ่าน 117 ล้ม 10 ข้าม 1 · perf-chromium ผ่าน — ข้อที่ล้มชุดเดียวกับรอบปกติทุกข้อ · ได้ **GIF 138 / MP4 138** ไฟล์ ครอบ 122/128 TC (ที่ไม่มีวิดีโอ: TC-API-01, -03, -04, -05, TC-DATA-02 ยิง API อย่างเดียว · TC-DATA-03 รันสคริปต์ db) · ffmpeg แปลงครบ ไม่มีไฟล์ที่แปลงไม่สำเร็จ
+
+### 4.3 สิ่งที่เปลี่ยนรอบนี้
+
+- `docs/09-TEST-PLAN.md` 6.4 เพิ่มกติกานับ (หัวหน้าทีมตัดสิน): TC ที่ต้องใช้ข้อมูล seed ตรงตัว รันครั้งเดียวใน serial (Chromium) นับให้ทุกเบราว์เซอร์ — STOCK, SALE, DASH, REPORT, OWNER-04, PRICE-05/06/07, SERIES-05, ROLE-02
+- `triage.json`: เพิ่ม TC-SERIES-04 (ไม่ได้รัน), TC-MEMBER-06 (flaky) · ปรับ TC-DATA-03 (รันเองในรอบเต็มแล้ว)
+- ไม่ได้แก้ test หรือผลที่คาดหวังใด ๆ
+- ใหม่: `plan-cases.json` (จาก `build-plan-cases.mjs`) · `index.html` (จาก `build-index.mjs` + `index.template.html`)
+
 
 ตารางสรุปข้างบนคือผล **รอบที่ 2** ของ `npm test` (รอบหลัก + perf) · รอบ GIF เก็บแยก ไม่ใช้ตัดสิน · รายงานก่อนรอบนี้: [`TEST-REPORT-before-7.5b.md`](TEST-REPORT-before-7.5b.md) · รอบ 1: [`TEST-REPORT-7.5b-r1.md`](TEST-REPORT-7.5b-r1.md) · รอบ 2: [`TEST-REPORT-7.5b-r2.md`](TEST-REPORT-7.5b-r2.md)
 
@@ -426,4 +460,3 @@
 - BR-28 / A-19 กำหนดคำแสดงระดับ มือใหม่ / กลาง / เก่ง — SPEC ไม่ระบุคำ (เว็บใช้ ปานกลาง / มือโปร → DEF TC-TEAM-03)
 - BR-28 / A-18 เจ้าของยกเลิกการจองที่ MATCHED ไม่ได้ — SPEC ไม่มี error code และ `cancel-booking` "แสดงเมื่อ CONFIRMED/PENDING_PAYMENT" (ไม่ยกเว้นกรณี MATCHED)
 - BR-22 นับของเช่าจากการจองที่ทับเวลา + ที่ยังไม่คืนจากการจองที่จบไปแล้ว — SPEC ข้อ 6 เขียนว่านับ "ทุกสนามในวันเดียวกัน" ไม่พูดถึงเวลา (ผลจริงตรง 04: รอบ 18:00 ยังเหลือ 6)
-
