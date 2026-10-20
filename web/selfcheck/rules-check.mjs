@@ -10,6 +10,8 @@
 // v2 seed (docs/TEST-DATA.md): 0855555555 = ฟ้า and 0866666666 = บีม are seed customers now, so the
 // "unknown opponent team" phones of v1 became 0855550000 and 0866660000 (nothing else changed).
 
+import { readdirSync } from "node:fs";
+
 const BASE = process.env.BASE_URL || "http://localhost:3000";
 const EXPECT_BUGS = process.argv.includes("--expect-bugs");
 
@@ -105,10 +107,16 @@ async function main() {
   const h = await sys.get("/api/health");
   check("NFR-12.health", "GET /api/health → exactly {ok:true, db:true}", h.status === 200 && JSON.stringify(h.json) === '{"ok":true,"db":true}', JSON.stringify(h.json));
   const v = await sys.get("/api/version");
+  // ORACLE-CHANGES (CR-01 · approved 2026-10-20): expected schemaVersion = newest up-migration in db/migrations
+  const latestMigration = readdirSync(new URL("../../db/migrations/", import.meta.url))
+    .filter((f) => /^\d{3}_.*\.sql$/.test(f) && !f.endsWith(".down.sql"))
+    .map((f) => f.slice(0, 3))
+    .sort()
+    .at(-1);
   check(
     "V2.version",
     "GET /api/version → {schemaVersion, chatMode, bugMode} only",
-    v.status === 200 && JSON.stringify(Object.keys(v.json ?? {}).sort()) === '["bugMode","chatMode","schemaVersion"]' && v.json.schemaVersion === "006",
+    v.status === 200 && JSON.stringify(Object.keys(v.json ?? {}).sort()) === '["bugMode","chatMode","schemaVersion"]' && v.json.schemaVersion === latestMigration,
     JSON.stringify(v.json),
   );
 

@@ -1417,9 +1417,13 @@ test('TC-DATA-03 migration รันซ้ำและถอยกลับโ�
   const root = require('node:path').resolve(__dirname, '..', '..');
   const run = (...args: string[]) => spawnSync(process.execPath, args, { cwd: root, encoding: 'utf8' });
   const count = () => sqlNum('select count(*) from bookings');
-  await test.step('ก่อน: bookings 8 · [E sql:migrations] 001–006', async () => {
+  // ORACLE-CHANGES (CR-01 · ผู้ใช้อนุมัติ 2026-10-20): รายการ migration ที่คาดหวัง = ไฟล์ขึ้น (ไม่ใช่ .down) ใน db/migrations
+  const expectedVersions = require('node:fs').readdirSync(require('node:path').join(root, 'db', 'migrations'))
+    .filter((f: string) => /^\d{3}_.*\.sql$/.test(f) && !f.endsWith('.down.sql'))
+    .map((f: string) => f.slice(0, 3)).sort();
+  await test.step(`ก่อน: bookings 8 · [E sql:migrations] 001–${expectedVersions.at(-1)}`, async () => {
     expect(count()).toBe(8);
-    expect(sql('select version from schema_migrations order by 1').split('\n')).toEqual(['001', '002', '003', '004', '005', '006']);
+    expect(sql('select version from schema_migrations order by 1').split('\n')).toEqual(expectedVersions);
   });
   await test.step('backup → migrate × 2 ไม่ error · bookings 8', async () => {
     expect(run('scripts/backup.mjs').status).toBe(0);
