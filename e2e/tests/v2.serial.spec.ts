@@ -81,6 +81,12 @@ async function bookAndPayUi(page: Page, o: { field: string; date: string; start:
   }
   return code;
 }
+/** รอราคาในฟอร์มคิดเสร็จ */
+async function priceReady(page: Page) {
+  await waitReady(page);
+  await expect(page.getByTestId('price-total')).toHaveAttribute('data-value', /\d/);
+  await waitReady(page);
+}
 /** รายงานหลังบ้าน: กรอกช่วงแล้วกดดู */
 async function report(page: Page, from: string, to: string) {
   await open(page, '/owner/reports');
@@ -363,6 +369,103 @@ test('TC-CANCEL-09 เลื่อนตามแถว E94–E97', {
           await expect.soft(page.getByTestId('booking-time'), 'E97 เวลายัง 14:00').toContainText('14:00');
         }
       }
+    });
+  }
+});
+
+// ---------------- PRICE-05/06 และ SERIES-05 อ่านอย่างเดียว แต่ฟอร์ม/ตัวอย่างราคาต้องการช่องที่ "ว่างตาม seed" (ช่องที่ถูกจองคิดราคาไม่ได้/สัปดาห์ชน)
+// รอบรวมมี test อื่นจองช่องเดียวกันพร้อมกัน → ย้ายมา serial (reset ก่อนทุกข้อ ตรงกับขั้น reset ของ TEST-CASES)
+test('TC-PRICE-05 ราคาทุกแถว E22–E33 (ขนาด/ช่วงเวลา/วันหยุด/คร่อม 17:00)', {
+  tag: ['@PRICE', '@P1'],
+  annotation: ann({
+    tc: 'TC-PRICE-05', level: 'P1', source: '[D] TEST-DATA E22–E33 · BR-07–BR-09',
+    expected: 'E22 ฿800 · E23 ฿1,200 · E24 ฿1,200 · E25 ฿1,200 · E26 ฿1,800 · E27 ฿800 · E28 ฿1,200 · E29 ฿800 · E30 ฿1,200 · E31 ฿1,600 · E32 ฿2,000 · E33 ฿2,400',
+  }),
+}, async ({ page }) => {
+  const grid: [string, string, string, string][] = [
+    // [แถว, วันที่, ช่อง, ราคา]
+    ['E22', '2026-10-14', 'A-16', '800'], ['E23', '2026-10-14', 'A-17', '1200'], ['E24', '2026-10-14', 'A-18', '1200'],
+    ['E25', '2026-10-14', 'C-16', '1200'], ['E26', '2026-10-14', 'C-17', '1800'], ['E29', '2026-10-14', 'A-9', '800'],
+    ['E27', '2026-10-12', 'A-9', '800'], ['E28', '2026-10-13', 'A-9', '1200'], ['E30', '2026-10-10', 'A-9', '1200'],
+  ];
+  for (const date of ['2026-10-14', '2026-10-12', '2026-10-13', '2026-10-10']) {
+    await test.step(`ตาราง ${date}: ${grid.filter((g) => g[1] === date).map((g) => `${g[0]} slot-${g[2]} ฿${g[3]}`).join(' · ')}`, async () => {
+      await open(page, `/book?date=${date}`);
+      for (const [row, , slot, price] of grid.filter((g) => g[1] === date)) {
+        await expect.soft(page.getByTestId(`slot-${slot}`), `${row} slot-${slot}`).toHaveAttribute('data-price', price);
+      }
+    });
+  }
+  for (const [row, start, total] of [['E31', 15, '1600'], ['E32', 16, '2000'], ['E33', 17, '2400']] as const) {
+    await test.step(`${row} ฟอร์ม A พ 14 ${start}:00 × 2 → price-field ฿${total}`, async () => {
+      await open(page, `/book/new?field=A&date=2026-10-14&start=${start}`);
+      await fillBookingForm(page, { hours: 2 });
+      await waitReady(page);
+      await expect.soft(page.getByTestId('price-field'), `${row} price-field`).toHaveAttribute('data-value', total);
+      await expect.soft(page.getByTestId('price-total'), `${row} price-total (ไม่มีของเช่า/ส่วนลด)`).toHaveAttribute('data-value', total);
+    });
+  }
+});
+
+test('TC-PRICE-06 แผนจ่ายทุกแถว E37–E43', {
+  tag: ['@PRICE', '@P1'],
+  annotation: ann({
+    tc: 'TC-PRICE-06', level: 'P1', source: '[D] TEST-DATA E37–E43, A-16 · BR-11',
+    expected: 'E37 DEPOSIT_50 ฿400 · E38 FULL_100 ฿1,200 · E39 FULL_100 ฿1,200 · E40 FULL_100 ฿1,200 · E41 DEPOSIT_50 ฿600 · E42 DEPOSIT_50 ฿600 · E43 DEPOSIT_50 ฿600 (price-plan + price-pay-now + price-due-at-field: DEPOSIT เก็บหน้าสนามเท่าจ่ายตอนนี้ · FULL เก็บหน้าสนาม ฿0)',
+  }),
+}, async ({ page }) => {
+  const rows = [
+    { row: 'E37', date: '2026-10-16', start: 16, plan: 'DEPOSIT_50', now: '400', due: '400' },
+    { row: 'E38', date: '2026-10-16', start: 17, plan: 'FULL_100', now: '1200', due: '0' },
+    { row: 'E39', date: '2026-10-16', start: 18, plan: 'FULL_100', now: '1200', due: '0' },
+    { row: 'E40', date: '2026-10-17', start: 17, plan: 'FULL_100', now: '1200', due: '0' },
+    { row: 'E41', date: '2026-10-18', start: 17, plan: 'DEPOSIT_50', now: '600', due: '600' },
+    { row: 'E42', date: '2026-10-15', start: 17, plan: 'DEPOSIT_50', now: '600', due: '600' },
+    { row: 'E43', date: '2026-10-13', start: 17, plan: 'DEPOSIT_50', now: '600', due: '600' },
+  ];
+  for (const r of rows) {
+    await test.step(`${r.row} A ${r.date} ${r.start}:00 × 1 → ${r.plan} จ่ายตอนนี้ ฿${r.now} เก็บหน้าสนาม ฿${r.due}`, async () => {
+      await open(page, `/book/new?field=A&date=${r.date}&start=${r.start}`);
+      await priceReady(page);
+      await expect.soft(page.getByTestId('price-plan'), `${r.row} price-plan`).toHaveAttribute('data-value', r.plan);
+      await expect.soft(page.getByTestId('price-pay-now'), `${r.row} price-pay-now`).toHaveAttribute('data-value', r.now);
+      await expect.soft(page.getByTestId('price-due-at-field'), `${r.row} price-due-at-field`).toHaveAttribute('data-value', r.due);
+    });
+  }
+});
+
+test('TC-SERIES-05 จองประจำ E77 + สัปดาห์ที่ตรงวันหยุด (10, 31 ธ.ค. / 5 ธ.ค.)', {
+  tag: ['@SERIES', '@P1'],
+  annotation: ann({
+    tc: 'TC-SERIES-05', level: 'P1', source: '[D] TEST-DATA E77, วันหยุดข้อ 3 · BR-08, BR-11, BR-19, BR-20',
+    expected: 'E77 A ศ 17:00 4 สัปดาห์: series-total-price 4,800 series-discount-percent 0 series-pay-now 4,800 · C พฤ 10:00 12 สัปดาห์: series-field-price 15,600 ส่วนลด 1,560 รวม 14,040 จ่าย 7,020 · B ส 09:00 8 สัปดาห์: ค่าสนาม 9,600 ส่วนลด 960 รวม 8,640 จ่าย 4,320',
+  }),
+}, async ({ page }) => {
+  const sets = [
+    { label: 'E77 A ศ 16 ต.ค. 17:00 × 4 สัปดาห์', field: 'A', startDate: '2026-10-16', start: 17, weeks: 4, fieldPrice: 4800, pct: 0, disc: 0, total: 4800, now: 4800 },
+    { label: 'C พฤ 15 ต.ค. 10:00 × 12 สัปดาห์ (10, 31 ธ.ค. วันหยุด)', field: 'C', startDate: '2026-10-15', start: 10, weeks: 12, fieldPrice: 15600, pct: 10, disc: 1560, total: 14040, now: 7020 },
+    { label: 'B ส 17 ต.ค. 09:00 × 8 สัปดาห์ (5 ธ.ค. วันหยุดซ้อนเสาร์)', field: 'B', startDate: '2026-10-17', start: 9, weeks: 8, fieldPrice: 9600, pct: 10, disc: 960, total: 8640, now: 4320 },
+  ];
+  await test.step('สมัครสมาชิกใหม่ เปิด /series', async () => {
+    await registerCustomer(page.request, { name: 'สมาชิกประจำ v2', phone: uniquePhone(3) });
+    await open(page, '/series');
+    await expect(page.getByTestId('series-preview')).toBeVisible();
+  });
+  for (const s of sets) {
+    await test.step(`${s.label} → ค่าสนาม ${s.fieldPrice} ลด ${s.pct}% (${s.disc}) รวม ${s.total} จ่าย ${s.now}`, async () => {
+      await page.getByTestId('series-field').selectOption(s.field);
+      await page.getByTestId('series-start-date').fill(s.startDate);
+      await page.getByTestId('series-start').selectOption(String(s.start));
+      await page.getByTestId('series-hours').fill('1');
+      await page.getByTestId('series-weeks').fill(String(s.weeks));
+      await page.getByTestId('series-preview').click();
+      await expect(page.getByTestId('series-weeks-booked')).toHaveAttribute('data-value', String(s.weeks));
+      await waitReady(page);
+      await softNum(page.getByTestId('series-field-price'), s.fieldPrice, 'series-field-price');
+      await softNum(page.getByTestId('series-discount-percent'), s.pct, 'series-discount-percent');
+      await softNum(page.getByTestId('series-discount'), s.disc, 'series-discount');
+      await softNum(page.getByTestId('series-total-price'), s.total, 'series-total-price');
+      await softNum(page.getByTestId('series-pay-now'), s.now, 'series-pay-now');
     });
   }
 });
