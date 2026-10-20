@@ -3,7 +3,10 @@ import { weekdayOf } from "./time.ts";
 
 export const EVENING_START_HOUR = 17; // BR-07
 export type PaymentPlan = "DEPOSIT_50" | "FULL_100";
-export type Rates = { dayRate: number; eveningRate: number };
+/** CR-05: a price change — from `from` (date of PLAY, YYYY-MM-DD) the field uses these rates */
+export type RateStep = { from: string; dayRate: number; eveningRate: number };
+/** dayRate / eveningRate = the base price (before the first change) · rateChanges = price changes by date (db table field_rates) */
+export type Rates = { dayRate: number; eveningRate: number; rateChanges?: RateStep[] };
 
 export function ceilBaht(n: number): number {
   return Math.ceil(n - 1e-9) + 0; // "+ 0" turns -0 into 0
@@ -24,10 +27,23 @@ export function isEveningPricedDay(date: string, holidays: Iterable<string>): bo
   return isWeekend(date) || isHoliday(date, holidays);
 }
 
-/** BR-07 / BR-08: rate of one hour */
+/** CR-05: the rates of a field on a play date — the latest change with `from` ≤ date, else the base price (any order of changes) */
+export function ratesOn(field: Rates, date: string): { dayRate: number; eveningRate: number } {
+  let best: RateStep | null = null;
+  for (const c of field.rateChanges ?? []) if (c.from <= date && (!best || c.from > best.from)) best = c;
+  return best ? { dayRate: best.dayRate, eveningRate: best.eveningRate } : { dayRate: field.dayRate, eveningRate: field.eveningRate };
+}
+
+/** CR-05: changes that are not in effect yet on `today` (to tell customers "฿1,300 from 1 Nov"), oldest first */
+export function upcomingRates(field: Rates, today: string): RateStep[] {
+  return (field.rateChanges ?? []).filter((c) => c.from > today).sort((a, b) => (a.from < b.from ? -1 : a.from > b.from ? 1 : 0));
+}
+
+/** BR-07 / BR-08: rate of one hour · CR-05: by the date of play */
 export function hourlyRate(field: Rates, date: string, hour: number, holidays: Iterable<string>): number {
-  if (isEveningPricedDay(date, holidays) || hour >= EVENING_START_HOUR) return field.eveningRate;
-  return field.dayRate;
+  const r = ratesOn(field, date);
+  if (isEveningPricedDay(date, holidays) || hour >= EVENING_START_HOUR) return r.eveningRate;
+  return r.dayRate;
 }
 
 /** BR-09: price every hour separately */

@@ -2,11 +2,13 @@ import Link from "next/link";
 import { FieldArt, PitchLines } from "@/components/Art";
 import { Ready } from "@/components/ui";
 import { SEED_FIELDS } from "@/lib/server/schema";
-import { fieldName, money, tx } from "@/lib/i18n";
-import { pageLang } from "@/lib/server/page";
+import { fieldName, money, nextRateText, tx } from "@/lib/i18n";
+import { ratesOn, todayOf, upcomingRates } from "@/lib/rules";
+import { pageLang, pageNowOrMachine } from "@/lib/server/page";
 
 export default async function HomePage() {
   const lang = await pageLang();
+  const today = todayOf(await pageNowOrMachine()); // CR-05: the card shows the price of today + the price that starts later
   return (
     <main>
       <Ready />
@@ -64,7 +66,11 @@ export default async function HomePage() {
           </Link>
         </div>
         <div className="cards">
-          {SEED_FIELDS.map((f) => (
+          {SEED_FIELDS.map((f) => {
+            const cur = ratesOn(f, today);
+            const next = upcomingRates(f, today)[0];
+            const nextText = next ? nextRateText(lang, cur, next) : "";
+            return (
             <article key={f.id} className="card hover field-card" data-testid={`home-field-${f.id}`}>
               <FieldArt
                 id={f.id}
@@ -82,11 +88,20 @@ export default async function HomePage() {
                 <span className="badge light">{f.covered ? tx(lang, "มีหลังคา", "Covered") : tx(lang, "กลางแจ้ง", "Outdoor")}</span>
               </div>
               <p className="muted small" style={{ marginBottom: 0 }}>
-                {tx(lang, "ก่อน 17:00", "Before 17:00")} {money(lang, f.dayRate)} · {tx(lang, "ตั้งแต่ 17:00 / เสาร์-อาทิตย์ / วันหยุด", "From 17:00 / weekends / holidays")}{" "}
-                {money(lang, f.eveningRate)} {tx(lang, "ต่อชั่วโมง", "per hour")}
+                {tx(lang, "ก่อน 17:00", "Before 17:00")} {money(lang, cur.dayRate)} · {tx(lang, "ตั้งแต่ 17:00 / เสาร์-อาทิตย์ / วันหยุด", "From 17:00 / weekends / holidays")}{" "}
+                {money(lang, cur.eveningRate)} {tx(lang, "ต่อชั่วโมง", "per hour")}
+                {next && nextText ? (
+                  <>
+                    {" "}
+                    <span data-testid={`home-field-${f.id}-next-rate`} data-value={next.eveningRate} data-day-value={next.dayRate} data-from={next.from}>
+                      ({nextText})
+                    </span>
+                  </>
+                ) : null}
               </p>
             </article>
-          ))}
+            );
+          })}
         </div>
 
         <div className="section-title">

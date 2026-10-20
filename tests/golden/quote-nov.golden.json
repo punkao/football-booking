@@ -1,0 +1,5989 @@
+{
+  "cases": [
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 600,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1200,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 600,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-10-31/9/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 1200,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2400,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1200
+            },
+            {
+              "hour": 10,
+              "rate": 1200
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 1200,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 2400
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-10-31/9/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 600,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1200,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 600,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-10-31/16/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 1200,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2400,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1200
+            },
+            {
+              "hour": 17,
+              "rate": 1200
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 1200,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 2400
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-10-31/16/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1200,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 1200,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-10-31/17/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2400,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1200
+            },
+            {
+              "hour": 18,
+              "rate": 1200
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 2400,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2400
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-10-31/17/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1200,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 1200,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-10-31/19/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2400,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1200
+            },
+            {
+              "hour": 20,
+              "rate": 1200
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 2400,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 2400
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-10-31/19/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-01/9/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1300
+            },
+            {
+              "hour": 10,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-01/9/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-01/16/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1300
+            },
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-01/16/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-01/17/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            },
+            {
+              "hour": 18,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-01/17/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-01/19/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            },
+            {
+              "hour": 20,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-01/19/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 400,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 800,
+          "payNow": 400,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-03/9/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 800,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1600,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 800
+            },
+            {
+              "hour": 10,
+              "rate": 800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 1600,
+          "payNow": 800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-03/9/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 400,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 800,
+          "payNow": 400,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-03/16/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1050,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2100,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            },
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2100,
+          "payNow": 1050,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 2100
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-03/16/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-03/17/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            },
+            {
+              "hour": 18,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-03/17/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-03/19/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            },
+            {
+              "hour": 20,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-03/19/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 400,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 800,
+          "payNow": 400,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-06/9/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 800,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1600,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 800
+            },
+            {
+              "hour": 10,
+              "rate": 800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 1600,
+          "payNow": 800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-06/9/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 400,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 800,
+          "payNow": 400,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-06/16/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 1050,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2100,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            },
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2100,
+          "payNow": 1050,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 2100
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-06/16/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 1300,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-06/17/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            },
+            {
+              "hour": 18,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 2600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-06/17/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 1300,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-06/19/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            },
+            {
+              "hour": 20,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 2600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-06/19/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-07/9/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1300
+            },
+            {
+              "hour": 10,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-07/9/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-07/16/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1300
+            },
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-07/16/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 1300,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-07/17/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            },
+            {
+              "hour": 18,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 2600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-07/17/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 1300,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-07/19/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            },
+            {
+              "hour": 20,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 2600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-07/19/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 600,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1200,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 600,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-10-31/9/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 1200,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2400,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1200
+            },
+            {
+              "hour": 10,
+              "rate": 1200
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 1200,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 2400
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-10-31/9/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 600,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1200,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 600,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-10-31/16/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 1200,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2400,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1200
+            },
+            {
+              "hour": 17,
+              "rate": 1200
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 1200,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 2400
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-10-31/16/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1200,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 1200,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-10-31/17/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2400,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1200
+            },
+            {
+              "hour": 18,
+              "rate": 1200
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 2400,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2400
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-10-31/17/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1200,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 1200,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-10-31/19/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2400,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1200
+            },
+            {
+              "hour": 20,
+              "rate": 1200
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 2400,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 2400
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-10-31/19/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-01/9/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1300
+            },
+            {
+              "hour": 10,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-01/9/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-01/16/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1300
+            },
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-01/16/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-01/17/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            },
+            {
+              "hour": 18,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-01/17/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-01/19/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            },
+            {
+              "hour": 20,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-01/19/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 400,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 800,
+          "payNow": 400,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-03/9/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 800,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1600,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 800
+            },
+            {
+              "hour": 10,
+              "rate": 800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 1600,
+          "payNow": 800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-03/9/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 400,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 800,
+          "payNow": 400,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-03/16/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1050,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2100,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            },
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2100,
+          "payNow": 1050,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 2100
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-03/16/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-03/17/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            },
+            {
+              "hour": 18,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-03/17/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-03/19/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            },
+            {
+              "hour": 20,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-03/19/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 400,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 800,
+          "payNow": 400,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-06/9/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 800,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1600,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 800
+            },
+            {
+              "hour": 10,
+              "rate": 800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 1600,
+          "payNow": 800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-06/9/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 400,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 800,
+          "payNow": 400,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-06/16/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 1050,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2100,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            },
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2100,
+          "payNow": 1050,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 2100
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-06/16/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 1300,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-06/17/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            },
+            {
+              "hour": 18,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 2600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-06/17/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 1300,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-06/19/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            },
+            {
+              "hour": 20,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 2600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-06/19/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-07/9/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1300
+            },
+            {
+              "hour": 10,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-07/9/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 650,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 650,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-07/16/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 1300,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1300
+            },
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 1300,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-07/16/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 1300,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-07/17/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            },
+            {
+              "hour": 18,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 2600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-07/17/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 1300,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1300,
+          "payNow": 1300,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1300
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-07/19/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1300
+            },
+            {
+              "hour": 20,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2600,
+          "payNow": 2600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-07/19/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "B",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 900,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 900,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-10-31/9/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 1800,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1800
+            },
+            {
+              "hour": 10,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 1800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-10-31/9/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 900,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 900,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-10-31/16/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 1800,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1800
+            },
+            {
+              "hour": 17,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 1800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-10-31/16/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 1800,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-10-31/17/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            },
+            {
+              "hour": 18,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 3600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-10-31/17/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 1800,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-10-31/19/1",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-10-31",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1800
+            },
+            {
+              "hour": 20,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 3600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-10-31/19/2",
+      "req": {
+        "date": "2026-10-31",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 900,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 900,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-01/9/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1800,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1800
+            },
+            {
+              "hour": 10,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 1800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-01/9/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 900,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 900,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-01/16/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1800,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1800
+            },
+            {
+              "hour": 17,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 1800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-01/16/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 900,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 900,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-01/17/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1800,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            },
+            {
+              "hour": 18,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 1800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-01/17/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 900,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 900,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-01/19/1",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-01",
+          "discount": 0,
+          "dueAtField": 1800,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1800
+            },
+            {
+              "hour": 20,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 1800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-01/19/2",
+      "req": {
+        "date": "2026-11-01",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 600,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1200,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 600,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-03/9/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1200,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 2400,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1200
+            },
+            {
+              "hour": 10,
+              "rate": 1200
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 1200,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 2400
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-03/9/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 600,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1200,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 600,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-03/16/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1500,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3000,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1200
+            },
+            {
+              "hour": 17,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3000,
+          "payNow": 1500,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 3000
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-03/16/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 900,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 900,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-03/17/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1800,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            },
+            {
+              "hour": 18,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 1800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-03/17/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 900,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 900,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-03/19/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1800,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1800
+            },
+            {
+              "hour": 20,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 1800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-03/19/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 600,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1200,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 600,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-06/9/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 1200,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 2400,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1200
+            },
+            {
+              "hour": 10,
+              "rate": 1200
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 1200,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 2400
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-06/9/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 600,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1200,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1200
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1200,
+          "payNow": 600,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1200
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-06/16/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 1500,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3000,
+          "freeHourSlot": true,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1200
+            },
+            {
+              "hour": 17,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3000,
+          "payNow": 1500,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 3000
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-06/16/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 1800,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-06/17/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            },
+            {
+              "hour": 18,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 3600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-06/17/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 1800,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-06/19/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1800
+            },
+            {
+              "hour": 20,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 3600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-06/19/2",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 900,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 900,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-07/9/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 1800,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 9,
+              "rate": 1800
+            },
+            {
+              "hour": 10,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 1800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 9,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-07/9/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 9
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 900,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 900,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-07/16/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 1800,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 1800
+            },
+            {
+              "hour": 17,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 1800,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-07/16/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 16
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 1800,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-07/17/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            },
+            {
+              "hour": 18,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 3600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-07/17/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 17
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 1800,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 1800,
+          "payNow": 1800,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 1800
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-07/19/1",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 19,
+              "rate": 1800
+            },
+            {
+              "hour": 20,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 3600,
+          "payNow": 3600,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 19,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-07/19/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 19
+      },
+      "status": 200,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "error": {
+          "code": "TOO_FAR_AHEAD",
+          "message": "จองล่วงหน้าได้ไม่เกิน 14 วัน",
+          "params": {
+            "maxDate": "2026-11-08"
+          }
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/A/2026-11-09/16/1",
+      "req": {
+        "date": "2026-11-09",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 400,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "error": {
+          "code": "TOO_FAR_AHEAD",
+          "message": "จองล่วงหน้าได้ไม่เกิน 14 วัน",
+          "params": {
+            "maxDate": "2026-11-08"
+          }
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/B/2026-11-09/16/1",
+      "req": {
+        "date": "2026-11-09",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 400,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "error": {
+          "code": "TOO_FAR_AHEAD",
+          "message": "จองล่วงหน้าได้ไม่เกิน 14 วัน",
+          "params": {
+            "maxDate": "2026-11-08"
+          }
+        }
+      },
+      "contentType": "application/json",
+      "id": "anon/C/2026-11-09/16/1",
+      "req": {
+        "date": "2026-11-09",
+        "fieldId": "C",
+        "hours": 1,
+        "startHour": 16
+      },
+      "status": 400,
+      "who": "anon"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 1200,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 700,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            },
+            {
+              "hour": 18,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 1400,
+          "payNow": 700,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "credit/A/2026-11-03/17/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 17,
+        "useCredit": true
+      },
+      "status": 200,
+      "who": "ton"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 1200,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 2600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1300
+            },
+            {
+              "hour": 18,
+              "rate": 1300
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 1400,
+          "payNow": 1400,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 2600
+        }
+      },
+      "contentType": "application/json",
+      "id": "credit/A/2026-11-07/17/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "A",
+        "hours": 2,
+        "startHour": 17,
+        "useCredit": true
+      },
+      "status": 200,
+      "who": "ton"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 1200,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 1200,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            },
+            {
+              "hour": 18,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 1200,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "credit/C/2026-11-03/17/2",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 17,
+        "useCredit": true
+      },
+      "status": 200,
+      "who": "ton"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 1200,
+          "date": "2026-11-07",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": true,
+            "id": "C",
+            "size": 7
+          },
+          "fieldId": "C",
+          "fieldPrice": 3600,
+          "freeHourSlot": false,
+          "freeHourValue": 0,
+          "hourly": [
+            {
+              "hour": 17,
+              "rate": 1800
+            },
+            {
+              "hour": 18,
+              "rate": 1800
+            }
+          ],
+          "hours": 2,
+          "isHoliday": false,
+          "netPrice": 2400,
+          "payNow": 2400,
+          "paymentPlan": "FULL_100",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 17,
+          "totalPrice": 3600
+        }
+      },
+      "contentType": "application/json",
+      "id": "credit/C/2026-11-07/17/2",
+      "req": {
+        "date": "2026-11-07",
+        "fieldId": "C",
+        "hours": 2,
+        "startHour": 17,
+        "useCredit": true
+      },
+      "status": 200,
+      "who": "ton"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 800,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 0,
+          "payNow": 0,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 0
+        }
+      },
+      "contentType": "application/json",
+      "id": "freehour/A/2026-11-03/16/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 16,
+        "useFreeHour": true
+      },
+      "status": 200,
+      "who": "mew"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "A",
+            "size": 5
+          },
+          "fieldId": "A",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 800,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 0,
+          "payNow": 0,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 0
+        }
+      },
+      "contentType": "application/json",
+      "id": "freehour/A/2026-11-06/16/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 16,
+        "useFreeHour": true
+      },
+      "status": 200,
+      "who": "mew"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-03",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 800,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 0,
+          "payNow": 0,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 0
+        }
+      },
+      "contentType": "application/json",
+      "id": "freehour/B/2026-11-03/16/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 16,
+        "useFreeHour": true
+      },
+      "status": 200,
+      "who": "mew"
+    },
+    {
+      "body": {
+        "quote": {
+          "creditUsed": 0,
+          "date": "2026-11-06",
+          "discount": 0,
+          "dueAtField": 0,
+          "field": {
+            "covered": false,
+            "id": "B",
+            "size": 5
+          },
+          "fieldId": "B",
+          "fieldPrice": 800,
+          "freeHourSlot": true,
+          "freeHourValue": 800,
+          "hourly": [
+            {
+              "hour": 16,
+              "rate": 800
+            }
+          ],
+          "hours": 1,
+          "isHoliday": false,
+          "netPrice": 0,
+          "payNow": 0,
+          "paymentPlan": "DEPOSIT_50",
+          "rentalPrice": 0,
+          "rentals": [],
+          "startHour": 16,
+          "totalPrice": 0
+        }
+      },
+      "contentType": "application/json",
+      "id": "freehour/B/2026-11-06/16/1",
+      "req": {
+        "date": "2026-11-06",
+        "fieldId": "B",
+        "hours": 1,
+        "startHour": 16,
+        "useFreeHour": true
+      },
+      "status": 200,
+      "who": "mew"
+    },
+    {
+      "body": {
+        "error": {
+          "code": "FREE_HOUR_NOT_ELIGIBLE",
+          "message": "ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์"
+        }
+      },
+      "contentType": "application/json",
+      "id": "freehour/A/2026-11-03/17/1",
+      "req": {
+        "date": "2026-11-03",
+        "fieldId": "A",
+        "hours": 1,
+        "startHour": 17,
+        "useFreeHour": true
+      },
+      "status": 400,
+      "who": "mew"
+    }
+  ],
+  "meta": {
+    "clock": "2026-10-25T10:00:00+07:00",
+    "count": 132,
+    "endpoint": "POST /api/quote",
+    "label": "[D:CR-05] ล็อกราคาหลัง CR-05 (A/B เย็น ฿1,300 ตั้งแต่ 1 พ.ย. 2569) ที่นาฬิกา ส 25 ต.ค. 2569 10:00 — ไม่ใช่ค่าของระบบที่รับมอบ",
+    "resetBody": {}
+  }
+}

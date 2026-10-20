@@ -65,7 +65,10 @@ export async function runTurn(input: {
   const lang = detectLang(input.userText);
   const facts = factsFromPrompt(input.system);
   const allowed = new Set<number>();
-  for (const f of facts?.fields ?? []) allowed.add(f.dayRate).add(f.eveningRate);
+  for (const f of facts?.fields ?? []) {
+    allowed.add(f.dayRate).add(f.eveningRate);
+    for (const c of f.rateChanges ?? []) allowed.add(c.dayRate).add(c.eveningRate); // CR-05: a price that starts later is a published rate too
+  }
   for (const r of facts?.rentals ?? []) allowed.add(r.price);
   const messages: ChatMsg[] = [{ role: "system", content: input.system }, ...input.history, { role: "user", content: neutralizeUserText(input.userText) }];
   const cards: Card[] = [];

@@ -150,6 +150,26 @@ export function money(lang: Lang, n: number): string {
   return lang === "en" ? `${sign}THB ${s}` : `${sign}฿${s}`;
 }
 
+/**
+ * CR-05: a price that starts later, written for a customer: "฿1,300 ตั้งแต่ 1 พ.ย. 2026" (only the evening rate changes)
+ * or "ตั้งแต่ 1 พ.ย. 2026: ก่อน 17:00 ฿X · ตั้งแต่ 17:00 ฿Y" (generic). The same words on the home card and the fields page.
+ */
+export function nextRateText(
+  lang: Lang,
+  current: { dayRate: number; eveningRate: number },
+  next: { from: string; dayRate: number; eveningRate: number },
+): string {
+  const since = fmtDate(lang, next.from, false);
+  const dayChanged = next.dayRate !== current.dayRate;
+  const eveChanged = next.eveningRate !== current.eveningRate;
+  if (!dayChanged && !eveChanged) return "";
+  if (eveChanged && !dayChanged) return lang === "en" ? `${money(lang, next.eveningRate)} from ${since}` : `${money(lang, next.eveningRate)} ตั้งแต่ ${since}`;
+  const parts: string[] = [];
+  if (dayChanged) parts.push(`${lang === "en" ? "before 17:00" : "ก่อน 17:00"} ${money(lang, next.dayRate)}`);
+  if (eveChanged) parts.push(`${lang === "en" ? "from 17:00" : "ตั้งแต่ 17:00"} ${money(lang, next.eveningRate)}`);
+  return `${lang === "en" ? "from" : "ตั้งแต่"} ${since}: ${parts.join(" · ")}`;
+}
+
 const TH_DAYS = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
 const EN_DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const TH_DAYS_SHORT = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];

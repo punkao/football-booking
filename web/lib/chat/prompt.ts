@@ -3,9 +3,11 @@
 // The FACTS line is machine-readable so the mock brain (and mock-llm) can answer from the same numbers.
 import { REAL_DISCOUNTS, SHOP_CONTACT } from "../rules/chat.ts";
 import { MAX_ADVANCE_DAYS, MIN_LEAD_MINUTES } from "../rules/schedule.ts";
+import type { RateStep } from "../rules/pricing.ts";
 import { bkkParts } from "../rules/time.ts";
 
-export type FieldFact = { id: string; size: number; covered: boolean; dayRate: number; eveningRate: number };
+/** dayRate / eveningRate = the rates of today · rateChanges (CR-05) = price changes that start later (oldest first) — same numbers as the web */
+export type FieldFact = { id: string; size: number; covered: boolean; dayRate: number; eveningRate: number; rateChanges?: RateStep[] };
 export type Facts = {
   now: string;
   today: string;
@@ -37,7 +39,7 @@ export function factsFrom(input: {
     weekday: p.weekday,
     open: "08:00",
     close: "24:00",
-    fields: input.fields.map((f) => ({ id: f.id, size: f.size, covered: f.covered, dayRate: f.dayRate, eveningRate: f.eveningRate })),
+    fields: input.fields.map((f) => ({ id: f.id, size: f.size, covered: f.covered, dayRate: f.dayRate, eveningRate: f.eveningRate, rateChanges: f.rateChanges ?? [] })),
     rentals: input.rentals ?? [
       { id: "BIB", price: 50 },
       { id: "BALL", price: 30 },
@@ -52,7 +54,7 @@ export function factsFrom(input: {
 
 export function buildSystemPrompt(f: Facts): string {
   const fields = f.fields
-    .map((x) => `สนาม ${x.id}: ${x.size} คน ${x.covered ? "มีหลังคา" : "กลางแจ้ง"} · ฿${x.dayRate.toLocaleString("en-US")}/ชม. (เริ่มก่อน 17:00 จันทร์–ศุกร์) · ฿${x.eveningRate.toLocaleString("en-US")}/ชม. (ตั้งแต่ 17:00, เสาร์–อาทิตย์, วันหยุด)`)
+    .map((x) => `สนาม ${x.id}: ${x.size} คน ${x.covered ? "มีหลังคา" : "กลางแจ้ง"} · ฿${x.dayRate.toLocaleString("en-US")}/ชม. (เริ่มก่อน 17:00 จันทร์–ศุกร์) · ฿${x.eveningRate.toLocaleString("en-US")}/ชม. (ตั้งแต่ 17:00, เสาร์–อาทิตย์, วันหยุด)${(x.rateChanges ?? []).map((c) => ` · ตั้งแต่ ${c.from}: ก่อน 17:00 ฿${c.dayRate.toLocaleString("en-US")}/ชม. · ตั้งแต่ 17:00, เสาร์–อาทิตย์, วันหยุด ฿${c.eveningRate.toLocaleString("en-US")}/ชม.`).join("")}`)
     .join("\n");
   return [
     `คุณคือ "น้องบอล" ผู้ช่วยของร้านสนามฟุตบอลหญ้าเทียม ลูกหนัง อารีน่า`,

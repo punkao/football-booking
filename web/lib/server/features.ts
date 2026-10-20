@@ -22,6 +22,7 @@ import {
   fieldPriceFor,
   freeHoursAvailable,
   hourlyRate,
+  ratesOn,
   hoursToNextFree,
   isBanned,
   isHoliday,
@@ -91,7 +92,8 @@ export async function availability(ctx: Ctx, dateParam: string | null) {
     weekday: weekdayOf(date),
     isHoliday: isHoliday(date, holidays),
     holidayName: holidaysAll.find((h) => h.date === date)?.name ?? null,
-    fields: fields.map((f) => ({ id: f.id, name: f.name, size: f.size, covered: f.covered, dayRate: f.dayRate, eveningRate: f.eveningRate, photo: f.photo })),
+    // CR-05: the rates of the day asked for (no new key → same JSON shape as before)
+    fields: fields.map((f) => ({ id: f.id, name: f.name, size: f.size, covered: f.covered, ...ratesOn(f, date), photo: f.photo })),
     slots,
   };
 }

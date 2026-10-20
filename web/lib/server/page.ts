@@ -34,3 +34,15 @@ export async function pageNow(): Promise<Date> {
   await ensureDb();
   return getNow();
 }
+
+/**
+ * CR-05: "today" for a page that must still open when the database does not answer (the home page has no query):
+ * the application clock (ADR-04), or the machine time after 2 seconds
+ */
+export async function pageNowOrMachine(): Promise<Date> {
+  try {
+    return await Promise.race([pageNow(), new Promise<never>((_, reject) => setTimeout(() => reject(new Error("clock timeout")), 2000))]);
+  } catch {
+    return new Date();
+  }
+}

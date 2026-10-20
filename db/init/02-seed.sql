@@ -18,6 +18,16 @@ INSERT INTO fields(id, name, size, covered, day_rate, evening_rate, photo) VALUE
   ('B', 'สนาม B', 5, false, 800, 1200, 'svg:field-B'),
   ('C', 'สนาม C', 7, true, 1200, 1800, 'svg:field-C');
 
+-- CR-05 (008): price change by play date — A and B evening rate 1,200 -> 1,300 from 2026-11-01 (day rate and field C unchanged)
+-- guarded: a reset still works while 008 is rolled back (the table is then not there)
+DO $$ BEGIN
+  IF to_regclass('public.field_rates') IS NOT NULL THEN
+    INSERT INTO field_rates(field_id, effective_from, day_rate, evening_rate) VALUES
+      ('A', '2026-11-01', 800, 1300),
+      ('B', '2026-11-01', 800, 1300);
+  END IF;
+END $$;
+
 INSERT INTO holidays(date, name) VALUES
   ('2026-10-13', 'วันคล้ายวันสวรรคต รัชกาลที่ 9'),
   ('2026-10-23', 'วันปิยมหาราช'),

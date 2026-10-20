@@ -1,7 +1,10 @@
 import type { Db } from "./db";
+import { ratesOn, upcomingRates } from "@/lib/rules";
+import type { RateStep } from "@/lib/rules";
 import { pool } from "./db";
 
-export type FieldRow = { id: string; name: string; size: number; covered: boolean; dayRate: number; eveningRate: number; photo: string };
+/** dayRate / eveningRate = base price of the field (table fields) · rateChanges = price changes by play date (CR-05 · table field_rates) */
+export type FieldRow = { id: string; name: string; size: number; covered: boolean; dayRate: number; eveningRate: number; photo: string; rateChanges: RateStep[] };
 export type CustomerRow = {
   id: number;
   name: string;
@@ -56,10 +59,20 @@ async function rows<T>(db: Db | null, sql: string, params: unknown[] = []): Prom
   return r.rows.map((x: Record<string, unknown>) => toCamel<T>(x));
 }
 
-export const loadFields = (db: Db | null) => rows<FieldRow>(db, "SELECT * FROM fields ORDER BY id");
+// CR-05: each field comes with its price changes (oldest first) — rules/pricing.ts picks the rate of the play date
+const FIELD_SELECT = `SELECT f.*, COALESCE((
+    SELECT json_agg(json_build_object('from', to_char(r.effective_from, 'YYYY-MM-DD'), 'dayRate', r.day_rate, 'eveningRate', r.evening_rate)
+                    ORDER BY r.effective_from)
+      FROM field_rates r WHERE r.field_id = f.id), '[]'::json) AS rate_changes
+  FROM fields f`;
+export const loadFields = (db: Db | null) => rows<FieldRow>(db, `${FIELD_SELECT} ORDER BY f.id`);
+/** CR-05: the fields as a customer sees them on `date` (today): the rates of that day + the changes still to come */
+export function fieldsAsOf(fields: FieldRow[], date: string): FieldRow[] {
+  return fields.map((f) => ({ ...f, ...ratesOn(f, date), rateChanges: upcomingRates(f, date) }));
+}
 export async function loadField(db: Db | null, id: unknown): Promise<FieldRow | null> {
   if (typeof id !== "string") return null;
-  return (await rows<FieldRow>(db, "SELECT * FROM fields WHERE id = $1", [id]))[0] ?? null;
+  return (await rows<FieldRow>(db, `${FIELD_SELECT} WHERE f.id = $1`, [id]))[0] ?? null;
 }
 export async function loadHolidays(db: Db | null): Promise<{ date: string; name: string }[]> {
   return rows(db, "SELECT date, name FROM holidays ORDER BY date");

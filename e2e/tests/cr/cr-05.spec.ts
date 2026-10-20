@@ -89,12 +89,16 @@ test.describe('CR-05 ราคาเย็นสนาม 5 คน ฿1,300 ต�
       expect.soft(by.C).toMatchObject({ dayRate: 1200, eveningRate: 1800 });
       expect.soft(by.C.rateChanges, 'C rateChanges').toEqual([]);
     });
-    await test.step('หน้าแรก: การ์ด A, B มี "฿1,300 ตั้งแต่ 1 พ.ย." · C ไม่มี · ค่าเท่ากับ /api/fields', async () => {
+    await test.step('หน้าแรก: การ์ด A, B มี "฿1,300 ตั้งแต่ 1 พ.ย." · C ไม่มี · ค่าเท่ากับ /api/fields (SEED_FIELDS ไม่เพี้ยนจาก DB)', async () => {
       await open(page, '/');
+      const api = (await getJson(request, '/api/fields')).body.fields as any[];
       for (const id of ['A', 'B']) {
         const next = page.getByTestId(`home-field-${id}-next-rate`);
-        await expect.soft(next, `${id} การ์ดหน้าแรก`).toHaveAttribute('data-value', '1300');
-        await expect.soft(next).toHaveAttribute('data-from', '2026-11-01');
+        const step = api.find((f) => f.id === id).rateChanges[0];
+        await expect.soft(next, `${id} การ์ดหน้าแรก`).toHaveAttribute('data-value', String(step.eveningRate));
+        await expect.soft(next).toHaveAttribute('data-day-value', String(step.dayRate));
+        await expect.soft(next).toHaveAttribute('data-from', step.from);
+        await expect.soft(next).toHaveAttribute('data-value', '1300');
         await expect.soft(next).toContainText('฿1,300');
         await expect.soft(next).toContainText('1 พ.ย.');
         await expect.soft(page.getByTestId(`home-field-${id}`)).toContainText('฿1,200');
@@ -122,7 +126,7 @@ test.describe('CR-05 ราคาเย็นสนาม 5 คน ฿1,300 ต�
       await expect.soft(page.getByTestId('field-evening-rate-A')).toHaveText('THB 1,200');
       const next = page.getByTestId('field-evening-rate-next-A');
       await expect.soft(next).toContainText('THB 1,300');
-      await expect.soft(next).toContainText('1 Nov');
+      await expect.soft(next.locator('xpath=..'), 'แถวราคาล่วงหน้า (ป้ายวัน + ราคา)').toContainText('1 Nov');
       await open(page, '/');
       await expect.soft(page.getByTestId('home-field-A-next-rate')).toContainText('THB 1,300');
       await page.context().clearCookies({ name: 'lang' });

@@ -11,7 +11,7 @@ cp web/.env.example web/.env    # DATABASE_URL ใช้รหัสผ่าน
 docker compose -f db/compose.yaml up -d            # 1) football-db (สร้าง network football-net + volume football-pgdata)
 docker compose -f web/compose.yaml up -d --build   # 2) football-web
 curl http://localhost:3000/api/health              # {"ok":true,"db":true}  (สัญญาเดิมของ v1 ไม่เพิ่มช่อง)
-curl http://localhost:3000/api/version             # {"schemaVersion":"006","chatMode":"mock","bugMode":0}
+curl http://localhost:3000/api/version             # {"schemaVersion":"008","chatMode":"mock","bugMode":0}
 ```
 
 - **`SESSION_SECRET` (web/.env) ต้องยาว ≥ 32 ตัวอักษรแบบสุ่ม** ไม่งั้น web ไม่ยอมเริ่ม (log `[startup] refusing to start: …`) · ยกเว้น `ALLOW_TEST_RESET=1` ที่ปล่อยว่างได้ (สุ่มค่าชั่วคราวต่อการรัน)
@@ -471,7 +471,7 @@ API ตอบ error รูปแบบเดียว `{ "error": { "code": "...
 | BR-04 | `checkAdvanceWindow`, `maxBookableDate` (schedule.ts) | `validateBookingTime` |
 | BR-05 | `checkLeadTime`, `slotTimeState` (schedule.ts) | `validateBookingTime`, availability |
 | BR-06 | `checkNoOverlap`, `isBlocking`, `BLOCKING_STATUSES`, `overlaps`, `checkClosures` (schedule.ts) | `evaluateBooking` |
-| BR-07, BR-08 | `hourlyRate`, `isEveningPricedDay`, `isWeekend`, `isHoliday` (pricing.ts) | availability, quote |
+| BR-07, BR-08 | `hourlyRate`, `isEveningPricedDay`, `isWeekend`, `isHoliday` (pricing.ts) · CR-05: `ratesOn` / `upcomingRates` — ราคาตามวันเตะจากตาราง `field_rates` (A, B เย็น/เสาร์ อาทิตย์ วันหยุด ฿1,300 ตั้งแต่ 1 พ.ย. 2569) · ยอดที่เก็บในการจองไม่คิดใหม่ (ยกเว้นเลื่อนวัน BR-25) | availability, quote |
 | BR-09 | `fieldPriceFor` (pricing.ts) | quote, bookings, series |
 | BR-10 | `payDeadlineFrom`, `isPaymentInTime` (booking.ts) | create/pay, lazy expiry |
 | BR-11 | `paymentPlanFor`, `planPercent` (pricing.ts) | quote, bookings, series |

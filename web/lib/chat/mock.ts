@@ -2,7 +2,7 @@
 // Same messages in → same reply out (no randomness, no clock: "today" comes from the FACTS line of the system prompt).
 // Used in-process for MODE=mock and by the mock-llm container (OpenAI-compatible) for MODE=ai tests.
 import { fmtDate } from "../i18n.ts";
-import { isEveningPricedDay } from "../rules/pricing.ts";
+import { isEveningPricedDay, ratesOn } from "../rules/pricing.ts";
 import { addDays, weekdayOf } from "../rules/time.ts";
 import { factsFromPrompt } from "./prompt.ts";
 import type { Facts } from "./prompt.ts";
@@ -148,11 +148,25 @@ function rateLines(f: Facts, lang: Lang, only?: string | null) {
   return f.fields
     .filter((x) => !only || x.id === only)
     .map((x) =>
-      lang === "en"
+      (lang === "en"
         ? `Field ${x.id}: ${baht(x.dayRate, lang)}/h (starting before 17:00 Mon–Fri) and ${baht(x.eveningRate, lang)}/h (from 17:00, weekends and holidays)`
-        : `สนาม ${x.id} ราคา ${baht(x.dayRate, lang)}/ชั่วโมง (เริ่มก่อน 17:00 จันทร์–ศุกร์) และ ${baht(x.eveningRate, lang)}/ชั่วโมง (ตั้งแต่ 17:00 เสาร์–อาทิตย์ และวันหยุด)`,
+        : `สนาม ${x.id} ราคา ${baht(x.dayRate, lang)}/ชั่วโมง (เริ่มก่อน 17:00 จันทร์–ศุกร์) และ ${baht(x.eveningRate, lang)}/ชั่วโมง (ตั้งแต่ 17:00 เสาร์–อาทิตย์ และวันหยุด)`) + upcomingRatesText(x, lang),
     )
     .join(lang === "en" ? "; " : " · ");
+}
+
+/** CR-05: "from 1 Nov 2026 …THB 1,300/h" — a price that starts later, told in advance (only the rates that really change) */
+function upcomingRatesText(x: Facts["fields"][number], lang: Lang) {
+  return (x.rateChanges ?? [])
+    .map((c) => {
+      const since = fmtDate(lang, c.from, false);
+      const parts: string[] = [];
+      if (c.dayRate !== x.dayRate) parts.push(lang === "en" ? `before 17:00 ${baht(c.dayRate, lang)}/h` : `ก่อน 17:00 ${baht(c.dayRate, lang)}/ชั่วโมง`);
+      if (c.eveningRate !== x.eveningRate) parts.push(lang === "en" ? `from 17:00, weekends and holidays ${baht(c.eveningRate, lang)}/h` : `ตั้งแต่ 17:00 เสาร์–อาทิตย์ และวันหยุด ${baht(c.eveningRate, lang)}/ชั่วโมง`);
+      if (!parts.length) return "";
+      return lang === "en" ? `; from ${since}: ${parts.join(", ")}` : ` · ตั้งแต่ ${since}: ${parts.join(" · ")}`;
+    })
+    .join("");
 }
 
 function discountsText(lang: Lang) {
@@ -273,8 +287,9 @@ function bandQuoteReply(r: { fieldId: string; hours: number; totalPrice?: number
 
 /** price per hour of a field on a day (no start hour yet), from the shop's rates — the same BR-07 / BR-08 rule as the web */
 function dayRateReply(facts: Facts, fieldId: string, date: string, period: Memory["period"], lang: Lang) {
-  const f = facts.fields.find((x) => x.id === fieldId);
-  if (!f) return null;
+  const field = facts.fields.find((x) => x.id === fieldId);
+  if (!field) return null;
+  const f = { ...field, ...ratesOn(field, date) }; // CR-05: the rates of THAT day (a day after a price change uses the new price)
   const day = lang === "en" ? `Field ${fieldId} on ${fmtDate(lang, date)}` : `สนาม ${fieldId} ${fmtDate(lang, date)}`;
   const ask = lang === "en" ? " Tell me the start time and how many hours and I will work out the price and check the slot." : " บอกเวลาเริ่มและจำนวนชั่วโมง น้องบอลจะคิดราคาและตรวจรอบให้ครับ";
   if (isEveningPricedDay(date, facts.holidays)) {

@@ -25,7 +25,7 @@ import { detectLang } from "@/lib/chat/templates";
 import { AppError, customerIdFrom, cookieOpts, fail, localizeParams } from "./core";
 import type { Ctx } from "./core";
 import { q } from "./db";
-import { holidayDates, loadCustomerByPhone, loadFields, loadRentalItems } from "./data";
+import { fieldsAsOf, holidayDates, loadCustomerByPhone, loadFields, loadRentalItems } from "./data";
 import { createBooking, evaluateBooking } from "./bookings";
 import { availability } from "./features";
 import { withAccess } from "./access";
@@ -128,7 +128,7 @@ async function systemPrompt(ctx: Ctx): Promise<string> {
   return buildSystemPrompt(
     factsFrom({
       now: ctx.now,
-      fields,
+      fields: fieldsAsOf(fields, today), // CR-05: the rates of today + the price changes that start later
       holidays,
       closures: closures.map((c) => ({ fieldId: c.field_id, date: c.date, fromHour: c.from_hour, toHour: c.to_hour })),
       rentals,
