@@ -9,7 +9,7 @@ Repo: https://github.com/punkao/football-booking
 ทำตามบทเรียนใน Teaching_CWN2026 ทุกบท โดยปรับเป็นงานสนามบอล
 
 สิ่งที่ส่ง
-- สัมภาษณ์ร้าน + requirement (US 52 / FR 48 / BR 45 / NFR 24)
+- สัมภาษณ์ร้าน + requirement (US 52 / FR 48 / BR 51 / NFR 24 — อัปเดตตาม CR-01…06 แล้ว)
 - เว็บ (หน้าลูกค้า + หลังบ้าน) และแชทบอท "น้องบอล"
 - test case 128 ข้อ พร้อมเฉลย รันด้วย Playwright (3 เบราว์เซอร์) และเดินด้วย Playwright MCP อีก 88 ข้อ
 - ส่วนรับช่วงระบบเดิม (ส่วน D) CR-01…06 ทำตามลำดับ ถามร้าน → เทสต์แดง → แก้ → regression
@@ -24,7 +24,6 @@ Repo: https://github.com/punkao/football-booking
 ช่องว่างที่ยังเหลือ (บอกตรง ๆ ครับ)
 - ยังไม่ได้ทดสอบรั้ว .claude/settings.json ในเซสชันใหม่
 - แชทบอทยังไม่เคยทดสอบกับโมเดลจริง ทดสอบแค่โหมด mock และ mock-llm
-- docs/04-REQUIREMENTS.md ยังเป็นถ้อยคำก่อน CR
 - UAT ยังไม่ได้เดินมือ และยังไม่มีลายเซ็นร้าน
 รายการเต็มอยู่ docs/11-INSTRUCTOR-MAP.md หัวข้อ 5
 

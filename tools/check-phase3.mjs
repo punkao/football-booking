@@ -94,7 +94,9 @@ for (const r of brRows) if (!r.edge) out.C3.push(`${r.id} ไม่มีค่�
 const unit = '(?:ชั่วโมง|ชม\\.|นาที|วัน|สัปดาห์|ครั้ง|ชุด|ลูก|ตัว|คน|แตะ)';
 const tokenRe = new RegExp(`฿[\\d,]+|\\b\\d{1,2}:\\d{2}\\b|\\d+%|\\d[\\d,]*\\s*${unit}`, 'g');
 const norm = (t) => t.replace(/\s+/g, '').replace('ชม.', 'ชั่วโมง');
-const allowed = new Set((interview.match(tokenRe) ?? []).map(norm));
+// numbers come from the interview (01-INTERVIEW) or, for rules changed after delivery, the shop's CR answers (CHANGE-REQUESTS/answers/README.md · [D:CR-0N])
+const crAnswers = fs.readFileSync(path.resolve(DOCS, '..', 'CHANGE-REQUESTS', 'answers', 'README.md'), 'utf8');
+const allowed = new Set([...(interview.match(tokenRe) ?? []), ...(crAnswers.match(tokenRe) ?? [])].map(norm));
 const ruleText = section(req, /^## 2\./m, /^## 4\./m); // FR + BR (NFR targets are labelled "ทีมเสนอ")
 for (const r of brRows) {
   for (const t of r.rule.match(tokenRe) ?? []) if (!allowed.has(norm(t))) out.C3.push(`${r.id} กฎมีค่า "${t}" ที่ไม่มีในบทสัมภาษณ์`);

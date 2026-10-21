@@ -54,16 +54,16 @@
 | # | ข้อ | คะแนน | หลักฐาน | ช่องว่าง |
 |---|---|---:|---|---|
 | 1 | US ครอบทุกคนในสัมภาษณ์ + เกณฑ์ยอมรับมีตัวเลข | 1 | `docs/03-USER-STORIES.md` 52 US (Must 17 · Should 25 · Could 10) · เกณฑ์มีตัวเลข/ที่มา · ตรวจด้วย `tools/check-phase2.mjs` (C1 ทุกคำพูด S-xx → US · C2 เกณฑ์ 1–3 ข้อ · C3 ค่าตรงสัมภาษณ์) ผ่านใน Iteration 2 (`docs/trace/phase2-loop.md`) | – |
-| 2 | BR ค่าขอบ 3 ค่า · US ทุกข้อมี FR/BR | 1 | `docs/04-REQUIREMENTS.md` ข้อ 3: BR 45 ข้อ คอลัมน์ "ค่าขอบ (ต่ำกว่า · ที่ขอบ · เกินขอบ)" · ข้อ 5 traceability US→FR/BR · ข้อ 8 "ตรวจครบ US ทุกข้อมี FR หรือ BR" | – |
+| 2 | BR ค่าขอบ 3 ค่า · US ทุกข้อมี FR/BR | 1 | `docs/04-REQUIREMENTS.md` ข้อ 3: BR 51 ข้อ (BR-01–45 + BR-46–51 จาก CR) คอลัมน์ "ค่าขอบ (ต่ำกว่า · ที่ขอบ · เกินขอบ)" · ข้อ 5 traceability US→FR/BR · ข้อ 8 "ตรวจครบ US ทุกข้อมี FR หรือ BR" | – |
 | 3 | DESIGN: Architecture · Use Case · Flowchart · ERD · Sequence + render ได้ | 1 | แยกเป็น `docs/06-SA.md` (Use Case ข้อ 1 · ERD 23 entity ข้อ 2 · Sequence ข้อ 3/4/10–13 · State ข้อ 5–6 · Flowchart ข้อ 8–9) + `docs/07-SAD.md` (Architecture ข้อ 1 · Deployment ข้อ 2) · render แล้ว `docs/diagrams/*.svg|png` (`tools/render-mermaid.mjs`) · ตรวจ `tools/check-phase3.mjs` C1–C3 PASS (`docs/trace/phase3-graph.md`) | ไม่มีไฟล์ชื่อ `DESIGN.md` — แยก SA/SAD ตามบทบาท (ปรับ ไม่ใช่ขาด) |
 | 4 | TEST-DATA: วันล็อก · ผู้ใช้ครอบขอบสมาชิก · ค่าขอบทุก BR + วิธีคิดเงิน | 1 | `docs/TEST-DATA.md`: ข้อ 1 วันล็อก ศ 9 ต.ค. 2569 10:00 · ข้อ 2 ผู้ใช้ 10 (ต้น 7 ชม. · มิว 10 ชม. · โจ้ ไม่มา 1 …) · ข้อ 6 E01–E148 · ร้านยืนยัน A-36/A-40 | – |
-| 5 | BUILD-PROMPT ตรง REQUIREMENTS/DESIGN/TEST-DATA ไม่ขัดกัน | 1 | `docs/08-BUILD-PROMPT.md` ข้อ 0 "TEST-DATA > 04 > 06/07" · เฟสรีวิว G4/G5 แก้ 12 ข้อ (`docs/08e-FIX-PROMPT-review.md`) · `web/selfcheck/check-testdata.mjs` 151/151 = seed ตรง TEST-DATA | ตอนนี้ `docs/04-REQUIREMENTS.md` **ยังเป็นถ้อยคำก่อน CR** (BR-07 ยัง ฿1,200 ฯลฯ — `legacy/TRACEABILITY.md` ข้อ 3, RELEASE-NOTES K10) → BUILD-PROMPT v2 ตรงกับ 04 แต่ทั้งคู่ล้าหลังเว็บหลัง CR-05 |
+| 5 | BUILD-PROMPT ตรง REQUIREMENTS/DESIGN/TEST-DATA ไม่ขัดกัน | 1 | `docs/08-BUILD-PROMPT.md` ข้อ 0 "TEST-DATA > 04 > 06/07" · เฟสรีวิว G4/G5 แก้ 12 ข้อ (`docs/08e-FIX-PROMPT-review.md`) · `web/selfcheck/check-testdata.mjs` 151/151 = seed ตรง TEST-DATA | `docs/04-REQUIREMENTS.md` **อัปเดตตาม CR-01…06 แล้ว (21 ต.ค.)** — แก้ BR-07 ฯลฯ + เพิ่ม BR-46–51 (`legacy/TRACEABILITY.md` ข้อ 3, RELEASE-NOTES K10 ปิดแล้ว) · `docs/08-BUILD-PROMPT.md` (ข้อ 0 ชี้ 04) ยังเขียนไว้ก่อน CR → ใช้ค่าราคาเก่า ต้องอ่านคู่กับ 04 v3 (ไม่ได้แก้ในรอบนี้) |
 | 6 | db + web เป็น Docker แยก 2 โปรเจกต์ healthy + seed ตรง TEST-DATA | 1 | `db/compose.yaml` (project `football-db`, network `football-net`, volume `football-pgdata`, healthcheck `pg_isready`) · `web/compose.yaml` (healthcheck `/api/health` ต้อง `ok && db`) · `legacy/HANDOVER-CHECK.md` ข้อ 1 ทั้งคู่ `Up (healthy)` · `docs/RUNBOOK.md` | – |
 | 7 | ไม่เปิด `web/BUGS.md` ก่อนท้าย LAB 12 | 1 | `docs/BUG-HUNT.md` หัวไฟล์: "ส่วน 1–2 เขียนก่อนเปิด BUGS.md · เปิดเฉพาะส่วน 3 อ่านเฉพาะตาราง v2" · `.claude/settings.json` `Read(web/BUGS.md)` · CLAUDE.md "ห้ามเปิด" | **`web/BUGS.md` และ `web/CHANGELOG-7.5.md` อยู่ใน git (`git ls-files`)** → ถ้า push repo สาธารณะ เฉลยบั๊กขึ้นไปด้วย (PLAN.md 🙋 ให้ถามผู้ใช้ก่อน push) |
 | 8 | เขียน "สิ่งที่ร้านบอกว่าต้องเจอ" + ตัวเลขคิดเองก่อนเปิดเว็บ | 1 | `docs/EXPLORATION.md` หัวไฟล์ "ข้อ 0.1 เขียนก่อนเปิดเว็บ" · 0.1 มี 35 รายการ + ตัวเลขคิดก่อน 37 (เว็บตรง 35) | – |
 | 9 | กฎส่วน C มี [D]/[A]/[O] + ✅⚠️❌ | 1 | ส่วน C 92 กฎ (ดูบท 03 ข้อ 2) | – |
 | 10 | ส่วน D ช่องว่าง 3 แบบ · ส่วน F แยกถามร้าน/ถามคนสร้าง | 1 | ส่วน D: ร้านขอแต่ไม่มี 5 · มีแต่ร้านไม่ได้ขอ 6 · AI อ้างแต่ใช้ไม่ได้ 0(+1) · ส่วน F แยก 2 ตาราง | – |
-| 11 | ทุกฟีเจอร์/BR มี TC (traceability) | 1 | `docs/09-TEST-PLAN.md` ข้อ 6.1/6.2/6.3 · FR ไม่มี TC 0/48 · BR 0/45 | BR-46…51 ที่ CR เพิ่ม **เป็นร่างใน `legacy/TRACEABILITY.md` ข้อ 3** ยังไม่ได้ใส่ใน 04/09 |
+| 11 | ทุกฟีเจอร์/BR มี TC (traceability) | 1 | `docs/09-TEST-PLAN.md` ข้อ 6.1/6.2/6.3 · FR ไม่มี TC 0/48 · BR 0/45 | BR-46…51 ที่ CR เพิ่ม **ใส่ใน `docs/04` แล้ว (21 ต.ค.)** และผูกเทสต์ใน `legacy/TRACEABILITY.md` ข้อ 2–3 แต่ **ยังไม่ได้ใส่ใน `docs/09-TEST-PLAN.md` ข้อ 6.2** (ตาราง BR → TC) |
 | 12 | ครบ 6 เทคนิค · P1 มี Happy + Negative/Boundary | 1 | เหมือนบท 03 ข้อ 10 | – |
 | 13 | ผลที่คาดหวังตัวเลข/ข้อความ ตรวจได้ · เงินมีวิธีคิด | 1 | เหมือนบท 03 ข้อ 11–12 | – |
 | 14 | ที่มา [D]/[R] ทุกข้อ · [O] ≤ 20% | 1 | ข้อ 5.1 ตามที่มา [D] 123 · [R] 5 · [O-ยังไม่ยืนยัน] 0 (ร้านตอบแล้ว) | – |
@@ -142,7 +142,7 @@
 4. ไม่มี "ตรวจทานโดยคน" ท้าย SYSTEM-MAP (บท 06 ข้อ 3)
 5. golden ไม่ครอบยอดที่บันทึกจริง / แชท / หน้าแรก (บท 05 ข้อ 7) · impact CR-05 พลาดหน้าแรก (บท 05 ข้อ 14) · ไม่มีเทสต์ส่งชนิดข้อมูลผิดเข้า API ของ CR (บท 05 ข้อ 15)
 6. ไม่มี CR ชนิด "เลื่อนนัด" และ "กดพร้อมกันหลายช่องทาง" (บท 06 ข้อ 13, 15)
-7. `docs/04-REQUIREMENTS.md` ยังเป็นถ้อยคำก่อน CR (BR-46…51 เป็นร่างใน TRACEABILITY) (บท 04 ข้อ 5, 11)
+7. ~~`docs/04-REQUIREMENTS.md` ยังเป็นถ้อยคำก่อน CR~~ **ปิดแล้ว 21 ต.ค.** (BR-46…51 อยู่ใน 04 แล้ว) · เหลือ: BR-46…51 ยังไม่อยู่ใน `docs/09-TEST-PLAN.md` ข้อ 6.2 และ ERD `docs/06-SA.md` (บท 04 ข้อ 5, 11)
 8. UAT ยังไม่ได้เดินมือ/ไม่มีลายเซ็น (บท 06 ข้อ 19)
 9. `web/BUGS.md` อยู่ใน git — ถามผู้ใช้ก่อน push (บท 04 ข้อ 7)
 
