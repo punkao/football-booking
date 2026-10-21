@@ -25,6 +25,7 @@ import {
   utilizationPercent,
   CHAT_RETENTION_DAYS,
   DAY_MS,
+  hasNul,
 } from "@/lib/rules";
 import type { Area, MoneyRow } from "@/lib/rules";
 import { extractName } from "@/lib/chat/mock";
@@ -106,8 +107,9 @@ export async function bookingsSearch(ctx: Ctx, f: { code?: string | null; phone?
   await requireArea(ctx, "BOOKINGS");
   const where: string[] = [];
   const params: unknown[] = [];
-  const code = str(f.code).toUpperCase();
-  const phone = str(f.phone).replace(/[\s-]/g, "");
+  // a NUL byte can never match anything and Postgres rejects it → dropped from the search text
+  const code = str(f.code).replaceAll("\u0000", "").toUpperCase();
+  const phone = str(f.phone).replaceAll("\u0000", "").replace(/[\s-]/g, "");
   if (code) {
     params.push(`%${code}%`);
     where.push(`b.code ILIKE $${params.length}`);
@@ -148,6 +150,7 @@ export async function bookingsSearch(ctx: Ctx, f: { code?: string | null; phone?
 
 export async function bookingHistory(ctx: Ctx, code: string) {
   await requireArea(ctx, "BOOKINGS");
+  if (hasNul(code)) throw new AppError("BOOKING_NOT_FOUND");
   const b = (
     await q<Record<string, unknown>>(
       `SELECT b.id, b.code, b.field_id, b.date, b.start_hour, b.hours, b.status, b.total_price, b.amount_paid, b.due_at_field, b.credit_used,

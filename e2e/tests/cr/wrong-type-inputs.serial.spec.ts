@@ -9,7 +9,7 @@ import { ann, sql } from '../v2-helpers';
  * API ที่ตรวจ: ใบเสนอราคา /api/quote (+ สร้างจอง /api/bookings) · รายงาน /api/owner/reports(.csv) from/to · จ่ายคำท้า /api/challenges/:id/pay · เช็กอินหน้าร้าน /api/staff/bookings/:code/checkin · ออกจากระบบ /api/customers|staff/logout
  * รูปแบบ error ที่เอกสารกำหนด (07-SAD ADR error format): { error: { code, message } } · รหัส/สถานะอยู่ใน web/lib/i18n.ts (MESSAGES) · 500 = INTERNAL เป็นของที่ "ห้ามเกิดจากข้อมูลผิด" (NFR-19)
  * serial: นับแถวทั้งตารางต้องไม่มี test อื่นเขียนพร้อมกัน · reset ก่อนทุกข้อ
- * ข้อที่ขึ้นต้น WT-xx-RED = เจอบั๊กจริง (รายงานแล้ว · ยังไม่แก้) — ล้มด้วยเหตุ 500 โดยตั้งใจจนกว่าจะแก้
+ * ข้อที่ขึ้นต้น WT-xx-RED = เจอบั๊กจริงตอนเขียนเทสต์ (500) → แก้แล้ว (รหัสแถวนอก int4 / ไบต์ว่างในรหัส = ไม่พบ) · WT-04-K14 = test.fixme (500 จากตัวจัดเส้นทางของ Next ก่อนถึงโค้ดเรา)
  */
 
 test.beforeEach(async ({ request }) => { await resetData(request); });
@@ -232,22 +232,22 @@ const BAD_IDS: [string, string][] = [
   ['ศูนย์ 0', '0'],
 ];
 
-test('WT-03-RED จ่ายคำท้าด้วยรหัสคำท้าที่ไม่ใช่จำนวนเต็ม (abc · 1.5 · เลขใหญ่เกิน · %00) → ต้อง 4xx พร้อมรหัสที่เอกสารระบุ ไม่ใช่ 500 INTERNAL', {
+test('WT-03-RED จ่ายคำท้าด้วยรหัสคำท้าที่ไม่ใช่จำนวนเต็ม (abc · 1.5 · เลขใหญ่เกิน · %00) → 404 CHALLENGE_NOT_FOUND เหมือน -1 กับ 0 · ไม่ใช่ 500 (แก้แล้ว)', {
   tag: ['@WRONG-TYPE', '@CR-06', '@P1', '@BUG-FOUND'],
   annotation: ann({
-    tc: 'WT-03-RED', level: 'P1', source: `${SRC} · NFR-19 "ฐานข้อมูลบังคับกฎ — ข้อมูลผิดต้องไม่ทำให้ระบบ 500" · web/app/api/challenges/[id]/pay/route.ts:6 (Number(p.id) ส่งเข้า SQL ตรง ๆ)`,
-    expected: 'POST /api/challenges/{abc|1.5|99999999999|9223372036854775808|%00|-1|0}/pay → 4xx: INVALID_INPUT (400) หรือ CHALLENGE_NOT_FOUND (404) · ห้าม 500 INTERNAL · ไม่มีแถวถูกเขียน · [บั๊กจริง] วันนี้ abc/1.5/เลขใหญ่/%00 ได้ 500 INTERNAL (NaN/ทศนิยม/เกิน int4 ส่งเข้าคอลัมน์ integer)',
+    tc: 'WT-03-RED', level: 'P1', source: `${SRC} · NFR-19 "ข้อมูลผิดต้องไม่ทำให้ระบบ 500" · แก้ที่ web/lib/server/features.ts challengePay/challengeAccept (isDbId ใน web/lib/rules/records.ts) · ตัดสินโดย lead: รหัสที่ไม่ใช่ integer 4 ไบต์ = ไม่พบคำท้า`,
+    expected: 'POST /api/challenges/{abc|1.5|99999999999|9223372036854775808|%00|-1|0}/pay และ /accept → 404 CHALLENGE_NOT_FOUND ทุกแบบ · ไม่มีแถวถูกเขียน · ก่อนแก้ abc/1.5/เลขใหญ่/%00 ได้ 500 INTERNAL',
   }),
 }, async ({ request }) => {
   const before = snapshot();
-  await test.step('รหัสคำท้าผิดชนิด/ผิดช่วง → 400 INVALID_INPUT หรือ 404 CHALLENGE_NOT_FOUND (ไม่ใช่ 500)', async () => {
-    for (const [label, id] of BAD_IDS) {
-      const r = await request.post(`/api/challenges/${id}/pay`, { data: { phone: '0811111111' } });
-      const body = await readJson(r);
-      expect.soft(r.status(), `จ่ายคำท้า id ${label}: ห้าม 5xx · ได้ ${r.status()} ${JSON.stringify(body)}`).toBeLessThan(500);
-      expect.soft(['INVALID_INPUT', 'CHALLENGE_NOT_FOUND'], `จ่ายคำท้า id ${label}: รหัส error`).toContain(body?.error?.code);
-    }
-  });
+  for (const action of ['pay', 'accept'] as const) {
+    await test.step(`${action}: รหัสคำท้าผิดชนิด/ผิดช่วง → 404 CHALLENGE_NOT_FOUND (ไม่ใช่ 500)`, async () => {
+      for (const [label, id] of BAD_IDS) {
+        const r = await request.post(`/api/challenges/${id}/${action}`, { data: { phone: '0811111111', name: 'x', consent: true } });
+        expectClientError(`${action} id ${label}`, r.status(), await readJson(r), { status: 404, code: 'CHALLENGE_NOT_FOUND' });
+      }
+    });
+  }
   await test.step('ไม่มีอะไรถูกเขียนลงฐาน', async () => {
     expect(snapshot(), `นับแถว ${SNAPSHOT_KEYS}`).toBe(before);
   });
@@ -300,35 +300,72 @@ test('WT-04 เช็กอินหน้าร้าน: รหัสการ
   } finally { await staff.dispose(); }
 });
 
-const NASTY_CODES: [string, string][] = [
-  ['รหัสมีไบต์ว่าง (%00)', 'LN-%00'],
-  ['เปอร์เซ็นต์เข้ารหัสไม่สมบูรณ์ (%E0%A4%A)', '%E0%A4%A'],
-  ['ไบต์ผิด UTF-8 (%FF)', '%FF'],
-];
-
-test('WT-04-RED เช็กอินด้วยรหัสที่มีไบต์ว่าง/เปอร์เซ็นต์เสีย (LN-%00 · %E0%A4%A · %FF) → ต้อง 4xx ไม่ใช่ 500', {
+test('WT-04-RED รหัสการจอง/โทเคนที่มีไบต์ว่าง (LN-%00) ในทุกเส้นทางที่รับรหัส → 404 ไม่พบ ไม่ใช่ 500 (แก้แล้ว)', {
   tag: ['@WRONG-TYPE', '@CR-02', '@P1', '@BUG-FOUND'],
   annotation: ann({
-    tc: 'WT-04-RED', level: 'P1', source: `${SRC} · web/lib/server/data.ts loadBookingByCode (ส่งรหัสเข้า SQL โดยไม่ตรวจรูป) · NFR-19`,
-    expected: 'staff ล็อกอิน: POST /api/staff/bookings/LN-%00/checkin → 404 BOOKING_NOT_FOUND (หรือ 400 INVALID_INPUT) ไม่ใช่ 500 INTERNAL · %E0%A4%A และ %FF (เปอร์เซ็นต์เสีย) → 4xx ไม่ใช่ 500 "Internal Server Error" · [บั๊กจริง] วันนี้ LN-%00 = 500 INTERNAL (Postgres ปฏิเสธไบต์ 0x00) · %E0%A4%A / %FF = 500 ข้อความล้วนจากตัวจัดเส้นทางของ Next ก่อนถึงโค้ดเรา',
+    tc: 'WT-04-RED', level: 'P1', source: `${SRC} · แก้ที่ web/lib/server/data.ts loadBookingByCode (hasNul) + features.ts splitGet/splitMarkPaid + backoffice.ts bookingHistory/bookingsSearch · ตัดสินโดย lead: รหัสมีไบต์ว่าง = ไม่พบ`,
+    expected: 'staff/owner ล็อกอิน: รหัส LN-%00 → 404 BOOKING_NOT_FOUND ที่ เช็กอิน · no-show · คืนของเช่า · ดูการจอง(staff) · ประวัติ(owner) · และ GET/จ่าย/ยกเลิก/เลื่อน (ลูกค้า) · โทเคนแบ่งจ่าย tok%00 → 404 SPLIT_NOT_FOUND · ค้นหาการจอง ?code=%00 / ?phone=%00 → 200 ไม่มีผล · ก่อนแก้ทั้งหมดได้ 500 INTERNAL',
+  }),
+}, async ({ playwright }) => {
+  const staff = await playwright.request.newContext({ baseURL: BASE_URL });
+  const cust = await playwright.request.newContext({ baseURL: BASE_URL });
+  try {
+    const login = await staff.post('/api/staff/login', { data: { username: SEED.owner.username, password: SEED.owner.password } });
+    expect(login.status()).toBe(200);
+    const before = snapshot();
+    await test.step('ฝั่งร้าน (owner): รหัส LN-%00 → 404 BOOKING_NOT_FOUND', async () => {
+      const routes: [string, string][] = [
+        ['POST', '/api/staff/bookings/LN-%00/checkin'],
+        ['POST', '/api/staff/bookings/LN-%00/no-show'],
+        ['POST', '/api/staff/bookings/LN-%00/return-rentals'],
+        ['GET', '/api/staff/bookings/LN-%00'],
+        ['GET', '/api/owner/bookings/LN-%00/history'],
+      ];
+      for (const [m, path] of routes) {
+        const r = m === 'GET' ? await staff.get(path) : await staff.post(path, { data: {} });
+        expectClientError(`${m} ${path}`, r.status(), await readJson(r), { status: 404, code: 'BOOKING_NOT_FOUND' });
+      }
+    });
+    await test.step('ฝั่งลูกค้า: ดู/จ่าย/ยกเลิก/เลื่อน รหัส LN-%00 → 404 BOOKING_NOT_FOUND · โทเคนแบ่งจ่ายมีไบต์ว่าง → 404 SPLIT_NOT_FOUND', async () => {
+      for (const [m, path] of [['GET', '/api/bookings/LN-%00'], ['POST', '/api/bookings/LN-%00/pay'], ['POST', '/api/bookings/LN-%00/cancel'], ['POST', '/api/bookings/LN-%00/reschedule']] as const) {
+        const r = m === 'GET' ? await cust.get(path) : await cust.post(path, { data: { phone: '0811111111', date: '2026-10-20', startHour: 10 } });
+        expectClientError(`${m} ${path}`, r.status(), await readJson(r), { status: 404, code: 'BOOKING_NOT_FOUND' });
+      }
+      const g = await cust.get('/api/split/tok%00');
+      expectClientError('GET /api/split/tok%00', g.status(), await readJson(g), { status: 404, code: 'SPLIT_NOT_FOUND' });
+      const p = await cust.post('/api/split/tok%00/1/paid', { data: {} });
+      expectClientError('POST /api/split/tok%00/1/paid', p.status(), await readJson(p), { status: 404, code: 'SPLIT_NOT_FOUND' });
+      const p2 = await cust.post('/api/split/tok/abc/paid', { data: {} });
+      expectClientError('POST /api/split/tok/abc/paid', p2.status(), await readJson(p2), { status: 404, code: 'SPLIT_NOT_FOUND' });
+    });
+    await test.step('ค้นหาการจอง (owner) ด้วยไบต์ว่าง → 200 ไม่มีผลลัพธ์ ไม่ใช่ 500', async () => {
+      for (const qs of ['code=%00', 'phone=%00']) {
+        const r = await staff.get(`/api/owner/bookings?${qs}`);
+        expect.soft(r.status(), `ค้นหา ${qs}: ห้าม 5xx`).toBe(200);
+      }
+    });
+    await test.step('ไม่มีอะไรถูกเขียนลงฐาน', async () => {
+      expect(snapshot(), `นับแถว ${SNAPSHOT_KEYS}`).toBe(before);
+    });
+  } finally { await staff.dispose(); await cust.dispose(); }
+});
+
+// K14 (KNOWN-ISSUES.md): เปอร์เซ็นต์เข้ารหัสเสียใน URL ถูกตัวจัดเส้นทางของ Next ตอบ 500 ข้อความล้วน "ก่อนถึงโค้ดเรา" — ไม่แก้ในโค้ดของเรา (ความเสี่ยงต่ำ ไม่มีอะไรถูกเขียน)
+test.fixme('WT-04-K14 เปอร์เซ็นต์เสียใน URL (%E0%A4%A · %FF) → ควรเป็น 4xx แต่ Next ตอบ 500 ข้อความล้วนก่อนถึงโค้ดเรา (K14 · ยอมรับเป็นข้อจำกัด)', {
+  tag: ['@WRONG-TYPE', '@K14'],
+  annotation: ann({
+    tc: 'WT-04-K14', level: 'P3', source: 'KNOWN-ISSUES.md K14 · ตัวจัดเส้นทางของ Next 16 (ไม่ใช่โค้ดเรา)',
+    expected: 'POST /api/staff/bookings/{%E0%A4%A|%FF}/checkin (ล็อกอินแล้ว) → 4xx · วันนี้ 500 "Internal Server Error" ข้อความล้วน ไม่มีอะไรถูกเขียน',
   }),
 }, async ({ playwright }) => {
   const staff = await playwright.request.newContext({ baseURL: BASE_URL });
   try {
     const login = await staff.post('/api/staff/login', { data: { username: SEED.staff.username, password: SEED.staff.password } });
     expect(login.status()).toBe(200);
-    const before = snapshot();
-    await test.step('รหัสพิเศษ 3 แบบ → 4xx (ห้าม 500)', async () => {
-      for (const [label, code] of NASTY_CODES) {
-        const r = await staff.post(`/api/staff/bookings/${code}/checkin`);
-        const text = await r.text();
-        expect.soft(r.status(), `เช็กอิน ${label}: ห้าม 5xx · ได้ ${r.status()} ${text.slice(0, 120)}`).toBeLessThan(500);
-        expect.soft(r.status(), `เช็กอิน ${label}: ต้องเป็น 4xx`).toBeGreaterThanOrEqual(400);
-      }
-    });
-    await test.step('ไม่มีอะไรถูกเขียนลงฐาน', async () => {
-      expect(snapshot(), `นับแถว ${SNAPSHOT_KEYS}`).toBe(before);
-    });
+    for (const code of ['%E0%A4%A', '%FF']) {
+      const r = await staff.post(`/api/staff/bookings/${code}/checkin`);
+      expect.soft(r.status(), `เช็กอิน ${code}`).toBeLessThan(500);
+    }
   } finally { await staff.dispose(); }
 });
 

@@ -1,5 +1,5 @@
 import type { Db } from "./db";
-import { ratesOn, upcomingRates } from "@/lib/rules";
+import { hasNul, ratesOn, upcomingRates } from "@/lib/rules";
 import type { RateStep } from "@/lib/rules";
 import { pool } from "./db";
 
@@ -118,6 +118,7 @@ export function bookingCustomerName(b: { customerName?: string | null }, custome
 }
 
 export async function loadBookingByCode(db: Db | null, code: string, forUpdate = false): Promise<BookingRow | null> {
+  if (hasNul(code)) return null; // Postgres cannot compare text with a NUL byte → no such booking
   return (await rows<BookingRow>(db, `SELECT * FROM bookings WHERE code = $1${forUpdate ? " FOR UPDATE" : ""}`, [code]))[0] ?? null;
 }
 export async function loadDayBookings(db: Db | null, fieldId: string | null, date: string): Promise<BookingRow[]> {

@@ -121,3 +121,13 @@ export function checkOrigin(method: string, origin: string | null, host: string 
     return false;
   }
 }
+
+/** รหัสแถวในฐานข้อมูล (integer 4 ไบต์): จำนวนเต็ม 1..2147483647 · ค่าอื่นจาก URL (abc, 1.5, เลขใหญ่) = ไม่มีแถวนี้ ไม่ต้องไปถามฐาน */
+export function isDbId(n: unknown): n is number {
+  return typeof n === "number" && Number.isSafeInteger(n) && n >= 1 && n <= 2147483647;
+}
+
+/** Postgres เก็บ/เทียบข้อความที่มีไบต์ว่าง (\u0000) ไม่ได้ → รหัสที่มีไบต์ว่างถือว่า "ไม่พบ" */
+export function hasNul(s: string): boolean {
+  return s.includes("\u0000");
+}

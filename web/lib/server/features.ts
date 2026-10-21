@@ -42,6 +42,8 @@ import {
   todayOf,
   weekdayOf,
   isBlocking,
+  hasNul,
+  isDbId,
 } from "@/lib/rules";
 import { AppError, fail, num, requireStaff, str } from "./core";
 import { LEVEL_LABEL, label } from "@/lib/i18n";
@@ -270,6 +272,7 @@ export async function splitCreate(ctx: Ctx, code: string, b: Record<string, unkn
 }
 
 export async function splitGet(token: string) {
+  if (hasNul(token)) throw new AppError("SPLIT_NOT_FOUND");
   const r = await q<Record<string, unknown>>("SELECT * FROM bookings WHERE split_token = $1", [token]);
   if (!r[0]) throw new AppError("SPLIT_NOT_FOUND");
   const b = mapBookingPublic(toCamel(r[0]));
@@ -297,6 +300,7 @@ export async function splitGet(token: string) {
 }
 
 export async function splitMarkPaid(ctx: Ctx, token: string, shareId: number, paid: boolean) {
+  if (hasNul(token) || !isDbId(shareId)) throw new AppError("SPLIT_NOT_FOUND");
   const r = await q<{ id: number }>(
     `UPDATE split_shares s SET paid_at = $3 FROM bookings b
       WHERE s.booking_id = b.id AND b.split_token = $1 AND s.id = $2 RETURNING s.id`,
@@ -373,6 +377,7 @@ async function loadChallenge(c: Parameters<typeof lockKey>[0], id: number) {
 }
 
 export async function challengeAccept(ctx: Ctx, id: number, b: Record<string, unknown>) {
+  if (!isDbId(id)) throw new AppError("CHALLENGE_NOT_FOUND");
   return tx(async (c) => {
     const ch = await loadChallenge(c, id);
     if (ch.status !== "OPEN") throw new AppError("CHALLENGE_NOT_OPEN");
@@ -391,6 +396,7 @@ export async function challengeAccept(ctx: Ctx, id: number, b: Record<string, un
 }
 
 export async function challengePay(ctx: Ctx, id: number, b: Record<string, unknown>) {
+  if (!isDbId(id)) throw new AppError("CHALLENGE_NOT_FOUND");
   return tx(async (c) => {
     // lock order booking → challenge (same as cancel / reschedule) so an owner's cancel and this payment are serialised
     const ref = (await c.query("SELECT booking_id FROM challenges WHERE id = $1", [id])).rows[0] as { booking_id: number } | undefined;
