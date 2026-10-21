@@ -438,13 +438,14 @@ test('TC-SERIES-05 จองประจำ E77 + สัปดาห์ที่
   tag: ['@SERIES', '@P1'],
   annotation: ann({
     tc: 'TC-SERIES-05', level: 'P1', source: '[D] TEST-DATA E77, วันหยุดข้อ 3 · BR-08, BR-11, BR-19, BR-20',
-    expected: 'E77 A ศ 17:00 4 สัปดาห์: series-total-price 4,800 series-discount-percent 0 series-pay-now 4,800 · C พฤ 10:00 12 สัปดาห์: series-field-price 15,600 ส่วนลด 1,560 รวม 14,040 จ่าย 7,020 · B ส 09:00 8 สัปดาห์: ค่าสนาม 9,600 ส่วนลด 960 รวม 8,640 จ่าย 4,320',
+    expected: 'E77 A ศ 17:00 4 สัปดาห์: series-total-price 4,900 series-discount-percent 0 series-pay-now 4,900 · C พฤ 10:00 12 สัปดาห์: series-field-price 15,600 ส่วนลด 1,560 รวม 14,040 จ่าย 7,020 · B ส 09:00 8 สัปดาห์: ค่าสนาม 10,100 ส่วนลด 1,010 รวม 9,090 จ่าย 4,545 · [D:CR-05] ORACLE-CHANGES 2026-10-21',
   }),
 }, async ({ page }) => {
   const sets = [
-    { label: 'E77 A ศ 16 ต.ค. 17:00 × 4 สัปดาห์', field: 'A', startDate: '2026-10-16', start: 17, weeks: 4, fieldPrice: 4800, pct: 0, disc: 0, total: 4800, now: 4800 },
+    // [D:CR-05] ORACLE-CHANGES 2026-10-21: E77 สัปดาห์ที่ 4 = 6 พ.ย. ราคา ฿1,300 · ชุด B ข้าม 1 พ.ย.
+    { label: 'E77 A ศ 16 ต.ค. 17:00 × 4 สัปดาห์', field: 'A', startDate: '2026-10-16', start: 17, weeks: 4, fieldPrice: 4900, pct: 0, disc: 0, total: 4900, now: 4900 },
     { label: 'C พฤ 15 ต.ค. 10:00 × 12 สัปดาห์ (10, 31 ธ.ค. วันหยุด)', field: 'C', startDate: '2026-10-15', start: 10, weeks: 12, fieldPrice: 15600, pct: 10, disc: 1560, total: 14040, now: 7020 },
-    { label: 'B ส 17 ต.ค. 09:00 × 8 สัปดาห์ (5 ธ.ค. วันหยุดซ้อนเสาร์)', field: 'B', startDate: '2026-10-17', start: 9, weeks: 8, fieldPrice: 9600, pct: 10, disc: 960, total: 8640, now: 4320 },
+    { label: 'B ส 17 ต.ค. 09:00 × 8 สัปดาห์ (5 ธ.ค. วันหยุดซ้อนเสาร์)', field: 'B', startDate: '2026-10-17', start: 9, weeks: 8, fieldPrice: 10100, pct: 10, disc: 1010, total: 9090, now: 4545 },
   ];
   await test.step('สมัครสมาชิกใหม่ เปิด /series', async () => {
     await registerCustomer(page.request, { name: 'สมาชิกประจำ v2', phone: uniquePhone(3) });

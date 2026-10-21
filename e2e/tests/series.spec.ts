@@ -53,15 +53,16 @@ test.describe('SERIES', () => {
 
   test('TC-SERIES-02 ราคาจองประจำ ส่วนลด 10% เมื่อ ≥ 8 สัปดาห์ และยอดจ่ายรวม', {
     tag: ['@SERIES', '@P1'],
-    annotation: { type: 'expected', description: 'พุธ A 19:00 × 2: 10 สัปดาห์ → ค่าสนาม 24,000 ส่วนลด 10% = 2,400 ยอดรวม 21,600 จ่ายตอนนี้ 10,800 · 7 สัปดาห์ (= 8 − 1) → ส่วนลด 0% จ่าย 8,400 · 8 สัปดาห์ → ส่วนลด 10% (1,920) จ่าย 8,640' },
+    annotation: { type: 'expected', description: 'พุธ A 19:00 × 2: 10 สัปดาห์ → ค่าสนาม 25,400 ส่วนลด 10% = 2,540 ยอดรวม 22,860 จ่ายตอนนี้ 11,430 · 7 สัปดาห์ (= 8 − 1) → ส่วนลด 0% จ่าย 8,800 · 8 สัปดาห์ → ส่วนลด 10% (2,020) จ่าย 9,090 · [D:CR-05] เย็นตั้งแต่ 1 พ.ย. = ฿1,300/ชม. (ORACLE-CHANGES 2026-10-21 · lead อนุมัติ)' },
   }, async ({ page, b }) => {
     const base = { field: 'A', startDate: '2026-10-14', start: 19, hours: 2 };
     await registerCustomer(page.request, { name: 'สมาชิกส่วนลด', phone: uniquePhone(b) });
     await open(page, '/series');
     const cases = [
-      { weeks: 10, field: 24000, pct: '10', disc: 2400, total: 21600, pay: 10800 },
-      { weeks: 7, field: 16800, pct: '0', disc: 0, total: 16800, pay: 8400 },
-      { weeks: 8, field: 19200, pct: '10', disc: 1920, total: 17280, pay: 8640 },
+      // [D:CR-05] ORACLE-CHANGES 2026-10-21: สัปดาห์ที่ข้าม 1 พ.ย. คิดเย็นใหม่ ฿1,300/ชม.
+      { weeks: 10, field: 25400, pct: '10', disc: 2540, total: 22860, pay: 11430 },
+      { weeks: 7, field: 17600, pct: '0', disc: 0, total: 17600, pay: 8800 },
+      { weeks: 8, field: 20200, pct: '10', disc: 2020, total: 18180, pay: 9090 },
     ];
     for (const c of cases) {
       await test.step(`${c.weeks} สัปดาห์ → ส่วนลด ${c.pct}% จ่ายตอนนี้ ${c.pay}`, async () => {

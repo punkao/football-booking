@@ -400,9 +400,10 @@ async function main() {
     const w7 = await pv({ weeks: 7 });
     check("BR-19.7w", "7 weeks → no discount", w7.json.preview.discountPercent === 0 && w7.json.preview.totals.discount === 0);
     const w8 = await pv({ weeks: 8 });
-    check("BR-19.8w", "8 weeks → 10% of field price", w8.json.preview.discountPercent === 10 && w8.json.preview.totals.discount === 1920);
+    check("BR-19.8w", "8 weeks → 10% of field price", w8.json.preview.discountPercent === 10 && w8.json.preview.totals.discount === 2020); // [D:CR-05] ORACLE-CHANGES 2026-10-21 (เดิม 1920): เย็นตั้งแต่ 1 พ.ย. = ฿1,300/ชม.
     const w10 = await pv({ weeks: 10 });
-    check("BR-20.10w", "Wed A 19–21 × 10 weeks → pay now 10,800", w10.json.preview.totals.payNow === 10800, `${w10.json?.preview?.totals?.payNow}`);
+    check("BR-20.10w", "Wed A 19–21 × 10 weeks → pay now 11,430", w10.json.preview.totals.payNow === 11430, `${w10.json?.preview?.totals?.payNow}`);
+    // [D:CR-05] ORACLE-CHANGES 2026-10-21: BR-19.8w 1920→2020 · BR-20.10w 10,800→11,430 · BR-20.pay-once 3,600→3,700 (สัปดาห์ 4 พ.ย. = ฿1,300)
     // a conflict in week 2
     const other = new Client();
     await bookPaid(other, { fieldId: "A", date: "2026-10-21", startHour: 20 });
@@ -415,7 +416,7 @@ async function main() {
     const ok = await mew.post("/api/series", { fieldId: "A", startDate: "2026-10-14", startHour: 19, hours: 2, weeks: 4, consent: true, confirmPartial: true });
     check("BR-21.book-free", "ask 4, week 2 taken → 3 bookings", ok.status === 201 && ok.json.codes.length === 3, JSON.stringify(ok.json));
     const pay = await mew.post(`/api/bookings/${ok.json.codes[0]}/pay`, {});
-    check("BR-20.pay-once", "series paid once for all weeks (3 × 1,200)", pay.status === 200 && pay.json.amount === 3600 && pay.json.bookings.length === 3, JSON.stringify(pay.json));
+    check("BR-20.pay-once", "series paid once for all weeks (1,200 + 1,200 + 1,300)", pay.status === 200 && pay.json.amount === 3700 && pay.json.bookings.length === 3, JSON.stringify(pay.json));
   });
 
   await group("BR-22", async () => {

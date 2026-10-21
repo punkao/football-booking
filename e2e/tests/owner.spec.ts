@@ -3,7 +3,7 @@ import { test, expect, open, uniquePhone, createBooking, payBooking, getBooking,
 test.describe('OWNER', () => {
   test('TC-OWNER-01 เจ้าของเพิ่ม/ลบวันหยุด มีผลกับราคา', {
     tag: ['@OWNER', '@P2'],
-    annotation: { type: 'expected', description: 'เพิ่มวันหยุด → "เพิ่มวันหยุดแล้ว" รายการปรากฏ · ตารางวันนั้นมี holiday-badge และ A 09:00 = ฿1,200 · เพิ่มซ้ำ → "มีวันหยุดวันนี้อยู่แล้ว" · ลบ → "ลบวันหยุดแล้ว" ราคากลับเป็น ฿800' },
+    annotation: { type: 'expected', description: 'เพิ่มวันหยุด → "เพิ่มวันหยุดแล้ว" รายการปรากฏ · ตารางวันนั้นมี holiday-badge และ A 09:00 = ฿1,300 [D:CR-05 · ORACLE-CHANGES 2026-10-21] · เพิ่มซ้ำ → "มีวันหยุดวันนี้อยู่แล้ว" · ลบ → "ลบวันหยุดแล้ว" ราคากลับเป็น ฿800' },
   }, async ({ page, pick }) => {
     const date = pick(['2026-11-05', '2026-11-09', '2026-11-10'] as const);
     await test.step('ก่อนเพิ่ม: วันธรรมดา A 09:00 = ฿800', async () => {
@@ -19,10 +19,11 @@ test.describe('OWNER', () => {
       await expectSuccess(page, 'เพิ่มวันหยุดแล้ว');
       await expect(page.getByTestId(`holiday-${date}`)).toBeVisible();
     });
-    await test.step('ตารางวันนั้นมีป้ายวันหยุด และ A 09:00 = ฿1,200', async () => {
+    await test.step('ตารางวันนั้นมีป้ายวันหยุด และ A 09:00 = ฿1,300', async () => {
       await open(page, `/book?date=${date}`);
       await expect(page.getByTestId('holiday-badge')).toBeVisible();
-      await expect(page.getByTestId('slot-A-9')).toHaveAttribute('data-price', '1200');
+      // [D:CR-05] ORACLE-CHANGES 2026-10-21: วันหยุด พ.ย. (หลัง 1 พ.ย.) ใช้ราคาเย็นใหม่ ฿1,300 (เดิม 1200)
+      await expect(page.getByTestId('slot-A-9')).toHaveAttribute('data-price', '1300');
     });
     await test.step('เพิ่มวันเดิมซ้ำ → ปฏิเสธ', async () => {
       await open(page, '/owner');

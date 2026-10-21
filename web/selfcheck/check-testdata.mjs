@@ -323,9 +323,10 @@ async function main() {
     check("E72", "8 weeks → 10%", (await pv({ weeks: 8 })).json?.preview?.discountPercent === 10);
     check("E73", "9 weeks → 10%", (await pv({ weeks: 9 })).json?.preview?.discountPercent === 10);
     const w10 = (await pv({ weeks: 10 })).json?.preview;
-    check("E76", "ต้น A Wed 19–21 × 10 weeks = (2,400 × 10 − 10%) × 50% = ฿10,800", w10?.totals?.payNow === 10800, w10?.totals?.payNow);
+    // [D:CR-05] ORACLE-CHANGES 2026-10-21: E76 10,800→11,430 · E77 4,800→4,900 (เย็นตั้งแต่ 1 พ.ย. = ฿1,300/ชม.)
+    check("E76", "ต้น A Wed 19–21 × 10 weeks = (25,400 − 10%) × 50% = ฿11,430", w10?.totals?.payNow === 11430, w10?.totals?.payNow);
     const f4 = (await ton.post("/api/series/preview", { fieldId: "A", startDate: "2026-10-16", startHour: 17, hours: 1, weeks: 4 })).json?.preview;
-    check("E77", "A Fri 17:00 × 4 weeks = ฿4,800, no discount", f4?.totals?.payNow === 4800 && f4?.discountPercent === 0, `${f4?.totals?.payNow} ${f4?.discountPercent}`);
+    check("E77", "A Fri 17:00 × 4 weeks = ฿4,900 (6 Nov = ฿1,300), no discount", f4?.totals?.payNow === 4900 && f4?.discountPercent === 0, `${f4?.totals?.payNow} ${f4?.discountPercent}`);
     // a booking on week 2 (21 Oct) makes the series collide
     await bookPaid(new Client(), { fieldId: "A", date: "2026-10-21", startHour: 19 });
     const c8 = (await pv({ weeks: 8 })).json?.preview;
