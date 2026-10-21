@@ -185,7 +185,10 @@ class TesterReport implements Reporter {
     const passed = executed.filter((r) => r.status === 'passed').length;
     const rate = executed.length ? (passed * 100) / executed.length : 0;
     const p1Fail = all.filter((r) => r.priority === 'P1' && isFail(r));
-    const meets = executed.length > 0 && p1Fail.length === 0 && rate >= 95;
+    // แผน 6.4: ข้าม = ไม่ผ่าน (P1 ที่ข้ามต้องไม่เหลือ) ยกเว้น TC ที่ unit ตามแผนผ่านจริงรอบนี้ (test-report/unit-proof.json จาก run-unit-proof.mjs) — ตรงกับ build-index.mjs
+    const unitProof = readJson<Record<string, { status: string }>>(path.join(OUT, 'unit-proof.json'), {});
+    const p1Skipped = all.filter((r) => r.priority === 'P1' && r.status === 'skipped' && unitProof[r.tc]?.status !== 'passed');
+    const meets = executed.length > 0 && p1Fail.length === 0 && p1Skipped.length === 0 && rate >= 95;
     const gif = (tc: string) => fs.existsSync(path.join(GIF_DIR, `${tc}.gif`));
     const mp4 = (tc: string) => fs.existsSync(path.join(MP4_DIR, `${tc}.mp4`));
     const L: string[] = [];
@@ -216,6 +219,7 @@ class TesterReport implements Reporter {
     }
     L.push(`- ผ่านรวม **${passed}/${executed.length} = ${rate.toFixed(1)}%** (เกณฑ์ ≥ 95%, ไม่นับข้อที่ข้าม)`);
     L.push(`- P1 ที่ล้ม: **${p1Fail.length}** ผล (เกณฑ์ 0)${p1Fail.length ? ' → ' + [...new Set(p1Fail.map((r) => r.tc))].join(', ') : ''}`);
+    L.push(`- P1 ที่ข้ามและไม่มี unit พิสูจน์: **${p1Skipped.length}** ผล (นับเป็นไม่ผ่าน)${p1Skipped.length ? ' → ' + [...new Set(p1Skipped.map((r) => r.tc))].join(', ') : ''}`);
     L.push(`- **ผ่านเกณฑ์: ${meets ? '✅ ผ่าน' : '❌ ไม่ผ่าน'}**`);
     const perfRows = all.filter((r) => r.project.startsWith('perf-'));
     if (perfRows.length) L.push(`- NFR-08 (TC-BOOK-02 รันเดี่ยว) เวลาเปิด /book จน data-ready: ` + perfRows.map((r) => `${r.project.replace('perf-', '')} ${r.notes?.['load-ms'] ?? '?'} ms`).join(' · ') + ' (เกณฑ์ ≤ 2,000 ms)');

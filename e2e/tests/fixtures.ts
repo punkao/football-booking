@@ -176,13 +176,16 @@ export async function fillBookingForm(page: Page, o: { name?: string; phone?: st
 /**
  * ติ๊ก/เอาติ๊กออกแบบรอให้ค่าติดจริง — ฟอร์มคำนวณราคาใหม่ (data-ready=false ชั่วคราว) ทุกครั้งที่เปลี่ยนค่า
  * ถ้ากดตรงช่วง re-render ค่าอาจเด้งกลับ จึงลองซ้ำจนกว่าสถานะจะเป็นตามที่ต้องการ
+ * รอสัญญาณพร้อมจริง (data-ready=true) ก่อนกดทุกรอบ · ไม่ตั้งเวลา click สั้นเอง: WebKit ตอนเครื่องแน่น
+ * ใช้เวลาหลายร้อย ms ต่อขั้น (resolve/visible/stable/scroll) รวมเกิน 2 วิได้ ทั้งที่ปุ่มพร้อมกดแล้ว (ดู ORACLE-CHANGES)
  */
 export async function setCheckedStable(loc: Locator, checked: boolean) {
   await expect(async () => {
-    if ((await loc.isChecked()) !== checked) await loc.click({ timeout: 2000 });
-    if (checked) await expect(loc).toBeChecked({ timeout: 1000 });
-    else await expect(loc).not.toBeChecked({ timeout: 1000 });
-  }).toPass({ timeout: 15_000 });
+    await waitReady(loc.page());
+    if ((await loc.isChecked()) !== checked) await loc.click({ timeout: 10_000 });
+    if (checked) await expect(loc).toBeChecked({ timeout: 5000 });
+    else await expect(loc).not.toBeChecked({ timeout: 5000 });
+  }).toPass({ timeout: 30_000 });
 }
 
 /** กดปุ่มที่อาจถูก render ใหม่ระหว่างกด (ลองซ้ำจนกดได้) */

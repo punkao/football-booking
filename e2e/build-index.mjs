@@ -5,7 +5,7 @@
 //   - e2e/triage.json (การจำแนกข้อที่ล้ม) · test-report/gifs, test-report/videos (จาก npm run test:gif)
 //   - web/SPEC.md, docs/RUNBOOK.md (เฉพาะบรรทัดที่อ้างผล selfcheck ของผู้สร้าง = [A])
 //   ตัดสินผ่าน/ไม่ผ่านแยกทีละเบราว์เซอร์ตามแผนหัวข้อ 6.4:
-//   P1 ผ่านครบ และผ่านรวม ≥ ⌈95% × 128⌉ · ไม่ได้รัน/ข้าม = ไม่ผ่าน · TC ที่รันใน serial (Chromium ครั้งเดียว) นับให้ทุกเบราว์เซอร์
+//   P1 ผ่านครบ และผ่านรวม ≥ ⌈95% × 128⌉ · ไม่ได้รัน/ข้าม = ไม่ผ่าน ยกเว้น TC ที่ browser ข้ามเอง (พิสูจน์ผ่านเว็บไม่ได้) และ unit ที่แผนระบุ ผ่านจริงรอบนี้ (test-report/unit-proof.json จาก run-unit-proof.mjs) = นับผ่าน แสดงเป็น 'unit' · TC ที่รันใน serial (Chromium ครั้งเดียว) นับให้ทุกเบราว์เซอร์
 // ใช้: node build-index.mjs [--run test-report] [--out index.html] [--compare test-report/run-1] [--label "รอบ 2"]
 //      [--media test-report/bugmode2] (โฟลเดอร์ที่มี gifs/ videos/ · ค่าเริ่มต้น test-report) [--triage test-report/bugmode2/triage.json] (ค่าเริ่มต้น e2e/triage.json)
 import * as fs from 'node:fs';
@@ -31,7 +31,7 @@ const link = (abs) => path.relative(OUT_DIR, abs).split(path.sep).join('/');
 const FAIL = new Set(['failed', 'timedOut', 'interrupted']);
 
 // ---------------------------------------------------------------- ผลต่อ TC ต่อเบราว์เซอร์ (กติกานับ 6.4)
-function verdicts(store, cases) {
+function verdicts(store, cases, proof = {}) {
   const runs = store?.runs ?? {};
   const rowsOf = (project, tc) => (runs[project]?.rows ?? []).filter((r) => r.tc === tc);
   const combine = (rows) => {
@@ -48,10 +48,12 @@ function verdicts(store, cases) {
       if (!rows.length) { src = 'serial'; rows = rowsOf('serial', c.id); }
       if (!rows.length) { src = `perf-${b}`; rows = rowsOf(`perf-${b}`, c.id); }
       const st = combine(rows);
+      // browser ข้ามเอง + unit ที่แผนระบุผ่านจริงรอบนี้ = ผ่านด้วย unit (ไม่ใช่ข้ามเฉย ๆ) · ไม่มีไฟล์พิสูจน์/unit ล้ม = ยังเป็น skipped = ไม่ผ่านตามแผน 6.4
+      const unit = st === 'skipped' && proof[c.id]?.status === 'passed' ? proof[c.id] : null;
       const err = rows.find((r) => FAIL.has(r.status))?.error ?? '';
       const ms = rows.find((r) => r.notes?.['load-ms'])?.notes['load-ms'];
       per[b] = st
-        ? { status: st, src, error: err.replace(/\u001b\[[0-9;]*m/g, '').split('\n').slice(0, 6).join('\n').slice(0, 700), ...(ms ? { loadMs: ms } : {}) }
+        ? { status: unit ? 'passed' : st, src: unit ? 'unit' : src, ...(unit ? { unit: { row: unit.row, file: unit.file, line: unit.line, runAt: unit.runAt } } : {}), error: err.replace(/\u001b\[[0-9;]*m/g, '').split('\n').slice(0, 6).join('\n').slice(0, 700), ...(ms ? { loadMs: ms } : {}) }
         : { status: 'notrun', src: '' };
     }
     out[c.id] = per;
@@ -66,9 +68,10 @@ function summary(v, cases) {
   for (const b of BROWSERS) {
     const pass = cases.filter((c) => v[c.id][b].status === 'passed').length;
     const p1pass = p1.filter((c) => v[c.id][b].status === 'passed').length;
+    const p1unit = p1.filter((c) => v[c.id][b].src === 'unit').length; // อยู่ใน p1pass แล้ว · แยกไว้แสดงว่า "74 = เบราว์เซอร์ + unit"
     const notRun = cases.filter((c) => ['notrun', 'skipped'].includes(v[c.id][b].status)).map((c) => c.id);
     const failed = cases.filter((c) => v[c.id][b].status !== 'passed').map((c) => c.id);
-    res[b] = { pass, total: cases.length, need, p1pass, p1total: p1.length, meets: p1pass === p1.length && pass >= need, notRun, failed };
+    res[b] = { pass, total: cases.length, need, p1pass, p1unit, p1total: p1.length, meets: p1pass === p1.length && pass >= need, notRun, failed };
   }
   return res;
 }
@@ -129,13 +132,14 @@ const cases = plan.cases;
 const store = readJson(path.join(RUN_DIR, 'results.json'), { runs: {} });
 const info = readJson(path.join(RUN_DIR, 'run-info.json'), {});
 const triage = readJson(TRIAGE, {});
-const v = verdicts(store, cases);
+const PROOF = readJson(path.join(RUN_DIR, 'unit-proof.json'), {}); // เขียนโดย run-unit-proof.mjs
+const v = verdicts(store, cases, PROOF);
 const sum = summary(v, cases);
 let cmp = null;
 if (CMP_DIR) {
   const cs = readJson(path.join(CMP_DIR, 'results.json'), null);
   if (cs) {
-    const cv = verdicts(cs, cases);
+    const cv = verdicts(cs, cases, readJson(path.join(CMP_DIR, 'unit-proof.json'), {}));
     const flips = [];
     for (const c of cases) for (const b of BROWSERS) {
       const a = cv[c.id][b].status, z = v[c.id][b].status;
@@ -154,6 +158,7 @@ const data = {
   summary: sum,
   compare: cmp,
   claims: builderClaims(),
+  unitProof: PROOF,
   counts: { gif: m.gifs.length, mp4: m.mp4s.length },
   crTests: crTests(m),
   triageFile: path.relative(ROOT, TRIAGE).split(path.sep).join('/'),
@@ -181,5 +186,5 @@ const json = JSON.stringify(data).replace(/</g, '\\u003c');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.writeFileSync(OUT, tpl.replace('/*__DATA__*/null', () => json).replace('__BUGMODE__', () => String(info.bugModeFromHtml ?? '?')));
 console.log(`[build-index] ${path.relative(here, OUT)} · ผลจาก ${path.relative(here, RUN_DIR) || '.'} · bugMode ${info.bugModeFromHtml ?? '?'} · ` +
-  BROWSERS.map((b) => `${b} ${sum[b].pass}/${sum[b].total} P1 ${sum[b].p1pass}/${sum[b].p1total} ${sum[b].meets ? 'ผ่าน' : 'ไม่ผ่าน'}`).join(' · ') +
+  BROWSERS.map((b) => `${b} ${sum[b].pass}/${sum[b].total} P1 ${sum[b].p1pass}/${sum[b].p1total}${sum[b].p1unit ? ` (unit ${sum[b].p1unit})` : ''} ${sum[b].meets ? 'ผ่าน' : 'ไม่ผ่าน'}`).join(' · ') +
   ` · GIF ${m.gifs.length} MP4 ${m.mp4s.length}` + (cmp ? ` · เทียบ ${cmp.label}: เปลี่ยน ${cmp.flips.length}` : ''));

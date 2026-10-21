@@ -106,7 +106,7 @@ function boxes(sum, small) {
     return `<div class="box ${s.meets ? 'ok' : ''}">
       <h3><span>${b}</span><span class="verdict">${s.meets ? '✅ ผ่านเกณฑ์' : '❌ ไม่ผ่านเกณฑ์'}</span></h3>
       <p class="big">${s.pass}<span class="muted small"> / ${s.total} ผ่าน (ต้อง ≥ ${s.need})</span></p>
-      <p class="small">P1 ผ่าน <b>${s.p1pass}/${s.p1total}</b> ${s.p1pass === s.p1total ? '✅' : '❌ (ต้องครบ)'} · ผ่านรวม ${s.pass >= s.need ? '✅' : '❌'} ${(100 * s.pass / s.total).toFixed(1)}%</p>
+      <p class="small">P1 ผ่าน <b>${s.p1pass}/${s.p1total}</b>${s.p1unit ? ` <span class="muted">(${s.p1pass - s.p1unit} เบราว์เซอร์ + ${s.p1unit} unit)</span>` : ''} ${s.p1pass === s.p1total ? '✅' : '❌ (ต้องครบ)'} · ผ่านรวม ${s.pass >= s.need ? '✅' : '❌'} ${(100 * s.pass / s.total).toFixed(1)}%</p>
       ${small ? '' : `<details${s.failed.length && s.failed.length <= 12 ? ' open' : ''}><summary class="small">ไม่ผ่าน ${s.failed.length} ข้อ</summary>${fails}</details>`}
     </div>`;
   }).join('');
@@ -114,7 +114,7 @@ function boxes(sum, small) {
 
 function cell(r, b) {
   const x = r.res[b];
-  const src = x.src === 'serial' ? (b === 'chromium' ? 'serial' : 'นับจาก serial') : x.src.startsWith('perf') ? `perf${x.loadMs ? ' ' + x.loadMs + ' ms' : ''}` : '';
+  const src = x.src === 'serial' ? (b === 'chromium' ? 'serial' : 'นับจาก serial') : x.src.startsWith('perf') ? `perf${x.loadMs ? ' ' + x.loadMs + ' ms' : ''}` : x.src === 'unit' ? `unit ${x.unit.row} · ${x.unit.file}:${x.unit.line}` : '';
   const title = x.error ? ` title="${esc(x.error)}"` : '';
   return `<td class="st" data-l="${b}"><span class="s-${x.status}"${title}>${ST[x.status]}</span>${src ? `<span class="src">${src}</span>` : ''}</td>`;
 }
@@ -169,7 +169,7 @@ function render() {
   </div>
 
   <h2>เกณฑ์ผ่าน (Exit · แผนหัวข้อ 6.4) แยกทีละเบราว์เซอร์</h2>
-  <p class="small muted">① P1 ผ่านครบ 74/74 และ ② ผ่านรวม ≥ ⌈95% × 128⌉ = 122 · ไม่ได้รัน/ข้าม = ไม่ผ่าน · TC ที่รันใน <span class="mono">serial</span> (Chromium ครั้งเดียว: 🕒 เลื่อนเวลา, API ล้วน, ต้องใช้ข้อมูล seed ตรงตัว) นับผลเดียวกันให้ทุกเบราว์เซอร์ · TC-BOOK-02 นับจาก perf ของเบราว์เซอร์นั้น</p>
+  <p class="small muted">① P1 ผ่านครบ 74/74 และ ② ผ่านรวม ≥ ⌈95% × 128⌉ = 122 · ไม่ได้รัน/ข้าม = ไม่ผ่าน (ยกเว้น TC ที่พิสูจน์ผ่านเว็บไม่ได้และ unit ตามแผนผ่านจริงรอบนี้ = นับผ่าน ป้าย "unit") · TC ที่รันใน <span class="mono">serial</span> (Chromium ครั้งเดียว: 🕒 เลื่อนเวลา, API ล้วน, ต้องใช้ข้อมูล seed ตรงตัว) นับผลเดียวกันให้ทุกเบราว์เซอร์ · TC-BOOK-02 นับจาก perf ของเบราว์เซอร์นั้น</p>
   <div class="boxes">${boxes(d.summary)}</div>
   ${cmp ? `<h2>เทียบกับ ${esc(cmp.label)} (ผลนิ่งไหม)</h2>
   <div class="panel">
