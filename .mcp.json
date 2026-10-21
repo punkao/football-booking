@@ -10,6 +10,10 @@
         "--output-dir", "screenshots/mcp"
       ],
       "env": { "PLAYWRIGHT_BROWSERS_PATH": "D:/ms-playwright" }
+    },
+    "excalidraw": {
+      "command": "node",
+      "args": ["tools/node_modules/mcp-excalidraw-server/dist/bin.js"]
     }
   }
 }
