@@ -5,6 +5,11 @@
 //   node tools/make-prod-like-data.mjs --no-clock   ไม่แตะนาฬิกาแอป (app_settings 'clock')
 //   node tools/make-prod-like-data.mjs --dry-run    พิมพ์จำนวนแถวที่จะสร้าง + เขียน SQL ไว้ที่ --sql <ไฟล์> (ไม่แตะฐาน)
 //   node tools/make-prod-like-data.mjs --sql out.sql  เก็บ SQL ที่ส่งเข้า psql ไว้ดูด้วย
+//   node tools/make-prod-like-data.mjs --yes-this-is-not-production   ข้ามด่านกันพลาดด้านล่าง (ใช้เมื่อรู้แน่ว่าฐานนี้ไม่ใช่ฐานจริงของร้าน)
+//
+// !! อันตราย: สคริปต์นี้เขียนการจองปลอมลงฐาน football-db ตรง ๆ · ห้ามรันบนเครื่องจริงของร้าน !!
+// ด่านกันพลาด: ยอมเขียนเฉพาะเมื่อฐานมีแถว app_settings 'clock' (แถวที่ POST /api/test/reset สร้าง · เครื่องจริงต้องไม่มี — CLAUDE.md กับดัก)
+//   หรือสั่ง --yes-this-is-not-production เอง · ไม่ผ่าน = ออก exit 1 ไม่แตะข้อมูล
 //
 // สร้างใหม่ทั้งชุด: POST /api/test/reset {} (กลับ seed ปกติ) → node tools/make-prod-like-data.mjs
 // กลับ seed ปกติ (ให้ e2e ใช้ได้):  POST /api/test/reset {}
@@ -35,6 +40,7 @@ const opt = (n) => {
 };
 const DRY = !!opt("--dry-run");
 const SET_CLOCK = !opt("--no-clock");
+const CONFIRMED_NOT_PROD = args.includes("--yes-this-is-not-production");
 const SQL_OUT = typeof opt("--sql") === "string" ? opt("--sql") : null;
 
 // ---------- deterministic helpers ----------
@@ -92,6 +98,17 @@ const rows = (sql) => {
   return o ? o.split(/\r?\n/).map((l) => l.split("|")) : [];
 };
 
+if (!DRY && !CONFIRMED_NOT_PROD) { // guard: only a test database (it has the locked-clock row) — never a shop's real database
+  const hasClock = Number(psqlRun("SELECT count(*) FROM app_settings WHERE key = 'clock'")) > 0;
+  if (!hasClock) {
+    console.error(
+      "หยุด: ฐาน football-db นี้ไม่มีแถว app_settings 'clock' (แถวของฐานทดสอบที่ POST /api/test/reset สร้าง) → อาจเป็นฐานจริงของร้าน\n" +
+        "สคริปต์นี้เขียนการจองปลอมลงฐาน ห้ามรันบนเครื่องจริง · ไม่ได้แก้อะไร\n" +
+        "ถ้าเป็นฐานทดสอบ: POST /api/test/reset {} ก่อน หรือเติม --yes-this-is-not-production เมื่อรู้แน่ว่าไม่ใช่ฐานจริง",
+    );
+    process.exit(1);
+  }
+}
 { // marker: a second run adds nothing (idempotent)
   const already = Number(psqlRun(`SELECT count(*) FROM bookings WHERE code LIKE '${CODE_PREFIX}%'`));
   if (already > 0) {
