@@ -102,6 +102,25 @@
 | ค่าที่คาดหวังเดิมที่เปลี่ยน | – | ทุกจุดมีแถวใน `ORACLE-CHANGES.md` พร้อมผู้อนุมัติ (รวม 12 แถว: CR-01 3 · CR-02 4 · CR-05 5) |
 | ของที่ยังไม่ได้แก้ (ไม่อยู่ใน regression นี้) | – | ดู `RELEASE-NOTES.md` หัวข้อ "เรื่องที่ยังไม่ได้แก้" (agent อื่นเขียน) |
 
+## 3.1 รอบสุดท้าย 2026-10-21 (HEAD 1ed8db2)
+
+รัน `RUN_MIGRATION_TEST=1 node run-all.mjs` เต็ม 1 ครั้ง (รอบหลัก ~11 นาที + perf) — รายงานที่ commit ใน `e2e/test-report/` และ `e2e/index.html` คือรอบนี้
+
+| project | ผ่าน | ล้ม | ข้าม | รวม |
+|---|---|---|---|---|
+| chromium | 106 | 0 | 1 | 107 |
+| firefox | 106 | 0 | 1 | 107 |
+| webkit | 105 | **1** | 1 | 107 |
+| serial | 69 | 0 | 0 | 69 |
+| perf-chromium / firefox / webkit | 1 / 1 / 1 | 0 | 0 | 1 / 1 / 1 |
+
+- รวมผ่าน **389/390 = 99.7%** · ระดับ TC (128 ข้อ): chromium 127 · firefox 127 · webkit 126 (ตัวรายงานตัดสิน "ไม่ผ่านเกณฑ์" เพราะ P1 ล้ม 1 ข้อ)
+- NFR-08 เปิด /book จน data-ready: chromium 326 ms · firefox 975 ms · webkit 627 ms (เกณฑ์ ≤ 2,000 ms)
+- **ที่ล้ม: `webkit › TC-PRICE-04` (P1)** — `setCheckedStable` timeout 15 วินาทีที่ `fixtures.ts:185` (เรียกจาก `price.spec.ts:85`) คลิก `use-credit` ไม่ได้ (รอ visible/enabled/stable) = จังหวะเวลาของการคลิก ไม่ใช่ค่าตัวเลขผิด
+- **จัดเป็น webkit flaky:** รัน webkit แยกทั้งโปรเจกต์ 3 รอบผ่านหมด (71/71 ต่อรอบ) และ lead รัน `--no-deps -g "TC-PRICE-04" --project=webkit` แยก 5 รอบ ผ่าน 5/5 · โค้ด `web/app/book` + components ไม่เปลี่ยนตั้งแต่ v2-handover
+- **รายการ flaky ที่รู้ ณ ตอนนี้:** firefox TC-MEMBER-06 · firefox TC-BOOK-01 · firefox perf TC-BOOK-02 · **webkit TC-PRICE-04 (เพิ่มรอบนี้)** — ข้อที่ไม่ใช่ flaky ที่ล้ม = 0
+- ผลรอบนี้ไม่ได้ทำให้ตัวเลข §1 (รอบ 1/2 ก่อนหน้า) เปลี่ยน แต่ใช้แทนเป็นรายงานล่าสุดใน git
+
 ## 4. สิ่งที่รายงานนี้ยังพิสูจน์ไม่ได้
 
 - **ไม่ได้รันชุด regression บน `v2-handover` ซ้ำ** ตอนนี้ — ตัวเลข "ตอนรับมอบ" ยกจาก BASELINE (รันเมื่อ 20 ต.ค.) ไม่ใช่รอบใหม่ → ถ้าต้องการเทียบแบบรันคู่ ต้องสร้าง worktree ของ tag แล้วรันแยก (image ของ tag build ไว้แล้ว `football-web:v2-handover` ใช้ได้)
