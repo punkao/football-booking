@@ -5,7 +5,7 @@ import type { MountRoot } from "@/lib/server/project";
 /** server component: one markdown file with its table of contents (shared by /project/docs and /project/report) */
 export function DocView({ root, rel, md, children }: { root: MountRoot; rel: string; md: string; children?: React.ReactNode }) {
   const { html, toc } = renderMarkdown(md, { root, rel });
-  const label = root === "docs" ? `docs/${rel}` : `e2e/test-report/${rel}`;
+  const label = root === "docs" ? `docs/${rel}` : root === "handover" ? rel : `e2e/test-report/${rel}`;
   return (
     <main className="page container">
       <p className="small muted" style={{ margin: "0 0 8px" }}>

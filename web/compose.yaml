@@ -29,6 +29,13 @@ services:
     volumes:
       - ../docs:/app/project/docs:ro
       - ../e2e/test-report:/app/project/test-report:ro
+      # handover files (part D) for /project: listed one by one so nothing else in legacy/ or the repo root is exposed
+      - ../CHANGE-REQUESTS:/app/project/handover/CHANGE-REQUESTS:ro
+      - ../RELEASE-NOTES.md:/app/project/handover/RELEASE-NOTES.md:ro
+      - ../UAT-CHECKLIST.md:/app/project/handover/UAT-CHECKLIST.md:ro
+      - ../legacy/REGRESSION-REPORT.md:/app/project/handover/legacy/REGRESSION-REPORT.md:ro
+      - ../legacy/TRACEABILITY.md:/app/project/handover/legacy/TRACEABILITY.md:ro
+      - ../legacy/REA-COMPARE.md:/app/project/handover/legacy/REA-COMPARE.md:ro
       - ../db/init/02-seed.sql:/app/db/02-seed.sql:ro   # /api/test/reset runs the same seed as the database (NFR-10)
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>r.json()).then(j=>process.exit(j.ok&&j.db?0:1)).catch(()=>process.exit(1))"]

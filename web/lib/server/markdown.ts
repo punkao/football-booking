@@ -4,7 +4,7 @@
 import path from "node:path";
 import { Marked } from "marked";
 import type { Tokens } from "marked";
-import { ALLOWED_EXT, REPO_PATH } from "./project";
+import { ALLOWED_EXT, HANDOVER_MD, REPO_PATH } from "./project";
 import type { MountRoot } from "./project";
 
 export type TocItem = { id: string; text: string; depth: number };
@@ -34,11 +34,12 @@ export function portalHref(href: string, from: { root: MountRoot; rel: string })
   } catch {
     return { url: null };
   }
-  const here = path.posix.dirname(`${REPO_PATH[from.root]}/${from.rel}`);
+  const here = from.root === "handover" ? path.posix.dirname(from.rel) : path.posix.dirname(`${REPO_PATH[from.root]}/${from.rel}`);
   const repo = path.posix.normalize(path.posix.join(here, p));
   if (repo.startsWith("..")) return { url: null };
   const suffix = hash ? `#${hash}` : "";
   const enc = (s: string) => s.split("/").map(encodeURIComponent).join("/");
+  if (HANDOVER_MD.test(repo)) return { url: `/project/handover/${enc(repo)}${suffix}` }; // handover files (part D), served from the "handover" mount
   for (const root of ["docs", "test-report"] as MountRoot[]) {
     const prefix = REPO_PATH[root];
     if (repo === prefix || repo === prefix + "/") return { url: root === "docs" ? "/project/docs" : "/project/report" };

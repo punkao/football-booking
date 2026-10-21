@@ -5,10 +5,15 @@ import { readdir, readFile, realpath, stat } from "node:fs/promises";
 import path from "node:path";
 
 export const PROJECT_ROOT = process.env.PROJECT_DIR || "/app/project";
-export type MountRoot = "docs" | "test-report";
-export const MOUNT_ROOTS: MountRoot[] = ["docs", "test-report"];
-/** repo path of each mount (used to resolve links written in the markdown files) */
-export const REPO_PATH: Record<MountRoot, string> = { docs: "docs", "test-report": "e2e/test-report" };
+export type MountRoot = "docs" | "test-report" | "handover";
+export const MOUNT_ROOTS: MountRoot[] = ["docs", "test-report", "handover"];
+/** repo path of each mount (used to resolve links written in the markdown files); "handover" mirrors the repo root, so its prefix is empty */
+export const REPO_PATH: Record<MountRoot, string> = { docs: "docs", "test-report": "e2e/test-report", handover: "" };
+/**
+ * Handover files (part D) the portal serves from the read-only "handover" mount (web/compose.yaml lists them one by one,
+ * so nothing else under legacy/ or the repo root is reachable). Paths are repo-relative.
+ */
+export const HANDOVER_MD = /^(?:RELEASE-NOTES|UAT-CHECKLIST)\.md$|^CHANGE-REQUESTS\/[\w./-]+\.md$|^legacy\/(?:REGRESSION-REPORT|TRACEABILITY|REA-COMPARE)\.md$/;
 
 export const ALLOWED_EXT: Record<string, string> = {
   ".md": "text/markdown; charset=utf-8",
@@ -276,4 +281,44 @@ export async function lastNormalRound(): Promise<{ round: string; passed: string
   if (!r || r.length < 6) return null;
   const clean = (c: string) => c.replace(/[*`]/g, "").trim();
   return { round: clean(r[0]), passed: clean(r[3]), criteria: clean(r[5]) };
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// handover (part D): CR register + latest regression numbers, read from the "handover" mount at run time
+// ---------------------------------------------------------------------------------------------------------------
+
+export type CrRow = { id: string; received: string; title: string; urgency: string; status: string; commits: string };
+export type RegressionRow = { label: string; before: string; now: string };
+export type SuiteRow = { suite: string; result: string; note: string };
+
+const plain = (s: string) => s.replace(/\*\*|`/g, "").trim();
+
+/** CHANGE-REQUESTS/REGISTER.md → one row per CR-0N (status = the words before the first "(") */
+export async function crRegister(): Promise<CrRow[] | null> {
+  const md = await readMountText("handover", "CHANGE-REQUESTS/REGISTER.md");
+  if (!md) return null;
+  return tableRows(md)
+    .filter((r) => /^CR-\d+$/.test(r[0]) && r.length >= 6)
+    .map((r) => ({
+      id: r[0],
+      received: r[1],
+      title: plain(r[2]),
+      urgency: plain(r[3]),
+      status: plain(r[4]).split("(")[0].trim(),
+      commits: plain(r[5]).replace(/ · impact .*$/, ""),
+    }));
+}
+
+/** legacy/REGRESSION-REPORT.md: the "ตอนรับมอบ → ตอนนี้" table (section 3) and the other suites table (section 2), plus the tested commit */
+export async function regressionSummary(): Promise<{ commit: string | null; rows: RegressionRow[]; suites: SuiteRow[] } | null> {
+  const md = await readMountText("handover", "legacy/REGRESSION-REPORT.md");
+  if (!md) return null;
+  const rows = tableRows(section(md, /^##\s+3\./))
+    .filter((r) => r.length >= 3 && r[0] !== "หัวข้อ")
+    .map((r) => ({ label: plain(r[0]), before: plain(r[1]), now: plain(r[2]) }));
+  const suites = tableRows(section(md, /^##\s+2\./))
+    .filter((r) => r.length >= 4 && r[0] !== "ชุด")
+    .map((r) => ({ suite: plain(r[0]), result: plain(r[2]), note: plain(r[4] ?? "") }));
+  const commit = tableRows(section(md, /^##\s+0\./)).find((r) => r[0].startsWith("git commit"))?.[1];
+  return { commit: commit ? plain(commit).split(" ")[0].slice(0, 7) : null, rows, suites };
 }

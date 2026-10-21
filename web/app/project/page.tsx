@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Ready } from "@/components/ui";
-import { bugsCaught, lastNormalRound, latestRun, listDocs, listReports, mountExists, requirementCounts, testPlan } from "@/lib/server/project";
+import { bugsCaught, crRegister, lastNormalRound, latestRun, listDocs, listReports, mountExists, regressionSummary, requirementCounts, testPlan } from "@/lib/server/project";
 
 // Phase 10 portal — overview for the instructor. Every number is counted from docs/ and e2e/test-report/ at run time.
 
@@ -40,6 +40,18 @@ const READ_FIRST: { href: string; label: string; why: string }[] = [
   { href: "/project/docs/05b-EXPLORATION.md", label: "05b · Exploration (MCP)", why: "AI ใช้เว็บเหมือนลูกค้าจริงผ่าน Playwright MCP" },
 ];
 
+// Part D (handover after CR-01…06): the files themselves are the source (CHANGE-REQUESTS/REGISTER.md, legacy/REGRESSION-REPORT.md), read through the "handover" mount.
+const HANDOVER_LINKS: { href: string; label: string; why: string }[] = [
+  { href: "/project/handover/CHANGE-REQUESTS/REGISTER.md", label: "ทะเบียน CR (REGISTER)", why: "สถานะ + commit ของ CR-01…06" },
+  { href: "/project/handover/legacy/REGRESSION-REPORT.md", label: "REGRESSION-REPORT", why: "ผลทดสอบรวมตอนส่งมอบ เทียบตอนรับมอบ (2 รอบ)" },
+  { href: "/project/handover/legacy/TRACEABILITY.md", label: "TRACEABILITY", why: "CR → คำตอบร้าน → BR → เทสต์ → commit" },
+  { href: "/project/handover/legacy/REA-COMPARE.md", label: "REA-COMPARE", why: "เทียบระบบก่อน/หลังด้วยการสกัดกลับ (tag v2-handover ↔ HEAD)" },
+  { href: "/project/handover/RELEASE-NOTES.md", label: "RELEASE-NOTES", why: "บันทึกส่งมอบภาษาร้าน + เรื่องที่ยังไม่ได้แก้ (K1…) + คำถามค้าง" },
+  { href: "/project/handover/UAT-CHECKLIST.md", label: "UAT-CHECKLIST", why: "ใบตรวจรับรายเรื่อง ให้ร้านกดดูเองและลงชื่อ" },
+  { href: "/project/handover/CHANGE-REQUESTS/00-HANDOVER-MEMO.md", label: "00-HANDOVER-MEMO", why: "บันทึกรับมอบระบบจากทีมเดิม" },
+  { href: "/project/docs/RUNBOOK.md", label: "RUNBOOK", why: "รัน · สำรอง/กู้คืน · migration · ซ้อมถอยกลับ" },
+];
+
 /** "docs/x.md" → portal route (or null when the file is not there) */
 async function fileLink(f: string): Promise<{ href: string; label: string } | null> {
   if (f.startsWith("page:")) return { href: f.slice(5), label: f.slice(5) };
@@ -65,7 +77,7 @@ export default async function ProjectPage({ searchParams }: { searchParams: Prom
   const sp = await searchParams;
   if (sp.doc && /^[\w.-]+\.md$/.test(sp.doc)) redirect(`/project/docs/${encodeURIComponent(sp.doc)}`); // old /project?doc= links
 
-  const [counts, plan, run, bugs, docs, reports, normal] = await Promise.all([
+  const [counts, plan, run, bugs, docs, reports, normal, crs, regression] = await Promise.all([
     requirementCounts(),
     testPlan(),
     latestRun(),
@@ -73,6 +85,8 @@ export default async function ProjectPage({ searchParams }: { searchParams: Prom
     listDocs(),
     listReports(),
     lastNormalRound(),
+    crRegister(),
+    regressionSummary(),
   ]);
   const pr = (p: string) => plan?.cases.filter((c) => c.priority === p).length ?? null;
   const phases = await Promise.all(PHASES.map(async (p) => ({ ...p, links: (await Promise.all(p.files.map(fileLink))).filter(Boolean) as { href: string; label: string }[] })));
@@ -186,6 +200,111 @@ export default async function ProjectPage({ searchParams }: { searchParams: Prom
             </p>
           </>
         )}
+      </section>
+
+      <section className="card" aria-labelledby="h-handover" style={{ marginTop: 16 }} data-testid="project-handover">
+        <h2 id="h-handover">ส่งมอบ: คำขอเปลี่ยนแปลง CR-01…06 (ส่วน D)</h2>
+        <p className="small muted">
+          หลังรับมอบระบบ (tag <code>v2-handover</code>) ทีมดูแลระบบทำ CR ทีละเรื่อง: ถามร้าน → อธิบายของเดิม → เทสต์แดง → แก้ → regression · อ่านจากไฟล์จริงตอนเปิดหน้า
+        </p>
+        {!crs ? (
+          <p className="muted" data-testid="project-handover-missing">
+            ไม่พบทะเบียน CR (ยังไม่ได้ mount <code>CHANGE-REQUESTS/</code>)
+          </p>
+        ) : (
+          <div className="table-wrap">
+            <table className="simple" data-testid="project-cr-table">
+              <thead>
+                <tr>
+                  <th scope="col">CR</th>
+                  <th scope="col">เรื่อง</th>
+                  <th scope="col">ความเร่งด่วน</th>
+                  <th scope="col">สถานะ</th>
+                  <th scope="col">commit</th>
+                  <th scope="col">เอกสาร</th>
+                </tr>
+              </thead>
+              <tbody>
+                {crs.map((c) => (
+                  <tr key={c.id} data-testid={`project-cr-${c.id}`}>
+                    <td>
+                      <b>{c.id}</b>
+                      <div className="small muted">{c.received}</div>
+                    </td>
+                    <td>{c.title}</td>
+                    <td className="small">{c.urgency}</td>
+                    <td data-testid={`project-cr-status-${c.id}`}>{c.status}</td>
+                    <td className="small">{c.commits}</td>
+                    <td className="small">
+                      <Link href={`/project/handover/CHANGE-REQUESTS/${c.id}.md`}>หนังสือ</Link> · <Link href={`/project/docs/impact/${c.id}.md`}>impact</Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        <h3 style={{ marginTop: 16 }}>ผล regression ล่าสุด</h3>
+        {!regression ? (
+          <p className="muted" data-testid="project-regression-missing">
+            ไม่พบ <code>legacy/REGRESSION-REPORT.md</code>
+          </p>
+        ) : (
+          <>
+            <div className="table-wrap">
+              <table className="simple" data-testid="project-regression-table">
+                <thead>
+                  <tr>
+                    <th scope="col">หัวข้อ</th>
+                    <th scope="col">ตอนรับมอบ</th>
+                    <th scope="col">ตอนส่งมอบ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {regression.rows.map((r) => (
+                    <tr key={r.label}>
+                      <td>{r.label}</td>
+                      <td>{r.before}</td>
+                      <td>{r.now}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="table-wrap" style={{ marginTop: 12 }}>
+              <table className="simple" data-testid="project-regression-suites">
+                <thead>
+                  <tr>
+                    <th scope="col">ชุดทดสอบอื่น</th>
+                    <th scope="col">ผล</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {regression.suites.map((s) => (
+                    <tr key={s.suite}>
+                      <td>{s.suite}</td>
+                      <td>{s.result}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="small muted" style={{ marginBottom: 0 }}>
+              ทดสอบที่ commit <code data-testid="project-regression-commit">{regression.commit ?? "–"}</code> · ตัวเลขทั้งหมดมาจาก{" "}
+              <Link href="/project/handover/legacy/REGRESSION-REPORT.md">REGRESSION-REPORT</Link> (ส่วนที่ 0, 2, 3)
+            </p>
+          </>
+        )}
+
+        <h3 style={{ marginTop: 16 }}>เอกสารส่งมอบ</h3>
+        <ul className="list" data-testid="project-handover-links">
+          {HANDOVER_LINKS.map((l) => (
+            <li key={l.href}>
+              <Link href={l.href}>{l.label}</Link> <span className="small muted">— {l.why}</span>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <div className="two-col rev" style={{ marginTop: 16 }}>

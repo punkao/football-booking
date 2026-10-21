@@ -32,6 +32,9 @@ const read = (f) => readFile(f, "utf8").catch(() => null);
 
 // ---------------------------------------------------------------- recount from the files (independent of the web code)
 const docs = [...(await ls(DOCS)).filter((f) => f.endsWith(".md")), ...(await ls(path.join(DOCS, "trace"))).filter((f) => f.endsWith(".md")).map((f) => `trace/${f}`)];
+// part D (handover) files shown through the "handover" mount (web/compose.yaml)
+const HANDOVER = ["RELEASE-NOTES.md", "UAT-CHECKLIST.md", "CHANGE-REQUESTS/REGISTER.md", "CHANGE-REQUESTS/00-HANDOVER-MEMO.md", ...[1, 2, 3, 4, 5, 6].map((n) => `CHANGE-REQUESTS/CR-0${n}.md`), "legacy/REGRESSION-REPORT.md", "legacy/TRACEABILITY.md", "legacy/REA-COMPARE.md"];
+const crRows = ((await read(path.join(REPO, "CHANGE-REQUESTS/REGISTER.md"))) ?? "").split(/\r?\n/).filter((l) => /^\|\s*CR-\d+\s*\|/.test(l)).length;
 const reports = (await ls(REPORT)).filter((f) => f.endsWith(".md"));
 const rowsOf = (md) => md.split(/\r?\n/).filter((l) => l.startsWith("|")).map((l) => l.split("|").slice(1, -1).map((c) => c.trim()));
 const req = await read(path.join(DOCS, "04-REQUIREMENTS.md"));
@@ -76,6 +79,7 @@ const pages = [
   { name: "traceability", url: "/project/traceability" },
   { name: "report", url: "/project/report", source: path.join(DOCS, "10-TEST-REPORT.md") },
   ...docs.map((d) => ({ name: `doc:${d}`, url: `/project/docs/${d}`, source: path.join(DOCS, d) })),
+  ...HANDOVER.map((h) => ({ name: `handover:${h}`, url: `/project/handover/${h}`, source: path.join(REPO, h) })),
   ...reports.map((r) => ({ name: `report:${r}`, url: `/project/report/${r}`, source: path.join(REPORT, r) })),
 ];
 const SHOTS = {
@@ -136,6 +140,10 @@ for (const width of [1280, 375]) {
     const got = await page.getByTestId(id).getAttribute("data-value").catch(() => null);
     check(`numbers.${id}`, String(got) === String(want), `page ${got} · files ${want}`);
   }
+  // part D section: one row per CR in REGISTER.md, regression table present, commit shown
+  check("handover.cr-rows", (await page.locator('[data-testid^="project-cr-CR-"]:not([data-testid^="project-cr-status-"])').count()) === crRows && crRows >= 6, `page ${await page.locator('[data-testid^="project-cr-CR-"]').count()} · files ${crRows}`);
+  check("handover.regression", (await page.getByTestId("project-regression-table").locator("tbody tr").count()) >= 4);
+  check("handover.regression-commit", /^[0-9a-f]{7}$/.test((await page.getByTestId("project-regression-commit").textContent()) ?? ""));
   // testcases page: filter + GIF opens in the page
   await page.goto(BASE + "/project/testcases");
   await page.waitForSelector('html[data-ready="true"]', { state: "attached" });
@@ -196,6 +204,12 @@ const attacks = [
   "/project/files/docs/04-REQUIREMENTS.txt",
   "/project/files/docs/trace/phase3-n5-attempt1.txt",
   "/project/files/docs/diagrams",
+  "/project/handover/legacy/BASELINE.md",
+  "/project/handover/..%2Fweb%2FSPEC.md",
+  "/project/handover/CHANGE-REQUESTS/..%2F..%2Fweb%2FBUGS.md",
+  "/project/handover/legacy/har/x.json",
+  "/project/files/handover/legacy/BASELINE.md",
+  "/project/files/handover/%2e%2e/web/BUGS.md",
   "/project/docs/..%2F..%2FPLAN.md",
   "/project/docs/%2e%2e/web/SPEC.md",
   "/project/report/..%2F..%2Fweb%2FBUGS.md",
