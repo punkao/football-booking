@@ -4,8 +4,10 @@ import { normLang } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n";
 import { customerIdFrom, getNow, staffFrom } from "./core";
 import type { StaffRow } from "./core";
-import { loadCustomerById } from "./data";
+import { loadCustomerById, loadFields } from "./data";
+import type { FieldRow } from "./data";
 import { ensureDb } from "./db";
+import { SEED_FIELDS } from "./schema";
 
 export async function pageLang(): Promise<Lang> {
   return normLang((await cookies()).get("lang")?.value);
@@ -44,5 +46,21 @@ export async function pageNowOrMachine(): Promise<Date> {
     return await Promise.race([pageNow(), new Promise<never>((_, reject) => setTimeout(() => reject(new Error("clock timeout")), 2000))]);
   } catch {
     return new Date();
+  }
+}
+
+/**
+ * CR-05 (REVIEW-1): the fields (with their price changes) for the home page, read from the database like /api/fields — prices and
+ * effective dates live in the DB, not in code. Only when the DB does not answer within 2 seconds the page still opens with
+ * SEED_FIELDS (a fallback copy, may be stale).
+ */
+export async function pageFieldsOrSeed(): Promise<Pick<FieldRow, "id" | "name" | "size" | "covered" | "dayRate" | "eveningRate" | "rateChanges">[]> {
+  try {
+    return await Promise.race([
+      ensureDb().then(() => loadFields(null)),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("fields timeout")), 2000)),
+    ]);
+  } catch {
+    return SEED_FIELDS;
   }
 }

@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { FieldArt, PitchLines } from "@/components/Art";
 import { Ready } from "@/components/ui";
-import { SEED_FIELDS } from "@/lib/server/schema";
 import { fieldName, money, nextRateText, tx } from "@/lib/i18n";
 import { ratesOn, todayOf, upcomingRates } from "@/lib/rules";
-import { pageLang, pageNowOrMachine } from "@/lib/server/page";
+import { pageFieldsOrSeed, pageLang, pageNowOrMachine } from "@/lib/server/page";
 
 export default async function HomePage() {
   const lang = await pageLang();
-  const today = todayOf(await pageNowOrMachine()); // CR-05: the card shows the price of today + the price that starts later
+  // CR-05: the card shows the price of today + the price that starts later · prices + effective dates come from field_rates (DB);
+  // the SEED_FIELDS copy only if the DB does not answer (both wait at most 2 s, in parallel)
+  const [now, fields] = await Promise.all([pageNowOrMachine(), pageFieldsOrSeed()]);
+  const today = todayOf(now);
   return (
     <main>
       <Ready />
@@ -66,7 +68,7 @@ export default async function HomePage() {
           </Link>
         </div>
         <div className="cards">
-          {SEED_FIELDS.map((f) => {
+          {fields.map((f) => {
             const cur = ratesOn(f, today);
             const next = upcomingRates(f, today)[0];
             const nextText = next ? nextRateText(lang, cur, next) : "";

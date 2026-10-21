@@ -19,7 +19,7 @@
 - `.claude/settings.json` กันได้แค่เครื่องมือ Read/Edit/Write — **ไม่กัน shell** (`sed` `Set-Content` `cat`) → ห้ามใช้ shell อ้อมรั้ว
 
 ## กับดัก (จาก legacy/)
-- ราคาสนามอยู่หลายที่: ตาราง `fields.day_rate/evening_rate` · `SEED_FIELDS` `web/lib/server/schema.ts:5-9` (หน้าแรก ไม่อ่าน DB) · seed SQL · prompt/mock แชท · price guard แชท → แก้ราคาต้องแก้ครบ
+- ราคาสนามอยู่หลายที่: ตาราง `fields.day_rate/evening_rate` · `SEED_FIELDS` `web/lib/server/schema.ts` (สำเนาสำรองของหน้าแรก ใช้เฉพาะเมื่อ DB ไม่ตอบใน 2 วิ · หน้าแรกอ่านราคา+วันมีผลจาก DB `field_rates` ผ่าน `pageFieldsOrSeed`) · seed SQL · prompt/mock แชท · price guard แชท → แก้ราคาต้องแก้ครบ
 - สมองแชท mock อ่าน **ข้อความล่าสุดข้อความเดียว** สำหรับถามว่าง/ราคา (`web/lib/chat/mock.ts:244-258`) · เฉพาะการจองที่รวมหลายข้อความ (`collect`)
 - `node scripts/migrate.mjs --down N` **ไม่บังคับลำดับ** (ถอย 005 ได้ทั้งที่ 006 ยังอยู่) · `/api/version` ใช้ `max(version)` จึงไม่เห็นรูตรงกลาง
 - `web/selfcheck/check-testdata.mjs` แถว E148 **ถอย 005 แล้วขึ้นใหม่บนฐานจริง** + reset ทุกกลุ่ม → ไม่ใช่การตรวจแบบอ่านอย่างเดียว
