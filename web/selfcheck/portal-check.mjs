@@ -36,21 +36,28 @@ const docs = [...(await ls(DOCS)).filter((f) => f.endsWith(".md")), ...(await ls
 const HANDOVER = ["RELEASE-NOTES.md", "UAT-CHECKLIST.md", "CHANGE-REQUESTS/REGISTER.md", "CHANGE-REQUESTS/00-HANDOVER-MEMO.md", ...[1, 2, 3, 4, 5, 6].map((n) => `CHANGE-REQUESTS/CR-0${n}.md`), "legacy/REGRESSION-REPORT.md", "legacy/TRACEABILITY.md", "legacy/REA-COMPARE.md"];
 const crRows = ((await read(path.join(REPO, "CHANGE-REQUESTS/REGISTER.md"))) ?? "").split(/\r?\n/).filter((l) => /^\|\s*CR-\d+\s*\|/.test(l)).length;
 const reports = (await ls(REPORT)).filter((f) => f.endsWith(".md"));
-const rowsOf = (md) => md.split(/\r?\n/).filter((l) => l.startsWith("|")).map((l) => l.split("|").slice(1, -1).map((c) => c.trim()));
+const rowsOf = (md) => md.split(/\r?\n/).filter((l) => l.startsWith("|")).map((l) => l.trim().replace(/^\||\|$/g, "").split(/(?<!\\)\|/).map((c) => c.trim()));
 const req = await read(path.join(DOCS, "04-REQUIREMENTS.md"));
 const us = await read(path.join(DOCS, "03-USER-STORIES.md"));
 const plan = await read(path.join(DOCS, "09-TEST-PLAN.md"));
 const first = (re) => new Set(rowsOf(req).map((r) => r[0]).filter((c) => re.test(c))).size;
-const tcRows = rowsOf(plan).filter((r) => /^TC-[A-Z0-9]+-\d+/.test(r[0]) && /^P[123]$/.test(r[4] ?? ""));
+// TC table columns are found by header name (not fixed indexes); the TC count comes from an independent source: every "| TC-" row
+const planRows = rowsOf(plan);
+const head = planRows.find((r) => r[0] === "ID" && r.includes("ระดับ"));
+const priCol = head ? head.indexOf("ระดับ") : -1;
+const tcRows = planRows.filter((r) => /^TC-[A-Z0-9]+-\d+/.test(r[0]) && /^P[123]$/.test(r[priCol] ?? ""));
+const tcLineIds = new Set(plan.split(/\r?\n/).filter((l) => l.startsWith("| TC-")).map((l) => l.split("|")[1].trim().match(/^TC-[A-Z0-9]+-\d+/)?.[0]).filter(Boolean));
+if (tcLineIds.size === 0) throw new Error("portal-check: found 0 '| TC-' rows in docs/09-TEST-PLAN.md");
+if (tcRows.length !== tcLineIds.size) throw new Error(`portal-check: header-based parse found ${tcRows.length} TC rows but the file has ${tcLineIds.size} '| TC-' rows`);
 const expected = {
   "project-count-us": new Set(us.match(/^###\s+US-\d+/gm)).size,
   "project-count-fr": first(/^FR-\d+$/),
   "project-count-br": first(/^BR-\d+$/),
   "project-count-nfr": first(/^NFR-\d+$/),
   "project-count-tc": tcRows.length,
-  "project-count-p1": tcRows.filter((r) => r[4] === "P1").length,
-  "project-count-p2": tcRows.filter((r) => r[4] === "P2").length,
-  "project-count-p3": tcRows.filter((r) => r[4] === "P3").length,
+  "project-count-p1": tcRows.filter((r) => r[priCol] === "P1").length,
+  "project-count-p2": tcRows.filter((r) => r[priCol] === "P2").length,
+  "project-count-p3": tcRows.filter((r) => r[priCol] === "P3").length,
 };
 const resultsJson = JSON.parse((await read(path.join(REPORT, "results.json"))) ?? "null");
 if (resultsJson) {

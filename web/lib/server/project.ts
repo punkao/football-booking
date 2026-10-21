@@ -160,11 +160,27 @@ export async function testPlan(): Promise<{ cases: TestCase[]; frToTc: Map<strin
   const md = await readMountText("docs", "09-TEST-PLAN.md");
   if (!md) return null;
   const cases: TestCase[] = [];
+  // columns are located by HEADER NAME (the "ID" header row of the TC table), so adding a column never breaks parsing
+  let col: Record<string, number> | null = null;
+  const find = (h: string[], re: RegExp) => h.findIndex((c) => re.test(c));
   for (const r of tableRows(md)) {
+    if (r[0] === "ID" && find(r, /^ระดับ/) >= 0 && find(r, /^ผลที่คาดหวัง/) >= 0) {
+      col = {
+        module: find(r, /^โมดูล/),
+        what: find(r, /^สิ่งที่ทดสอบ/),
+        rules: find(r, /^FR\/BR/),
+        priority: find(r, /^ระดับ/),
+        data: find(r, /^ข้อมูล/),
+        expected: find(r, /^ผลที่คาดหวัง/),
+      };
+      continue;
+    }
+    if (!col) continue;
     const m = r[0]?.match(/^(TC-[A-Z0-9]+-\d+)\s*(.*)$/);
-    if (!m || r.length < 7 || !/^P[123]$/.test(r[4])) continue;
+    const cell = (k: string) => (col![k] >= 0 ? (r[col![k]] ?? "") : "");
+    if (!m || !/^P[123]$/.test(cell("priority"))) continue;
     if (cases.some((c) => c.id === m[1])) continue;
-    cases.push({ id: m[1], marks: m[2], module: r[1], what: r[2], rules: r[3], priority: r[4], data: r[5], expected: r[6] });
+    cases.push({ id: m[1], marks: m[2], module: cell("module"), what: cell("what"), rules: cell("rules"), priority: cell("priority"), data: cell("data"), expected: cell("expected") });
   }
   const map = (sec: string, re: RegExp) => {
     const out = new Map<string, string[]>();
