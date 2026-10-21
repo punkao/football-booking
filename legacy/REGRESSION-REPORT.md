@@ -119,7 +119,52 @@
 - **ที่ล้ม: `webkit › TC-PRICE-04` (P1)** — `setCheckedStable` timeout 15 วินาทีที่ `fixtures.ts:185` (เรียกจาก `price.spec.ts:85`) คลิก `use-credit` ไม่ได้ (รอ visible/enabled/stable) = จังหวะเวลาของการคลิก ไม่ใช่ค่าตัวเลขผิด
 - **จัดเป็น webkit flaky:** รัน webkit แยกทั้งโปรเจกต์ 3 รอบผ่านหมด (71/71 ต่อรอบ) และ lead รัน `--no-deps -g "TC-PRICE-04" --project=webkit` แยก 5 รอบ ผ่าน 5/5 · โค้ด `web/app/book` + components ไม่เปลี่ยนตั้งแต่ v2-handover
 - **รายการ flaky ที่รู้ ณ ตอนนี้:** firefox TC-MEMBER-06 · firefox TC-BOOK-01 · firefox perf TC-BOOK-02 · **webkit TC-PRICE-04 (เพิ่มรอบนี้)** — ข้อที่ไม่ใช่ flaky ที่ล้ม = 0
-- ผลรอบนี้ไม่ได้ทำให้ตัวเลข §1 (รอบ 1/2 ก่อนหน้า) เปลี่ยน แต่ใช้แทนเป็นรายงานล่าสุดใน git
+- ผลรอบนี้ไม่ได้ทำให้ตัวเลข §1 (รอบ 1/2 ก่อนหน้า) เปลี่ยน · (รายงานล่าสุดใน git ตอนนี้คือรอบ §3.2)
+
+## 3.2 รอบสุดท้าย 2 (2026-10-21, HEAD a6ca022)
+
+รัน `RUN_MIGRATION_TEST=1 node run-all.mjs` เต็ม 1 ครั้ง (รอบหลัก 10.4 นาที + perf 8.6 วินาที) บน `BUG_MODE=0` · schema 009 · mock · ตั้งแต่รอบนี้ `run-all.mjs` ต่อ `run-unit-proof.mjs` → `build-index.mjs` ให้เองตอนจบ (โซ่หลักฐาน: unit ก่อน index) · รายงานที่ commit ใน `e2e/test-report/*` + `e2e/index.html` + `e2e/test-report/unit-proof.json` คือรอบนี้ (ใช้แทนรอบ §3.1) · log ดิบ: `scratchpad` ของ session
+
+ที่เพิ่มจาก §3.1 (HEAD 1ed8db2 → a6ca022): แก้ fixture `setCheckedStable` (ORACLE-CHANGES) · TC-SERIES-04 นับผ่านด้วย unit E75 · K3 (getNow ไม่อ่านแถว clock เมื่อปิด seam) · id ผิดรูป/รหัสมี NUL → 404 แทน 500 · เทสต์ใหม่ใน `e2e/tests/cr/` 3 ไฟล์ (`stored-amounts.serial` 4 ข้อ · `reschedule-overlap` 4 ข้อ · `wrong-type-inputs.serial` 7 ข้อ + 1 fixme)
+
+| project | ผ่าน | ล้ม | ข้าม | รวม |
+|---|---|---|---|---|
+| setup | 1 | 0 | 0 | 1 |
+| chromium | 110 | 0 | 1 | 111 |
+| firefox | 110 | 0 | 1 | 111 |
+| webkit | 108 | **2** | 1 | 111 |
+| serial | 86 | 0 | 1 | 87 |
+| perf-chromium / firefox / webkit | 1 / 1 / 1 | 0 | 0 | 1 / 1 / 1 |
+
+- Playwright นับ: รอบหลัก 415 ผ่าน · 2 ล้ม · 4 ข้าม (= TC-SERIES-04 ×3 เบราว์เซอร์ + `WT-04-K14` fixme 1) · perf 3 ผ่าน → รวมผ่าน **418/424 = 98.6%** (นับ setup 1 ข้อ)
+- NFR-08 เปิด /book จน data-ready: chromium 227 ms · firefox 465 ms · webkit 466 ms (เกณฑ์ ≤ 2,000 ms)
+- **ตัดสินของ `e2e/index.html` ต่อเบราว์เซอร์ (กติกาแผน 6.4 · ต้องผ่าน ≥ 122/128 และ P1 74/74):**
+
+| เบราว์เซอร์ | ระดับ TC | P1 | ตัดสิน |
+|---|---|---|---|
+| chromium | 128/128 | 74/74 (ในนี้ 1 = TC-SERIES-04 ผ่านด้วย unit) | **ผ่านเกณฑ์** |
+| firefox | 128/128 | 74/74 (unit 1) | **ผ่านเกณฑ์** |
+| webkit | 126/128 | 73/74 (unit 1) | **ไม่ผ่านเกณฑ์** (ล้ม `TC-BOOK-01` P1 + `TC-STAFF-06` P2) |
+
+- **TC-SERIES-04** ไม่ใช่ข้ามเฉย ๆ อีกต่อไป: `unit-proof.json` — `web/lib/rules/rules.test.ts:221` (E75 "BR-19 / A-24 discount with satang is rounded up") ผ่านจริงในรอบนี้ (pass 1 / fail 0) → index นับ "ผ่านด้วย unit"
+- **ที่ล้ม (ทั้งสองเฉพาะ WebKit):**
+  1. `TC-BOOK-01` (P1) — หลังเลือก 2 ชั่วโมง รอ `price-hour-20` ไม่เจอ 10 วินาที (`book.spec.ts:25`) · ตัวเลขไม่ผิด หน้ายังไม่แสดงบรรทัดราคาที่สอง
+  2. `TC-STAFF-06` (P2) — ล้มที่ 709 ms ใน `expectFree`: ช่อง A 2026-10-19 10:00–13:00 มีการจอง active ทับอยู่ 2 ใบก่อนเริ่ม ("ข้อมูลชนกับ test อื่น" `v2-helpers.ts:43`) · ยังระบุไม่ได้ว่า test ไหนจองไว้ (กลุ่ม serial รีเซ็ตฐานทีหลัง ดูย้อนหลังไม่ได้)
+- **รันซ้ำเพื่อจำแนก (reset `{}` ก่อนทุกรอบ · `--project=webkit --no-deps`):** `TC-BOOK-01` ผ่าน **3/3** (4.5 · 4.1 · 3.6 วินาที) · `TC-STAFF-06` ผ่าน **3/3** (2.6 · 2.8 · 2.7 วินาที) · และรัน webkit ทั้งโปรเจกต์ 1 รอบ (`--no-deps` หลัง reset) = **110 ผ่าน · 1 ข้าม · 0 ล้ม** (2.7 นาที) → จัดเป็น **webkit flaky** (BOOK-01 = จังหวะเรนเดอร์ · STAFF-06 = ข้อมูลชนกันตอนรัน 3 เบราว์เซอร์พร้อมกัน) ไม่ใช่บั๊กเว็บ · บันทึกใน `e2e/triage.json` · ผลรันซ้ำไม่ถูกเขียนทับรายงานรอบเต็ม (เก็บสำเนารายงานก่อนรันซ้ำแล้วคืนหลังรัน)
+- **ข้อควรรู้ตรง ๆ:** ตัว index ยังตัดสิน webkit ❌ ตามกติกา (ไม่ได้ปรับผลให้สวย) · `TC-PRICE-04` ที่ล้มใน §3.1 ผ่านครบ 3 เบราว์เซอร์รอบนี้ แต่ webkit มี flaky ใหม่ 2 ข้อ → รายการ flaky ที่รู้: firefox TC-MEMBER-06 · firefox TC-BOOK-01 (เก่า) · firefox perf TC-BOOK-02 · webkit TC-PRICE-04 (§3.1) · **webkit TC-BOOK-01 · webkit TC-STAFF-06 (รอบนี้)** — ข้อที่ไม่ใช่ flaky ที่ล้ม = 0 · ข้อเสนอที่ยังไม่ทำ (ห้ามแก้ test เดิมโดยไม่มีแถว ORACLE-CHANGES): ให้ `expectFree` พิมพ์รหัสการจองที่ชน และให้ fixture ของ webkit รอ data-ready หลังเลือกชั่วโมง
+
+**ชุดอื่นบนโค้ดเดียวกัน (reset `{}` ก่อน · รันหลัง e2e จบ ไม่ซ้อนกัน):**
+
+| ชุด | คำสั่ง | ผล |
+|---|---|---|
+| golden master | `node tests/golden/check.mjs` | quote **261/261** `[E golden/quote:ac43f117]` · side **15/15** `[E golden/side:6e21c080]` · quote-nov **132/132** `[E golden/quote-nov:85064ff4]` · exit 0 |
+| unit เว็บ | `cd web && npm test` | **144/144** (fail 0 · skipped 0) — §2 เดิม 137 → เพิ่ม 7 |
+| Portal | `node web/selfcheck/portal-check.mjs` | **1148/1148** (fail 0) · 68 หน้า × 2 ความกว้าง · ลิงก์ 348 (รันซ้ำท้ายงานหลังแก้เอกสาร — ดูหมายเหตุท้ายส่วนนี้) |
+| smoke | `node tests/smoke.mjs` | **10/10** exit 0 |
+| MCP สนามบอล | `node tools/mcp-football/test-client.mjs` | **13/13** · wire log 36 ข้อความ (`docs/mcp/football-wire.log` — ไฟล์ใน git คงฉบับเดิม) · จบแล้ว reset `{}` |
+
+- ไม่ได้รันซ้ำรอบนี้: `rules-check` (191) · `check-testdata` (151) · กระทบยอดเงินคำท้า — ใช้ตัวเลข §2 (วัดที่ `ea32d4d`) · โค้ดฝั่ง `web/` เปลี่ยนตั้งแต่นั้น (404 แทน 500, K3) จึงควรรันซ้ำก่อนส่งจริง
+- สถานะสุดท้ายหลังรอบ: `POST /api/test/reset {}` ok · `/api/version` = `009` · `mock` · bugMode 0
 
 ## 4. สิ่งที่รายงานนี้ยังพิสูจน์ไม่ได้
 

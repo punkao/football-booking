@@ -24,8 +24,8 @@
     "note": "กด logout / staff-logout บนหน้าเว็บแล้ว cookie เดิมยังได้ 200 ทั้ง /api/me และ /api/staff/bookings/LN-900004 (session ไม่ถูกยกเลิก) — ตรงกับ ⚠️ ใน TEST-RUN-MCP · P1 ความปลอดภัย"
   },
   "TC-STAFF-06": {
-    "class": "เว็บผิด",
-    "note": "ร้านตอบ A-45 เช็กอินได้เฉพาะวันเตะ แต่เว็บให้เช็กอินการจอง 20 ต.ค. ได้ตั้งแต่ 9 ต.ค. (\"เก็บเงินและเช็กอินแล้ว\" CHECKED_IN) และ paid-hours เพิ่มเป็น 3 ก่อนเล่น — ตรงกับ ⚠️ ใน TEST-RUN-1"
+    "class": "flaky (ข้อมูลชนกับ test อื่นตอนรันพร้อมกัน · ไม่ใช่บั๊กเว็บ)",
+    "note": "รอบสุดท้าย 2 (2026-10-21 HEAD a6ca022) ล้มเฉพาะ WebKit ที่ 709 ms: expectFree พบการจอง active ทับ A 2026-10-19 10:00–13:00 อยู่ 2 ใบก่อนเริ่ม (v2-helpers.ts:43 \"ข้อมูลชนกับ test อื่น\") = ช่องที่ pick ของ WebKit ถูก test อื่นในรอบเดียวกันจองไปก่อน · ยังระบุไม่ได้ว่า test ไหนเป็นผู้จอง (กลุ่ม serial รีเซ็ตฐานหลังรอบหลักจึงดูย้อนหลังไม่ได้) · หลักฐานว่า flaky: รันข้อเดียวหลัง reset 3 รอบผ่าน 3/3 และ webkit ทั้งโปรเจกต์ 1 รอบผ่านหมด (110 ผ่าน ล้ม 0) · ข้อเสนอ (ยังไม่ทำ ห้ามแก้ test เดิม): ให้ expectFree พิมพ์รหัสการจองที่ชน · ไม่แก้ test · ดู legacy/REGRESSION-REPORT.md §3.2 · ประวัติ: รอบ B-3/ตอนรับมอบ TC-STAFF-06 ล้มเพราะเว็บผิดจริง (class \"เว็บผิด\") — ร้านตอบ A-45 เช็กอินได้เฉพาะวันเตะ แต่เว็บให้เช็กอินการจอง 20 ต.ค. ได้ตั้งแต่ 9 ต.ค. (\"เก็บเงินและเช็กอินแล้ว\" CHECKED_IN) และ paid-hours เพิ่มเป็น 3 ก่อนเล่น — ตรงกับ ⚠️ ใน TEST-RUN-1 → แก้แล้วด้วย CR-02 และเขียวทุกเบราว์เซอร์ตั้งแต่นั้น; ครั้งนี้เป็นเหตุอื่น"
   },
   "TC-REPORT-01": {
     "class": "เว็บผิด",
@@ -57,6 +57,10 @@
   },
   "TC-PRICE-04": {
     "class": "flaky (ไม่ใช่บั๊กเว็บ / ไม่ใช่ test ผิด)",
-    "note": "รอบสุดท้าย 2026-10-21 (HEAD 1ed8db2) ล้มเฉพาะ WebKit: setCheckedStable หมดเวลา 15 วินาทีที่ fixtures.ts:185 (เรียกจาก price.spec.ts:85) ตอนคลิก use-credit ไม่ได้ (รอ visible/enabled/stable) = จังหวะเวลาของการคลิก ไม่ใช่ค่าตัวเลขผิด · หลักฐานว่า flaky: รัน webkit แยกทั้งโปรเจกต์ 3 รอบผ่านหมด (71/71 ต่อรอบ) และรันข้อเดียว (--no-deps -g TC-PRICE-04 --project=webkit) แยก 5 รอบผ่าน 5/5 · chromium/firefox ผ่านในรอบเดียวกัน · โค้ดหน้าจอง (web/app/book + components) ไม่เปลี่ยนตั้งแต่ v2-handover · ไม่แก้ test · ดู legacy/REGRESSION-REPORT.md §3.1"
+    "note": "รอบสุดท้าย 2026-10-21 (HEAD 1ed8db2) ล้มเฉพาะ WebKit: setCheckedStable หมดเวลา 15 วินาทีที่ fixtures.ts:185 (เรียกจาก price.spec.ts:85) ตอนคลิก use-credit ไม่ได้ (รอ visible/enabled/stable) = จังหวะเวลาของการคลิก ไม่ใช่ค่าตัวเลขผิด · หลักฐานว่า flaky: รัน webkit แยกทั้งโปรเจกต์ 3 รอบผ่านหมด (71/71 ต่อรอบ) และรันข้อเดียว (--no-deps -g TC-PRICE-04 --project=webkit) แยก 5 รอบผ่าน 5/5 · chromium/firefox ผ่านในรอบเดียวกัน · โค้ดหน้าจอง (web/app/book + components) ไม่เปลี่ยนตั้งแต่ v2-handover · ไม่แก้ test · ดู legacy/REGRESSION-REPORT.md §3.1 · รอบสุดท้าย 2 (HEAD a6ca022): ผ่านทั้ง 3 เบราว์เซอร์ (ไม่ล้มซ้ำ)"
+  },
+  "TC-BOOK-01": {
+    "class": "flaky (ไม่ใช่บั๊กเว็บ / ไม่ใช่ test ผิด)",
+    "note": "รอบสุดท้าย 2 (2026-10-21 HEAD a6ca022) ล้มเฉพาะ WebKit: หลังเลือก 2 ชั่วโมง รอ price-hour-20 ไม่เจอ 10 วินาที (book.spec.ts:25) = หน้าจองฝั่ง WebKit ยังไม่แสดงบรรทัดราคาที่สอง ไม่ใช่ตัวเลขผิด · หลักฐานว่า flaky: รันข้อเดียว (--no-deps -g TC-BOOK-01 --project=webkit) หลัง reset 3 รอบผ่าน 3/3 และรัน webkit ทั้งโปรเจกต์ (--no-deps) 1 รอบผ่าน 110 ข้อ ข้าม 1 (TC-SERIES-04) ล้ม 0 · chromium/firefox ผ่านในรอบเดียวกัน · โค้ด web/app/book ไม่เปลี่ยน · ไม่แก้ test · ดู legacy/REGRESSION-REPORT.md §3.2"
   }
 }

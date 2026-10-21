@@ -7,6 +7,7 @@
 - **เว็บ:** Next.js 16 + TypeScript · หน้าลูกค้า (จอง ชำระมัดจำ ยกเลิก เครดิต จองประจำ ทีม/คำท้า สมาชิก) · หลังบ้าน (พนักงาน / ผู้จัดการ / เจ้าของ: เช็กอิน รายงาน คลังของ บันทึกการกระทำ) · แชทบอท "น้องบอล" (โหมด `mock` ไม่ออก network หรือ `ai`) · TH/EN · มือถือ 375 px
 - **ฐานข้อมูล:** PostgreSQL 16 แยก Docker คนละโปรเจกต์ (`db/` กับ `web/`) · schema **009** (`db/migrations/001–009` มีไฟล์ถอยกลับ `.down.sql` ทุกฉบับ)
 - **Portal ตรวจงาน:** <http://localhost:3000/project> — ภาพรวม เอกสาร + แผนภาพ test case พร้อมผลและ GIF traceability รายงาน และส่วน "ส่งมอบ CR-01…06"
+- **MCP server ของสนาม:** [`tools/mcp-football/`](tools/mcp-football) — tool `check_availability` · `quote` · `book` (ต้องยืนยัน + เฉพาะ localhost) + resource ราคา ให้ AI เรียกระบบจองผ่านมาตรฐาน MCP · ทดสอบ 13/13 · รายงาน [`docs/mcp/MCP-REPORT.md`](docs/mcp/MCP-REPORT.md) (ด่าน `claude -p` เรียก tool จริงยังติดล็อกอินหมดอายุ 401)
 - **ความต้องการ:** User Story 52 · FR 48 · BR 51 · NFR 24 ([`docs/04-REQUIREMENTS.md`](docs/04-REQUIREMENTS.md) = แหล่งความจริงเดียว) · test case 128 ข้อพร้อมเฉลย ([`docs/TEST-CASES.md`](docs/TEST-CASES.md))
 
 ## รันเว็บ (ต้องมี Docker Desktop)
@@ -27,7 +28,7 @@ curl http://localhost:3000/api/version             # ต้องได้ schem
 
 ```bash
 cd e2e && npm install && npm run browsers
-node run-all.mjs                                   # 3 เบราว์เซอร์ + serial + perf ราว 9–15 นาที
+node run-all.mjs                                   # 3 เบราว์เซอร์ + serial + perf ราว 11 นาที · จบแล้วสร้าง e2e/test-report/unit-proof.json + e2e/index.html ให้เอง
 node ../tests/golden/check.mjs                     # golden master (ต่าง = exit 1)
 cd ../web && npm test                              # unit
 ```
@@ -58,18 +59,21 @@ test เดิมห้ามแก้ — ถ้าค่าที่คาด�
 | [`legacy/REA-COMPARE.md`](legacy/REA-COMPARE.md) | เทียบระบบ `v2-handover` ↔ HEAD ด้วย REA |
 | [`CHANGE-REQUESTS/00-HANDOVER-MEMO.md`](CHANGE-REQUESTS/00-HANDOVER-MEMO.md) | บันทึกรับมอบจากทีมสร้างเว็บ v2 |
 
-### ผลทดสอบล่าสุด (จาก [`legacy/REGRESSION-REPORT.md`](legacy/REGRESSION-REPORT.md) — รัน 21 ต.ค. 2569 ที่ commit `ea32d4d`, `BUG_MODE=0`)
+### ผลทดสอบล่าสุด (จาก [`legacy/REGRESSION-REPORT.md`](legacy/REGRESSION-REPORT.md) §3.2 — รอบเต็ม 21 ต.ค. 2569 ที่ commit `a6ca022`, `BUG_MODE=0`, schema 009)
 
 | ชุด | ตอนรับมอบ | ตอนส่งมอบ |
 |---|---|---|
-| e2e ต่อเบราว์เซอร์ (chromium / firefox / webkit) | 117 ผ่าน · 10 ล้ม | **175 ผ่าน · 0 ล้ม** (รอบ 2 firefox 174 / 1 ล้ม = `TC-MEMBER-06` flaky ที่รู้แล้ว รันเดี่ยวผ่าน 3/3) |
-| ระดับ TC (128 ข้อ) | 117/128 | **127/128** (เหลือ `TC-SERIES-04` ข้ามตามแผน — พิสูจน์ผ่านหน้าเว็บไม่ได้ ครอบด้วย unit) |
+| e2e ต่อ project (ผ่าน / ล้ม / ข้าม) | 117 ผ่าน · 10 ล้ม ต่อเบราว์เซอร์ | chromium 110 / 0 / 1 · firefox 110 / 0 / 1 · **webkit 108 / 2 / 1** · serial 86 / 0 / 1 · perf 3 ผ่าน (รวม 418/424) |
+| ตัดสินของ [`e2e/index.html`](e2e/index.html) (เกณฑ์แผน 6.4: ≥ 122/128 และ P1 74/74) | 117/128 | chromium **128/128 · P1 74/74 ผ่านเกณฑ์** · firefox **128/128 · P1 74/74 ผ่านเกณฑ์** · webkit **126/128 · P1 73/74 ไม่ผ่านเกณฑ์** |
+| ข้อที่ล้ม (webkit เท่านั้น) | – | `TC-BOOK-01` (P1) · `TC-STAFF-06` (P2) — **จัดเป็น flaky**: รันเดี่ยวหลัง reset ผ่าน 3/3 ทั้งคู่ และ webkit ทั้งโปรเจกต์ 110 ผ่าน 0 ล้ม (หลักฐาน `e2e/triage.json`) · ยังไม่ได้แก้ให้นิ่ง |
+| TC-SERIES-04 | – | พิสูจน์ผ่านหน้าเว็บไม่ได้ → นับผ่านด้วย unit E75 ที่รันผ่านจริงในรอบ (`e2e/test-report/unit-proof.json`) |
 | golden master | quote 261 + side 15 | 261/261 · 15/15 · quote-nov 132/132 (ชุด quote เดิมไม่เปลี่ยนสักไบต์) |
-| unit เว็บ · rules-check · check-testdata | – | 137/137 · 191/191 · 151/151 |
-| กระทบยอดเงินคำท้า · smoke | – | 0 / 0 · 10/10 |
+| unit เว็บ · Portal · smoke · MCP | – | 144/144 · 1148/1148 · 10/10 · 13/13 |
+| rules-check · check-testdata · กระทบยอดเงินคำท้า | – | 191/191 · 151/151 · 0/0 (วัดที่ `ea32d4d` ไม่ได้รันซ้ำรอบนี้) |
 | schema | 006 | **009** |
+| คะแนนรูบริก 4 บท ([`docs/RUBRIC-SELF-CHECK.md`](docs/RUBRIC-SELF-CHECK.md)) | – | **74 / 80** (ตรวจใหม่ 22 ต.ค. จาก 74.5 — หักข้อที่เคยให้เกินจริง) |
 
-ยังไม่ได้ทำ / พิสูจน์ไม่ได้: UAT — ทีมเดินบนเว็บจริงแล้ว 2026-10-21 (docs/UAT-RUN.md) เหลือร้านเดินเอง+เซ็น · `docs/04-REQUIREMENTS.md` อัปเดตตาม CR แล้ว (21 ต.ค.) แต่ ERD `docs/06-SA.md` กับ `docs/09-TEST-PLAN.md` ข้อ 6.2 ยังไม่ตาม BR-46–51 · คำถามค้างถึงร้าน 26 ข้อ (RELEASE-NOTES ข้อ 4) · เรื่องที่ทีมรู้แต่ยังไม่แก้ K1–K12 (เช่น แชทไม่จำบริบทตอนพิมพ์ "จองเลย" · role DB ของเว็บเป็น superuser · ต้องลบแถวเวลาจำลองก่อนขึ้นเครื่องจริง) · e2e ไม่ครอบคลุมการเปลี่ยนวันที่จริงหลัง 1 พ.ย.
+ยังไม่ได้ทำ / พิสูจน์ไม่ได้: UAT — ทีมเดินบนเว็บจริงแล้ว 2026-10-21 ([`docs/UAT-RUN.md`](docs/UAT-RUN.md)) เหลือร้านเดินเอง+เซ็น · ไม่มีรอบเต็มรอบเดียวที่เขียวทั้ง 3 เบราว์เซอร์ (webkit ล้มคนละข้อทุกรอบ) · รั้ว `.claude/settings.json` ยังไม่ได้ทดสอบในเซสชันใหม่ · แชทไม่เคยทดสอบกับโมเดลจริง (มีแค่ mock / mock-llm) · คำถามค้างถึงร้าน 25 ข้อ (CR-01 2 · CR-02 7 · CR-03 6 · CR-04 4 · CR-05 6) + CR-06 อีก 5 ข้อที่รอร้านรับทราบ ([`RELEASE-NOTES.md`](RELEASE-NOTES.md) ข้อ 4) · ปัญหาที่ทีมรู้และยังไม่แก้ **12 ข้อ** (K1, K2, K4–K9, K11–K14 ใน [`KNOWN-ISSUES.md`](KNOWN-ISSUES.md); K3 ปิดแล้ว) เช่น แชทไม่จำบริบทตอนพิมพ์ "จองเลย" · role DB ของเว็บเป็น superuser · e2e ไม่ครอบคลุมการเปลี่ยนวันที่จริงหลัง 1 พ.ย.
 
 ## ผลของงานรอบสร้างเว็บ (ก่อนรับมอบ)
 
@@ -106,5 +110,5 @@ football-booking/
 ├─ web/           เว็บ Next.js (compose.yaml, SPEC.md, selfcheck/)
 ├─ e2e/           Playwright Test (tests/ + tests/cr/ ของ CR, test-report/ = รายงาน + GIF + MP4)
 ├─ tests/         golden master + smoke.mjs
-└─ tools/         Playwright MCP bridge/client · make-prod-like-data · reconcile-challenges.sql · ตัว render Mermaid
+└─ tools/         mcp-football (MCP server ของสนาม) · Playwright MCP bridge/client · make-prod-like-data · reconcile-challenges.sql · ตัว render Mermaid
 ```

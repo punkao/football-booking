@@ -10,6 +10,6 @@
     "fail": 0,
     "cmd": "cd web && node --test --test-name-pattern=\"BR-19 / A-24 discount with satang is rounded up\" lib/rules/rules.test.ts",
     "node": "v24.20.0",
-    "runAt": "2026-10-21T15:59:59.359Z"
+    "runAt": "2026-10-21T16:56:14.519Z"
   }
 }

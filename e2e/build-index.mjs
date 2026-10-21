@@ -102,7 +102,7 @@ function media() {
 }
 
 // ---------------------------------------------------------------- เทสต์ของ CR (ส่วน D) = e2e/tests/cr/*.spec.ts
-// อ่านบรรทัด test('<id> <ชื่อ>' · id สื่อ: CR-0N-NN, CR-05-SN, REVIEW-N · known-issues "KI TC-X-NN" → ชื่อไฟล์สื่อ KI-TC-X-NN
+// อ่านบรรทัด test('<id> <ชื่อ>' · id สื่อ: CR-0N-NN, CR-05-SN, REVIEW-N, RESCH-OVL-NN, STORED-NN, WT-NN[-RED] · known-issues "KI TC-X-NN" → ชื่อไฟล์สื่อ KI-TC-X-NN
 function crTests(m) {
   const dir = path.join(here, 'tests', 'cr');
   let files = [];
@@ -112,7 +112,7 @@ function crTests(m) {
     fs.readFileSync(path.join(dir, f), 'utf8').split(/\r?\n/).forEach((line, i) => {
       const t = line.match(/^\s*test\(\s*(['"`])(.*?)\1\s*,/);
       if (!t) return;
-      const mm = t[2].match(/^((?:CR-\d+-\w+)|(?:REVIEW-\d+)|(?:KI TC-[\w-]+))\s+(.*)$/);
+      const mm = t[2].match(/^((?:CR-\d+-\w+)|(?:REVIEW-\d+)|(?:KI TC-[\w-]+)|(?:RESCH-OVL-\d+)|(?:STORED-\d+)|(?:WT-\d+(?:-[A-Z0-9]+)?))\s+(.*)$/); // + ตาข่ายเสริม: RESCH-OVL (เลื่อนทับตัวเอง) · STORED (ยอดที่บันทึก) · WT (ข้อมูลผิดชนิด)
       if (!mm) return;
       const id = mm[1].replace(/^KI /, 'KI-');
       out.push({
