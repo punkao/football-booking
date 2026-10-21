@@ -1,0 +1,1993 @@
+{
+ "tags": [
+  "wcag2a",
+  "wcag2aa",
+  "wcag21aa"
+ ],
+ "lang": "th",
+ "totals": {
+  "critical": 0,
+  "serious": 32,
+  "moderate": 0,
+  "minor": 0,
+  "pages": 36,
+  "errors": 0
+ },
+ "byRule": {
+  "color-contrast": {
+   "impact": "serious",
+   "pages": 32,
+   "nodes": 128
+  }
+ },
+ "results": [
+  {
+   "page": "home",
+   "width": 1280,
+   "url": "/",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 6
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 6,
+     "samples": [
+      {
+       "target": "article[data-testid=\"home-field-A\"] > .meta > .light.badge:nth-child(1)",
+       "html": "<span class=\"badge light\">5 คน</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "article[data-testid=\"home-field-A\"] > .meta > .light.badge:nth-child(2)",
+       "html": "<span class=\"badge light\">กลางแจ้ง</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "article[data-testid=\"home-field-B\"] > .meta > .light.badge:nth-child(1)",
+       "html": "<span class=\"badge light\">5 คน</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "article[data-testid=\"home-field-B\"] > .meta > .light.badge:nth-child(2)",
+       "html": "<span class=\"badge light\">กลางแจ้ง</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "article[data-testid=\"home-field-C\"] > .meta > .light.badge:nth-child(1)",
+       "html": "<span class=\"badge light\">7 คน</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "fields",
+   "width": 1280,
+   "url": "/fields",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 9
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 9,
+     "samples": [
+      {
+       "target": "span[data-testid=\"field-size-A\"]",
+       "html": "<span class=\"badge light\" data-testid=\"field-size-A\" data-value=\"5\">5 คน</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"field-covered-A\"]",
+       "html": "<span class=\"badge light\" data-testid=\"field-covered-A\" data-value=\"outdoor\">กลางแจ้ง</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "a[data-testid=\"field-book-A\"]",
+       "html": "<a class=\"btn small\" style=\"margin-top:12px\" data-testid=\"field-book-A\" href=\"/book\">ดูรอบว่าง</a>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"field-size-B\"]",
+       "html": "<span class=\"badge light\" data-testid=\"field-size-B\" data-value=\"5\">5 คน</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"field-covered-B\"]",
+       "html": "<span class=\"badge light\" data-testid=\"field-covered-B\" data-value=\"outdoor\">กลางแจ้ง</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "book",
+   "width": 1280,
+   "url": "/book",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 18
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 18,
+     "samples": [
+      {
+       "target": "strong[data-testid=\"slot-A-8-price\"]",
+       "html": "<strong data-testid=\"slot-A-8-price\" data-value=\"800\">฿800</strong>",
+       "data": {
+        "fgColor": "#8f9993",
+        "bgColor": "#f5f6f2",
+        "contrastRatio": 2.7,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "div[data-testid=\"slot-A-8\"] > .small",
+       "html": "<span class=\"small\">หมดเวลาจอง</span>",
+       "data": {
+        "fgColor": "#8f9993",
+        "bgColor": "#f5f6f2",
+        "contrastRatio": 2.7,
+        "fontSize": "10.6pt (14.08px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "strong[data-testid=\"slot-B-8-price\"]",
+       "html": "<strong data-testid=\"slot-B-8-price\" data-value=\"800\">฿800</strong>",
+       "data": {
+        "fgColor": "#8f9993",
+        "bgColor": "#f5f6f2",
+        "contrastRatio": 2.7,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "div[data-testid=\"slot-B-8\"] > .small",
+       "html": "<span class=\"small\">หมดเวลาจอง</span>",
+       "data": {
+        "fgColor": "#8f9993",
+        "bgColor": "#f5f6f2",
+        "contrastRatio": 2.7,
+        "fontSize": "10.6pt (14.08px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "strong[data-testid=\"slot-C-8-price\"]",
+       "html": "<strong data-testid=\"slot-C-8-price\" data-value=\"1200\">฿1,200</strong>",
+       "data": {
+        "fgColor": "#8f9993",
+        "bgColor": "#f5f6f2",
+        "contrastRatio": 2.7,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "book-new",
+   "width": 1280,
+   "url": "/book/new?field=A&date=2026-10-14&start=17",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "booking-gate",
+   "width": 1280,
+   "url": "/booking/LN-900004",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": ".btn",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"gate-submit\">ดูการจอง</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "booking",
+   "width": 1280,
+   "url": "/booking/LN-900004",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 4
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 4,
+     "samples": [
+      {
+       "target": ".status-tag",
+       "html": "<span class=\"status-tag CONFIRMED\" data-testid=\"booking-status\" data-value=\"CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"reschedule-submit\"]",
+       "html": "<button type=\"button\" class=\"btn small\" data-testid=\"reschedule-submit\" style=\"margin-top: 10px;\">เลื่อนการจอง</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"split-create\"]",
+       "html": "<button type=\"button\" class=\"btn small\" data-testid=\"split-create\">สร้างลิงก์หาร</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"challenge-create\"]",
+       "html": "<button type=\"button\" class=\"btn small\" data-testid=\"challenge-create\">ประกาศหาคู่แข่ง</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "my-login",
+   "width": 1280,
+   "url": "/my",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 2
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 2,
+     "samples": [
+      {
+       "target": "button[data-testid=\"lookup-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"lookup-submit\">ดูการจอง</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"login-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"login-submit\">เข้าสู่ระบบ</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "my",
+   "width": 1280,
+   "url": "/my",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 2
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 2,
+     "samples": [
+      {
+       "target": ".status-tag",
+       "html": "<span class=\"status-tag CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "a[data-testid=\"my-go-series\"]",
+       "html": "<a class=\"btn\" data-testid=\"my-go-series\" href=\"/series\">จองประจำรายสัปดาห์</a>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "challenges",
+   "width": 1280,
+   "url": "/challenges",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "series",
+   "width": 1280,
+   "url": "/series",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": ".btn",
+       "html": "<a class=\"btn\" data-testid=\"series-go-login\" href=\"/my\">เข้าสู่ระบบ / สมัครสมาชิก</a>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "staff-login",
+   "width": 1280,
+   "url": "/staff/login",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": ".btn",
+       "html": "<button type=\"submit\" class=\"btn\" data-testid=\"staff-login-submit\">เข้าสู่ระบบ</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "staff",
+   "width": 1280,
+   "url": "/staff",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": "button[type=\"submit\"]",
+       "html": "<button type=\"submit\" class=\"btn\" data-testid=\"staff-search-submit\" style=\"align-self:end\">ค้นหา</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "staff-today",
+   "width": 1280,
+   "url": "/staff/today",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 4
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 4,
+     "samples": [
+      {
+       "target": "div[data-testid=\"today-slot-A-19\"] > a[href=\"/staff?code=LN-900001\"]",
+       "html": "<a href=\"/staff?code=LN-900001\">LN-900001</a>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e6f0e5",
+        "contrastRatio": 4.26,
+        "fontSize": "9.4pt (12.48px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "div[data-testid=\"today-slot-A-19\"] > .status-tag.CONFIRMED",
+       "html": "<div class=\"status-tag CONFIRMED\" style=\"font-size: 0.68rem;\">ยืนยันแล้ว</div>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#cee6d4",
+        "contrastRatio": 3.77,
+        "fontSize": "8.2pt (10.88px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "div[data-testid=\"today-slot-A-20\"] > a[href=\"/staff?code=LN-900001\"]",
+       "html": "<a href=\"/staff?code=LN-900001\">LN-900001</a>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e6f0e5",
+        "contrastRatio": 4.26,
+        "fontSize": "9.4pt (12.48px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "div[data-testid=\"today-slot-A-20\"] > .status-tag.CONFIRMED",
+       "html": "<div class=\"status-tag CONFIRMED\" style=\"font-size: 0.68rem;\">ยืนยันแล้ว</div>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#cee6d4",
+        "contrastRatio": 3.77,
+        "fontSize": "8.2pt (10.88px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "manager-stock",
+   "width": 1280,
+   "url": "/manager/stock",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 4
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 4,
+     "samples": [
+      {
+       "target": "button[data-testid=\"receive-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"receive-submit\">บันทึกรับเข้า</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"damage-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"damage-submit\">บันทึกชำรุด</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"adjust-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"adjust-submit\">บันทึกปรับยอด</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"reorder-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"reorder-submit\">บันทึก</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "owner",
+   "width": 1280,
+   "url": "/owner",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 2
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 2,
+     "samples": [
+      {
+       "target": "button[data-testid=\"holiday-add\"]",
+       "html": "<button type=\"submit\" class=\"btn\" data-testid=\"holiday-add\">เพิ่มวันหยุด</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": ".danger",
+       "html": "<button type=\"submit\" class=\"btn danger\" data-testid=\"closure-submit\">ปิดสนามและคืนเครดิต</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#e5484d",
+        "contrastRatio": 3.91,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "owner-dashboard",
+   "width": 1280,
+   "url": "/owner/dashboard",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": ".status-tag",
+       "html": "<span class=\"status-tag CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "owner-bookings",
+   "width": 1280,
+   "url": "/owner/bookings",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 7
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 7,
+     "samples": [
+      {
+       "target": ".btn",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"bk-search-submit\">ค้นหา</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"bk-status-LN-900004\"]",
+       "html": "<span class=\"status-tag CONFIRMED\" data-testid=\"bk-status-LN-900004\" data-value=\"CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"bk-status-LN-900002\"]",
+       "html": "<span class=\"status-tag CONFIRMED\" data-testid=\"bk-status-LN-900002\" data-value=\"CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"bk-status-LN-900001\"]",
+       "html": "<span class=\"status-tag CONFIRMED\" data-testid=\"bk-status-LN-900001\" data-value=\"CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"bk-status-LN-900008\"]",
+       "html": "<span class=\"status-tag NO_SHOW\" data-testid=\"bk-status-LN-900008\" data-value=\"NO_SHOW\">ไม่มา</span>",
+       "data": {
+        "fgColor": "#e5484d",
+        "bgColor": "#fce9ea",
+        "contrastRatio": 3.35,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "owner-reports",
+   "width": 1280,
+   "url": "/owner/reports",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": ".btn",
+       "html": "<button type=\"submit\" class=\"btn\" data-testid=\"report-submit\">ดูรายงาน</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "home",
+   "width": 375,
+   "url": "/",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 6
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 6,
+     "samples": [
+      {
+       "target": "article[data-testid=\"home-field-A\"] > .meta > .light.badge:nth-child(1)",
+       "html": "<span class=\"badge light\">5 คน</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "article[data-testid=\"home-field-A\"] > .meta > .light.badge:nth-child(2)",
+       "html": "<span class=\"badge light\">กลางแจ้ง</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "article[data-testid=\"home-field-B\"] > .meta > .light.badge:nth-child(1)",
+       "html": "<span class=\"badge light\">5 คน</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "article[data-testid=\"home-field-B\"] > .meta > .light.badge:nth-child(2)",
+       "html": "<span class=\"badge light\">กลางแจ้ง</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "article[data-testid=\"home-field-C\"] > .meta > .light.badge:nth-child(1)",
+       "html": "<span class=\"badge light\">7 คน</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "fields",
+   "width": 375,
+   "url": "/fields",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 9
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 9,
+     "samples": [
+      {
+       "target": "span[data-testid=\"field-size-A\"]",
+       "html": "<span class=\"badge light\" data-testid=\"field-size-A\" data-value=\"5\">5 คน</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"field-covered-A\"]",
+       "html": "<span class=\"badge light\" data-testid=\"field-covered-A\" data-value=\"outdoor\">กลางแจ้ง</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "a[data-testid=\"field-book-A\"]",
+       "html": "<a class=\"btn small\" style=\"margin-top:12px\" data-testid=\"field-book-A\" href=\"/book\">ดูรอบว่าง</a>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"field-size-B\"]",
+       "html": "<span class=\"badge light\" data-testid=\"field-size-B\" data-value=\"5\">5 คน</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"field-covered-B\"]",
+       "html": "<span class=\"badge light\" data-testid=\"field-covered-B\" data-value=\"outdoor\">กลางแจ้ง</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e9f5ee",
+        "contrastRatio": 4.45,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "book",
+   "width": 375,
+   "url": "/book",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 18
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 18,
+     "samples": [
+      {
+       "target": "strong[data-testid=\"slot-A-8-price\"]",
+       "html": "<strong data-testid=\"slot-A-8-price\" data-value=\"800\">฿800</strong>",
+       "data": {
+        "fgColor": "#8f9993",
+        "bgColor": "#f5f6f2",
+        "contrastRatio": 2.7,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "div[data-testid=\"slot-A-8\"] > .small",
+       "html": "<span class=\"small\">หมดเวลาจอง</span>",
+       "data": {
+        "fgColor": "#8f9993",
+        "bgColor": "#f5f6f2",
+        "contrastRatio": 2.7,
+        "fontSize": "10.6pt (14.08px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "strong[data-testid=\"slot-B-8-price\"]",
+       "html": "<strong data-testid=\"slot-B-8-price\" data-value=\"800\">฿800</strong>",
+       "data": {
+        "fgColor": "#8f9993",
+        "bgColor": "#f5f6f2",
+        "contrastRatio": 2.7,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "div[data-testid=\"slot-B-8\"] > .small",
+       "html": "<span class=\"small\">หมดเวลาจอง</span>",
+       "data": {
+        "fgColor": "#8f9993",
+        "bgColor": "#f5f6f2",
+        "contrastRatio": 2.7,
+        "fontSize": "10.6pt (14.08px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "strong[data-testid=\"slot-C-8-price\"]",
+       "html": "<strong data-testid=\"slot-C-8-price\" data-value=\"1200\">฿1,200</strong>",
+       "data": {
+        "fgColor": "#8f9993",
+        "bgColor": "#f5f6f2",
+        "contrastRatio": 2.7,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "book-new",
+   "width": 375,
+   "url": "/book/new?field=A&date=2026-10-14&start=17",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "booking-gate",
+   "width": 375,
+   "url": "/booking/LN-900004",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": ".btn",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"gate-submit\">ดูการจอง</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "booking",
+   "width": 375,
+   "url": "/booking/LN-900004",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 4
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 4,
+     "samples": [
+      {
+       "target": ".status-tag",
+       "html": "<span class=\"status-tag CONFIRMED\" data-testid=\"booking-status\" data-value=\"CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"reschedule-submit\"]",
+       "html": "<button type=\"button\" class=\"btn small\" data-testid=\"reschedule-submit\" style=\"margin-top: 10px;\">เลื่อนการจอง</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"split-create\"]",
+       "html": "<button type=\"button\" class=\"btn small\" data-testid=\"split-create\">สร้างลิงก์หาร</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"challenge-create\"]",
+       "html": "<button type=\"button\" class=\"btn small\" data-testid=\"challenge-create\">ประกาศหาคู่แข่ง</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "10.8pt (14.4px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "my-login",
+   "width": 375,
+   "url": "/my",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 2
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 2,
+     "samples": [
+      {
+       "target": "button[data-testid=\"lookup-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"lookup-submit\">ดูการจอง</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"login-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"login-submit\">เข้าสู่ระบบ</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "my",
+   "width": 375,
+   "url": "/my",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 2
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 2,
+     "samples": [
+      {
+       "target": ".status-tag",
+       "html": "<span class=\"status-tag CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "a[data-testid=\"my-go-series\"]",
+       "html": "<a class=\"btn\" data-testid=\"my-go-series\" href=\"/series\">จองประจำรายสัปดาห์</a>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "challenges",
+   "width": 375,
+   "url": "/challenges",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "series",
+   "width": 375,
+   "url": "/series",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": ".btn",
+       "html": "<a class=\"btn\" data-testid=\"series-go-login\" href=\"/my\">เข้าสู่ระบบ / สมัครสมาชิก</a>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "staff-login",
+   "width": 375,
+   "url": "/staff/login",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": ".btn",
+       "html": "<button type=\"submit\" class=\"btn\" data-testid=\"staff-login-submit\">เข้าสู่ระบบ</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "staff",
+   "width": 375,
+   "url": "/staff",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": "button[type=\"submit\"]",
+       "html": "<button type=\"submit\" class=\"btn\" data-testid=\"staff-search-submit\" style=\"align-self:end\">ค้นหา</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "staff-today",
+   "width": 375,
+   "url": "/staff/today",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 4
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 4,
+     "samples": [
+      {
+       "target": "div[data-testid=\"today-slot-A-19\"] > a[href=\"/staff?code=LN-900001\"]",
+       "html": "<a href=\"/staff?code=LN-900001\">LN-900001</a>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e6f0e5",
+        "contrastRatio": 4.26,
+        "fontSize": "9.4pt (12.48px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "div[data-testid=\"today-slot-A-19\"] > .status-tag.CONFIRMED",
+       "html": "<div class=\"status-tag CONFIRMED\" style=\"font-size: 0.68rem;\">ยืนยันแล้ว</div>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#cee6d4",
+        "contrastRatio": 3.77,
+        "fontSize": "8.2pt (10.88px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "div[data-testid=\"today-slot-A-20\"] > a[href=\"/staff?code=LN-900001\"]",
+       "html": "<a href=\"/staff?code=LN-900001\">LN-900001</a>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e6f0e5",
+        "contrastRatio": 4.26,
+        "fontSize": "9.4pt (12.48px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "div[data-testid=\"today-slot-A-20\"] > .status-tag.CONFIRMED",
+       "html": "<div class=\"status-tag CONFIRMED\" style=\"font-size: 0.68rem;\">ยืนยันแล้ว</div>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#cee6d4",
+        "contrastRatio": 3.77,
+        "fontSize": "8.2pt (10.88px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "manager-stock",
+   "width": 375,
+   "url": "/manager/stock",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 4
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 4,
+     "samples": [
+      {
+       "target": "button[data-testid=\"receive-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"receive-submit\">บันทึกรับเข้า</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"damage-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"damage-submit\">บันทึกชำรุด</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"adjust-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"adjust-submit\">บันทึกปรับยอด</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "button[data-testid=\"reorder-submit\"]",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"reorder-submit\">บันทึก</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "owner",
+   "width": 375,
+   "url": "/owner",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 2
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 2,
+     "samples": [
+      {
+       "target": "button[data-testid=\"holiday-add\"]",
+       "html": "<button type=\"submit\" class=\"btn\" data-testid=\"holiday-add\">เพิ่มวันหยุด</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": ".danger",
+       "html": "<button type=\"submit\" class=\"btn danger\" data-testid=\"closure-submit\">ปิดสนามและคืนเครดิต</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#e5484d",
+        "contrastRatio": 3.91,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "owner-dashboard",
+   "width": 375,
+   "url": "/owner/dashboard",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": ".status-tag",
+       "html": "<span class=\"status-tag CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "owner-bookings",
+   "width": 375,
+   "url": "/owner/bookings",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 7
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 7,
+     "samples": [
+      {
+       "target": ".btn",
+       "html": "<button class=\"btn\" type=\"submit\" data-testid=\"bk-search-submit\">ค้นหา</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"bk-status-LN-900004\"]",
+       "html": "<span class=\"status-tag CONFIRMED\" data-testid=\"bk-status-LN-900004\" data-value=\"CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"bk-status-LN-900002\"]",
+       "html": "<span class=\"status-tag CONFIRMED\" data-testid=\"bk-status-LN-900002\" data-value=\"CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"bk-status-LN-900001\"]",
+       "html": "<span class=\"status-tag CONFIRMED\" data-testid=\"bk-status-LN-900001\" data-value=\"CONFIRMED\">ยืนยันแล้ว</span>",
+       "data": {
+        "fgColor": "#188046",
+        "bgColor": "#e4f3eb",
+        "contrastRatio": 4.34,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      },
+      {
+       "target": "span[data-testid=\"bk-status-LN-900008\"]",
+       "html": "<span class=\"status-tag NO_SHOW\" data-testid=\"bk-status-LN-900008\" data-value=\"NO_SHOW\">ไม่มา</span>",
+       "data": {
+        "fgColor": "#e5484d",
+        "bgColor": "#fce9ea",
+        "contrastRatio": 3.35,
+        "fontSize": "9.8pt (13.12px)",
+        "fontWeight": "bold",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "page": "owner-reports",
+   "width": 375,
+   "url": "/owner/reports",
+   "counts": {
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "total": 1,
+    "nodes": 1
+   },
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+     "nodes": 1,
+     "samples": [
+      {
+       "target": ".btn",
+       "html": "<button type=\"submit\" class=\"btn\" data-testid=\"report-submit\">ดูรายงาน</button>",
+       "data": {
+        "fgColor": "#ffffff",
+        "bgColor": "#1f9d55",
+        "contrastRatio": 3.49,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "messageKey": null,
+        "expectedContrastRatio": "4.5:1"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
