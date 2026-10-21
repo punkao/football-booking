@@ -64,3 +64,28 @@ export function OkBox({ message, testid = "success-message" }: { message: string
     </div>
   );
 }
+
+/** ตัวบอกขั้นของการจอง (ใช้ใน S3): current = ลำดับขั้นปัจจุบัน 1–N · ขั้นที่ผ่านแล้วมีเครื่องหมายถูก */
+export function Stepper({ steps, current, label, lang }: { steps: string[]; current: number; label: string; lang: Lang }) {
+  return (
+    <div>
+      <ol className="stepper" aria-label={label}>
+        {steps.map((s, i) => {
+          const n = i + 1;
+          const state = n < current ? "done" : n === current ? "current" : "";
+          return (
+            <li key={s} className={state} aria-current={n === current ? "step" : undefined}>
+              <span className="n" aria-hidden="true">
+                {n < current ? "✓" : n}
+              </span>
+              <span>{s}</span>
+            </li>
+          );
+        })}
+      </ol>
+      <p className="small muted" style={{ margin: "8px 0 0" }}>
+        {lang === "en" ? `Step ${current} of ${steps.length}: ${steps[current - 1]}` : `ขั้นที่ ${current} จาก ${steps.length}: ${steps[current - 1]}`}
+      </p>
+    </div>
+  );
+}

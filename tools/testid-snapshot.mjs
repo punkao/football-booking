@@ -310,7 +310,7 @@ async function snapshot() {
 
 // ---- compare
 function compare(before, after) {
-  const fails = [], warns = [];
+  const fails = [], warns = [], navCollapsed = new Set();
   const beforeIds = new Set(before.testids), afterIds = new Set(after.testids);
   const missingGlobal = [...beforeIds].filter((x) => !afterIds.has(x));
   const added = [...afterIds].filter((x) => !beforeIds.has(x));
@@ -330,13 +330,14 @@ function compare(before, after) {
       for (const [k, v] of Object.entries(bi.attrs)) {
         if (ai.attrs[k] !== v) fails.push(`[${key}] ${id} @${k}: ${JSON.stringify(v)} → ${JSON.stringify(ai.attrs[k] ?? null)}`);
       }
+      if (bi.vis && !ai.vis && w < 1000 && id.startsWith("nav-")) { navCollapsed.add(key); continue; } // เมนู 375 พับเก็บ (ตาม §4.6) — ยังอยู่ใน DOM
       if (bi.vis && !ai.vis) (w >= 1000 ? fails : warns).push(`[${key}] ${id} เคยมองเห็น ตอนนี้ซ่อน${w >= 1000 ? "" : " (375: เตือน)"}`);
       if (bi.n !== ai.n) warns.push(`[${key}] ${id} จำนวนตัว ${bi.n} → ${ai.n}`);
       if (bi.text !== ai.text) warns.push(`[${key}] ${id} ข้อความ ${JSON.stringify(bi.text.slice(0, 60))} → ${JSON.stringify(ai.text.slice(0, 60))}`);
     }
     for (const p of b.phrases) if (!a.phrases.includes(p)) fails.push(`[${key}] ข้อความที่เทสต์ตรวจหายไป: ${JSON.stringify(p)}`);
   }
-  return { fails, warns, added, missingGlobal };
+  return { fails, warns, added, missingGlobal, navCollapsed };
 }
 
 const main = async () => {
@@ -346,9 +347,10 @@ const main = async () => {
   console.log(`ไม่เคยเจอในสแนป: ตรง ${snap.coverage.unseenLiterals.length} · รูปแบบ ${snap.coverage.unseenPatterns.length}`);
   if (COMPARE) {
     const before = JSON.parse(readFileSync(resolve(root, COMPARE), "utf8"));
-    const { fails, warns, added } = compare(before, snap);
+    const { fails, warns, added, navCollapsed } = compare(before, snap);
     console.log(`\nเทียบกับ ${COMPARE}: testid เดิม ${before.testids.length} → ใหม่ ${snap.testids.length} (เพิ่ม ${added.length})`);
     if (added.length) console.log("  เพิ่ม: " + added.slice(0, 40).join(", ") + (added.length > 40 ? ` … (+${added.length - 40})` : ""));
+    if (navCollapsed.size) console.log(`  (ข้อมูล) nav-* ถูกพับเข้าเมนูที่ 375 ใน ${navCollapsed.size} สถานะ — ยังอยู่ใน DOM ไม่นับเป็น WARN`);
     if (warns.length) { console.log(`\nWARN ${warns.length} รายการ (ข้อความ/จำนวนตัว/ซ่อนที่ 375 เปลี่ยน — ไม่ทำให้ล้ม)`); for (const w of warns.slice(0, 60)) console.log("  ~ " + w); if (warns.length > 60) console.log(`  … (+${warns.length - 60})`); }
     if (fails.length) { console.log(`\nFAIL ${fails.length} รายการ`); for (const f of fails.slice(0, 200)) console.log("  x " + f); if (fails.length > 200) console.log(`  … (+${fails.length - 200})`); process.exit(1); }
     console.log("\nOK: สับเซ็ต — testid/แอตทริบิวต์/วลีเดิมครบ");

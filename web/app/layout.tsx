@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
-import "@fontsource/prompt/400.css";
 import "@fontsource/prompt/600.css";
-import "@fontsource/prompt/700.css";
 import "@fontsource/ibm-plex-sans-thai/400.css";
 import "@fontsource/ibm-plex-sans-thai/600.css";
 import "./globals.css";
@@ -23,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0B3D2E" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0A3B2C" };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await pageLang();
@@ -48,12 +46,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <Logo size={34} title={tx(lang, "โลโก้ลูกหนัง อารีน่า", "Luknang Arena logo")} />
                 <span>{shop}</span>
               </Link>
+              <Nav lang={lang} staffRole={staffRole} />
               <LangToggle lang={lang} />
             </div>
-            <Nav lang={lang} staffRole={staffRole} />
           </div>
         </header>
-        <div id="main">{children}</div>
+        <div id="main" tabIndex={-1}>{children}</div>
         <ChatWidget lang={lang} />
         <footer className="site-footer">
           <div className="container spread">

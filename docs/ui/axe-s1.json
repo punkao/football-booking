@@ -1,0 +1,523 @@
+{
+ "tags": [
+  "wcag2a",
+  "wcag2aa",
+  "wcag21aa"
+ ],
+ "lang": "th",
+ "totals": {
+  "critical": 0,
+  "serious": 0,
+  "moderate": 0,
+  "minor": 0,
+  "pages": 36,
+  "errors": 0
+ },
+ "byRule": {},
+ "results": [
+  {
+   "page": "home",
+   "width": 1280,
+   "url": "/",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "fields",
+   "width": 1280,
+   "url": "/fields",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "book",
+   "width": 1280,
+   "url": "/book",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "book-new",
+   "width": 1280,
+   "url": "/book/new?field=A&date=2026-10-14&start=17",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "booking-gate",
+   "width": 1280,
+   "url": "/booking/LN-900004",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "booking",
+   "width": 1280,
+   "url": "/booking/LN-900004",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "my-login",
+   "width": 1280,
+   "url": "/my",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "my",
+   "width": 1280,
+   "url": "/my",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "challenges",
+   "width": 1280,
+   "url": "/challenges",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "series",
+   "width": 1280,
+   "url": "/series",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "staff-login",
+   "width": 1280,
+   "url": "/staff/login",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "staff",
+   "width": 1280,
+   "url": "/staff",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "staff-today",
+   "width": 1280,
+   "url": "/staff/today",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "manager-stock",
+   "width": 1280,
+   "url": "/manager/stock",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "owner",
+   "width": 1280,
+   "url": "/owner",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "owner-dashboard",
+   "width": 1280,
+   "url": "/owner/dashboard",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "owner-bookings",
+   "width": 1280,
+   "url": "/owner/bookings",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "owner-reports",
+   "width": 1280,
+   "url": "/owner/reports",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "home",
+   "width": 375,
+   "url": "/",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "fields",
+   "width": 375,
+   "url": "/fields",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "book",
+   "width": 375,
+   "url": "/book",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "book-new",
+   "width": 375,
+   "url": "/book/new?field=A&date=2026-10-14&start=17",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "booking-gate",
+   "width": 375,
+   "url": "/booking/LN-900004",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "booking",
+   "width": 375,
+   "url": "/booking/LN-900004",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "my-login",
+   "width": 375,
+   "url": "/my",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "my",
+   "width": 375,
+   "url": "/my",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "challenges",
+   "width": 375,
+   "url": "/challenges",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "series",
+   "width": 375,
+   "url": "/series",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "staff-login",
+   "width": 375,
+   "url": "/staff/login",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "staff",
+   "width": 375,
+   "url": "/staff",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "staff-today",
+   "width": 375,
+   "url": "/staff/today",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "manager-stock",
+   "width": 375,
+   "url": "/manager/stock",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "owner",
+   "width": 375,
+   "url": "/owner",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "owner-dashboard",
+   "width": 375,
+   "url": "/owner/dashboard",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "owner-bookings",
+   "width": 375,
+   "url": "/owner/bookings",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  },
+  {
+   "page": "owner-reports",
+   "width": 375,
+   "url": "/owner/reports",
+   "counts": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "total": 0,
+    "nodes": 0
+   },
+   "violations": []
+  }
+ ]
+}
