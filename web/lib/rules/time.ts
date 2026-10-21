@@ -51,3 +51,16 @@ export function weekdayOf(date: string): number {
 export function hhmm(hour: number): string {
   return String(hour).padStart(2, "0") + ":00";
 }
+
+/** K3: เปิดช่องทดสอบ (POST /api/test/*) เฉพาะเมื่อ ALLOW_TEST_RESET เป็น "1" เท่านั้น */
+export function testSeamOn(env: Record<string, string | undefined>): boolean {
+  return env.ALLOW_TEST_RESET === "1";
+}
+
+/**
+ * K3 · ADR-04: "ตอนนี้" ของแอป — ใช้แถวนาฬิกาที่ล็อก (app_settings.clock) เฉพาะเมื่อเปิดช่องทดสอบ
+ * ปิดช่องทดสอบแล้วต้องใช้เวลาจริงเสมอ แม้แถวนั้นค้างอยู่ในฐาน (กันเครื่องจริงติดวันที่ 9 ต.ค. 2569)
+ */
+export function nowFrom(clockRow: string | null | undefined, seamOn: boolean, realNow: Date): Date {
+  return seamOn && clockRow ? new Date(clockRow) : realNow;
+}

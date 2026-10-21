@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { MESSAGES, fmtDateTime, money, msg, normLang, rentalName } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n";
 import { q, tx } from "./db";
-import { checkOrigin, dbErrorCode } from "@/lib/rules";
+import { checkOrigin, dbErrorCode, nowFrom, testSeamOn } from "@/lib/rules";
 import type { Db } from "./db";
 import { readSession, sessionHash, signSession, unsign } from "./crypto";
 import type { SessionClaim, SessionKey } from "./crypto";
@@ -29,13 +29,13 @@ export function bugMode(): boolean {
   return process.env.BUG_MODE === "1";
 }
 
-/** ADR-04: the one and only "now" of the application */
+/** ADR-04: the one and only "now" of the application. K3: the locked clock row is read only while the test seam is on (ALLOW_TEST_RESET=1) */
 export async function getNow(db?: Db): Promise<Date> {
+  if (!testSeamOn(process.env)) return new Date();
   const rows = db
     ? (await db.query("SELECT value FROM app_settings WHERE key = 'clock'")).rows
     : await q<{ value: string }>("SELECT value FROM app_settings WHERE key = 'clock'");
-  const v = rows[0]?.value;
-  return v ? new Date(v) : new Date();
+  return nowFrom(rows[0]?.value, true, new Date());
 }
 
 /** ADR-03: lazy expiry before every request that reads / writes bookings (history actor SYSTEM, BR-42) */
