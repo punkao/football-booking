@@ -54,5 +54,9 @@
   "TC-MEMBER-06": {
     "class": "flaky (ไม่ใช่บั๊กเว็บ)",
     "note": "B-3 รอบ 1 ล้มเฉพาะ Firefox: ค่าของต้นรอบแรก (7/0/3) ตรงเฉลยทุกตัว แต่ page.reload() ได้ NS_BINDING_ABORTED (Firefox ยกเลิกการรีโหลดเพราะหน้ายังโหลด/นำทางหลังเข้าสู่ระบบค้างอยู่) ไม่มี expect ใดล้ม · รอบ 2 ผ่านทุกเบราว์เซอร์ · ไม่แก้ test ในรอบนี้ (ข้อเสนอ: รอ page.waitForLoadState(\"load\") ก่อน reload)"
+  },
+  "TC-PRICE-04": {
+    "class": "flaky (ไม่ใช่บั๊กเว็บ / ไม่ใช่ test ผิด)",
+    "note": "รอบสุดท้าย 2026-10-21 (HEAD 1ed8db2) ล้มเฉพาะ WebKit: setCheckedStable หมดเวลา 15 วินาทีที่ fixtures.ts:185 (เรียกจาก price.spec.ts:85) ตอนคลิก use-credit ไม่ได้ (รอ visible/enabled/stable) = จังหวะเวลาของการคลิก ไม่ใช่ค่าตัวเลขผิด · หลักฐานว่า flaky: รัน webkit แยกทั้งโปรเจกต์ 3 รอบผ่านหมด (71/71 ต่อรอบ) และรันข้อเดียว (--no-deps -g TC-PRICE-04 --project=webkit) แยก 5 รอบผ่าน 5/5 · chromium/firefox ผ่านในรอบเดียวกัน · โค้ดหน้าจอง (web/app/book + components) ไม่เปลี่ยนตั้งแต่ v2-handover · ไม่แก้ test · ดู legacy/REGRESSION-REPORT.md §3.1"
   }
 }
