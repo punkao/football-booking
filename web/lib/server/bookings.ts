@@ -338,8 +338,9 @@ function timeline(rows: { to_status: string; created_at: Date }[], finished: Dat
 export async function bookingDetail(ctx: Ctx, b: BookingRow) {
   const customer = await loadCustomerById(null, b.customerId);
   const rentals = await loadBookingRentals(null, b.id);
+  // CR-06 1.3 (Q7 ค): only what this customer paid — money from the team that accepted a challenge (challenge_id set) belongs to the shop, not shown here
   const payments = await q<{ id: number; amount: number; method: string; paid_at: Date }>(
-    "SELECT id, amount, method, paid_at FROM payments WHERE booking_id = $1 ORDER BY id",
+    "SELECT id, amount, method, paid_at FROM payments WHERE booking_id = $1 AND challenge_id IS NULL ORDER BY id",
     [b.id],
   );
   const challenge = (

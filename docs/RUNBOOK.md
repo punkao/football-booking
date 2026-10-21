@@ -100,6 +100,14 @@ node scripts/migrate.mjs --down 005      # ถอยทีละขั้น จ
 
 สคริปต์นับ `bookings` ก่อน/หลังทุกครั้ง ต้องเท่าเดิม (ค่าขอบ BR-43) · ทุกไฟล์ห่อ `BEGIN … COMMIT`
 
+**หลังขึ้น 009 (ขั้น deploy หลัง migration · CR-06): กระทบยอดเงินคำท้า** — อ่านอย่างเดียว ไม่แก้ข้อมูล
+
+```bash
+docker exec -i football-db psql -U football -d football -v ON_ERROR_STOP=1 -At -F " | " < tools/reconcile-challenges.sql
+```
+
+ผลต้องเป็น 2 บรรทัด **เลขหลัง | เป็น 0 ทั้งคู่** · `a_matched_without_payment` = คำท้า MATCHED ที่จ่ายแล้วแต่ไม่มีแถวเงินผูก (migration เติมไม่ครบ) · `b_payment_not_matching_credit` = แถวเงินคำท้าที่จำนวน / การจอง / วันที่ ไม่ตรงรายการเครดิต `CHALLENGE` ของเจ้าของ · ไม่ใช่ 0 = หยุด ไม่เปิดให้ใช้ ดูรายการที่ผิดจากคำสั่งท้ายไฟล์ `tools/reconcile-challenges.sql` · รันซ้ำหลังรอบใช้งานจริงได้เมื่อไรก็ได้ (ซ้อมแล้ว: seed 0/0 · ข้อมูลเสมือนจริง + คำท้าเก่า 30 รายการ 0/0 · ทดลองลบ/แก้แถวเงิน 1 แถวใน transaction ที่ ROLLBACK → เช็กขึ้น 1/1)
+
 ผู้ทำทุกการเปลี่ยนสถานะการจองต้องตั้ง `app.actor` (และ `app.now`) ในทรานแซกชัน ไม่งั้น trigger ปฏิเสธ — แก้ข้อมูลด้วยมือผ่าน psql ก็ต้องตั้ง:
 
 ```sql

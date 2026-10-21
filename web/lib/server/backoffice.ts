@@ -164,14 +164,18 @@ export async function bookingHistory(ctx: Ctx, code: string) {
       WHERE h.booking_id = $1 ORDER BY h.created_at, h.id`,
     [b.id],
   );
-  const payments = await q<{ amount: number; method: string; paid_at: Date }>("SELECT amount, method, paid_at FROM payments WHERE booking_id = $1 ORDER BY paid_at, id", [b.id]);
+  // CR-06 1.3 (Q7 ค): a row tied to a challenge is the shop's money paid by the accepting team — the back office shows it with its source
+  const payments = await q<{ amount: number; method: string; paid_at: Date; challenge_id: number | null }>(
+    "SELECT amount, method, paid_at, challenge_id FROM payments WHERE booking_id = $1 ORDER BY paid_at, id",
+    [b.id],
+  );
   return {
     booking: {
       code: b.code, fieldId: b.field_id, date: b.date, startHour: b.start_hour, hours: b.hours, status: b.status, paymentPlan: b.payment_plan,
       totalPrice: b.total_price, amountPaid: b.amount_paid, dueAtField: b.due_at_field, creditUsed: b.credit_used,
       customerName: b.customer_name, phone: b.phone,
     },
-    payments: payments.map((p) => ({ amount: p.amount, method: p.method, paidAt: p.paid_at })),
+    payments: payments.map((p) => ({ amount: p.amount, method: p.method, paidAt: p.paid_at, source: p.challenge_id === null ? ("BOOKING" as const) : ("CHALLENGE" as const) })),
     history: h.map((x) => ({ fromStatus: x.from_status, toStatus: x.to_status, actor: x.actor, actorLabel: historyActorLabel(x.actor, ctx.lang, x.staff_name), at: x.created_at })),
   };
 }

@@ -8,7 +8,7 @@ import type { Lang } from "@/lib/i18n";
 
 type Data = {
   booking: { code: string; fieldId: string; date: string; startHour: number; hours: number; status: string; totalPrice: number; amountPaid: number; dueAtField: number; customerName: string; phone: string };
-  payments: { amount: number; method: string; paidAt: string }[];
+  payments: { amount: number; method: string; paidAt: string; source: "BOOKING" | "CHALLENGE" }[];
   history: { fromStatus: string | null; toStatus: string; actor: string; actorLabel: string; at: string }[];
 };
 
@@ -83,9 +83,18 @@ export function BookingHistoryClient({ lang, role, code }: { lang: Lang; role: s
             <h2>{tx(lang, "การชำระเงิน", "Payments")}</h2>
             <ul className="list" data-testid="history-payments">
               {data!.payments.map((p, i) => (
-                <li key={i} className="spread">
+                <li key={i} className="spread" data-testid={`history-payment-${i}`} data-source={p.source}>
                   <span>
                     {fmtDateTime(lang, p.paidAt)} · {label(lang, METHOD_LABEL, p.method)}
+                    {/* CR-06 1.3: money paid by the team that accepted the challenge (the shop's money, not the booking owner's) */}
+                    {p.source === "CHALLENGE" && (
+                      <>
+                        {" "}
+                        <span className="code-pill" data-testid={`history-payment-source-${i}`}>
+                          {tx(lang, "จากทีมรับคำท้า", "from the challenge team")}
+                        </span>
+                      </>
+                    )}
                   </span>
                   <Money lang={lang} value={p.amount} />
                 </li>
