@@ -10,3 +10,4 @@
 \ir ../migrations/006_chat_hardening.sql
 \ir ../migrations/007_session_revocation.sql
 \ir ../migrations/008_field_rates.sql
+\ir ../migrations/009_challenge_payments.sql

@@ -412,6 +412,11 @@ export async function challengePay(ctx: Ctx, id: number, b: Record<string, unkno
     await c.query("INSERT INTO credit_entries(customer_id, amount, reason, booking_id, created_at) VALUES ($1, $2, 'CHALLENGE', $3, $4)", [
       ch.owner_id, amount, ch.bid, ctx.now,
     ]);
+    // CR-06: the team's transfer is PromptPay money the shop received (counted by the report on the day it was paid) — a row on the owner's booking,
+    // tied to the challenge so it is written once (unique index, migration 009). The credit above is unchanged. A ฿0 challenge has no money (amount > 0 check).
+    if (amount > 0) {
+      await c.query("INSERT INTO payments(booking_id, amount, method, paid_at, challenge_id) VALUES ($1, $2, 'PROMPTPAY', $3, $4)", [ch.bid, amount, ctx.now, id]);
+    }
     return { ok: true, challenge: { id, status: "MATCHED", amount }, messageCode: "OK_CHALLENGE_MATCHED" };
   });
 }

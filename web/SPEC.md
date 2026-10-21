@@ -11,7 +11,7 @@ cp web/.env.example web/.env    # DATABASE_URL ใช้รหัสผ่าน
 docker compose -f db/compose.yaml up -d            # 1) football-db (สร้าง network football-net + volume football-pgdata)
 docker compose -f web/compose.yaml up -d --build   # 2) football-web
 curl http://localhost:3000/api/health              # {"ok":true,"db":true}  (สัญญาเดิมของ v1 ไม่เพิ่มช่อง)
-curl http://localhost:3000/api/version             # {"schemaVersion":"008","chatMode":"mock","bugMode":0}
+curl http://localhost:3000/api/version             # {"schemaVersion":"009","chatMode":"mock","bugMode":0}
 ```
 
 - **`SESSION_SECRET` (web/.env) ต้องยาว ≥ 32 ตัวอักษรแบบสุ่ม** ไม่งั้น web ไม่ยอมเริ่ม (log `[startup] refusing to start: …`) · ยกเว้น `ALLOW_TEST_RESET=1` ที่ปล่อยว่างได้ (สุ่มค่าชั่วคราวต่อการรัน)
@@ -557,7 +557,7 @@ unit test: `cd web && npm test` (node --test `lib/rules/*.test.ts` และ `li
 | `/manager/stock` | MANAGER, OWNER (STAFF → `forbidden-message`) | FR-40 · BR-36, BR-38 | รับเข้า · ชำรุด (ต้องมีเหตุผล) · ปรับยอดหลังนับ (ต้องมีเหตุผล) · จุดสั่งซื้อซ้ำ |
 | `/owner/dashboard` | OWNER, MANAGER | FR-42 · BR-40, BR-41 | ยอดเงินวันนี้ · กราฟ SVG 7 วัน · ชั่วโมงที่จองมาก · อัตราการใช้สนาม · จำนวนของใกล้หมด |
 | `/owner/bookings` · `/owner/bookings/[code]` | OWNER, MANAGER | FR-43 · BR-42 | ค้นด้วยรหัส / เบอร์ / วันเตะ · ประวัติสถานะเต็ม (จาก → เป็น · ผู้ทำ · เวลา) |
-| `/owner/reports` | OWNER เท่านั้น | FR-44 · BR-39, BR-40 · NFR-22 | ตารางรายวัน + ปุ่ม CSV |
+| `/owner/reports` | OWNER เท่านั้น | FR-44 · BR-39, BR-40 · NFR-22 | ตารางรายวัน + ปุ่ม CSV · CR-06: เงินที่ทีมรับคำท้าโอน (BR-28) นับในช่อง "จ่ายผ่านพร้อมเพย์" ตามวันที่รับเงิน (แถว `payments.challenge_id`) |
 | `/owner/chats` · `/owner/chats/[id]` | OWNER, MANAGER | FR-36 · BR-45 | เบอร์แสดง `08x-xxx-1234` · อ่านอย่างเดียว |
 | `/owner/audit` | OWNER เท่านั้น | FR-47 · BR-42 | กรองวัน / ผู้ใช้ / action · อ่านอย่างเดียว |
 
