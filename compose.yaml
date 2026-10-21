@@ -1,0 +1,15 @@
+# ลูกหนัง อารีน่า · เริ่มทั้งระบบด้วยคำสั่งเดียว (db + migration อัตโนมัติ + เว็บ)
+#   docker compose up -d --build          หรือ  ./start.sh  /  .\start.ps1   (รอ healthy + พิมพ์ URL ให้)
+# ไม่ต้องมี .env: ค่าเดโมอยู่ในตัว (รหัส DB เดโม · ALLOW_TEST_RESET=1 · BUG_MODE=0 · MODE=mock · SESSION_SECRET สุ่มตอนเริ่ม)
+# ถ้ามี db/.env / web/.env ค่าในนั้นชนะค่าเดโม (shell ชนะทั้งหมด) · เครื่องจริง (production) ต้องตั้งเองทุกค่า ดู docs/RUNBOOK.md
+# ห้ามใช้ `down -v` (ลบ volume = ข้อมูลหาย) · `docker compose down` เฉย ๆ ปลอดภัย
+#
+# ตัวแปรที่ทำให้รันสำเนาที่สองบนเครื่องเดียวกันได้ (ค่าเริ่ม = ค่าปัจจุบันทุกตัว):
+#   FB_NAME (football) ชื่อ container <FB_NAME>-db / -web / -mock-llm · FB_PGDATA (football-pgdata) ชื่อ volume
+#   FB_NETWORK (football-net) · WEB_PORT (3000) · DB_PORT (5433) · COMPOSE_PROJECT_NAME (football)
+# profile:  --profile mock  เปิด mock-llm  ·  --profile test  เปิด smoke (docker compose --profile test run --rm smoke)
+name: football
+
+include:
+  - path: [db/compose.yaml, db/compose.root.yaml]     # ฐานข้อมูล + migrate (one-shot)
+  - path: [web/compose.yaml, web/compose.root.yaml]   # เว็บ (+ mock-llm profile mock) + smoke (profile test) + depends_on

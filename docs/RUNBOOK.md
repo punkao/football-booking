@@ -45,6 +45,8 @@ docker compose -f web/compose.yaml stop                # ปิดเว็บ
 docker compose -f db/compose.yaml stop                 # ปิดฐานข้อมูล (ข้อมูลอยู่ใน volume)
 ```
 
+**ทางลัด (เครื่องใหม่ มีแค่ Docker Desktop):** `docker compose up -d --build` หรือ `.\start.ps1` / `./start.sh` ที่ราก — ดูข้อ 10
+
 BUG_MODE / MODE / ALLOW_TEST_RESET อ่านจาก `web/.env` และ shell (shell ชนะ):
 Git Bash `BUG_MODE=1 docker compose -f web/compose.yaml up -d` · PowerShell `$env:BUG_MODE="1"; docker compose -f web/compose.yaml up -d` · กลับ `BUG_MODE=0 …` / `Remove-Item Env:BUG_MODE; …`
 
@@ -217,3 +219,75 @@ docker exec football-db psql -U football -d football -At -F ' | ' -c "select ver
 - `docker compose up` ไม่มี `--build` ใช้ image ที่แท็กอยู่ (`football-web:v2`) → การสลับ image ทำได้ด้วย `docker tag` ตัวเดียวแล้ว `up -d --no-build --force-recreate` · build ใหม่ (`--build`) ใช้ตอนขึ้นระบบจริงครั้งแรก
 - ถอยแบบ **ข้ามไปเก่ากว่า CR ที่เพิ่งขึ้น** (เช่นแค่ CR-06) ต้องมี image ก่อน CR นั้น (`football-web:before-crNN`) · ในเครื่องนี้มีเฉพาะ `before-cr01` `before-cr02` และ `v2-handover` (+ `head-ea32d4d`) → ถอยทีละ CR ที่ 03–06 ต้อง build image จาก commit ก่อนหน้าเอง (`git archive <commit> web | tar -x -C …`)
 - ปลายซ้อม: `POST /api/test/reset {}` คืน seed ปกติ (ข้อมูลเสมือนจริงของการซ้อมถูกล้าง ตั้งใจ) · `BUG_MODE=0` · `MODE=mock` · schema 009 · healthy
+
+## 10. เริ่มด้วยคำสั่งเดียว (ทดสอบแล้ว 2026-10-22)
+
+เป้า: clone repo ใหม่ + มีแค่ Docker Desktop → คำสั่งเดียว → ฐานข้อมูล + seed + migration + เว็บ → เปิด http://localhost:3000
+
+```bash
+docker compose up -d --build        # หรือ  .\start.ps1 (Windows PowerShell 5.1+)  /  ./start.sh (mac, Linux, Git Bash)
+```
+
+`start.ps1` / `start.sh` = เช็กว่า Docker ทำงาน → `up -d --build` → รอ `football-web` healthy (หมดเวลา 420 วินาที ปรับด้วย `START_TIMEOUT`; หมดเวลาแล้วพิมพ์ log) → พิมพ์ URL และที่อยู่บัญชีทดลอง (`web/SPEC.md`) · สคริปต์ไม่รัน `down` ใด ๆ
+
+### โครงสร้าง
+
+| ไฟล์ | ทำอะไร |
+|---|---|
+| `compose.yaml` (ราก) | `include:` ของ `db/compose.yaml`+`db/compose.root.yaml` และ `web/compose.yaml`+`web/compose.root.yaml` · โปรเจกต์ compose ชื่อ `football` |
+| `db/compose.root.yaml` | ค่าเดโมของ DB (`POSTGRES_*`) · บริการ **`migrate`** (one-shot) |
+| `db/scripts/migrate-up.sh` | ลงเฉพาะ migration ขาขึ้นที่ยังไม่มีแถวใน `schema_migrations` · **ไม่แตะ `*.down.sql` เด็ดขาด** · ข้ามไฟล์ที่ลงแล้ว (จึงไม่แตะ `applied_at` ของ 007) · พลาดแล้วหยุด (`ON_ERROR_STOP`) → เว็บไม่ขึ้น |
+| `web/compose.root.yaml` | `depends_on`: `db` healthy + `migrate` completed · `ALLOW_TEST_RESET` ค่าเดโม 1 · บริการ `smoke` (profile `test`) |
+| `db/compose.yaml`, `web/compose.yaml` | ใช้เดี่ยว ๆ (`-f`) ได้เหมือนเดิมทุกคำสั่ง · เพิ่มแค่ตัวแปรชื่อ/พอร์ต และ `db/.env` เป็น optional |
+
+ลำดับตอนขึ้น: `db` (healthy) → `migrate` (จบ exit 0) → `web` (healthy) · volume ใหม่: `db/init` ลง schema+seed ครบตอนสร้าง → `migrate` ข้ามทุกไฟล์ · volume เดิมที่ schema เก่ากว่า: `migrate` ลงเฉพาะเลขที่ขาด (ซ้อมแล้วด้านล่าง)
+
+### ค่าเดโมที่ไม่ต้องมี `.env` (ถ้ามี `db/.env` / `web/.env` ค่าในไฟล์ชนะ · ค่าใน shell ชนะทั้งหมด)
+
+| ค่า | เดโม | อยู่ที่ |
+|---|---|---|
+| `POSTGRES_USER` / `POSTGRES_DB` / `POSTGRES_PASSWORD` | `football` / `football` / `football_demo` | `db/compose.root.yaml` |
+| `DATABASE_URL` | `postgres://football:football_demo@<FB_NAME>-db:5432/football` | `web/compose.yaml` |
+| `ALLOW_TEST_RESET` | `1` (เปิด `/api/test/reset` `/api/test/clock`) | `web/compose.root.yaml` |
+| `BUG_MODE` / `MODE` | `0` / `mock` | `web/compose.yaml` |
+| `SESSION_SECRET` | ว่าง → web สุ่มต่อการรัน (`web/lib/server/secret.ts` อนุญาตเฉพาะ `ALLOW_TEST_RESET=1`) → **ผู้ใช้หลุดออกจากระบบทุกครั้งที่ web เริ่มใหม่** | – |
+
+> **เครื่องจริง (production) ต้องตั้งเองทุกค่า:** รหัสผ่าน DB ใหม่ใน `db/.env` + `DATABASE_URL` ที่ตรงกันใน `web/.env` · `SESSION_SECRET` สุ่ม ≥ 32 ตัว (ข้อ 2.0) · **`ALLOW_TEST_RESET=0`** (ค่าเดโมของ compose ที่ราก = 1 ถ้าไม่เขียนใน `web/.env` จะเปิดช่อง reset ทิ้งข้อมูล) · ไม่มีแถว `app_settings.clock` ในฐาน (CLAUDE.md) · รหัสผ่านเดโมอยู่ใน git จึงห้ามใช้กับข้อมูลจริง (พอร์ต DB ผูก 127.0.0.1 เท่านั้น)
+
+### รันสำเนาที่สองบนเครื่องเดียวกัน (ไม่ชนของเดิม)
+
+ตัวแปร (ค่าเริ่ม = ค่าปัจจุบันทุกตัว): `COMPOSE_PROJECT_NAME` (`football`) · `FB_NAME` (`football` → container `<FB_NAME>-db` / `-web` / `-mock-llm` และ image `<FB_NAME>-web:v2`) · `FB_PGDATA` (`football-pgdata`) · `FB_NETWORK` (`football-net`) · `WEB_PORT` (3000) · `DB_PORT` (5433)
+
+```bash
+COMPOSE_PROJECT_NAME=fbcheck FB_NAME=fbcheck FB_PGDATA=fbcheck-pgdata FB_NETWORK=fbcheck-net WEB_PORT=3100 DB_PORT=5434 docker compose up -d --build
+```
+
+> **ระวัง (เกิดขึ้นจริงตอนซ้อม):** ชื่อโปรเจกต์ของ `db/compose.yaml` คือ `football-db` และของ `web/compose.yaml` คือ `football-web` — ถ้าสั่ง `-f db/compose.yaml` พร้อมเปลี่ยน `FB_NAME` โดย **ไม่ใส่ `-p`** compose จะมองว่าเป็นโปรเจกต์เดิมและ **recreate container ของระบบที่ใช้อยู่** (ครั้งนั้นเว็บถูกแทนที่ ต้องกู้) · สำเนาที่สองใช้คำสั่งที่รากพร้อม `COMPOSE_PROJECT_NAME` หรือ `-p <ชื่อ>` เสมอ
+
+### ย้ายระบบที่เปิดแยก (`db/` + `web/`) มาใช้คำสั่งเดียว
+
+ชื่อ container เดียวกัน (`football-db` / `football-web`) แต่คนละโปรเจกต์ compose → เปิดพร้อมกันไม่ได้ · `start.ps1` / `start.sh` ตรวจเจอแล้วหยุดพร้อมบอกวิธี (ไม่ลบอะไรเอง) · ไม่ต้องย้ายก็ได้: คำสั่งเดิม (ข้อ 2) ใช้ต่อได้ · ถ้าจะย้าย: `docker compose -f web/compose.yaml down` → `docker compose -f db/compose.yaml down` (**ไม่มี `-v`**) → `docker compose up -d --build` · volume `football-pgdata` อยู่ต่อ (compose อาจเตือนว่า volume/network "carries the compose label … does not match" — เป็นแค่คำเตือน ซ้อมแล้วใช้งานได้ ข้อมูลครบ)
+
+### profile เสริม
+
+- `--profile mock`: `docker compose --profile mock up -d mock-llm` (เหมือน `-f web/compose.yaml --profile mock`)
+- `--profile test`: `docker compose --profile test run --rm smoke` = `tests/smoke.mjs` ใน container `node:24-alpine` (ไม่ต้องมี Node ในเครื่อง · exit 0 = ผ่านทั้ง 10 ข้อ)
+- **ไม่ทำ container Playwright รัน e2e:** เทสต์ e2e เรียก `docker exec football-db …` และ `node scripts/migrate.mjs` จากเครื่อง (ต้องมี docker CLI + socket ในตัวรัน) และเขียนทับ `e2e/test-report/` ที่อยู่ใน git → ไม่ใช่เรื่องง่าย จึงยังรัน e2e ตามเดิม (`cd e2e && node run-all.mjs`)
+
+### ผลทดสอบ (2026-10-22 · Docker 29.8.0 · Compose v5.5.1 · Windows 11)
+
+| # | ทำอะไร | ผล |
+|---|---|---|
+| 1 | `docker compose config -q` ที่ราก · `-f db/compose.yaml` · `-f web/compose.yaml` ใน clone ที่ **ไม่มี `.env` เลย** | ผ่านทั้ง 3 (exit 0) · `config --services` พร้อม profiles = db, migrate, web, mock-llm, smoke |
+| 2 | `git clone` → คัดลอกไฟล์ใหม่ (ยังไม่ commit) ลง clone → `COMPOSE_PROJECT_NAME=fbcheck FB_NAME=fbcheck FB_PGDATA=fbcheck-pgdata FB_NETWORK=fbcheck-net WEB_PORT=3100 DB_PORT=5434 docker compose up -d --build` | 34 วินาที (image มี cache) · `fbcheck-db`/`fbcheck-web` healthy · `fbcheck-migrate-1` Exited (0) ข้ามทั้ง 9 ไฟล์ · `/api/health` `{"ok":true,"db":true}` · `/api/version` `{"schemaVersion":"009","chatMode":"mock","bugMode":0}` · log web: `[secret] … random secret for this run only` |
+| 3 | `BASE_URL=http://localhost:3100 node tests/smoke.mjs` · `docker compose --profile test run --rm smoke` | **10/10 exit 0** ทั้งสองแบบ |
+| 4 | **volume เดิมที่ schema เก่ากว่า:** `node scripts/migrate.mjs --container fbcheck-db --down 009` (→ 008, `/api/version` = 008) แล้ว `docker compose up -d` | `migrate` ลง **เฉพาะ 009** (`UP …/009_challenge_payments.sql`) ข้าม 001–008 · `applied_at` 001–008 ไม่เปลี่ยน · `/api/version` = 009 · smoke 10/10 |
+| 5 | `start.sh` และ `powershell.exe -File start.ps1` (5.1) ด้วยตัวแปรชุด fbcheck | ทั้งคู่ exit 0 พิมพ์ URL `http://localhost:3100` · ไทยแสดงถูก |
+| 6 | หยุด `fbcheck-web` แล้วรัน `START_TIMEOUT=1` ทั้งสองสคริปต์ | พิมพ์ข้อความหมดเวลา + log ท้าย แล้ว exit 1 |
+| 7 | `start.sh` โดยไม่ตั้งตัวแปร fbcheck (ขณะ `football-db` ของระบบจริงรันอยู่) | ปฏิเสธ พิมพ์วิธีย้าย แล้ว exit 1 โดยไม่แตะอะไร |
+| 8 | คำสั่งแบบเดิมแยกโปรเจกต์ (`-p fbold-db -f db/compose.yaml`, `-p fbold-web -f web/compose.yaml`) พร้อม `db/.env`+`web/.env` ใน clone | ขึ้น healthy · smoke 10/10 · `web/.env` มี `ALLOW_TEST_RESET=0` → `POST /api/test/reset` = 404 |
+| 9 | คำสั่งที่รากทับ volume ที่สร้างด้วยวิธีแยกโปรเจกต์ (ข้อ 8) โดยมี `.env` อยู่ | ขึ้นได้ ข้อมูลเดิมอยู่ (bookings 8) · migrate ข้ามทั้งหมด · `web/.env` ชนะค่าเดโม (`/api/test/reset` = 404) · smoke 10/10 |
+| 10 | เก็บกวาด: `down` (ไม่มี `-v`) → `docker volume rm fbcheck-pgdata fbold-pgdata` (ชื่อเต็ม) → `docker rmi fbcheck-web:v2 fbold-web:v2` | `docker volume ls` เหลือ `football-db-data`, `football-pgdata` · ไม่เหลือ network/container/image ของ fbcheck, fbold |
+| 11 | ระบบเดิม (ท้ายการทดสอบ) | `football-web` / `football-db` healthy · `/api/version` 009 · `tests/smoke.mjs` :3000 10/10 exit 0 · volume `football-pgdata` ครบ · `docker compose -f db/compose.yaml config --hash db` = label `config-hash` ของ container `football-db` เดิม (ไฟล์ใหม่ไม่ทำให้ `up -d` recreate db) |
+
+**เหตุการณ์ระหว่างซ้อม (ข้อ 8 รอบแรก):** ใช้ `-f db/compose.yaml` / `-f web/compose.yaml` กับ `FB_NAME=fbold` โดยไม่ใส่ `-p` → ชื่อโปรเจกต์ตรงกับของระบบจริง (`football-db` / `football-web`) compose จึง stop `football-db` และ recreate `football-web` เป็น `fbold-web` · volume `football-pgdata` ไม่ถูกแตะ · กู้แล้ว: `docker network connect --alias db football-net football-db` + `docker compose -f web/compose.yaml up -d --no-build` (image `football-web:v2` เดิม) → healthy · **ผลข้างเคียง:** `football-web` เป็น container ใหม่ และ `SESSION_SECRET` สุ่มใหม่ → ทุกคนต้องเข้าสู่ระบบใหม่ · เป็นที่มาของคำเตือน "ระวัง" ด้านบน

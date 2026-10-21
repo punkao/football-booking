@@ -1,0 +1,28 @@
+# ส่วนเสริมของ compose.yaml ที่ราก (ไม่ใช้เมื่อสั่ง -f db/compose.yaml เดี่ยว ๆ) · path ในไฟล์นี้อิงโฟลเดอร์ db/
+services:
+  db:
+    environment:                 # ค่าเดโมเมื่อไม่มี db/.env (มี db/.env หรือ shell → ค่านั้นชนะ) · production ต้องตั้งรหัสผ่านเอง
+      POSTGRES_USER: ${POSTGRES_USER:-football}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-football_demo}
+      POSTGRES_DB: ${POSTGRES_DB:-football}
+
+  # one-shot: ลง migration ที่ยังไม่มีใน schema_migrations (เฉพาะขาขึ้น ไม่มีวันรัน *.down.sql) แล้วจบ
+  # volume ใหม่: db/init ลงครบแล้ว → ข้ามทุกไฟล์ · volume เดิมที่ schema เก่ากว่า → ลงเฉพาะที่ขาด · รันซ้ำกี่รอบก็ไม่เปลี่ยนข้อมูล
+  migrate:
+    image: postgres:16-alpine
+    init: true
+    restart: "no"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: ${FB_NAME:-football}-db
+      PGUSER: ${POSTGRES_USER:-football}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-football_demo}
+      PGDATABASE: ${POSTGRES_DB:-football}
+    volumes:
+      - ./migrations:/migrations:ro
+      - ./scripts/migrate-up.sh:/migrate-up.sh:ro
+    command: ["sh", "/migrate-up.sh"]
+    networks:
+      - football-net

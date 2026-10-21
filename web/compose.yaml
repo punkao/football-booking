@@ -1,5 +1,7 @@
 # Web project (NFR-23 · ADR-10). Start db/ first (it creates the network football-net), then:
 #   docker compose -f web/compose.yaml up -d --build
+# One command for everything (db + migrations + web): docker compose up -d --build  (root compose.yaml · docs/RUNBOOK.md "เริ่มด้วยคำสั่งเดียว")
+# FB_NAME / FB_NETWORK / WEB_PORT make a second copy possible on the same machine (defaults = today's values).
 # BUG_MODE / MODE / ALLOW_TEST_RESET come from web/.env or the shell (shell wins), e.g. Git Bash: BUG_MODE=1 docker compose ...
 # This project has no volume: rebuilding or removing the web never touches the data.
 name: football-web
@@ -7,12 +9,12 @@ name: football-web
 services:
   web:
     build: .
-    image: football-web:v2
-    container_name: football-web
+    image: ${FB_NAME:-football}-web:v2
+    container_name: ${FB_NAME:-football}-web
     ports:
-      - "3000:3000"
+      - "${WEB_PORT:-3000}:3000"
     environment:
-      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL in web/.env}
+      DATABASE_URL: ${DATABASE_URL:-postgres://football:football_demo@${FB_NAME:-football}-db:5432/football}   # demo default = db/.env.example user/db + the demo password of the root compose.yaml · set your own in web/.env
       TZ: Asia/Bangkok
       HOSTNAME: 0.0.0.0
       ALLOW_TEST_RESET: ${ALLOW_TEST_RESET:-0}
@@ -53,7 +55,7 @@ services:
   mock-llm:
     profiles: ["mock"]
     image: node:24-alpine
-    container_name: football-mock-llm
+    container_name: ${FB_NAME:-football}-mock-llm
     init: true                  # node gets SIGTERM properly on stop
     command: ["node", "/srv/mock-llm/server.mjs"]
     environment:
@@ -73,5 +75,5 @@ services:
 
 networks:
   football-net:
-    name: football-net
+    name: ${FB_NETWORK:-football-net}
     external: true

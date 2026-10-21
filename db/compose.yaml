@@ -1,18 +1,22 @@
 # Database project (NFR-23 · ADR-10). Start this first: it creates the network football-net and the volume football-pgdata.
 #   docker compose -f db/compose.yaml up -d
+# One command for everything (db + migrations + web): docker compose up -d --build  (root compose.yaml · see docs/RUNBOOK.md "เริ่มด้วยคำสั่งเดียว")
+# A second copy on the same machine: FB_NAME / FB_PGDATA / FB_NETWORK / DB_PORT change the names and the host port (defaults = today's values).
 # NEVER use `down -v` (it deletes the volume = every booking). `docker compose -f db/compose.yaml down` (no -v) is safe.
 name: football-db
 
 services:
   db:
     image: postgres:16-alpine
-    container_name: football-db
-    env_file: .env              # POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES_DB (copy .env.example → .env)
+    container_name: ${FB_NAME:-football}-db
+    env_file:                   # POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES_DB (copy .env.example → .env · optional only for the root compose.yaml demo defaults)
+      - path: .env
+        required: false
     environment:
       TZ: Asia/Bangkok
       PGTZ: Asia/Bangkok
     ports:
-      - "127.0.0.1:5433:5432"   # host only (psql / DBeaver for [E sql:] checks)
+      - "127.0.0.1:${DB_PORT:-5433}:5432"   # host only (psql / DBeaver for [E sql:] checks)
     volumes:
       - football-pgdata:/var/lib/postgresql/data
       - ./init:/docker-entrypoint-initdb.d:ro   # 01-schema.sql (= migrations) + 02-seed.sql, first start only
@@ -31,8 +35,8 @@ services:
 
 networks:
   football-net:
-    name: football-net
+    name: ${FB_NETWORK:-football-net}
 
 volumes:
   football-pgdata:
-    name: football-pgdata
+    name: ${FB_PGDATA:-football-pgdata}

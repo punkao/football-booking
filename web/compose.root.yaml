@@ -1,0 +1,35 @@
+# ส่วนเสริมของ compose.yaml ที่ราก (ไม่ใช้เมื่อสั่ง -f web/compose.yaml เดี่ยว ๆ) · path ในไฟล์นี้อิงโฟลเดอร์ web/
+services:
+  web:
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      # เดโม: เปิดช่องรีเซ็ตข้อมูลทดสอบ (/api/test/*) → SESSION_SECRET ว่างได้ (สุ่มต่อการรัน · secret.ts) · production ต้อง ALLOW_TEST_RESET=0 + SESSION_SECRET ของจริง
+      ALLOW_TEST_RESET: ${ALLOW_TEST_RESET:-1}
+
+  # profile "test": ตรวจเว็บแบบอ่านอย่างเดียวโดยไม่ต้องมี Node ในเครื่อง
+  #   docker compose --profile test run --rm smoke        (exit 0 = ผ่านทุกข้อ)
+  # (e2e Playwright ทั้งชุดไม่ทำเป็น container: เทสต์เรียก `docker exec football-db` + `node scripts/migrate.mjs` จากเครื่อง และเขียนทับ e2e/test-report ที่อยู่ใน git)
+  smoke:
+    profiles: ["test"]
+    image: node:24-alpine
+    working_dir: /app
+    command: ["node", "tests/smoke.mjs"]
+    environment:
+      BASE_URL: http://${FB_NAME:-football}-web:3000
+      EXPECT_BUG_MODE: ${BUG_MODE:-0}
+    volumes:
+      - ../tests:/app/tests:ro
+      - ../db/migrations:/app/db/migrations:ro   # smoke อ่านเลข migration ล่าสุดจากที่นี่
+    depends_on:
+      web:
+        condition: service_healthy
+    networks:
+      - football-net
+
+networks:
+  football-net:
+    external: false   # ที่ราก db/ เป็นคนสร้าง network (web/compose.yaml ตั้ง external: true เพราะสั่งแยกต้องเปิด db/ ก่อน)
