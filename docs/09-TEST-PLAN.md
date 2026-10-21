@@ -367,6 +367,17 @@ FR ที่ไม่มี TC: **0 / 48** · BR ที่ไม่มี TC: **
 | BR-44 | TC-CHAT-20, TC-ROLE-01 |
 | BR-45 | TC-CHAT-20 |
 
+BR-46…BR-51 มาจาก Change Request (CR-01…06 · `docs/04-REQUIREMENTS.md` v3) ไม่มี TC ใน 128 ข้อเดิม — พิสูจน์ด้วยเทสต์ชุด CR (`e2e/tests/cr/*.spec.ts` id `CR-0N-NN` · `file:line` นับที่ HEAD `a2c53cb`) + unit test ใน `web/lib/**` · รายละเอียดต่อ CR ดู `legacy/TRACEABILITY.md`
+
+| BR | เทสต์ที่พิสูจน์ (e2e: id · file:line) | unit test (file:line) |
+|---|---|---|
+| BR-46 (CR-01 ออกจากระบบแล้ว cookie ใช้ไม่ได้) | CR-01-01 `e2e/tests/cr/cr-01.spec.ts:35` · CR-01-02 `cr-01.spec.ts:71` · CR-01-03 `cr-01.spec.ts:115` · CR-01-04 `cr-01.spec.ts:157` · KI TC-ROLE-03 `e2e/tests/cr/known-issues.spec.ts:49` · TC-DATA-03 (migration 007) | `web/lib/server/session.test.ts:15` `:23` `:33` `:45` `:61` |
+| BR-47 (CR-02 เช็กอินเฉพาะวันเตะ) | CR-02-01 `e2e/tests/cr/cr-02.spec.ts:49` · CR-02-02 `e2e/tests/cr/cr-02.serial.spec.ts:23` · KI TC-STAFF-06 `known-issues.spec.ts:99` | `web/lib/rules/cr02.test.ts:17` `:28` `:33` |
+| BR-48 (CR-02 ขั้น "จบ" ไม่ใช่สถานะ) | CR-02-04 `cr-02.spec.ts:133` · CR-02-05 `cr-02.spec.ts:160` · CR-02-09 `cr-02.serial.spec.ts:113` · KI TC-TRACK-01 `known-issues.spec.ts:225` | `cr02.test.ts:55` `:65` |
+| BR-49 (CR-05 ราคามีวันมีผลใน DB) | CR-05-01 `e2e/tests/cr/cr-05.spec.ts:38` · CR-05-02 `:75` · CR-05-03 `:136` · CR-05-S1…S7 `e2e/tests/cr/cr-05.serial.spec.ts:30` `:79` `:133` `:165` `:200` `:222` `:248` · REVIEW-1 `e2e/tests/cr/cr-05-home-from-db.serial.spec.ts:25` | `web/lib/rules/cr05.test.ts:22`–`:94` (10 ข้อ) · `web/lib/chat/cr05.test.ts:36`–`:72` (6 ข้อ) |
+| BR-50 (CR-06 เงินคำท้าเป็น `Payment`) | CR-06-01…07 `e2e/tests/cr/cr-06.serial.spec.ts:65` `:108` `:139` `:169` `:192` (migration 009 ย้อนหลัง) `:269` `:305` | ไม่มี unit (กฎอยู่ใน SQL + route; พิสูจน์ด้วย e2e) |
+| BR-51 (CR-03 รายงานแยกช่องทาง + ชั่วโมงใช้สนาม) | CR-03-01 `e2e/tests/cr/cr-03.spec.ts:45` · CR-03-02 `:81` · CR-03-03 `:108` · CR-03-04 `:148` · KI TC-REPORT-04 `known-issues.spec.ts:208` | `web/lib/rules/cr03.test.ts:29` `:38` `:57` `:68` `:75` |
+
 ### 6.3 NFR → TC
 
 | NFR | TC |
@@ -403,6 +414,7 @@ FR ที่ไม่มี TC: **0 / 48** · BR ที่ไม่มี TC: **
 | Entry | `docker ps`: `football-db` และ `football-web` เป็น `(healthy)` · `GET /api/health` = `{"ok":true,"db":true}` · `GET /api/version` `bugMode` ตรงกับรอบที่ตั้งใจ · `POST /api/test/reset {}` ตอบ `ok: true` · ไม่ผ่านข้อใด → หยุด ไม่เริ่มรัน |
 | Exit (ตัดสิน **แยกทีละเบราว์เซอร์** Chromium / Firefox / WebKit) | ① **P1 ผ่านทั้งหมด 74/74** และ ② **ผ่านรวม ≥ 95% ของ 128 ข้อ = ⌈121.6⌉ = 122 ข้อ** (ปัดขึ้น · ล้มได้ไม่เกิน 6) · **ไม่ได้รัน / ข้าม = ไม่ผ่าน** |
 | กติกานับ | TC ที่เป็น API ล้วน (TC-API-01–05, TC-DATA-02) และ TC 🕒 (`serial` บน Chromium) รันครั้งเดียว แล้ว**นับผลเดียวกันให้ทุกเบราว์เซอร์** · TC ที่เปิดหน้าเว็บนับจากผลของเบราว์เซอร์นั้นเอง · TC-SERIES-04 (unit) และ TC-DATA-03 (สคริปต์) ไม่ได้รันผ่านเว็บ → นับไม่ผ่านจนกว่าจะมีหลักฐานผลรัน |
+| กติกานับ (เพิ่ม · TC ที่พิสูจน์ผ่านเว็บไม่ได้) | TC-SERIES-04: เทสต์เบราว์เซอร์ข้ามเองพร้อมเหตุผลได้ (ราคาจริงทุกช่วงเป็นทวีคูณของ 10) แต่ **นับผ่านเมื่อ** unit test E75 (`web/lib/rules/rules.test.ts` "BR-19 / A-24 discount with satang is rounded up") ผ่านจริงในรอบเดียวกับที่ตัดสิน — รัน `node run-unit-proof.mjs` (เขียน `test-report/unit-proof.json` มีชื่อ test · ไฟล์:บรรทัด · pass/fail · เวลา) ก่อน `build-index.mjs` · ไม่มีไฟล์นี้ หรือ unit ล้ม หรือหาชื่อ test ในไฟล์ไม่พบ = ยังเป็น "ข้าม = ไม่ผ่าน" · ใน index แสดงป้าย "unit" และเขียน P1 เป็น "74/74 (73 เบราว์เซอร์ + 1 unit)" ไม่ปนเป็นผลเบราว์เซอร์ · เพิ่ม TC อื่นเข้ากติกานี้ได้เฉพาะ TC ที่แผนระบุว่า "ทดสอบผ่านเว็บไม่ได้" (แก้ตาราง PROOFS ใน `run-unit-proof.mjs` ผ่าน ORACLE-CHANGES) |
 | กติกานับ (เพิ่ม · หัวหน้าทีมตัดสิน รอบ B-3) | TC ที่ต้องใช้สภาพข้อมูล seed ตรงตัว รันครั้งเดียวใน `serial` (Chromium) แล้ว**นับผลเดียวกันให้ทุกเบราว์เซอร์** เพราะ oracle คือข้อมูลฝั่งเซิร์ฟเวอร์ ไม่ใช่การแสดงผล: TC-STOCK-01–06 · TC-SALE-01–03 · TC-DASH-01–03 · TC-REPORT-01–05 · TC-OWNER-04 · TC-PRICE-05, TC-PRICE-06, TC-PRICE-07 · TC-SERIES-05 · TC-ROLE-02 |
 | หลักฐาน | ทุก test ที่เปิดหน้าเว็บมี GIF + MP4 (ส่วน B) · รอบ MCP มีภาพ `exploration/mcp-run/<TC>.png` และ `screenshots/mcp/trace.jsonl` |
 | สถานะ ณ วันเขียนแผน (จาก TEST-RUN-1 + TEST-RUN-MCP) | ⚠️ คาดว่าไม่ผ่าน Exit: P1 ที่ไม่ตรงใน MCP = TC-ROLE-03 (บั๊ก) + TC-TEAM-02 (ขั้นแรกอ่านจากจอไม่ได้) · ไม่ตรง/ไม่ได้รันรวม (TEST-RUN-1 + MCP) เกิน 6 ข้อ — ดู [`TEST-RUN-MCP.md`](TEST-RUN-MCP.md) |

@@ -43,7 +43,7 @@
 | `BookingStatusHistory` | ประวัติการเปลี่ยนสถานะการจอง | `id`, `bookingId`, `fromStatus`, `toStatus`, `actor` (CUSTOMER / BOT / SYSTEM / ชื่อผู้ใช้ร้าน), `createdAt` |
 | `AuditLog` | บันทึกการกระทำสำคัญของร้าน | `id`, `staffUserId`, `action`, `target`, `detail`, `createdAt` |
 
-**ตารางที่เพิ่มโดย CR** (migration แยกไฟล์ · ⚠ ยังไม่ได้เพิ่มใน ERD ของ `06-SA.md` และไม่นับในตาราง contract ข้างบน เพื่อไม่ให้ `tools/check-phase3.mjs` C2 เทียบ ERD ผิด):
+**ตารางที่เพิ่มโดย CR** (migration แยกไฟล์ · เพิ่มใน ERD ของ `06-SA.md` แล้ว (2026-10-21) · `tools/check-phase3.mjs` C2 นับรายการขึ้นต้น "- `ชื่อ` (ตาราง …" ข้างล่างนี้เป็น entity ของ contract ด้วย):
 
 - `FieldRate` (ตาราง `field_rates` · migration 008 · [CR-05]) — ราคาสนามที่เปลี่ยนตามวันมีผล: `fieldId`, `effectiveFrom` (วันเตะ), `dayRate`, `eveningRate` · คีย์ (`fieldId`, `effectiveFrom`) · ราคา ≥ 0 · `Field.dayRate/eveningRate` คือราคาฐานก่อนจุดเปลี่ยนแรก (BR-49)
 - `RevokedSession` (ตาราง `revoked_sessions` · migration 007 · [CR-01]) — cookie เข้าสู่ระบบที่ถูกกด "ออกจากระบบ": `tokenHash` (SHA-256 ของ cookie · ไม่เก็บ cookie ดิบ), `kind` (CUSTOMER / STAFF), `expiresAt` (ลบแถวได้เมื่อพ้นเวลานี้), `revokedAt` (BR-46)

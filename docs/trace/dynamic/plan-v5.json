@@ -1,0 +1,288 @@
+{
+  "version": "5",
+  "replans": 5,
+  "date": "2026-10-18",
+  "note": "สถานะคือ ณ ตอนออกแผน (commit 7dc7c3a, 2026-10-18 19:09) — สถานะ ณ ปัจจุบันอยู่ที่ plan-current.json",
+  "tasks": {
+    "P0": {
+      "description": "ตรวจเครื่อง ติดตั้ง Playwright + เบราว์เซอร์ที่ D:\\ms-playwright + Playwright MCP แบบ bridge (stdio) — ผ่านแล้ว",
+      "dependencies": [],
+      "status": "DONE",
+      "evidence": "docs/00-ENVIRONMENT.md · screenshots/mcp/trace.jsonl · screenshots/mcp/phase0-after-click.png"
+    },
+    "P1": {
+      "description": "บทสัมภาษณ์เจ้าของสนาม + ลูกค้า (กฎมีตัวเลข + ค่าขอบ)",
+      "dependencies": [
+        "P0"
+      ],
+      "status": "DONE"
+    },
+    "P2": {
+      "description": "BA + User Story (Loop ≤ 3 รอบ)",
+      "dependencies": [
+        "P1"
+      ],
+      "status": "DONE"
+    },
+    "P3": {
+      "description": "REQUIREMENTS → SRS, SA, SAD (Graph)",
+      "dependencies": [
+        "P2"
+      ],
+      "status": "DONE"
+    },
+    "P4": {
+      "description": "BUILD-PROMPT → subagent A สร้างเว็บ (เริ่มจากศูนย์) + เปิดดูผลงานเอง ผ่าน Playwright MCP",
+      "dependencies": [
+        "P3"
+      ],
+      "status": "DONE"
+    },
+    "P5": {
+      "description": "Playwright MCP เดินทุก journey → ภาพ + ตารางความเสี่ยง",
+      "dependencies": [
+        "P4"
+      ],
+      "status": "DONE"
+    },
+    "P6": {
+      "description": "TEST-PLAN 40–50 TC โดย subagent B (เห็นแค่ 04-REQUIREMENTS + SPEC — ไม่เห็น BUGS.md)",
+      "dependencies": [
+        "P5"
+      ],
+      "status": "DONE"
+    },
+    "P7": {
+      "description": "e2e 3 เบราว์เซอร์ + รันซ้ำ + GIF/MP4 โดย subagent B",
+      "dependencies": [
+        "P6"
+      ],
+      "status": "DONE"
+    },
+    "P7_5": {
+      "description": "แก้บั๊กจริงที่ test จับได้ (ถามร้านเมื่อกฎไม่ชัด) แล้วรัน test ซ้ำ",
+      "dependencies": [
+        "P7"
+      ],
+      "status": "DONE"
+    },
+    "P8": {
+      "description": "BUG_MODE=1 → รายงาน DEF → เทียบเฉลย",
+      "dependencies": [
+        "P7_5"
+      ],
+      "status": "DONE",
+      "evidence": "BUG_MODE=1 → 146/153 · จับบั๊กที่ฝัง 3/3 (docs/10-TEST-REPORT.md) — สถานะใน PLAN.md ณ 2026-10-10 14:40"
+    },
+    "P10": {
+      "description": "(โบนัส) หน้า /project portal — compose mount ../docs และ ../e2e/test-report อ่านอย่างเดียว",
+      "dependencies": [
+        "P8"
+      ],
+      "status": "DONE",
+      "evidence": "web/app/project/** (ลงใน commit 5dce699 พร้อมหัวข้อ \"...+ portal\")"
+    },
+    "P9": {
+      "description": "(โบนัส) Change Request กลางทาง → Plan v2",
+      "dependencies": [
+        "P8"
+      ],
+      "status": "DROPPED",
+      "note": "ไม่ได้ทำเป็นเฟส 9 ตามเดิม — งาน Change Request จริงทำเป็นชุด L5/CR-01…06 ตามบท 05–06 (ข้อสรุปจากการเทียบ PLAN.md · PLAN ไม่ได้เขียนคำว่า DROPPED เอง)"
+    },
+    "A1": {
+      "description": "ฟังร้านรอบ 2: สัมภาษณ์ (แชทบอท คลังอุปกรณ์ หลังบ้าน รายงาน ดูแลข้อมูล)",
+      "dependencies": [
+        "A0"
+      ],
+      "status": "TODO"
+    },
+    "A2": {
+      "description": "BA S45–S71 + User Story US-35–52",
+      "dependencies": [
+        "A1"
+      ],
+      "status": "TODO"
+    },
+    "A3": {
+      "description": "Graph N1: contract +10 entity · FR-32–48 · BR-29–43 · NFR-15–24",
+      "dependencies": [
+        "A2"
+      ],
+      "status": "TODO"
+    },
+    "A4": {
+      "description": "Graph N2∥N3∥N4 → N5: SA / SAD / SRS v2 โดย subagent 3 ตัวขนาน + ตรวจสอดคล้อง",
+      "dependencies": [
+        "A3"
+      ],
+      "status": "TODO"
+    },
+    "A5": {
+      "description": "ร้านยืนยัน TEST-DATA + คำตอบ A-33–A-40",
+      "dependencies": [
+        "A4"
+      ],
+      "status": "TODO"
+    },
+    "B0": {
+      "description": "BUILD-PROMPT v2 + พรอมต์สร้างใหม่ (B1 ฐานระบบ / B2 ฟีเจอร์)",
+      "dependencies": [
+        "A5"
+      ],
+      "status": "TODO"
+    },
+    "B1": {
+      "description": "สร้างฐาน v2: Docker db/web แยก · migration 001–005 + down · EXCLUDE/CHECK · seed = TEST-DATA",
+      "dependencies": [
+        "B0"
+      ],
+      "status": "TODO"
+    },
+    "B2": {
+      "description": "ฟีเจอร์ v2: คลัง ขายหน้าเคาน์เตอร์ แดชบอร์ด รายงาน CSV แชทบอท น้องบอล",
+      "dependencies": [
+        "B1"
+      ],
+      "status": "TODO"
+    },
+    "B3": {
+      "description": "รีวิว G4 /code-review + G5 /security-review แล้วแก้",
+      "dependencies": [
+        "B2"
+      ],
+      "status": "TODO"
+    },
+    "C-A": {
+      "description": "ทดสอบส่วน A: EXPLORATION · แผน 8 หัวข้อ · TEST-CASES 128 ข้อ + เฉลย · MCP รัน · PLAN-REVIEW",
+      "dependencies": [
+        "B3"
+      ],
+      "status": "TODO"
+    },
+    "C-B1": {
+      "description": "e2e แชทบอท TC-CHAT-01–20 + CHATBOT-REPORT",
+      "dependencies": [
+        "C-A"
+      ],
+      "status": "TODO"
+    },
+    "C-B2": {
+      "description": "e2e ครบ 128 TC",
+      "dependencies": [
+        "C-B1"
+      ],
+      "status": "TODO"
+    },
+    "C-B3": {
+      "description": "index.html + รัน 2 รอบ 3 เบราว์เซอร์ + GIF/MP4",
+      "dependencies": [
+        "C-B2"
+      ],
+      "status": "TODO"
+    },
+    "C-B4": {
+      "description": "BUG-HUNT บั๊กปริศนา",
+      "dependencies": [
+        "C-B3"
+      ],
+      "status": "TODO"
+    },
+    "D0": {
+      "description": "บันทึกส่งมอบ + ทะเบียน CR + หนังสือ CR-01–05 + tag v2-handover",
+      "dependencies": [
+        "C-B4"
+      ],
+      "status": "TODO"
+    },
+    "D1": {
+      "description": "รับช่วง: HANDOVER-CHECK · SYSTEM-MAP · API-INVENTORY · REA-INVENTORY · SPEC-GAPS · PROD-LIKE-DATA",
+      "dependencies": [
+        "D0"
+      ],
+      "status": "TODO"
+    },
+    "D2": {
+      "description": "รั้ว CLAUDE.md/settings + BASELINE + golden master + known-issue lock + mutant",
+      "dependencies": [
+        "D1"
+      ],
+      "status": "TODO"
+    },
+    "CR1": {
+      "description": "CR-01 ออกจากระบบแล้ว cookie ใช้ไม่ได้ (red → fix → regression)",
+      "dependencies": [
+        "D2"
+      ],
+      "status": "TODO"
+    },
+    "CR2": {
+      "description": "CR-02 แก้ 5 จุดตามคำตอบร้าน",
+      "dependencies": [
+        "CR1"
+      ],
+      "status": "TODO"
+    },
+    "CR3": {
+      "description": "CR-03 รายงานแยกช่องทางเงิน + ชั่วโมงใช้สนาม",
+      "dependencies": [
+        "CR2"
+      ],
+      "status": "TODO"
+    },
+    "CR4": {
+      "description": "CR-04 น้องบอลจำเรื่องที่คุย",
+      "dependencies": [
+        "CR3"
+      ],
+      "status": "TODO"
+    },
+    "CR5": {
+      "description": "CR-05 ราคาเย็นสนาม A/B ฿1,300 ตั้งแต่ 1 พ.ย.",
+      "dependencies": [
+        "CR4"
+      ],
+      "status": "TODO"
+    },
+    "D8": {
+      "description": "regression 2 รอบ + REA เทียบ + ซ้อมถอยกลับ + TRACEABILITY + RELEASE-NOTES + UAT",
+      "dependencies": [
+        "CR5"
+      ],
+      "status": "TODO"
+    },
+    "E1": {
+      "description": "รูบริก 4 ชุด (บท 03–06) · README · Portal · ข้อความ LINE",
+      "dependencies": [
+        "D8"
+      ],
+      "status": "TODO"
+    },
+    "E2": {
+      "description": "push ไป origin (ต้องถามผู้ใช้ก่อนทุกครั้ง)",
+      "dependencies": [
+        "E1"
+      ],
+      "status": "TODO"
+    },
+    "A0": {
+      "description": "ออกแผน v5 (ผู้ใช้ยืนยันเป้าหมาย: ระบบ production 1 ตัว)",
+      "dependencies": [],
+      "status": "DONE",
+      "evidence": "7dc7c3a"
+    }
+  },
+  "reason": "ผู้ใช้ยืนยันเป้าหมาย: ระบบ production 1 ตัว (หน้าบ้าน หลังบ้าน chatbot คลังข้อมูล การจัดการข้อมูล) ตามทุกบทของอาจารย์",
+  "changes": "ส่วน A–E: ฟังร้านรอบ 2 → สร้าง v2 (chatbot mock + gateway Claude, คลังอุปกรณ์, แดชบอร์ด, รายงาน CSV, migration/backup) → ทดสอบแบบบท 03–04 + เทสต์แชทบอท → รับช่วง + CR แบบบท 05–06 · แทนที่ \"ส่วนที่ 1/2\" ของ v4 (L0–L8 ถูกจัดใหม่เป็น D0–D8 + CR1–CR5) · เพิ่มด่านคุณภาพ G1–G7",
+  "impact": [
+    "web/ เปลี่ยนเป็น v2 (เพิ่มฟีเจอร์ใหญ่ — ไม่ใช่แค่ปรับ)",
+    "เอกสาร 01–07 ต้องขยายรอบ 2 (23 entity)",
+    "e2e เดิม 60 TC → 128 TC",
+    "ต้องมีรั้วตั้งแต่ส่วน D"
+  ],
+  "reuse": [
+    "P0–P8, P10 (DONE) — เว็บ v1 + e2e 153 ข้อ ใช้เป็นฐานของ v2 (\"v1 e2e 153/153 บน v2\" เป็นด่านถอยหลัง)",
+    "tools/ (mcp-bridge, check-phase2/3, render-mermaid) ใช้ต่อ",
+    "PLAN v4 ส่วนที่ 1/2 เป็นรายการตรวจย่อย"
+  ]
+}

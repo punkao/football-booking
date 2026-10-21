@@ -60,7 +60,8 @@ for (const id of frIds) if (!srsFr.has(id)) out.C1.push(`05-SRS ไม่ได�
 
 // ---------- C2 ----------
 const contractSec = section(req, /^### 1\.1/m, /^### /m);
-const contractEntities = new Set([...contractSec.matchAll(/^\|\s*`(\w+)`\s*\|/gm)].map((m) => m[1]));
+// entity ของ contract = แถวตาราง 1.1 + รายการ "- `Name` (ตาราง `x_y` · migration …)" ที่ CR เพิ่ม (FieldRate, RevokedSession)
+const contractEntities = new Set([...contractSec.matchAll(/^(?:\|\s*|-\s+)`(\w+)`\s*(?:\||\(ตาราง)/gm)].map((m) => m[1]));
 const blocks = [...sa.matchAll(/```mermaid\r?\n([\s\S]*?)```/g)].map((m) => m[1]);
 const erd = blocks.find((b) => b.trimStart().startsWith('erDiagram')) ?? '';
 const erdEntities = new Map([...erd.matchAll(/^\s*(\w+)\s*\{([\s\S]*?)\}/gm)].map((m) => [m[1], new Set([...m[2].matchAll(/^\s*\w+\s+(\w+)/gm)].map((a) => a[1]))]));

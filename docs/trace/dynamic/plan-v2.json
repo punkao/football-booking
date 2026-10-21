@@ -1,0 +1,100 @@
+{
+  "version": "2",
+  "replans": 1,
+  "date": "2026-10-09",
+  "tasks": {
+    "P0": {
+      "description": "ตรวจเครื่อง ติดตั้ง Playwright + เบราว์เซอร์ + Playwright MCP",
+      "dependencies": [],
+      "status": "TODO"
+    },
+    "P1": {
+      "description": "บทสัมภาษณ์เจ้าของสนาม + ลูกค้า (กฎมีตัวเลข + ค่าขอบ)",
+      "dependencies": [
+        "P0"
+      ],
+      "status": "TODO"
+    },
+    "P2": {
+      "description": "BA + User Story (Loop ≤ 3 รอบ)",
+      "dependencies": [
+        "P1"
+      ],
+      "status": "TODO"
+    },
+    "P3": {
+      "description": "REQUIREMENTS → SRS, SA, SAD (Graph)",
+      "dependencies": [
+        "P2"
+      ],
+      "status": "TODO"
+    },
+    "P4": {
+      "description": "BUILD-PROMPT → subagent A สร้างเว็บ (เริ่มจากศูนย์) + เปิดดูผลงานเอง ผ่าน Playwright MCP",
+      "dependencies": [
+        "P3"
+      ],
+      "status": "TODO"
+    },
+    "P5": {
+      "description": "Playwright MCP เดินทุก journey → ภาพ + ตารางความเสี่ยง",
+      "dependencies": [
+        "P4"
+      ],
+      "status": "TODO"
+    },
+    "P6": {
+      "description": "TEST-PLAN 40–50 TC โดย subagent B (เห็นแค่ 04-REQUIREMENTS + SPEC — ไม่เห็น BUGS.md)",
+      "dependencies": [
+        "P5"
+      ],
+      "status": "TODO"
+    },
+    "P7": {
+      "description": "e2e 3 เบราว์เซอร์ + รันซ้ำ + GIF/MP4 โดย subagent B",
+      "dependencies": [
+        "P6"
+      ],
+      "status": "TODO"
+    },
+    "P8": {
+      "description": "BUG_MODE=1 → รายงาน DEF → เทียบเฉลย",
+      "dependencies": [
+        "P7_5"
+      ],
+      "status": "TODO"
+    },
+    "P9": {
+      "description": "(โบนัส) Change Request กลางทาง → Plan v2",
+      "dependencies": [
+        "P8"
+      ],
+      "status": "TODO"
+    },
+    "P10": {
+      "description": "(โบนัส) หน้า /project portal — compose mount ../docs และ ../e2e/test-report อ่านอย่างเดียว",
+      "dependencies": [
+        "P8"
+      ],
+      "status": "TODO"
+    },
+    "P7_5": {
+      "description": "แก้บั๊กจริงที่ test จับได้ (ถามร้านเมื่อกฎไม่ชัด) แล้วรัน test ซ้ำ",
+      "dependencies": [
+        "P7"
+      ],
+      "status": "TODO"
+    }
+  },
+  "reason": "วิเคราะห์แผนกับความจริงของเครื่อง + ผู้ใช้เลือกใช้ subagent และ Playwright MCP",
+  "changes": "เพิ่มเฟส 7.5 (แก้บั๊ก) · portal mount docs · REQUIREMENTS เป็นแหล่งความจริงเดียว · แยกบทบาท subagent A (สร้างเว็บ) / B (เขียน test) · ใช้ Playwright MCP ในเฟส 0/4/5/7.5/8 · แกนหลัก 0–8",
+  "impact": [
+    "P4 (ผู้ทำเปลี่ยนเป็น subagent A)",
+    "P6–P7 (ผู้ทำเปลี่ยนเป็น subagent B ที่ไม่เห็น BUGS.md)",
+    "P8 (ต้องรอ P7.5)",
+    "ลำดับ: P8 ขึ้นกับ P7.5"
+  ],
+  "reuse": [
+    "P0–P3 เป็นเฟสต้นน้ำ ยังไม่เริ่มทำตอนออก v2 — ใช้ตามแผนเดิมทั้งหมด"
+  ]
+}

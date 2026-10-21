@@ -1,0 +1,212 @@
+{
+  "version": "4",
+  "replans": 4,
+  "date": "2026-10-18",
+  "note": "ข้อความ v4 อยู่ใน git ครั้งแรกที่ 7dc7c3a (2026-10-18 19:09) พร้อม v5 · V3a–V3e ยังเป็น TODO (ไม่ถูกทำภายใต้ v3 — รวมเป็น \"ส่วนที่ 1\" ของ v4)",
+  "tasks": {
+    "P0": {
+      "description": "ตรวจเครื่อง ติดตั้ง Playwright + เบราว์เซอร์ที่ D:\\ms-playwright + Playwright MCP แบบ bridge (stdio) — ผ่านแล้ว",
+      "dependencies": [],
+      "status": "DONE",
+      "evidence": "docs/00-ENVIRONMENT.md · screenshots/mcp/trace.jsonl · screenshots/mcp/phase0-after-click.png"
+    },
+    "P1": {
+      "description": "บทสัมภาษณ์เจ้าของสนาม + ลูกค้า (กฎมีตัวเลข + ค่าขอบ)",
+      "dependencies": [
+        "P0"
+      ],
+      "status": "DONE"
+    },
+    "P2": {
+      "description": "BA + User Story (Loop ≤ 3 รอบ)",
+      "dependencies": [
+        "P1"
+      ],
+      "status": "DONE"
+    },
+    "P3": {
+      "description": "REQUIREMENTS → SRS, SA, SAD (Graph)",
+      "dependencies": [
+        "P2"
+      ],
+      "status": "DONE"
+    },
+    "P4": {
+      "description": "BUILD-PROMPT → subagent A สร้างเว็บ (เริ่มจากศูนย์) + เปิดดูผลงานเอง ผ่าน Playwright MCP",
+      "dependencies": [
+        "P3"
+      ],
+      "status": "DONE"
+    },
+    "P5": {
+      "description": "Playwright MCP เดินทุก journey → ภาพ + ตารางความเสี่ยง",
+      "dependencies": [
+        "P4"
+      ],
+      "status": "DONE"
+    },
+    "P6": {
+      "description": "TEST-PLAN 40–50 TC โดย subagent B (เห็นแค่ 04-REQUIREMENTS + SPEC — ไม่เห็น BUGS.md)",
+      "dependencies": [
+        "P5"
+      ],
+      "status": "DONE"
+    },
+    "P7": {
+      "description": "e2e 3 เบราว์เซอร์ + รันซ้ำ + GIF/MP4 โดย subagent B",
+      "dependencies": [
+        "P6"
+      ],
+      "status": "DONE"
+    },
+    "P8": {
+      "description": "BUG_MODE=1 → รายงาน DEF → เทียบเฉลย",
+      "dependencies": [
+        "P7_5"
+      ],
+      "status": "DONE",
+      "evidence": "BUG_MODE=1 → 146/153 · จับบั๊กที่ฝัง 3/3 (docs/10-TEST-REPORT.md) — สถานะใน PLAN.md ณ 2026-10-10 14:40"
+    },
+    "P9": {
+      "description": "(โบนัส) Change Request กลางทาง → Plan v2",
+      "dependencies": [
+        "P8"
+      ],
+      "status": "DROPPED",
+      "note": "ไม่ได้ทำเป็นเฟส 9 ตามเดิม — งาน Change Request จริงทำเป็นชุด L5/CR-01…06 ตามบท 05–06 (ข้อสรุปจากการเทียบ PLAN.md · PLAN ไม่ได้เขียนคำว่า DROPPED เอง)"
+    },
+    "P10": {
+      "description": "(โบนัส) หน้า /project portal — compose mount ../docs และ ../e2e/test-report อ่านอย่างเดียว",
+      "dependencies": [
+        "P8"
+      ],
+      "status": "DONE",
+      "evidence": "web/app/project/** (ลงใน commit 5dce699 พร้อมหัวข้อ \"...+ portal\")"
+    },
+    "P7_5": {
+      "description": "แก้บั๊กจริงที่ test จับได้ (ถามร้านเมื่อกฎไม่ชัด) แล้วรัน test ซ้ำ",
+      "dependencies": [
+        "P7"
+      ],
+      "status": "DONE"
+    },
+    "V3a": {
+      "description": "TEST-DATA.md ที่ร้านยืนยัน (ค่าทุกค่าที่ test ใช้ มีที่มา [D])",
+      "dependencies": [
+        "P8"
+      ],
+      "status": "TODO"
+    },
+    "V3b": {
+      "description": "ฟังระบบ 3 ทาง (EXPLORATION A–F) + ป้ายที่มาของค่าที่คาดหวัง",
+      "dependencies": [
+        "V3a"
+      ],
+      "status": "TODO"
+    },
+    "V3c": {
+      "description": "TEST-PLAN 8 หัวข้อ + PLAN-REVIEW",
+      "dependencies": [
+        "V3b"
+      ],
+      "status": "TODO"
+    },
+    "V3d": {
+      "description": "Docker แยก db/web + บั๊กปริศนาชุดใหม่ที่ AI เลือกเอง",
+      "dependencies": [
+        "V3a"
+      ],
+      "status": "TODO"
+    },
+    "V3e": {
+      "description": "BUG-HUNT จับบั๊กปริศนา + e2e/index.html (GIF/MP4)",
+      "dependencies": [
+        "V3c",
+        "V3d"
+      ],
+      "status": "TODO"
+    },
+    "L0": {
+      "description": "เช็กเครื่อง/พอร์ต/ExecutionPolicy + ขออนุญาต build image rea-lab:6.4.0",
+      "dependencies": [
+        "V3e"
+      ],
+      "status": "TODO"
+    },
+    "L1": {
+      "description": "tag v2-handover + ฐานเสมือนจริง (tools/make-prod-like-data.mjs)",
+      "dependencies": [
+        "L0"
+      ],
+      "status": "TODO"
+    },
+    "L2": {
+      "description": "HANDOVER-CHECK + CODEBASE/SYSTEM-MAP (file:line) + REA + SPEC-GAPS",
+      "dependencies": [
+        "L1"
+      ],
+      "status": "TODO"
+    },
+    "L3": {
+      "description": "CLAUDE.md + .claude/settings.json (รั้ว) + IMPACT-TEMPLATE + ORACLE-CHANGES",
+      "dependencies": [
+        "L2"
+      ],
+      "status": "TODO"
+    },
+    "L4": {
+      "description": "ตาข่าย: BASELINE + golden master + known-issue lock + mutant",
+      "dependencies": [
+        "L3"
+      ],
+      "status": "TODO"
+    },
+    "L4b": {
+      "description": "หนังสือ CR 5 ฉบับ — ร้าน (ผู้ใช้) อนุมัติ",
+      "dependencies": [
+        "L4"
+      ],
+      "status": "TODO"
+    },
+    "L5": {
+      "description": "ต่อ CR: คำถาม → ของเดิม file:line → impact → เทสต์แดง → แก้ → regression",
+      "dependencies": [
+        "L4b"
+      ],
+      "status": "TODO"
+    },
+    "L6": {
+      "description": "regression เต็ม 3 เบราว์เซอร์ + REGRESSION-REPORT + REA เทียบ + TRACEABILITY",
+      "dependencies": [
+        "L5"
+      ],
+      "status": "TODO"
+    },
+    "L7": {
+      "description": "RELEASE-NOTES ภาษาคน + UAT-CHECKLIST + ซ้อมถอยกลับ + smoke",
+      "dependencies": [
+        "L6"
+      ],
+      "status": "TODO"
+    },
+    "L8": {
+      "description": "ตรวจซ้ำตัวเลข + รูบริกบท 05/06 + README/Portal",
+      "dependencies": [
+        "L7"
+      ],
+      "status": "TODO"
+    }
+  },
+  "reason": "อาจารย์เพิ่มบท 05 (REA รับช่วงระบบเดิม) บท 06 (Change Request แบบงานรัฐ + EXAM.md) และ 00_setup/04_Skill_Setup",
+  "changes": "เพิ่ม \"ส่วนที่ 2\": ใช้เว็บเราเป็นระบบเดิม → HANDOVER-CHECK, REA, golden master, mutant, CR 5 ฉบับแบบแดงก่อนแก้, migration + rollback, ORACLE-CHANGES, RELEASE-NOTES, UAT, smoke (เพิ่ม L0–L8) · เฟส 9 (CR โบนัสเดิม) ถูกแทนด้วยชุด L",
+  "impact": [
+    "ส่วนที่ 2 ต้องรอเว็บ v2 ของส่วนที่ 1 (ต้องมี \"ระบบเดิม\" ก่อนรับ CR)",
+    "ต้อง tag v2-handover ก่อนแตะ CR",
+    "ต้องมีรั้ว: ห้ามแก้ test เดิม ห้ามเปิด _solution/"
+  ],
+  "reuse": [
+    "P0–P8 และ P10 (DONE)",
+    "V3a–V3e ใช้เป็น \"ส่วนที่ 1\" ตามเดิม ไม่แก้",
+    "เว็บ v1 → ปรับเป็นเว็บ v2 → เป็นระบบเดิมที่รับช่วง"
+  ]
+}
