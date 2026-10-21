@@ -13,7 +13,13 @@
     },
     "excalidraw": {
       "command": "node",
-      "args": ["tools/node_modules/mcp-excalidraw-server/dist/bin.js"]
+      "args": ["tools/node_modules/mcp-excalidraw-server/dist/bin.js"],
+      "env": { "PORT": "8892", "EXPRESS_SERVER_URL": "http://127.0.0.1:8892" }
+    },
+    "football": {
+      "command": "node",
+      "args": ["tools/mcp-football/server.mjs"],
+      "env": { "FOOTBALL_BASE_URL": "http://localhost:3000" }
     }
   }
 }

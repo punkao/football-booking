@@ -48,6 +48,8 @@ docker compose -f db/compose.yaml stop                 # ปิดฐานข�
 BUG_MODE / MODE / ALLOW_TEST_RESET อ่านจาก `web/.env` และ shell (shell ชนะ):
 Git Bash `BUG_MODE=1 docker compose -f web/compose.yaml up -d` · PowerShell `$env:BUG_MODE="1"; docker compose -f web/compose.yaml up -d` · กลับ `BUG_MODE=0 …` / `Remove-Item Env:BUG_MODE; …`
 
+MCP server ของร้าน (`football` · ห่อ API ของเว็บ · `book` ใช้ได้เฉพาะ localhost + `confirm:true`): ทดสอบ `node tools/mcp-football/test-client.mjs` (เว็บต้องเปิดที่ `FOOTBALL_BASE_URL` ค่าเริ่ม http://localhost:3000 · seam เปิด · มี `POST /api/test/reset {}` ในตัว) · ลงทะเบียนใน `.mcp.json` ชื่อ `football` · รายละเอียด `docs/mcp/MCP-REPORT.md`
+
 ## 3. สำรอง (backup)
 
 ```bash

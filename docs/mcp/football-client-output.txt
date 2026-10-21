@@ -1,0 +1,25 @@
+connected · server=football@1.0.0 · protocol=2025-11-25
+  [server:local] [football-mcp] ready · base=http://localhost:3000 · book=allowed (local)
+      tools = check_availability, quote, book
+PASS  tools/list มี 3 tool พร้อม inputSchema + description ไทย/อังกฤษ
+PASS  resources: football://prices ตรงกับ GET /api/fields
+      วันที่ 2026-10-14 · จองได้ถึง 2026-10-23 | สนาม A (5 คน): 8:00=฿800, 9:00=฿800, 10:00=฿800, 11:00=฿800, 12:00=฿800, 13:00=฿800, 14:00=฿800, 15:00=฿800, 16:00=฿800, 17:00=฿1200, 18:00=฿1200, 19:00=฿1200, 20:00=฿1200, 21:00=฿1200, 22:00=฿1200, 23:00=฿1200
+PASS  check_availability ตรงกับ GET /api/availability (จำนวนช่วงว่าง + ราคา)
+      rentals=- -> total ฿1200 (field 1200 + rental 0)
+      rentals=BIB2+BALL1 -> total ฿1330 (field 1200 + rental 130)
+PASS  quote ตรงกับ POST /api/quote ทุกตัวเลข (ไม่มี/มีของเช่า)
+PASS  quote สนามที่ไม่มี -> MCP tool error รหัส INVALID_FIELD (รหัสเดียวกับ API)
+PASS  input ผิด schema (date ไม่ใช่ YYYY-MM-DD) -> ถูกปฏิเสธ
+PASS  book ไม่มี confirm / confirm:false -> ปฏิเสธ CONFIRM_REQUIRED และไม่สร้างการจอง
+PASS  book ไม่ติ๊ก consent (confirm:true) -> API ตอบ CONSENT_REQUIRED ผ่านเป็น tool error
+      booking LN-100001 · amount_paid=0 · payUrl=http://localhost:3000/pay/LN-100001
+PASS  book confirm:true บนเว็บ localhost -> ได้ LN-… PENDING_PAYMENT และ API ยืนยันว่ามีจริง
+      code=SLOT_TAKEN
+PASS  book ซ้ำช่วงเดิม -> tool error รหัสจาก API (ไม่จองซ้อน)
+  [server:non-localhost] [football-mcp] ready · base=http://shop.example.com · book=BLOCKED (non-local base)
+      ERROR LOCAL_ONLY: ปฏิเสธ: book ใช้ได้เฉพาะเว็บบนเครื่องนี้ (localhost/127.0.0.1) แต่ FOOTBALL_BASE_URL host = "shop.example.com" / refused: non-local base URL
+PASS  book + confirm:true แต่ FOOTBALL_BASE_URL ไม่ใช่ localhost -> LOCAL_ONLY (ไม่ยิงเครือข่าย)
+PASS  (อ่านอย่างเดียวบน non-local ยังเรียกได้ แต่ติดต่อไม่ได้ -> WEB_UNREACHABLE ไม่ crash)
+PASS  หลัง reset {} ช่วงที่จองกลับมาว่าง
+
+13/13 ผ่าน · wire log: docs\mcp\football-wire.log (36 ข้อความ)
