@@ -92,7 +92,7 @@
 |---|---|---|---|
 | 1 | **ไม่เคยทดสอบรั้ว `.claude/settings.json` ในเซสชันใหม่** + กฎ `Write(...)` 4 บรรทัดที่ไม่มีผลยังอยู่ | 05 LAB 1 · 06 LAB 4 | ทำ 6 ขั้นใน `legacy/FENCE-TEST.md` ในเซสชันใหม่ที่เปิดที่ `football-booking/` แล้วจดผล |
 | 2 | **ไม่มี gateway เรียก Claude Code จริง / ไม่เคยทดสอบแชทกับโมเดลจริง** (มีแค่ `mock-llm`) | 00_setup 05 · 04.1 | แชทผ่านทุกเทสต์แต่เป็นสมอง mock — พฤติกรรมกับโมเดลจริงยังไม่รู้ (`legacy/TRACEABILITY.md` T8, `legacy/SYSTEM-MAP.md` K4) · ต้องผู้ใช้อนุญาต + ล็อกอิน |
-| 3 | **ผลรัน e2e ที่ commit (e2e/index.html · TEST-REPORT.md · triage.json) ยังเป็นรอบก่อน CR** (117/128 ❌) · เทสต์ CR ~29 ข้อไม่มี GIF/MP4 · ตัวเลขล่าสุดมีแค่ใน `legacy/REGRESSION-REPORT.md` และวัดก่อน REVIEW-1/2 | 04 LAB 11–12 | รันเต็มซ้ำ 1 รอบ + `node build-index.mjs` + `npm run test:gif` เฉพาะ `tests/cr/` |
+| 3 | **หลักฐานสื่อของ e2e ยังไม่ครบหลัง CR** — `e2e/index.html` + `test-report/*` เป็นรอบเต็มล่าสุดแล้ว (21 ต.ค. 389/390, `fdb5673`) แต่เทสต์ CR (`e2e/tests/cr/*` ~49 test) ไม่มี GIF/MP4 (`gifs/` `videos/` ยังเป็นรอบ 20 ต.ค. 139/139) · `e2e/triage.json` ยังเป็นของ 20 ต.ค. ไม่มี TC-PRICE-04 (webkit flaky ที่ล้มรอบล่าสุด) | 04 LAB 11–12 | `npm run test:gif` เฉพาะ `tests/cr/` + เพิ่ม TC-PRICE-04 ใน `triage.json` แล้ว `node build-index.mjs` |
 | 4 | **`docs/04-REQUIREMENTS.md` ไม่ได้อัปเดตตาม CR** (BR-07 ยัง ฿1,200 ฯลฯ) → ความจริงอยู่ที่ TRACEABILITY/impact | 04 · 06 LAB 11 | ใส่ BR-46–51 และแก้ BR-07/09/19/20/23/39/40/42 แล้วอัปเดต TC ที่อ้าง |
 | 5 | **UAT ยังไม่ได้เดินมือ ไม่มีลายเซ็นร้าน** · REGISTER ยังไม่ขึ้น "รอตรวจรับ" | 06 LAB 12 | ผู้ใช้ (ในฐานะร้าน) เดิน `UAT-CHECKLIST.md` |
 | 6 | **`web/BUGS.md` (เฉลยบั๊กที่ฝัง) อยู่ใน git** — push ไป repo สาธารณะจะเปิดเฉลย | 04 รูบริกข้อ 7 | ถามผู้ใช้ก่อน push (PLAN.md 🙋) — ย้ายออกหรือรับได้ |
