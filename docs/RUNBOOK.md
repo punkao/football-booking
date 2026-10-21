@@ -142,3 +142,76 @@ COMMIT;
 | ถอย 005 → 001 บนสำเนา v1 แล้วรันขึ้นใหม่ | ทุกขั้น bookings 4 → 4 · เหลือ 13 ตาราง v1 + `app_settings` + `schema_migrations` · รันขึ้นใหม่ได้ |
 | สำรอง → เพิ่มการจองหลังสำรอง → `restore --recreate` (ลบฐานทิ้งทั้งก้อน) | 28 ตัวเลขตรงกันทุกตัว (bookings 9 → 9 · payments ฿11,800 → ฿11,800) · การจองที่เพิ่มหลังสำรองหายตามคาด · trigger 6 ตัว + EXCLUDE + CHECK 46 ตัวกลับมาครบ |
 | `restore latest` (ทับฐานเดิม ไม่ลบฐาน) | ตัวเลขตรงทุกตัว · เว็บกลับมา healthy |
+
+## 9. ถอยกลับ (ซ้อมแล้ว 2026-10-21)
+
+ซ้อมจริงบนฐาน `football` ที่มีข้อมูล (ไม่ใช้ `-v` ไม่แตะ volume `football-pgdata`) · ถอย schema **009 → 006 (= ตอนรับมอบ tag `v2-handover`)** พร้อมสลับเว็บเป็น image ที่ build จาก tag แล้วขึ้นกลับ 009 + เว็บ HEAD (`ea32d4d`) · ตาม LAB 12 บท 06 (หยุดเว็บให้ smoke จับ → ถอย DB → ตรวจ → ไปข้างหน้า) + ส่วนที่เพิ่ม: พิสูจน์ว่าไฟล์สำรองกู้ได้ และเทียบ md5 รายตาราง
+คำสั่งเป็น Git Bash (PowerShell ใช้ `docker`/`node` ชุดเดียวกัน ต่างแค่ `for` กับ `$(...)`)
+
+**ข้อมูลที่ใช้ซ้อม** (ไม่ใช่แค่ seed 8 การจอง): `POST /api/test/reset {}` → `node tools/make-prod-like-data.mjs --no-clock` (630 การจองเสมือนจริง) → `tools/cr06-old-challenges.sql` (30 คำท้า MATCHED แบบก่อน CR-06) → `node scripts/migrate.mjs` (009 เติมแถวเงินคำท้า 30 แถว ฿34,220) → จองใหม่ 1 นัดผ่าน API (`LN-100001`) → ลูกค้า "ต้น" login แล้ว logout (เพิ่มแถว `revoked_sessions`) · กระทบยอดเงินคำท้าก่อนเริ่ม = 0 / 0
+
+### 9.1 เมื่อไรต้องถอย
+
+`node tests/smoke.mjs` exit 1 หลังขึ้นระบบ · กระทบยอด (`tools/reconcile-challenges.sql`) ไม่เป็น 0 ทั้งคู่ · migration หยุดกลางทาง · UAT ไม่ผ่านข้อสำคัญ (`UAT-CHECKLIST.md`)
+
+### 9.2 ก่อนขึ้นระบบ (ทำไว้ล่วงหน้า ไม่งั้นไม่มีของให้ถอย)
+
+```bash
+docker tag football-web:v2 football-web:before-deploy      # image เว็บที่รันอยู่ตอนนี้ (ถ้าเป็นการขึ้น CR ใหม่ ตั้งชื่อ before-crNN)
+node scripts/backup.mjs --keep 14                           # สำรอง (ค่าเริ่ม keep 7 ลบชุดเก่า · ซ้อมใช้ 14 เพื่อไม่ลบของเดิม)
+docker exec football-db psql -U football -d football -At -F ' | ' -c "select version, applied_at from schema_migrations where version in ('007','008','009')"   # จดไว้ (ดูข้อ 9.6)
+```
+
+ถ้าต้องถอยกลับถึงตอนรับมอบต้องมี image ของ tag: `git archive v2-handover web | tar -x -C <โฟลเดอร์ว่าง>` แล้ว `docker build -t football-web:v2-handover <โฟลเดอร์>/web` (ซ้อมนี้ใช้ 25 วิเพราะ layer cache · image ชื่อนี้ build ไว้แล้วในเครื่อง)
+
+### 9.3 ขั้นตอนที่ซ้อม (ผลจริง 2026-10-21 · เวลาวัดจริง)
+
+| ขั้น | คำสั่ง | ผล | เวลา |
+|---|---|---|---|
+| 1 สำรอง | `node scripts/backup.mjs --keep 14` | `db/backups/football-20261021-143314.dump` 168,186 ไบต์ (sha256 `5d28ff156c5ac0be…` · git-ignored `db/backups/*`) · bookings 639 · payments ฿1,232,790 | 1.0 วิ |
+| 2 พิสูจน์ว่า dump กู้ได้ (ฐานชั่วคราว ไม่แตะฐานจริง) | `docker exec football-db psql -U football -d postgres -c "CREATE DATABASE football_restore_check"` → `docker exec football-db pg_restore -U football -d football_restore_check --no-owner --exit-on-error /backups/<ไฟล์>` → นับ/md5 → `DROP DATABASE football_restore_check` | กู้สำเร็จ · **md5 ทั้ง 26 ตาราง + ยอดรวม ตรงกับฐานจริงทุกตัว** (`bookings` 639 · `payments` 1,232,790 · คำท้าที่มี `challenge_id` 30 · `revoked_sessions` 562 · schema 001–009) · ฐานชั่วคราวถูกลบแล้ว | 1.5 วิ |
+| 3 ถอยเว็บเป็นรุ่นตอนรับมอบ **ก่อน** | `docker tag football-web:v2 football-web:head-ea32d4d` · `docker tag football-web:v2-handover football-web:v2` · `docker compose -f web/compose.yaml up -d --no-build --force-recreate` | healthy · BUILD_ID `gR4P8HNc…` (รุ่น tag) · เว็บเก่าทำงานบน schema 009 ได้ (ยังไม่ถอย DB) | 7.6 วิ |
+| 4a ถอย DB ทีละเลข **จากใหม่ไปเก่า** | `node scripts/migrate.mjs --down 009` | `/api/version` → 008 · bookings 639 → 639 ✓ | 1.5 วิ |
+| 4b | `node scripts/migrate.mjs --down 008` | → 007 · bookings 639 ✓ | 1.1 วิ |
+| 4c | `node scripts/migrate.mjs --down 007` | → **006** · bookings 639 ✓ · `--status` เหลือ 001–006 | 1.4 วิ |
+| 5 ตรวจเว็บเก่าบน schema 006 | `EXPECT_SCHEMA=006 SMOKE_LEVEL=core node tests/smoke.mjs` (exit 0, 8/8 ข้อหลัก ข้าม 2 ข้อของ CR) · login ต้น/เจ้าของ ได้ · `GET /api/me` ได้ 200 · `GET /api/bookings/LN-100001?phone=…` เห็นนัดใหม่ · `owner/reports` ตอบ · `POST /api/quote` ตอบราคา · snapshot md5 (ผลในข้อ 9.4) | ผ่านทั้งหมด · **ลูกค้า logout แล้วใช้ cookie เดิม `GET /api/me` ยังได้ 200** (= พฤติกรรมก่อน CR-01 ตามคาด) | – |
+| 6 ไปข้างหน้า: ขึ้น schema ก่อน | `node scripts/migrate.mjs` (รันทุกไฟล์ซ้ำได้) | UP 001…009 · bookings 639 → 639 ✓ · `tools/reconcile-challenges.sql` = **0 / 0** | 3.8 วิ |
+| 7 คืนแถวที่ down ลบ (ต้องใช้ dump) | `docker exec football-db pg_restore -U football -d football --data-only --table=revoked_sessions --single-transaction --exit-on-error /backups/<ไฟล์>` · `UPDATE schema_migrations SET applied_at = <ค่าที่จดไว้> WHERE version IN ('007','008','009')` | `revoked_sessions` 562 แถวกลับมา · applied_at กลับเป็นค่าเดิม | 0.5 วิ |
+| 8 เว็บ HEAD กลับ | `docker tag football-web:head-ea32d4d football-web:v2` · `docker compose -f web/compose.yaml up -d --no-build --force-recreate` | healthy · `node tests/smoke.mjs` **10/10 exit 0** · logout แล้วใช้ cookie เดิม `GET /api/me` → **401** (CR-01 กลับมา) | 7.0 วิ |
+| 9 smoke จับเว็บล่ม | `docker compose -f web/compose.yaml stop` → `node tests/smoke.mjs` → `docker compose -f web/compose.yaml up -d` → smoke | หยุด: **0/10 exit 1** (`ECONNREFUSED`) · เปิด: healthy 5.9 วิ → **10/10 exit 0** | – |
+
+เวลารวมขั้นที่เปลี่ยนระบบ (3, 4a–c, 6, 7, 8) ≈ **23 วิ** ไม่รวมสำรอง/ตรวจ · เว็บไม่พร้อมใช้ช่วงสลับ image ครั้งละ ~7 วิ
+
+### 9.4 จำนวนแถว / md5 ก่อน · ที่ schema 006 · หลังขึ้นใหม่ (นับ `count(*)` + md5 ของแถวเรียงข้อความ ทุกตาราง · `payments` ไม่นับคอลัมน์ `id`)
+
+| ตาราง | ก่อน (009) | หลังถอยเป็น 006 | หลังขึ้นใหม่ 009 + คืนจาก dump |
+|---|---|---|---|
+| bookings | 639 | 639 · md5 **เท่าเดิม** | 639 · md5 **เท่าเดิม** |
+| booking_status_history / audit_logs / credit_entries / customers / challenges / counter_sales / stock_movements / ที่เหลือรวม 23 ตาราง | 1,832 / 596 / 56 / 48 / 36 / 55 / 140 / … | **md5 เท่าเดิมทุกตาราง** | **md5 เท่าเดิมทุกตาราง** |
+| payments | 1,024 แถว · ฿1,232,790 (ในนี้เงินคำท้า 30 แถว ฿34,220) | **994** แถว · ฿1,198,570 (แถวเงินคำท้าถูกลบตามที่ `009.down` บอก) | 1,024 · ฿1,232,790 · md5 เท่าเดิมเมื่อไม่นับ `id` (`id` ของ 30 แถวนั้นเป็นเลขใหม่) |
+| field_rates (008) | 2 แถว (A, B 1 พ.ย. เย็น ฿1,300) | **ตารางหาย** | 2 แถว เนื้อหาเท่าเดิม · `created_at` เป็นเวลาที่ขึ้นใหม่ (md5 ต่างเฉพาะคอลัมน์นี้) |
+| revoked_sessions (007) | 562 | **ตารางหาย** (cookie ที่เคยกด logout ใช้ได้อีก — เว็บรุ่นเก่าไม่ตรวจอยู่แล้ว) | 562 (คืนจาก dump) · md5 เท่าเดิม |
+| schema_migrations | 001–009 | 001–006 | 001–009 · `applied_at` ของ 007–009 คืนตามที่จดไว้ |
+| กระทบยอดเงินคำท้า | 0 / 0 | – (009 ถูกถอยแล้ว) | **0 / 0** |
+| golden master (หลังซ้อม + reset) | – | – | 261/261 · 15/15 · 132/132 |
+
+สรุป: 26 ตาราง (นับตอน 009) → หลังขึ้นใหม่ **25 ตาราง md5 เท่าเดิมทุกตัว** + `field_rates` เท่าเดิมเมื่อไม่นับ `created_at`
+
+### 9.5 ข้อมูลที่หายถ้าถอย (บอกร้านก่อนถอยทุกครั้ง)
+
+| ถอยถึง | หาย | ผลต่อร้าน | กู้ได้ไหม |
+|---|---|---|---|
+| 009 | แถว `payments` ที่ `challenge_id` ไม่ว่าง (เงินคำท้า ทั้งที่ migration เติมและที่เว็บใหม่เขียน) | รายงาน/แดชบอร์ดกลับไปไม่นับเงินคำท้า (พฤติกรรมก่อน CR-06) · การจอง/เครดิตเจ้าของ/ลูกค้าไม่ถูกแตะ | ขึ้น 009 ใหม่ = เติมกลับจากรายการเครดิต `CHALLENGE` อัตโนมัติ (ซ้อมแล้ว เท่าเดิม ยกเว้น `id` ของแถว) |
+| 008 | ตาราง `field_rates` (ราคาเย็น A/B ฿1,300 วันที่ 1 พ.ย.) | ราคากลับเป็น ฿1,200 ทุกวัน · ยอดที่เก็บในการจองไม่เปลี่ยน | migration 008 ใส่ 2 แถวคืนให้เอง (แถวที่ร้านเพิ่มเองภายหลัง ต้องกู้จาก dump) |
+| 007 | ตาราง `revoked_sessions` (รายการ cookie ที่กดออกจากระบบ) | ผู้ที่เคยกด "ออกจากระบบ" แต่ cookie ยังไม่หมดอายุ กลับเข้าใช้ได้อีก (ความเสี่ยงเรื่องร้องเรียนของ CR-01 กลับมา) | กู้แถวจาก dump ได้ (ขั้น 7) |
+| (ทุกเลข) | การจอง/เงิน/ผู้ใช้/สต็อก/แชท ที่เกิดหลังไฟล์สำรอง ถ้าต้อง **กู้ทั้งฐาน** (`node scripts/restore.mjs …`) | – | ไม่กู้ทั้งฐานถ้าไม่จำเป็น: การถอยด้วย `--down` เก็บการจองใหม่ไว้ครบ (ซ้อมแล้ว `LN-100001` อยู่ทุกขั้น) |
+
+### 9.6 ข้อควรระวังที่เจอตอนซ้อม
+
+- **`--down N` ไม่บังคับลำดับ** (ถอย 008 ได้ทั้งที่ 009 ยังอยู่ · `/api/version` ใช้ `max(version)` จึงไม่เห็นรูตรงกลาง) → ซ้อมนี้สั่งทีละเลข **009 → 008 → 007** แล้วตรวจ `--status` และ `/api/version` หลังทุกขั้น
+- **ถอยเว็บก่อน ถอย DB ทีหลัง** (เว็บใหม่เขียน `payments.challenge_id` และอ่าน `field_rates`/`revoked_sessions` ตลอด · เว็บเก่าทำงานบน schema ใหม่ได้) · ขาขึ้นกลับกัน: **migration ก่อน แล้วค่อยเปลี่ยนเว็บ**
+- `applied_at` ของ 007 คือเวลาเริ่มนับ cookie แบบก่อน CR-01 (`db/migrations/007_session_revocation.sql`) → ขึ้น 007 ใหม่แล้ว `applied_at` เป็นเวลาปัจจุบัน cookie เก่าจะได้เวลาผ่อนผันนานขึ้น → จดค่าเดิมไว้ก่อนถอย แล้ว `UPDATE` คืนหลังขึ้น (ขั้น 7)
+- `node scripts/backup.mjs` ค่าเริ่ม `--keep 7` จะลบ dump เก่าเกิน 7 ชุด → ซ้อมใช้ `--keep 14`
+- `docker compose up` ไม่มี `--build` ใช้ image ที่แท็กอยู่ (`football-web:v2`) → การสลับ image ทำได้ด้วย `docker tag` ตัวเดียวแล้ว `up -d --no-build --force-recreate` · build ใหม่ (`--build`) ใช้ตอนขึ้นระบบจริงครั้งแรก
+- ถอยแบบ **ข้ามไปเก่ากว่า CR ที่เพิ่งขึ้น** (เช่นแค่ CR-06) ต้องมี image ก่อน CR นั้น (`football-web:before-crNN`) · ในเครื่องนี้มีเฉพาะ `before-cr01` `before-cr02` และ `v2-handover` (+ `head-ea32d4d`) → ถอยทีละ CR ที่ 03–06 ต้อง build image จาก commit ก่อนหน้าเอง (`git archive <commit> web | tar -x -C …`)
+- ปลายซ้อม: `POST /api/test/reset {}` คืน seed ปกติ (ข้อมูลเสมือนจริงของการซ้อมถูกล้าง ตั้งใจ) · `BUG_MODE=0` · `MODE=mock` · schema 009 · healthy
