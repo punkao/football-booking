@@ -18,7 +18,9 @@ push ได้ที่ `https://github.com/punkao/football-booking.git` (origin
 | D รับช่วง (บท 05–06) | HANDOVER-CHECK · SYSTEM-MAP · REA (image `rea-lab:6.4.0` build แล้ว) · golden master · mutant 3/3 · known-issue lock | `legacy/`, `tests/golden/`, `CLAUDE.md` |
 | D CR-01…05 | ทุกฉบับ: คำถาม → ของเดิม file:line → impact → commit แดง → commit แก้ → regression | `CHANGE-REQUESTS/`, `docs/impact/CR-0N.md`, `ORACLE-CHANGES.md` |
 
-คะแนน e2e: เริ่มส่วน D 117/128 → หลัง CR-04 **127/128 ทุกเบราว์เซอร์** (เหลือ SERIES-04 ข้ามตามแผน) · schemaVersion **008**
+คะแนน e2e: เริ่มส่วน D 117/128 → หลัง CR-04 **127/128 ทุกเบราว์เซอร์** (เหลือ SERIES-04 ข้ามตามแผน) · schemaVersion **009**
+
+**อัปเดต 21 ต.ค. (session ใหม่):** ข้อ 1 ✅ ผู้ใช้อนุมัติ oracle CR-05 → `ea1c180` · ข้อ 3 ✅ CR-06 red `b119c1e` · fix `ac96761` · REGISTER `f845625` (migration 009 `payments.challenge_id` · regression 3 เบราว์เซอร์ 0 ล้ม · golden ไม่เปลี่ยน) · ค้างถามร้าน CR-06 Q4/Q6/Q7/Q9 (สมมติฐานใน `docs/impact/CR-06.md` 1.2) · `009.down` ลบแถวเงินคำท้าทุกแถว (รวมที่เว็บใหม่เขียน) ขึ้นใหม่เติมกลับจากเครดิต → ใส่ใน RELEASE-NOTES · **งานถัดไป = ข้อ 4**
 
 ## 3. ค้างอยู่ตรงไหน (ทำต่อตามลำดับ)
 1. **🙋 รอผู้ใช้ (ในฐานะร้าน) อนุมัติ ORACLE-CHANGES 6 แถวของ CR-05** (แถววันที่ 2026-10-21 ใน `ORACLE-CHANGES.md`): ค่าที่คาดหวังเดิมที่วันเตะเลย 1 พ.ย. → ราคาใหม่ตามวันเตะ (TC-SERIES-02 ฿10,800 → ฿11,430 · TC-SERIES-05 ฿4,800 → ฿4,900 · TC-OWNER-01 วันหยุด พ.ย. 09:00 ฿1,200 → ฿1,300 · rules-check 3 ข้อ · check-testdata + `docs/TEST-DATA.md` E76/E77) · session เดิมแนะนำ "อนุมัติ" (หลักคิด: จองประจำคร่อม 1 พ.ย. คิดตามวันเตะแต่ละนัดแล้วลด 10%) · อนุมัติแล้ว: แก้ไฟล์ตามแถว (ห้ามเปลี่ยนตัวเลขอื่น) → รัน test ที่เกี่ยว → ทำเครื่องหมาย ✅ ในแถว → commit `CR-05-oracle:` → อัปเดต REGISTER แถว CR-05
