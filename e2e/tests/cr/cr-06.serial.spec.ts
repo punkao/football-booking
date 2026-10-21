@@ -262,3 +262,83 @@ test('CR-06-05 คำท้าที่จ่ายไปแล้วในอ�
     expect((await dayReport(owner, PAST)).day.bookingPromptpay).toBe(900);
   });
 });
+
+// ---------------------------------------------------------------- 1.3 ข้อตัดสิน Q7: เงินคำท้าเป็นเงินของร้าน ไม่ใช่เงินที่เจ้าของการจองจ่าย
+const DECIDED = 'docs/impact/CR-06.md ข้อ 1.3 (ร้านมอบให้ทีมออกแบบ · ผู้ใช้ 21 ต.ค. 2569)';
+
+test('CR-06-06 หน้าการจองของลูกค้าแสดงเฉพาะเงินที่ลูกค้าจ่ายเอง: ทีมรับคำท้าจ่ายแล้ว ไม่มีแถว ฿900 ในรายการชำระ', {
+  tag: ['@CR-06', '@P1'],
+  annotation: ann({
+    tc: 'CR-06-06', level: 'P1', source: `[D:CR-06 1.3] ${DECIDED} Q7 · NFR-04 · BR-28`,
+    expected: 'ก่อนทีมรับจ่าย: รายการชำระของลูกค้า 1 แถว ฿1,800 · หลังทีมรับจ่าย ฿900: ยังเป็น 1 แถว ฿1,800 (ไม่มี ฿900) · ยอดจ่ายแล้ว ฿1,800 · เครดิตเจ้าของ ฿900 ยังเห็นในประวัติเครดิต (เหตุผลคำท้า) · ฐานข้อมูลยังมีแถวเงิน ฿900 (ไว้ให้รายงาน)',
+  }),
+}, async ({ page, b }) => {
+  const { code, id, ownerPhone, rivalPhone } = await setup(page.request, b);
+  const own = async () => {
+    const r = await getJson(page.request, `/api/bookings/${code}?phone=${ownerPhone}`);
+    expect(r.status, JSON.stringify(r.body)).toBe(200);
+    return r.body;
+  };
+  await test.step('ก่อนทีมรับจ่าย: ลูกค้าเห็นรายการชำระ 1 แถว ฿1,800', async () => {
+    const d = await own();
+    expect((d.booking.payments as { amount: number }[]).map((p) => p.amount)).toEqual([1800]);
+  });
+  await test.step('ทีมรับคำท้าโอน ฿900', async () => {
+    const r = await postJson(page.request, `/api/challenges/${id}/pay`, { phone: rivalPhone });
+    expect(r.status, JSON.stringify(r.body)).toBe(200);
+  });
+  await test.step('หน้าการจองของลูกค้า: รายการชำระยังมีแค่ ฿1,800 (ไม่มี ฿900 ที่ทีมอื่นจ่าย) · ยอดจ่ายแล้ว ฿1,800', async () => {
+    const d = await own();
+    expect.soft((d.booking.payments as { amount: number }[]).map((p) => p.amount), 'เฉพาะเงินที่ลูกค้าจ่ายเอง [D:CR-06 1.3]').toEqual([1800]);
+    expect.soft((d.booking.payments as { method: string }[]).map((p) => p.method)).toEqual(['PROMPTPAY']);
+    expect.soft(d.booking.amountPaid).toBe(1800);
+  });
+  await test.step('เครดิต ฿900 "คำท้า" ของเจ้าของยังอยู่ในประวัติเครดิต (ไม่เปลี่ยน)', async () => {
+    expect(creditSnapshot(ownerPhone).balance).toBe(900);
+    expect(sqlNum(`select count(*) from credit_entries where reason='CHALLENGE' and amount=900`)).toBe(1);
+  });
+  await test.step('แถวเงิน ฿900 ยังอยู่ในฐานข้อมูล (รายงานยังนับ) — แค่ไม่โชว์ให้ลูกค้า', async () => {
+    expect(sqlNum(`select count(*) from payments p join bookings k on k.id=p.booking_id where k.code='${code}' and p.challenge_id is not null and p.amount=900`)).toBe(1);
+  });
+});
+
+test('CR-06-07 ประวัติการจองหลังบ้านแสดงเงินคำท้า ฿900 ติดป้าย "จากทีมรับคำท้า" · เงินที่ลูกค้าจ่ายเองไม่มีป้าย · API บอกที่มา', {
+  tag: ['@CR-06', '@P1'],
+  annotation: ann({
+    tc: 'CR-06-07', level: 'P1', source: `[D:CR-06 1.3] ${DECIDED} Q7 ตัวเลือก ค · FR-43 / FR-44`,
+    expected: 'API ประวัติ: payments = [{BOOKING ฿1,800 PROMPTPAY}, {CHALLENGE ฿900 PROMPTPAY}] (ฟิลด์เดิม amount/method/paidAt ไม่เปลี่ยน) · หน้า history-payments 2 แถว: แถว ฿1,800 ไม่มีป้าย · แถว ฿900 มีป้าย "จากทีมรับคำท้า" (EN "from the challenge team") testid history-payment-source-1 · ตัวเลขรายงานเดิมไม่เปลี่ยน (พร้อมเพย์ ฿2,700)',
+  }),
+}, async ({ page, staffApi, b }) => {
+  const owner = await staffApi('owner');
+  const { code, id, rivalPhone } = await setup(page.request, b);
+  await test.step('ทีมรับคำท้าโอน ฿900', async () => {
+    const r = await postJson(page.request, `/api/challenges/${id}/pay`, { phone: rivalPhone });
+    expect(r.status, JSON.stringify(r.body)).toBe(200);
+  });
+  await test.step('API ประวัติการจอง: 2 แถว ฿1,800 ที่มา BOOKING · ฿900 ที่มา CHALLENGE · ฟิลด์เดิมครบ', async () => {
+    const r = await getJson(owner, `/api/owner/bookings/${code}/history`);
+    expect(r.status, JSON.stringify(r.body)).toBe(200);
+    const ps = r.body.payments as { amount: number; method: string; paidAt: string; source: string }[];
+    expect.soft(ps.map((p) => `${p.source}:${p.amount}:${p.method}`)).toEqual(['BOOKING:1800:PROMPTPAY', 'CHALLENGE:900:PROMPTPAY']);
+    expect.soft(ps.every((p) => typeof p.paidAt === 'string' && p.paidAt.length > 0), 'paidAt ยังมี').toBe(true);
+  });
+  await test.step('เจ้าของร้านเปิดหน้าประวัติการจอง: เห็น 2 แถว · แถว ฿900 ติดป้าย "จากทีมรับคำท้า" · แถว ฿1,800 ไม่มีป้าย', async () => {
+    await staffLoginPage(page, 'owner');
+    await open(page, `/owner/bookings/${code}`);
+    const list = page.getByTestId('history-payments');
+    await expect(list.locator('li')).toHaveCount(2);
+    await expect.soft(page.getByTestId('history-payment-0')).toHaveAttribute('data-source', 'BOOKING');
+    await expect.soft(page.getByTestId('history-payment-1')).toHaveAttribute('data-source', 'CHALLENGE');
+    await expect.soft(page.getByTestId('history-payment-source-1')).toHaveText('จากทีมรับคำท้า');
+    await expect.soft(page.getByTestId('history-payment-source-0')).toHaveCount(0);
+  });
+  await test.step('ภาษาอังกฤษ: ป้ายเป็น "from the challenge team"', async () => {
+    await page.context().addCookies([{ name: 'lang', value: 'en', url: new URL('/', page.url()).toString() }]);
+    await open(page, `/owner/bookings/${code}`);
+    await expect.soft(page.getByTestId('history-payment-source-1')).toHaveText('from the challenge team');
+    await page.context().addCookies([{ name: 'lang', value: 'th', url: new URL('/', page.url()).toString() }]);
+  });
+  await test.step('ตัวเลขรายงาน 9 ต.ค. ไม่เปลี่ยน: พร้อมเพย์ ฿2,700 (เงินคำท้ายังนับเป็นเงินของร้าน)', async () => {
+    expect((await dayReport(owner, TODAY)).day.bookingPromptpay).toBe(2700);
+  });
+});
