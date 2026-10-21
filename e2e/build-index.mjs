@@ -98,6 +98,31 @@ function media() {
   return { gifs, mp4s, of };
 }
 
+// ---------------------------------------------------------------- เทสต์ของ CR (ส่วน D) = e2e/tests/cr/*.spec.ts
+// อ่านบรรทัด test('<id> <ชื่อ>' · id สื่อ: CR-0N-NN, CR-05-SN, REVIEW-N · known-issues "KI TC-X-NN" → ชื่อไฟล์สื่อ KI-TC-X-NN
+function crTests(m) {
+  const dir = path.join(here, 'tests', 'cr');
+  let files = [];
+  try { files = fs.readdirSync(dir).filter((f) => f.endsWith('.spec.ts')).sort(); } catch { return []; }
+  const out = [];
+  for (const f of files) {
+    fs.readFileSync(path.join(dir, f), 'utf8').split(/\r?\n/).forEach((line, i) => {
+      const t = line.match(/^\s*test\(\s*(['"`])(.*?)\1\s*,/);
+      if (!t) return;
+      const mm = t[2].match(/^((?:CR-\d+-\w+)|(?:REVIEW-\d+)|(?:KI TC-[\w-]+))\s+(.*)$/);
+      if (!mm) return;
+      const id = mm[1].replace(/^KI /, 'KI-');
+      out.push({
+        id, title: mm[2], file: `tests/cr/${f}`, line: i + 1,
+        fileLink: link(path.join(dir, f)),
+        gifs: m.of(m.gifs, id, 'gifs'),
+        mp4s: m.of(m.mp4s, id, 'videos'),
+      });
+    });
+  }
+  return out;
+}
+
 // ---------------------------------------------------------------- main
 const plan = buildPlanCases();
 const cases = plan.cases;
@@ -130,6 +155,7 @@ const data = {
   compare: cmp,
   claims: builderClaims(),
   counts: { gif: m.gifs.length, mp4: m.mp4s.length },
+  crTests: crTests(m),
   triageFile: path.relative(ROOT, TRIAGE).split(path.sep).join('/'),
   links: {
     // หน้าที่สร้างไว้ในโฟลเดอร์รอบ (test-report/run-N/index.html) ลิงก์ไปสำเนารายงานของรอบนั้นเอง

@@ -219,7 +219,25 @@ function render() {
       <thead><tr><th>รหัส</th><th>สิ่งที่ทดสอบ</th><th>ระดับ</th><th>ที่มา</th><th>เฉลย</th><th>chromium</th><th>firefox</th><th>webkit</th><th>GIF · MP4 · MCP</th></tr></thead>
       <tbody id="tb"></tbody>
     </table>
-  </div>`;
+  </div>
+
+  ${(d.crTests ?? []).length ? `<h2 id="cr-tests">เทสต์ของ CR (ส่วน D) (${d.crTests.length})</h2>
+  <p class="small muted">เทสต์ที่เพิ่มตาม change request อยู่ใน <span class="mono">e2e/tests/cr/*.spec.ts</span> (นอกแผน 128 TC) · มีวิดีโอ ${d.crTests.filter((t) => t.gifs.length || t.mp4s.length).length} จาก ${d.crTests.length} ข้อ · ข้อที่ยิง API / แชทอย่างเดียวไม่เปิดหน้าเว็บจึงไม่มีวิดีโอ</p>
+  <div class="tablewrap">
+    <table class="cases cr">
+      <thead><tr><th>รหัส</th><th>สิ่งที่ทดสอบ</th><th>ไฟล์:บรรทัด</th><th>GIF</th><th>MP4</th></tr></thead>
+      <tbody>${d.crTests.map((t) => {
+        const none = !t.gifs.length && !t.mp4s.length;
+        const lk = (list, name) => list.map((g, k) => `<a href="${esc(g)}" target="_blank">${name}${list.length > 1 ? k + 1 : ''}</a>`).join(' ');
+        return `<tr class="tc last" id="${esc(t.id)}" data-k="${esc(t.id)}">
+          <td class="id" data-l="รหัส">${esc(t.id)}</td>
+          <td data-l="สิ่งที่ทดสอบ">${esc(t.title)}</td>
+          <td data-l="ไฟล์" class="small"><a href="${esc(t.fileLink)}" class="mono">${esc(t.file)}:${t.line}</a></td>
+          ${none ? '<td colspan="2" class="muted small" data-l="หลักฐาน">ไม่เปิดหน้า (API/แชท)</td>'
+            : `<td class="ev small" data-l="GIF">${lk(t.gifs, 'GIF') || '<span class="muted">–</span>'}</td><td class="ev small" data-l="MP4">${lk(t.mp4s, 'MP4') || '<span class="muted">–</span>'}</td>`}
+        </tr>`; }).join('')}</tbody>
+    </table>
+  </div>` : ''}`;
   const apply = () => {
     const q = document.getElementById('q').value.trim().toLowerCase();
     const mo = document.getElementById('mod').value, pr = document.getElementById('pr').value, fo = document.getElementById('fo').checked;
