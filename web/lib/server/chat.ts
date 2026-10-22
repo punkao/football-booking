@@ -11,6 +11,7 @@ import {
   checkChatText,
   computePrice,
   fieldPriceFor,
+  isEveningPricedDay,
   neutralizeUserText,
   paymentPlanFor,
   normalizePhone,
@@ -18,7 +19,7 @@ import {
 } from "@/lib/rules";
 import { msg } from "@/lib/i18n";
 import { runTurn } from "@/lib/chat/engine";
-import type { BookArgs, BookResult, ChatMsg, CheckResult, QuoteResult, ToolArgs, Tools } from "@/lib/chat/engine";
+import type { BookArgs, BookResult, ChatMsg, CheckResult, DayArgs, DayResult, QuoteResult, ToolArgs, Tools } from "@/lib/chat/engine";
 import { mockBrain } from "@/lib/chat/mock";
 import { buildSystemPrompt, factsFrom } from "@/lib/chat/prompt";
 import { detectLang } from "@/lib/chat/templates";
@@ -98,6 +99,21 @@ function toolsFor(ctx: Ctx, lang: "th" | "en", sid: string): Tools {
         }
         return { tag: "QUOTE", ok: false, ...a, ...r };
       }
+    },
+    // S2b: the free start hours of every field on one day — the web's availability(), no prices
+    async day(a: DayArgs): Promise<DayResult> {
+      const av = await availability(c, a.date);
+      if (a.date > av.maxDate) return { tag: "DAY", ok: false, date: a.date, reasonCode: "TOO_FAR_AHEAD", reason: msg(lang, "TOO_FAR_AHEAD") };
+      const eveningDay = isEveningPricedDay(a.date, await holidayDates(null));
+      return {
+        tag: "DAY",
+        ok: true,
+        date: a.date,
+        fields: av.fields.map((f) => ({
+          fieldId: f.id,
+          free: av.slots.filter((s) => s.fieldId === f.id && s.status === "free").map((s) => ({ hour: s.hour, evening: eveningDay || s.hour >= 17 })),
+        })),
+      };
     },
     async book(a): Promise<BookResult> {
       try {

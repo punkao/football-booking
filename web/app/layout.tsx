@@ -7,7 +7,7 @@ import "./globals.css";
 import { Logo } from "@/components/Art";
 import { LangToggle } from "@/components/ui";
 import { Nav } from "@/components/Nav";
-import { ChatWidget } from "@/components/ChatWidget";
+import { ChatLauncher, ChatWidget } from "@/components/ChatWidget";
 import { SHOP_NAME, tx } from "@/lib/i18n";
 import { pageLang, pageStaff } from "@/lib/server/page";
 
@@ -47,6 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <span>{shop}</span>
               </Link>
               <Nav lang={lang} staffRole={staffRole} />
+              <ChatLauncher lang={lang} />
               <LangToggle lang={lang} />
             </div>
           </div>

@@ -34,15 +34,18 @@ async function ask(page: Page, text: string) {
 
 test.describe('แชท · เลย์เอาต์', () => {
   test('1280: แผงข้างเต็มสูง เนื้อหาถอยซ้าย ไม่ถูกแผงบัง', {
-    annotation: [{ type: 'expected', description: 'เปิดแชทที่ 1280: ขอบซ้ายแผง ≥ ขอบขวาของ #main · แผงสูงจากใต้หัวเว็บถึงก้นจอ · ปุ่มเปิดไม่ทับแผง · ไม่มี scroll แนวนอน · ปิดแล้วเนื้อหากลับมาเต็มความกว้าง' }],
+    annotation: [{ type: 'expected', description: 'เปิดแชทที่ 1280: ขอบซ้ายแผง ≥ ขอบขวาของ #main · แผงสูงจากใต้หัวเว็บถึงก้นจอ · ปุ่มในหัวเว็บเปลี่ยนเป็น "ปิดแชท" (aria-expanded=true) และกดปิดได้ · ไม่มี scroll แนวนอน · ปิดแล้วเนื้อหากลับมาเต็มความกว้าง' }],
   }, async ({ page, b }) => {
     await asCustomer(page, b);
     await page.setViewportSize({ width: 1280, height: 800 });
     for (const route of ['/', '/book', '/fields']) {
       await test.step(`เปิดแชทที่ ${route}`, async () => {
         await open(page, route);
-        const wide = await rect(page, 'chat-open');
+        const launch = page.getByTestId('chat-open');
+        await expect(launch).toHaveAttribute('aria-expanded', 'false');
         await openChat(page);
+        await expect(launch).toHaveAttribute('aria-expanded', 'true');
+        await expect(launch).toContainText('ปิดแชท');
         const panel = (await rect(page, 'chat-panel'))!;
         const main = await page.locator('#main').evaluate((e) => e.getBoundingClientRect().right);
         const header = await page.locator('header.site-header').evaluate((e) => e.getBoundingClientRect().bottom);
@@ -50,24 +53,13 @@ test.describe('แชท · เลย์เอาต์', () => {
         expect(panel.w).toBeGreaterThanOrEqual(380);
         expect(panel.y, 'แผงเริ่มใต้หัวเว็บ').toBeGreaterThanOrEqual(header - 1);
         expect(panel.b, 'แผงสูงถึงก้นจอ').toBeGreaterThanOrEqual(799);
-        const fab = (await rect(page, 'chat-open'))!;
-        expect(fab.r, 'ปุ่มเปิดไม่ทับแผง').toBeLessThanOrEqual(panel.x + 1);
-        expect(wide).not.toBeNull();
         expect(await scrollWidth(page)).toBeLessThanOrEqual(1280);
-        // ท้ายหน้า: ไม่มีข้อความ/ลิงก์ใต้ปุ่มเปิด
-        await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-        const hits = await page.evaluate(() => {
-          const f = document.querySelector('[data-testid="chat-open"]')!.getBoundingClientRect();
-          const out: string[] = [];
-          for (const el of document.querySelectorAll('#main *, footer *')) {
-            const own = [...el.childNodes].some((n) => n.nodeType === 3 && (n.textContent ?? '').trim());
-            if (!own && !/^(A|BUTTON|INPUT|SELECT)$/.test(el.tagName)) continue;
-            const r = el.getBoundingClientRect();
-            if (r.width && r.height && r.left < f.right && r.right > f.left && r.top < f.bottom && r.bottom > f.top) out.push(el.tagName + ':' + (el.textContent ?? '').trim().slice(0, 20));
-          }
-          return out;
-        });
-        expect(hits, `${route}: ปุ่มเปิดทับเนื้อหาท้ายหน้า`).toEqual([]);
+        // ปุ่มในหัวเว็บ (sticky) ปิดแชทได้ และโฟกัสอยู่ที่ปุ่ม
+        await launch.click();
+        await expect(page.getByTestId('chat-panel')).toHaveCount(0);
+        await expect(launch).toHaveAttribute('aria-expanded', 'false');
+        await expect(launch).toContainText('แชทกับน้องบอล');
+        await openChat(page);
         await page.getByTestId('chat-close').click();
         await expect(page.getByTestId('chat-panel')).toHaveCount(0);
         const mainAfter = await page.locator('#main').evaluate((e) => e.getBoundingClientRect().right);
@@ -76,15 +68,14 @@ test.describe('แชท · เลย์เอาต์', () => {
     }
   });
 
-  test('375: เต็มจอ ปุ่มเปิดซ่อนขณะเปิด ช่องพิมพ์/ปุ่มส่ง/ปุ่มปิดอยู่ในจอ', {
-    annotation: [{ type: 'expected', description: 'เปิดแชทที่ 375×812: แผงคลุมทั้งจอ · ปุ่มปิด ≥ 44×44 · scrollWidth ≤ 375 · หน้าหลังแผงเลื่อนไม่ได้ · ปิดแล้วปุ่มเปิดกลับมา' }],
+  test('375: เต็มจอ ช่องพิมพ์/ปุ่มส่ง/ปุ่มปิดอยู่ในจอ', {
+    annotation: [{ type: 'expected', description: 'เปิดแชทที่ 375×812: แผงคลุมทั้งจอ · ปุ่มปิด ≥ 44×44 · scrollWidth ≤ 375 · หน้าหลังแผงเลื่อนไม่ได้ · ปิดแล้วปุ่ม chat-open ในหัวเว็บใช้ได้ต่อ (aria-expanded=false)' }],
   }, async ({ page, b }) => {
     await asCustomer(page, b);
     await page.setViewportSize({ width: 375, height: 812 });
     await open(page, '/book');
     await openChat(page);
     await expect.poll(async () => { const r = (await rect(page, 'chat-panel'))!; return [r.x, r.y, r.w, Math.round(r.h)]; }, { message: 'แผงคลุมทั้งจอ (หลังแอนิเมชัน 200ms)' }).toEqual([0, 0, 375, 812]);
-    await expect(page.getByTestId('chat-open')).toBeHidden();
     const x = (await rect(page, 'chat-close'))!;
     expect(x.w).toBeGreaterThanOrEqual(44);
     expect(x.h).toBeGreaterThanOrEqual(44);
@@ -97,6 +88,7 @@ test.describe('แชท · เลย์เอาต์', () => {
     await expect(page.getByTestId('chat-panel')).toHaveAttribute('role', 'dialog');
     await page.getByTestId('chat-close').click();
     await expect(page.getByTestId('chat-open')).toBeVisible();
+    await expect(page.getByTestId('chat-open')).toHaveAttribute('aria-expanded', 'false');
     expect(await page.evaluate(() => getComputedStyle(document.body).overflow)).not.toBe('hidden');
   });
 });
@@ -167,7 +159,7 @@ test('การ์ดราคาเป็นตั๋ว: ยอดรวม ·
 
 test.describe('แชท · คีย์บอร์ดและการลดการเคลื่อนไหว', () => {
   test('เปิดแล้วโฟกัสเข้าแผง · Esc ปิดแล้วโฟกัสกลับที่ปุ่มเปิด · Tab ไปถึงทุกปุ่มสำคัญ', {
-    annotation: [{ type: 'expected', description: '1280: กด Enter ที่ chat-open → โฟกัสที่ chat-input · Tab ถึงชิป/ส่ง/ปิดได้ · Esc ปิด · โฟกัสกลับ chat-open (aria-expanded=false)' }],
+    annotation: [{ type: 'expected', description: '1280: กด Enter ที่ chat-open → โฟกัสที่ chat-input · Shift+Tab ถึงชิป/ปุ่มปิดในแผง · Esc ปิด · โฟกัสกลับ chat-open ในหัวเว็บ (aria-expanded=false) · Enter ที่ปุ่มนั้นเปิด/ปิดได้ · โฟกัสค้างที่ปุ่ม' }],
   }, async ({ page, b }) => {
     await asCustomer(page, b);
     await page.setViewportSize({ width: 1280, height: 800 });
@@ -185,14 +177,19 @@ test.describe('แชท · คีย์บอร์ดและการลด�
       }
       return seen;
     };
-    const back = await walk('Shift+Tab', 8);
+    const back = await walk('Shift+Tab', 5);
     for (const id of ['chat-quick-hours', 'chat-quick-book', 'chat-quick-avail', 'chat-quick-price', 'chat-close']) expect(back.has(id), `Shift+Tab ถึง ${id}`).toBe(true);
-    await page.getByTestId('chat-input').focus();
-    expect((await walk('Tab', 1)).has('chat-open'), 'Tab จากช่องพิมพ์ไปที่ปุ่มเปิด/ปิดแชท').toBe(true);
     await page.keyboard.press('Escape');
     await expect(page.getByTestId('chat-panel')).toHaveCount(0);
     await expect(page.getByTestId('chat-open')).toBeFocused();
     await expect(page.getByTestId('chat-open')).toHaveAttribute('aria-expanded', 'false');
+    // Enter ที่ปุ่มในหัวเว็บ: เปิด แล้ว (โฟกัสย้ายเข้าแผง) กลับมาที่ปุ่มด้วย Esc จากปุ่มเอง
+    await page.keyboard.press('Enter');
+    await expect(page.getByTestId('chat-panel')).toBeVisible();
+    await page.getByTestId('chat-open').focus();
+    await page.keyboard.press('Escape');
+    await expect(page.getByTestId('chat-panel')).toHaveCount(0);
+    await expect(page.getByTestId('chat-open')).toBeFocused();
   });
 
   test('375: โฟกัสวนอยู่ในแผงเต็มจอ · Esc ปิด · โฟกัสกลับที่ปุ่มเปิด', {
@@ -231,30 +228,27 @@ test.describe('แชท · คีย์บอร์ดและการลด�
 });
 
 for (const size of [{ w: 1280, h: 800 }, { w: 375, h: 812 }]) {
-  test(`ปุ่มแชทไม่บังตัวที่โฟกัสด้วยคีย์บอร์ดขณะเลื่อนหน้า @${size.w}`, {
-    annotation: [{ type: 'expected', description: 'กด Tab ไล่ทีละตัว (เบราว์เซอร์เลื่อนให้เห็นตัวที่โฟกัส) → ตัวที่โฟกัสไม่ซ้อนทับปุ่ม chat-open · หน้า /book/new และ /fields' }],
+  test(`ตัวที่โฟกัสด้วยคีย์บอร์ดไม่ถูกหัวเว็บ sticky (ที่มีปุ่มแชท) บัง @${size.w}`, {
+    annotation: [{ type: 'expected', description: 'กด Tab ไล่ทีละตัว (เบราว์เซอร์เลื่อนให้เห็นตัวที่โฟกัส) → ตัวที่โฟกัสในเนื้อหาอยู่ใต้ขอบล่างของหัวเว็บเสมอ · หน้า /book และ /book/new' }],
   }, async ({ page }) => {
     await page.setViewportSize({ width: size.w, height: size.h });
-    for (const route of ['/fields', '/book/new?field=A&date=2026-10-14&start=17']) {
+    for (const route of ['/book', '/book/new?field=A&date=2026-10-14&start=17']) {
       await open(page, route);
       let n = 0;
-      for (let i = 0; i < 60; i++) {
+      for (let i = 0; i < 70; i++) {
         await page.keyboard.press('Tab');
         const r = await page.evaluate(async () => {
           await new Promise((res) => requestAnimationFrame(() => requestAnimationFrame(res))); // ให้หน้าเลื่อนเสร็จก่อนวัด
           const a = document.activeElement as HTMLElement | null;
-          const f = document.querySelector('[data-testid="chat-open"]')!;
-          if (!a || a === document.body || a === f) return null;
-          const x = a.getBoundingClientRect();
-          const y = f.getBoundingClientRect();
-          const ov = x.left < y.right && x.right > y.left && x.top < y.bottom && x.bottom > y.top;
-          return { ov, what: `${a.tagName}[${a.getAttribute('data-testid') ?? ''}]` };
+          if (!a || a === document.body || a.closest('header') || a.closest('footer') || a.classList.contains('sr-only')) return null;
+          const hb = document.querySelector('header.site-header')!.getBoundingClientRect().bottom;
+          return { under: a.getBoundingClientRect().top < hb - 1, what: `${a.tagName}[${a.getAttribute('data-testid') ?? ''}]` };
         });
         if (!r) continue;
         n++;
-        expect(r.ov, `${route}: ${r.what} (Tab ครั้งที่ ${i + 1}) อยู่ใต้ปุ่มแชท`).toBe(false);
+        expect(r.under, `${route}: ${r.what} (Tab ครั้งที่ ${i + 1}) อยู่ใต้หัวเว็บ`).toBe(false);
       }
-      expect(n, 'มีตัวที่ Tab ถึงอย่างน้อย 10 ตัว').toBeGreaterThan(10);
+      expect(n, 'มีตัวในเนื้อหาที่ Tab ถึงอย่างน้อย 10 ตัว').toBeGreaterThan(10);
     }
   });
 }

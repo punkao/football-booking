@@ -7,7 +7,7 @@
 // price/confirm cards drawn as the booking "ticket". Chips send plain text through the same submit() as the input box.
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { BotAvatar } from "@/components/Art";
 import { Money } from "@/components/ui";
 import { api } from "@/lib/client";
@@ -15,7 +15,7 @@ import { fieldName, fmtDate, timeRange, tx } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n";
 
 type Card = {
-  type: "check" | "quote" | "confirm";
+  type: "check" | "quote" | "confirm" | "day";
   fieldId: string;
   date: string;
   startHour: number;
@@ -32,6 +32,8 @@ type Card = {
   name?: string;
   phone?: string;
   draftToken?: string;
+  /** type "day": the free start hours of every field on `date` (evening = evening rate) */
+  fields?: { fieldId: string; free: { hour: number; evening: boolean }[] }[];
 };
 type Item = { role: "USER" | "BOT"; text: string; cards?: Card[]; bookingCode?: string | null };
 
@@ -193,7 +195,53 @@ function ConfirmCard({ lang, card, onBooked }: { lang: Lang; card: Card; onBooke
   );
 }
 
+/** S2b: "รอบว่างวันนี้" — each field's free start hours as links into the booking form; evening-rate hours are a separate, labelled group */
+function DayCard({ lang, card }: { lang: Lang; card: Card }) {
+  const hh = (h: number) => `${String(h).padStart(2, "0")}:00`;
+  const fields = card.fields ?? [];
+  const none = fields.every((f) => f.free.length === 0);
+  return (
+    <div className="chat-card chat-day" data-testid="chat-card-day" data-date={card.date}>
+      <div className="chat-day-head">
+        <b>{tx(lang, "รอบที่ยังว่าง", "Free slots")} · {fmtDate(lang, card.date)}</b>
+        <Link href={`/book?date=${card.date}`} data-testid="chat-day-all">
+          {tx(lang, "ดูตารางทั้งหมด", "See the full table")}
+        </Link>
+      </div>
+      {none && <p className="chat-reason">{tx(lang, "ไม่มีรอบว่างแล้ว ลองเลือกวันอื่นในตารางว่าง", "No free slots left. Try another day on the availability page.")}</p>}
+      {fields.map((f) => {
+        const normal = f.free.filter((s) => !s.evening);
+        const evening = f.free.filter((s) => s.evening);
+        const group = (label: string, list: typeof f.free, cls: string) =>
+          list.length > 0 && (
+            <div className={`chat-day-group ${cls}`}>
+              <span className="chat-day-k">{label}</span>
+              <div className="chat-day-hours">
+                {list.map((s) => (
+                  <Link key={s.hour} className="chat-hour" data-testid={`chat-day-slot-${f.fieldId}-${s.hour}`} href={`/book/new?field=${f.fieldId}&date=${card.date}&start=${s.hour}`}>
+                    {hh(s.hour)}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          );
+        return (
+          <div key={f.fieldId} className="chat-day-field" data-testid={`chat-day-field-${f.fieldId}`}>
+            <div className="chat-day-name">
+              {fieldName(lang, f.fieldId)}
+              {f.free.length === 0 && <span className="tag plain">{tx(lang, "เต็มแล้ว", "Full")}</span>}
+            </div>
+            {group(tx(lang, "ก่อน 17:00", "Before 17:00"), normal, "")}
+            {group(tx(lang, "ราคาเย็น", "Evening rate"), evening, "evening")}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function InfoCard({ lang, card }: { lang: Lang; card: Card }) {
+  if (card.type === "day") return <DayCard lang={lang} card={card} />;
   const head = (
     <>
       <div className="where">{fieldName(lang, card.fieldId)}</div>
@@ -250,12 +298,54 @@ function InfoCard({ lang, card }: { lang: Lang; card: Card }) {
   );
 }
 
+// open/closed state is shared by the launcher in the site header (ChatLauncher) and the panel (ChatWidget)
+let chatOpen = false;
+const chatSubs = new Set<() => void>();
+const subscribeChat = (f: () => void) => {
+  chatSubs.add(f);
+  return () => void chatSubs.delete(f);
+};
+function setChatOpen(v: boolean) {
+  if (v === chatOpen) return;
+  chatOpen = v;
+  chatSubs.forEach((f) => f());
+}
+const useChatOpen = () =>
+  useSyncExternalStore(
+    subscribeChat,
+    () => chatOpen,
+    () => false,
+  );
+const isHidden = (path: string) => HIDDEN.some((p) => path === p || path.startsWith(p + "/"));
+
+/** the "chat with Nong Ball" button in the sticky site header (docs/UI-REDESIGN.md §4.1, S2b): always visible, never over content */
+export function ChatLauncher({ lang }: { lang: Lang }) {
+  const path = usePathname() ?? "/";
+  const open = useChatOpen();
+  if (isHidden(path)) return null;
+  const closeText = tx(lang, "ปิดแชท", "Close chat");
+  return (
+    <button type="button" className="chat-launch" data-testid="chat-open" aria-expanded={open} aria-controls="chat-panel" onClick={() => setChatOpen(!chatOpen)}>
+      {open ? (
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+          <path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      ) : (
+        <BotAvatar size={28} title="" />
+      )}
+      <span className="cl-long">{open ? closeText : tx(lang, "แชทกับน้องบอล", "Chat with Nong Ball")}</span>
+      <span className="cl-short">{open ? closeText : tx(lang, "น้องบอล", "Nong Ball")}</span>
+    </button>
+  );
+}
+
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), summary, [tabindex]:not([tabindex="-1"])';
 
 export function ChatWidget({ lang }: { lang: Lang }) {
   const path = usePathname() ?? "/";
-  const hidden = HIDDEN.some((p) => path === p || path.startsWith(p + "/"));
-  const [open, setOpen] = useState(false);
+  const hidden = isHidden(path);
+  const open = useChatOpen();
+  const setOpen = setChatOpen;
   const [narrow, setNarrow] = useState(false); // < 768px: full-screen dialog
   const [loaded, setLoaded] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
@@ -266,8 +356,8 @@ export function ChatWidget({ lang }: { lang: Lang }) {
   const panelRef = useRef<HTMLElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const fabRef = useRef<HTMLButtonElement>(null);
   const wasOpen = useRef(false);
+  const navClosed = useRef(false);
   const shown = open && !hidden;
 
   useEffect(() => {
@@ -289,7 +379,16 @@ export function ChatWidget({ lang }: { lang: Lang }) {
   }, [open, loaded, lang]);
 
   useEffect(() => {
-    logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
+    const log = logRef.current;
+    if (!log) return;
+    log.scrollTo({ top: log.scrollHeight });
+    // a long answer (a card with many rows): show it from its first line, not from its end
+    const last = log.querySelectorAll<HTMLElement>('[data-testid="chat-msg-bot"]');
+    const el = !waiting && items[items.length - 1]?.role === "BOT" ? last[last.length - 1] : null;
+    if (el) {
+      const top = el.getBoundingClientRect().top - log.getBoundingClientRect().top;
+      if (top < 0) log.scrollTo({ top: log.scrollTop + top - 8 });
+    }
   }, [items, waiting]);
 
   // while the panel is open: tell the page (html[data-chat="open"] moves the content left on wide screens) and
@@ -308,24 +407,20 @@ export function ChatWidget({ lang }: { lang: Lang }) {
     };
   }, [shown]);
 
-  // keyboard focus must never land under the floating open button (WCAG 2.4.11): CSS scroll-padding does it in Chromium/Firefox,
-  // this nudges the page for engines that ignore it (WebKit)
+  // Esc closes the panel from anywhere inside it or from the header button
   useEffect(() => {
-    if (hidden) return;
-    const onFocus = (e: FocusEvent) => {
-      const fab = fabRef.current;
-      const el = e.target as HTMLElement | null;
-      if (!fab || !el || !el.getBoundingClientRect || widgetRef.current?.contains(el)) return;
-      requestAnimationFrame(() => {
-        const f = fab.getBoundingClientRect();
-        if (f.width === 0) return;
-        const r = el.getBoundingClientRect();
-        if (r.left < f.right && r.right > f.left && r.top < f.bottom && r.bottom > f.top) window.scrollBy(0, r.bottom - f.top + 8);
-      });
+    if (!shown) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape" || e.defaultPrevented) return;
+      const a = document.activeElement;
+      if (panelRef.current?.contains(a) || (a instanceof HTMLElement && a.dataset.testid === "chat-open")) {
+        e.preventDefault();
+        setChatOpen(false);
+      }
     };
-    document.addEventListener("focusin", onFocus);
-    return () => document.removeEventListener("focusin", onFocus);
-  }, [hidden]);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [shown]);
 
   // focus: into the panel when it opens (the input on desktop; the dialog itself on a phone so the keyboard does not pop up),
   // back to the open button when it closes
@@ -336,9 +431,19 @@ export function ChatWidget({ lang }: { lang: Lang }) {
       (window.matchMedia("(max-width: 767px)").matches ? panelRef.current : inputRef.current)?.focus();
     } else if (wasOpen.current) {
       wasOpen.current = false;
-      fabRef.current?.focus();
+      if (!navClosed.current) document.querySelector<HTMLElement>('[data-testid="chat-open"]')?.focus();
+      navClosed.current = false;
     }
   }, [shown]);
+
+  // a full-screen panel would hide the page a card link just opened: close it on navigation (focus then stays with the new page)
+  useEffect(() => {
+    if (narrow && chatOpen) {
+      navClosed.current = true;
+      setChatOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only a route change closes it
+  }, [path]);
 
   if (hidden) return null;
 
@@ -368,11 +473,6 @@ export function ChatWidget({ lang }: { lang: Lang }) {
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (!open) return;
-    if (e.key === "Escape") {
-      e.preventDefault();
-      setOpen(false);
-      return;
-    }
     // full-screen dialog: Tab stays inside the panel
     if (e.key === "Tab" && narrow && panelRef.current) {
       const els = [...panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => el.offsetParent !== null);
@@ -395,7 +495,7 @@ export function ChatWidget({ lang }: { lang: Lang }) {
   return (
     <div
       ref={widgetRef}
-      className={`chat-widget${open ? " is-open" : ""}`}
+      className="chat-widget"
       data-testid="chat-widget"
       data-chat-state={waiting ? "waiting" : "idle"}
       onKeyDown={onKeyDown}
@@ -526,18 +626,6 @@ export function ChatWidget({ lang }: { lang: Lang }) {
           </div>
         </section>
       )}
-      <button
-        ref={fabRef}
-        type="button"
-        className="chat-fab"
-        data-testid="chat-open"
-        aria-expanded={open}
-        aria-controls="chat-panel"
-        onClick={() => setOpen((o) => !o)}
-      >
-        <BotAvatar size={30} title="" />
-        <span>{open ? tx(lang, "ปิดแชท", "Close chat") : tx(lang, "แชทกับน้องบอล", "Chat with Nong Ball")}</span>
-      </button>
     </div>
   );
 }

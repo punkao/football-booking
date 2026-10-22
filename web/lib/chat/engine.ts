@@ -3,11 +3,11 @@
 //   model reply → first valid tag → the SAME function as the web (tools) → [RESULT] back to the model (≤ 2 rounds)
 //   → <think> and tags removed → every ฿ amount checked against the functions' numbers (BR-30) → reply + cards
 import { neutralizeUserText, parseBotReply, priceGuardOk, validateTag, SHOP_CONTACT } from "../rules/chat.ts";
-import type { BookArgs, ToolArgs } from "../rules/chat.ts";
+import type { BookArgs, DayArgs, ToolArgs } from "../rules/chat.ts";
 import { factsFromPrompt } from "./prompt.ts";
 import { describeResult, detectLang } from "./templates.ts";
 
-export type { BookArgs, ToolArgs };
+export type { BookArgs, DayArgs, ToolArgs };
 export type ChatMsg = { role: "system" | "user" | "assistant"; content: string };
 
 type Base = ToolArgs & { reasonCode?: string; reason?: string };
@@ -24,15 +24,26 @@ export type QuoteResult = Base & {
   dueAtField?: number;
 };
 export type BookResult = Omit<QuoteResult, "tag"> & { tag: "BOOK"; name: string; phone: string; draftToken?: string };
-export type ToolResult = CheckResult | QuoteResult | BookResult;
+/** S2b: the free start hours of every field on one day (`evening` = priced with the evening rate: from 17:00, weekends, holidays) — no amounts */
+export type DayResult = {
+  tag: "DAY";
+  ok: boolean;
+  date: string;
+  fields?: { fieldId: string; free: { hour: number; evening: boolean }[] }[];
+  reasonCode?: string;
+  reason?: string;
+};
+export type ToolResult = CheckResult | QuoteResult | BookResult | DayResult;
 
 export type Tools = {
   check(a: ToolArgs): Promise<CheckResult>;
   quote(a: ToolArgs): Promise<QuoteResult>;
   book(a: BookArgs): Promise<BookResult>;
+  /** optional: older fakes in the unit tests have no day tool (a [DAY] tag then gives a plain "no") */
+  day?(a: DayArgs): Promise<DayResult>;
 };
 
-export type Card = { type: "check" | "quote" | "confirm" } & Record<string, unknown>;
+export type Card = { type: "check" | "quote" | "confirm" | "day" } & Record<string, unknown>;
 
 export const MAX_TOOL_ROUNDS = 2;
 
@@ -90,11 +101,17 @@ export async function runTurn(input: {
     let result: ToolResult;
     if (tag.name === "CHECK") result = await input.tools.check(tag.args as ToolArgs);
     else if (tag.name === "QUOTE") result = await input.tools.quote(tag.args as ToolArgs);
+    else if (tag.name === "DAY") {
+      const a = tag.args as DayArgs;
+      result = input.tools.day ? await input.tools.day(a) : { tag: "DAY", ok: false, date: a.date, reason: lang === "en" ? "not available" : "ยังใช้ไม่ได้" };
+    }
     else result = await input.tools.book(tag.args as BookArgs);
     results.push(result);
     for (const n of moneyOf(result)) allowed.add(n);
     if (result.tag === "BOOK") {
       if (result.ok && result.draftToken) cards.push({ ...result, type: "confirm" });
+    } else if (result.tag === "DAY") {
+      cards.push({ ...result, type: "day" });
     } else cards.push({ ...result, type: result.tag === "CHECK" ? "check" : "quote" });
     messages.push({ role: "assistant", content: raw }, { role: "user", content: "[RESULT]" + JSON.stringify(result) });
   }

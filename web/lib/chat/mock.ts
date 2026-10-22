@@ -403,6 +403,11 @@ export function mockBrain(messages: ChatMsg[]): string {
     if (RE_AVAIL.test(text) || (!RE_PRICE.test(text) && !completeHere && mem.ask === "avail")) return (lang === "en" ? "Let me check. " : "ขอตรวจรอบให้นะครับ ") + "[CHECK]" + tag;
     return (lang === "en" ? "Let me work out the price. " : "ขอคิดราคาให้นะครับ ") + "[QUOTE]" + tag;
   }
+  // S2b: "วันนี้มีรอบว่างไหม" — free slots asked with no start hour → every field's free start hours of that day ([DAY], same availability() as the web)
+  if (RE_AVAIL.test(text) && !RE_PRICE.test(text) && here.hour === null && mem.startHour === null) {
+    const date = here.date ?? mem.date ?? facts.today;
+    return (lang === "en" ? "Let me look at the free slots. " : "ขอดูรอบว่างให้นะครับ ") + "[DAY]" + JSON.stringify({ date });
+  }
   if (RE_AVAIL.test(text) || RE_PRICE.test(text) || (touched && !isOtherIntent(text) && mem.ask !== null)) {
     const priceAsked = RE_PRICE.test(text) || (!RE_AVAIL.test(text) && mem.ask === "price");
     const byDay = priceAsked && mem.fieldId && mem.date ? dayRateReply(facts, mem.fieldId, mem.date, mem.period, lang) : null;

@@ -38,7 +38,7 @@ export function chatIpLimitOk(i: { roomsLastHour: number; messagesLastMinute: nu
   return i.messagesLastMinute < CHAT_MAX_PER_MINUTE_PER_IP;
 }
 
-export const TAG_NAMES = ["CHECK", "QUOTE", "BOOK"] as const;
+export const TAG_NAMES = ["CHECK", "QUOTE", "BOOK", "DAY"] as const;
 export type TagName = (typeof TAG_NAMES)[number];
 export type RawTag = { name: string; args: Record<string, unknown> };
 
@@ -106,19 +106,25 @@ export function parseBotReply(raw: string): { text: string; tag: RawTag | null }
 /** NFR-17: tags (and <think>) typed by a customer are made harmless before they are stored or sent to the model */
 export function neutralizeUserText(text: string): string {
   return String(text)
-    .replace(/\[(\s*)(CHECK|QUOTE|BOOK|RESULT)/gi, "［$1$2")
+    .replace(/\[(\s*)(CHECK|QUOTE|BOOK|DAY|RESULT)/gi, "［$1$2")
     .replace(/<(\/?)think/gi, "‹$1think");
 }
 
 export type ToolArgs = { fieldId: string; date: string; startHour: number; hours: number };
 export type BookArgs = ToolArgs & { name: string; phone: string };
+/** [DAY]{"date"}: the free start hours of every field on one day (S2b · the same availability() as the web) */
+export type DayArgs = { date: string };
 
 const FIELD_IDS = ["A", "B", "C"];
 
 /** ADR-15: only the allowed keys, whole numbers in range, a real field and date — otherwise the tag is ignored */
-export function validateTag(tag: RawTag | null): { name: TagName; args: ToolArgs | BookArgs } | null {
+export function validateTag(tag: RawTag | null): { name: TagName; args: ToolArgs | BookArgs | DayArgs } | null {
   if (!tag || !(TAG_NAMES as readonly string[]).includes(tag.name)) return null;
   const a = tag.args;
+  if (tag.name === "DAY") {
+    if (Object.keys(a).some((k) => k !== "date") || !isValidDateStr(a.date)) return null;
+    return { name: "DAY", args: { date: a.date } };
+  }
   const allowed = tag.name === "BOOK" ? ["fieldId", "date", "startHour", "hours", "name", "phone"] : ["fieldId", "date", "startHour", "hours"];
   if (Object.keys(a).some((k) => !allowed.includes(k))) return null;
   const hours = a.hours === undefined ? 1 : a.hours;

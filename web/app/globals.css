@@ -56,7 +56,6 @@
 
   --lift: 0 8px 28px rgba(10, 59, 44, 0.22); /* เงาเดียวของระบบ: เฉพาะของที่ลอย (ปุ่มแชท แผงแชท) */
   --hh: 64px; /* ความสูงแถบหัวเว็บ */
-  --fab-room: 88px; /* พื้นที่ท้ายหน้าที่เว้นไว้ไม่ให้ปุ่มแชทลอยทับเนื้อหาสุดท้าย */
 
   /* ชื่อเดิมที่คอมโพเนนต์ยังอ้างด้วย inline style (ลบได้เมื่อ S3/S4 เปลี่ยนเป็นคลาส) */
   --grass-2: var(--turf-dark);
@@ -131,7 +130,6 @@ svg {
 .site-footer :focus-visible,
 .hero :focus-visible,
 .chat-head :focus-visible,
-.chat-fab:focus-visible,
 .kpi :focus-visible {
   outline-color: var(--flood);
 }
@@ -213,6 +211,21 @@ main.page {
 }
 .menu-btn svg {
   display: block;
+}
+/* จอแคบมาก: ชื่อร้านย่อเหลือโลโก้ (ยังอ่านได้ด้วยโปรแกรมอ่านจอ) เพื่อให้ ปุ่มแชท + เมนู + TH/EN อยู่แถวเดียว */
+@media (max-width: 479px) {
+  .header-row {
+    gap: var(--s2);
+  }
+  .brand span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
 }
 /* <1000px: เมนูพับเป็นแผงใต้แถบหัวเว็บ (ลิงก์ยังอยู่ใน DOM เสมอ) */
 .nav {
@@ -1245,8 +1258,7 @@ textarea:disabled {
 .site-footer {
   background: var(--night);
   color: var(--on-night-2);
-  /* ท้ายหน้าเว้นที่ให้ปุ่มแชทลอยทับไม่ถึงข้อความ/ลิงก์สุดท้าย */
-  padding: var(--s5) 0 calc(var(--s5) + var(--fab-room));
+  padding: var(--s5) 0;
   font-size: var(--t-sm);
 }
 .site-footer a {
@@ -1744,32 +1756,53 @@ input[aria-invalid="true"] {
 .chat-widget {
   --chat-w: 400px;
 }
-/* ปุ่มเปิด: พิลล์ night ขอบ flood มุมขวาล่าง · ท้ายหน้าเว้นที่ด้วย --fab-room (ที่ footer) · scroll-padding ไม่ให้ตัวที่โฟกัสไปอยู่ใต้ปุ่ม */
+/* หัวเว็บ sticky อยู่บนสุดเสมอ: ตัวกันไม่ให้ตัวที่โฟกัสด้วยคีย์บอร์ดไปอยู่ใต้หัวเว็บ */
 html {
-  scroll-padding-bottom: var(--fab-room);
+  scroll-padding-top: var(--hh);
 }
-.chat-fab {
-  position: fixed;
-  right: var(--s4);
-  bottom: var(--s4);
-  z-index: 60;
+/* ปุ่มเปิดแชทอยู่ในหัวเว็บ (ChatLauncher) — ไม่มีปุ่มลอยทับเนื้อหา */
+.chat-launch {
+  flex: none;
   display: inline-flex;
   align-items: center;
   gap: var(--s2);
-  min-height: 48px;
-  padding: var(--s2) var(--s4) var(--s2) var(--s2);
-  border: 2px solid var(--flood);
-  border-radius: var(--r-pill);
-  background: var(--night);
-  color: var(--on-night);
-  font-family: var(--font-head);
-  font-size: var(--t-sm);
-  font-weight: 600;
-  box-shadow: var(--lift);
+  min-height: 44px;
+  padding: 0 var(--s3) 0 var(--s2);
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--flood);
+  background: var(--flood);
+  color: var(--night);
+  font: 600 var(--t-sm) / 1 var(--font-body);
   cursor: pointer;
 }
-.chat-fab:hover {
-  background: #0f4a38;
+.chat-launch:hover {
+  background: #ffc61a;
+}
+.chat-launch:focus-visible {
+  outline-color: #fff;
+}
+.chat-launch[aria-expanded="true"] {
+  background: transparent;
+  border-color: var(--on-night-2);
+  color: var(--on-night);
+}
+.chat-launch[aria-expanded="true"]:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.chat-launch svg {
+  display: block;
+  flex: none;
+}
+.chat-launch .cl-long {
+  display: none;
+}
+@media (min-width: 1200px) {
+  .chat-launch .cl-long {
+    display: inline;
+  }
+  .chat-launch .cl-short {
+    display: none;
+  }
 }
 
 /* แผง: ติดขวาสูงเต็มจอใต้หัวเว็บ (หัวเว็บ sticky อยู่บนสุดเสมอ) */
@@ -2018,6 +2051,83 @@ html {
 .chat-card .stub .k {
   font-size: var(--t-sm);
 }
+/* การ์ดรอบว่างของวัน: ชั่วโมงเป็นลิงก์ไปฟอร์มจอง · กลุ่ม "ราคาเย็น" มีป้ายชื่อ (ไม่พึ่งสีอย่างเดียว) */
+.chat-day {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--s3) var(--s4);
+  display: grid;
+  gap: var(--s3);
+}
+.chat-day-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s1) var(--s3);
+  color: var(--night);
+}
+.chat-day-head a {
+  font-size: var(--t-sm);
+}
+.chat-day-field {
+  display: grid;
+  gap: var(--s2);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--line);
+}
+.chat-day-name {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font: 600 var(--t-md) / 1.3 var(--font-head);
+  color: var(--night);
+}
+.chat-day-group {
+  display: grid;
+  gap: var(--s1);
+}
+.chat-day-k {
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+.chat-day-group.evening .chat-day-k {
+  color: var(--amber-ink);
+  font-weight: 600;
+}
+.chat-day-hours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s2);
+}
+.chat-hour {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  min-height: 36px;
+  padding: 0 var(--s2);
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--edge);
+  background: var(--paper);
+  color: var(--night);
+  font: 600 var(--t-sm) / 1 var(--font-body);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+.chat-hour:hover {
+  background: var(--turf-tint);
+  border-color: var(--turf);
+  color: var(--night);
+}
+.chat-day-group.evening .chat-hour {
+  background: var(--flood-tint);
+  border-color: #d9b52c;
+}
+.chat-day-group.evening .chat-hour:hover {
+  background: #ffe58a;
+}
 .chat-actions {
   display: grid;
   gap: var(--s2);
@@ -2074,12 +2184,7 @@ html {
 }
 
 /* ---- ขนาดจอ ---- */
-/* 768–1099px: แผงลอยขวา 380px ทับเนื้อหา (ปิดได้) · ปุ่มเปิดเลื่อนไปชิดแผงเพื่อเป็นปุ่มปิดอีกทาง */
-@media (min-width: 768px) {
-  .chat-widget.is-open .chat-fab {
-    right: calc(var(--chat-w) + var(--s4));
-  }
-}
+/* 768–1099px: แผงลอยขวา 380px ทับเนื้อหา (ปิดได้ด้วยปุ่มในหัวเว็บ · ปุ่ม ✕ ในแผง · Esc) */
 @media (min-width: 768px) and (max-width: 1099px) {
   .chat-widget {
     --chat-w: 380px;
@@ -2105,9 +2210,6 @@ html {
     height: 100dvh;
     border-left: 0;
     padding-bottom: env(safe-area-inset-bottom);
-  }
-  .chat-widget.is-open .chat-fab {
-    display: none;
   }
   html[data-chat="open"] body {
     overflow: hidden;
