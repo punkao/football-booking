@@ -18,41 +18,13 @@
       "overflowEls": []
     },
     {
-      "n": "03",
-      "page": "book",
-      "route": "/book",
+      "n": "11",
+      "page": "chat-open",
+      "route": "/",
       "role": "anon",
       "lang": "th",
       "width": 1280,
-      "file": "03-book-th-1280.png",
-      "hscroll": false,
-      "scrollWidth": 1280,
-      "status": 200,
-      "error": null,
-      "overflowEls": []
-    },
-    {
-      "n": "05",
-      "page": "book-new-slot",
-      "route": "/book/new?field=A&date=2026-10-14&start=17",
-      "role": "anon",
-      "lang": "th",
-      "width": 1280,
-      "file": "05-book-new-slot-th-1280.png",
-      "hscroll": false,
-      "scrollWidth": 1280,
-      "status": 200,
-      "error": null,
-      "overflowEls": []
-    },
-    {
-      "n": "19",
-      "page": "owner-dashboard",
-      "route": "/owner/dashboard",
-      "role": "owner",
-      "lang": "th",
-      "width": 1280,
-      "file": "19-owner-dashboard-th-1280.png",
+      "file": "11-chat-open-th-1280.png",
       "hscroll": false,
       "scrollWidth": 1280,
       "status": 200,
@@ -79,57 +51,22 @@
       ]
     },
     {
-      "n": "03",
-      "page": "book",
-      "route": "/book",
+      "n": "11",
+      "page": "chat-open",
+      "route": "/",
       "role": "anon",
       "lang": "th",
       "width": 375,
-      "file": "03-book-th-375.png",
+      "file": "11-chat-open-th-375.png",
       "hscroll": false,
       "scrollWidth": 375,
       "status": 200,
       "error": null,
       "overflowEls": [
-        "button.chip:443",
-        "button.chip:516",
-        "button.chip:589",
-        "button.chip:662",
-        "button.chip:735"
-      ]
-    },
-    {
-      "n": "05",
-      "page": "book-new-slot",
-      "route": "/book/new?field=A&date=2026-10-14&start=17",
-      "role": "anon",
-      "lang": "th",
-      "width": 375,
-      "file": "05-book-new-slot-th-375.png",
-      "hscroll": false,
-      "scrollWidth": 375,
-      "status": 200,
-      "error": null,
-      "overflowEls": []
-    },
-    {
-      "n": "19",
-      "page": "owner-dashboard",
-      "route": "/owner/dashboard",
-      "role": "owner",
-      "lang": "th",
-      "width": 375,
-      "file": "19-owner-dashboard-th-375.png",
-      "hscroll": false,
-      "scrollWidth": 375,
-      "status": 200,
-      "error": null,
-      "overflowEls": [
-        "a:437",
-        "a:516",
-        "a:676",
-        "a:770",
-        "a:847"
+        "g:926",
+        "rect:926",
+        "rect:926",
+        "path:742"
       ]
     },
     {
@@ -147,46 +84,20 @@
       "overflowEls": []
     },
     {
-      "n": "03",
-      "page": "book",
-      "route": "/book",
+      "n": "11",
+      "page": "chat-open",
+      "route": "/",
       "role": "anon",
       "lang": "en",
       "width": 1280,
-      "file": "03-book-en-1280.png",
+      "file": "11-chat-open-en-1280.png",
       "hscroll": false,
       "scrollWidth": 1280,
       "status": 200,
       "error": null,
-      "overflowEls": []
-    },
-    {
-      "n": "05",
-      "page": "book-new-slot",
-      "route": "/book/new?field=A&date=2026-10-14&start=17",
-      "role": "anon",
-      "lang": "en",
-      "width": 1280,
-      "file": "05-book-new-slot-en-1280.png",
-      "hscroll": false,
-      "scrollWidth": 1280,
-      "status": 200,
-      "error": null,
-      "overflowEls": []
-    },
-    {
-      "n": "19",
-      "page": "owner-dashboard",
-      "route": "/owner/dashboard",
-      "role": "owner",
-      "lang": "en",
-      "width": 1280,
-      "file": "19-owner-dashboard-en-1280.png",
-      "hscroll": false,
-      "scrollWidth": 1280,
-      "status": 200,
-      "error": null,
-      "overflowEls": []
+      "overflowEls": [
+        "button.chat-chip:1355"
+      ]
     },
     {
       "n": "01",
@@ -208,57 +119,23 @@
       ]
     },
     {
-      "n": "03",
-      "page": "book",
-      "route": "/book",
+      "n": "11",
+      "page": "chat-open",
+      "route": "/",
       "role": "anon",
       "lang": "en",
       "width": 375,
-      "file": "03-book-en-375.png",
+      "file": "11-chat-open-en-375.png",
       "hscroll": false,
       "scrollWidth": 375,
       "status": 200,
       "error": null,
       "overflowEls": [
-        "button.chip:446",
-        "button.chip:519",
-        "button.chip:592",
-        "button.chip:665",
-        "button.chip:738"
-      ]
-    },
-    {
-      "n": "05",
-      "page": "book-new-slot",
-      "route": "/book/new?field=A&date=2026-10-14&start=17",
-      "role": "anon",
-      "lang": "en",
-      "width": 375,
-      "file": "05-book-new-slot-en-375.png",
-      "hscroll": false,
-      "scrollWidth": 375,
-      "status": 200,
-      "error": null,
-      "overflowEls": []
-    },
-    {
-      "n": "19",
-      "page": "owner-dashboard",
-      "route": "/owner/dashboard",
-      "role": "owner",
-      "lang": "en",
-      "width": 375,
-      "file": "19-owner-dashboard-en-375.png",
-      "hscroll": false,
-      "scrollWidth": 375,
-      "status": 200,
-      "error": null,
-      "overflowEls": [
-        "a:397",
-        "a:501",
-        "a:695",
-        "a:803",
-        "a:884"
+        "g:1026",
+        "rect:1026",
+        "rect:1026",
+        "path:816",
+        "button.chat-chip:474"
       ]
     }
   ]

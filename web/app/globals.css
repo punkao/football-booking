@@ -1740,7 +1740,14 @@ input[aria-invalid="true"] {
   word-break: break-word;
 }
 
-/* ---------- v2 · chat widget "น้องบอล" (ปุ่มลอยปรับตำแหน่งใน S1 · แผงข้าง/เต็มจอมาใน S2) ---------- */
+/* ---------- v2 · chat widget "น้องบอล" (S2: แผงข้างเต็มสูง / เต็มจอ · ป้ายบอท · คำถามด่วน · การ์ดตั๋ว) ---------- */
+.chat-widget {
+  --chat-w: 400px;
+}
+/* ปุ่มเปิด: พิลล์ night ขอบ flood มุมขวาล่าง · ท้ายหน้าเว้นที่ด้วย --fab-room (ที่ footer) · scroll-padding ไม่ให้ตัวที่โฟกัสไปอยู่ใต้ปุ่ม */
+html {
+  scroll-padding-bottom: var(--fab-room);
+}
 .chat-fab {
   position: fixed;
   right: var(--s4);
@@ -1764,62 +1771,102 @@ input[aria-invalid="true"] {
 .chat-fab:hover {
   background: #0f4a38;
 }
+
+/* แผง: ติดขวาสูงเต็มจอใต้หัวเว็บ (หัวเว็บ sticky อยู่บนสุดเสมอ) */
 .chat-panel {
   position: fixed;
-  right: var(--s4);
-  bottom: calc(var(--s4) + 56px);
   z-index: 61;
-  width: min(380px, calc(100vw - 32px));
-  max-height: min(640px, calc(100vh - 110px));
+  top: var(--chat-top, var(--hh));
+  right: 0;
+  bottom: 0;
+  width: var(--chat-w);
   display: flex;
   flex-direction: column;
   background: var(--paper);
-  border-radius: var(--r-md);
-  box-shadow: var(--lift);
-  border: 1px solid var(--line);
+  border-left: 1.5px solid var(--night);
   overflow: hidden;
 }
+.chat-panel:focus {
+  outline: none;
+}
 .chat-head {
+  flex: none;
   display: flex;
   align-items: center;
   gap: var(--s3);
-  padding: var(--s3);
+  padding: var(--s3) var(--s3) var(--s3) var(--s4);
   background: var(--night);
   color: var(--on-night);
 }
+.chat-head svg {
+  flex: none;
+}
+.chat-head-text {
+  flex: 1;
+  min-width: 0;
+}
+.chat-head-title {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
 .chat-head h2 {
   margin: 0;
-  font-size: var(--t-md);
+  font-size: var(--t-lg);
+  line-height: 1.2;
   color: #fff;
-  flex: 1;
 }
-.chat-head button {
+.chat-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+  background: var(--flood);
+  color: var(--night);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  line-height: 1.5;
+}
+.chat-head p {
+  margin: 0;
+  font-size: var(--t-sm);
+  line-height: 1.4;
+  color: var(--on-night-2);
+}
+.chat-x {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
   background: transparent;
   border: 1.5px solid var(--on-night-2);
-  color: var(--on-night);
   border-radius: var(--r-sm);
-  min-height: 36px;
-  padding: 0 var(--s3);
+  color: var(--on-night);
   cursor: pointer;
-  font: inherit;
 }
+.chat-x:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .chat-log {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
-  padding: var(--s3);
+  padding: var(--s4);
   display: flex;
   flex-direction: column;
-  gap: var(--s2);
+  gap: var(--s3);
   background: var(--mist);
 }
 .chat-msg {
-  max-width: 88%;
-  padding: var(--s2) var(--s3);
+  max-width: 92%;
+  padding: var(--s3) var(--s4);
   border-radius: 16px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   font-size: var(--t-md);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .chat-msg.user {
   align-self: flex-end;
@@ -1833,49 +1880,266 @@ input[aria-invalid="true"] {
   border: 1px solid var(--line);
   border-bottom-left-radius: 4px;
 }
-.chat-card {
-  align-self: stretch;
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--flood);
-  border-radius: var(--r-md);
-  padding: var(--s3);
-  background: var(--paper);
+.chat-welcome {
+  white-space: normal;
+  max-width: 100%;
+}
+.chat-who {
+  margin: 0 0 var(--s1);
   font-size: var(--t-sm);
-}
-.chat-card dl {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 2px var(--s3);
-  margin: 6px 0;
-}
-.chat-card dt {
   color: var(--ink-2);
 }
-.chat-card dd {
+
+/* ทำได้ / ทำไม่ได้: ไอคอน + ข้อความ (ไม่พึ่งสีอย่างเดียว) */
+.chat-caps {
+  display: grid;
+  gap: var(--s3);
+  margin-top: var(--s3);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--line);
+}
+.chat-caps h3 {
+  margin: 0 0 var(--s1);
+  font: 600 var(--t-md) / 1.3 var(--font-body);
+  color: var(--night);
+}
+.chat-caps ul {
+  list-style: none;
   margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+  font-size: var(--t-sm);
+  line-height: 1.5;
+}
+.chat-caps li {
+  display: flex;
+  gap: var(--s2);
+  align-items: flex-start;
+}
+.chat-caps li svg {
+  flex: none;
+  margin-top: 4px;
+}
+.chat-caps .yes svg {
+  color: var(--turf-dark);
+}
+.chat-caps .no svg {
+  color: var(--alert);
+}
+.chat-caps-d {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.chat-caps-d summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--s4);
   font-weight: 600;
+  color: var(--night);
+  cursor: pointer;
+}
+.chat-caps-d .chat-caps {
+  margin: 0;
+  padding: 0 var(--s4) var(--s3);
+  border: 0;
+}
+
+/* คำถามด่วน: ตาราง 2x2 ตอนเริ่ม → แถบเลื่อนข้างเหนือช่องพิมพ์ */
+.chat-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s4);
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--edge);
+  background: var(--paper);
+  color: var(--night);
+  font: 600 var(--t-sm) / 1.2 var(--font-body);
+  cursor: pointer;
+  text-align: left;
+}
+.chat-chip:hover:not(:disabled) {
+  background: var(--turf-tint);
+  border-color: var(--turf);
+}
+.chat-chip:disabled {
+  background: var(--disabled-bg);
+  border-color: var(--disabled-bg);
+  color: var(--ink-2);
+  cursor: not-allowed;
+}
+.chat-quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s2);
+}
+.chat-quick-grid .chat-chip {
+  min-height: 56px;
+  padding: var(--s2) var(--s3);
+  border-radius: var(--r-sm);
+  font-size: var(--t-md);
+}
+.chat-quick-grid .chat-chip small {
+  display: block;
+  margin-top: 2px;
+  font: 400 var(--t-sm) / 1.3 var(--font-body);
+  color: var(--ink-2);
+}
+.chat-rail {
+  display: flex;
+  gap: var(--s2);
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+.chat-rail .chat-chip {
+  flex: none;
+  min-height: 40px;
+  padding: 0 14px;
+}
+
+/* การ์ดตั๋วในแชท (ตั๋ว/รอยฉีก/ท่อนจ่ายตอนนี้ มาจาก .ticket .perf .stub) */
+.chat-card {
+  align-self: stretch;
+  max-width: 100%;
+}
+.chat-card .ticket-head p {
+  margin: var(--s1) 0 0;
+}
+.chat-avail {
+  margin-top: var(--s1);
+}
+.chat-reason {
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+.chat-card .stub .k {
+  font-size: var(--t-sm);
+}
+.chat-actions {
+  display: grid;
+  gap: var(--s2);
+  margin-top: var(--s3);
+}
+.chat-fine {
+  margin: 0;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+.chat-done {
+  margin-top: var(--s3);
+  display: grid;
+  gap: var(--s2);
+}
+.chat-done p {
+  margin: 0;
+}
+.chat-code {
+  display: block;
+  font: 600 var(--t-2xl) / 1.2 var(--font-head);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--night);
+}
+
+.chat-foot {
+  flex: none;
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s3) var(--s4);
+  border-top: 1px solid var(--line);
+  background: var(--paper);
 }
 .chat-form {
   display: flex;
   gap: var(--s2);
-  padding: var(--s3);
-  border-top: 1px solid var(--line);
 }
 .chat-form input {
   flex: 1;
 }
+.chat-form .btn {
+  flex: none;
+  min-width: 72px;
+  padding: 0 var(--s4);
+}
 .chat-note {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 var(--s3);
   font-size: var(--t-sm);
   color: var(--ink-2);
-  padding: 0 var(--s3) var(--s2);
 }
-@media (max-width: 480px) {
+
+/* ---- ขนาดจอ ---- */
+/* 768–1099px: แผงลอยขวา 380px ทับเนื้อหา (ปิดได้) · ปุ่มเปิดเลื่อนไปชิดแผงเพื่อเป็นปุ่มปิดอีกทาง */
+@media (min-width: 768px) {
+  .chat-widget.is-open .chat-fab {
+    right: calc(var(--chat-w) + var(--s4));
+  }
+}
+@media (min-width: 768px) and (max-width: 1099px) {
+  .chat-widget {
+    --chat-w: 380px;
+  }
   .chat-panel {
-    right: var(--s2);
-    left: var(--s2);
+    box-shadow: var(--lift);
+  }
+}
+/* >= 1100px: เนื้อหาถอยซ้ายเมื่อเปิดแชท ไม่ถูกแผงบัง (ตั้ง html[data-chat=open] จาก ChatWidget) */
+@media (min-width: 1100px) {
+  html[data-chat="open"] #main,
+  html[data-chat="open"] .site-footer {
+    margin-right: 400px;
+  }
+}
+/* < 768px: เต็มจอ (แผงทับหัวเว็บ) · เลื่อนหน้าหลังแผงไม่ได้ */
+@media (max-width: 767px) {
+  .chat-panel {
+    top: 0;
+    left: 0;
     width: auto;
-    bottom: calc(var(--s4) + 56px);
-    max-height: calc(100vh - var(--hh) - 90px);
+    height: 100vh;
+    height: 100dvh;
+    border-left: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .chat-widget.is-open .chat-fab {
+    display: none;
+  }
+  html[data-chat="open"] body {
+    overflow: hidden;
+  }
+  .chat-log {
+    padding: var(--s3);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chat-panel {
+    animation: chat-in 200ms ease-out;
+  }
+}
+@keyframes chat-in {
+  from {
+    transform: translateX(24px);
+  }
+  to {
+    transform: none;
+  }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .chat-panel {
+    animation-name: chat-up;
+  }
+}
+@keyframes chat-up {
+  from {
+    transform: translateY(24px);
+  }
+  to {
+    transform: none;
   }
 }
 
