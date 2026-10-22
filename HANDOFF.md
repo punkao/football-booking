@@ -22,27 +22,28 @@ push ได้ที่ `https://github.com/punkao/football-booking.git` (origin
 
 **อัปเดต 21 ต.ค. (session ใหม่):** ข้อ 1 ✅ ผู้ใช้อนุมัติ oracle CR-05 → `ea1c180` · ข้อ 3 ✅ CR-06 red `b119c1e` · fix `ac96761` · REGISTER `f845625` (migration 009 `payments.challenge_id` · regression 3 เบราว์เซอร์ 0 ล้ม · golden ไม่เปลี่ยน) · คำถามค้าง CR-06 Q4/Q6/Q7/Q9 ร้านมอบให้ทีมตัดสิน → `docs/impact/CR-06.md` 1.3 (Q7 = หน้าลูกค้าเห็นเฉพาะเงินตัวเอง · หลังบ้านมีป้าย "จากทีมรับคำท้า") red `9c7b4da` · fix `6ed7ec4` · กระทบยอดหลัง deploy `tools/reconcile-challenges.sql` (ต้องได้ 0 ทั้งคู่) · `009.down` ลบแถวเงินคำท้าทุกแถว (รวมที่เว็บใหม่เขียน) ขึ้นใหม่เติมกลับจากเครดิต → ใส่ใน RELEASE-NOTES · ข้อ 4 ✅ D-8 `c31a592` (REGRESSION-REPORT 2 รอบ · REA-COMPARE · ซ้อมถอยกลับ 009→006→009 ใน RUNBOOK ข้อ 9 · `tests/smoke.mjs`) + TRACEABILITY / UAT-CHECKLIST / RELEASE-NOTES · Q13 CR-05 ร้านมอบทีมตัดสิน: คง ศ–ส (หนังสือเขียน ศ–อา · impact CR-05 1.3 · ร้านยืนยันตอนเซ็น UAT) · `docs/04-REQUIREMENTS.md` ยังไม่อัปเดตตาม CR (ร่าง BR-46–51 ใน TRACEABILITY ข้อ 3) · UAT ยังไม่ได้เดินมือบนเว็บ · ข้อ 5 ✅ Opus รีวิว v2-handover..HEAD (โค้ด+ความปลอดภัย): แก้ 2 ข้อ REVIEW-1 `e7893ad` หน้าแรกอ่านราคาจาก DB · REVIEW-2 `ef8e0d3` ด่านกัน make-prod-like-data รันบนฐานจริง · ข้อสังเกตไม่แก้: ประวัติการจองโชว์ชื่อพนักงานตาม username ปัจจุบัน (ถ้า username ถูกใช้ซ้ำหลังลบบัญชี ชื่อจะผิด) → ใส่ RELEASE-NOTES ตอนข้อ 6 · REVIEW-1 commit `CLAUDE.md` 1 บรรทัด (กับดักราคา) โดย subagent · e2e flaky firefox TC-BOOK-01 / perf TC-BOOK-02 (rerun ผ่าน) · ข้อ 6 ส่วนใหญ่ ✅ README + Portal ส่วนส่งมอบ `1818a98` · RUBRIC 74.5/80 + INSTRUCTOR-MAP `1ed8db2` · รายงาน e2e รอบสุดท้าย 389/390 `fdb5673` · Portal testcases เคยโชว์ 0 TC แก้แล้ว `f96bf74` · ข้อความ LINE `docs/LINE-TO-INSTRUCTOR.md` · **ค้าง:** ทดสอบรั้วใน session ใหม่ที่ `football-booking` (legacy/FENCE-TEST.md) · ผู้ใช้ลบกฎ `Write(...)` 4 บรรทัดใน `.claude/settings.json` · 🙋 push · หมายเหตุ: `web/BUGS.md` อยู่ใน origin แล้วตั้งแต่ `f8f2395`
 
-## 3. ค้างอยู่ตรงไหน (ทำต่อตามลำดับ) — สถานะ 22 ต.ค. 2569 · HEAD `a6ca022` + งานที่ยังไม่ commit
+## 3. ค้างอยู่ตรงไหน — สถานะ: ผู้ใช้สั่ง **ส่ง main ตอนนี้** (main = ส่งได้) · HEAD ตรวจรอบเต็มที่ `733d0a7`
 
-**ข้อ 1–6 เดิม (อนุมัติ ORACLE CR-05, CR-06, D-8, รีวิวโค้ด, README/RUBRIC/LINE) เสร็จหมดแล้ว** — ที่ค้างจริงตอนนี้คือรายการข้างล่าง
+**ข้อ 1–6 เดิม + งานตรวจความสมบูรณ์/ช่องว่าง + งาน 4 (คำสั่งเดียว, `fd0e78d`, RUNBOOK ข้อ 10) เสร็จหมด** — ประวัติละเอียดดู `git log` และ `legacy/REGRESSION-REPORT.md` §3.2
 
-### 3.1 งานของ `NEXT-TASKS-PROMPT.md` ข้อ 1 (ตรวจความสมบูรณ์ + ปิดช่องว่าง) — เสร็จแล้ว
-commit แล้ว (`git log --oneline 1ed8db2..HEAD`): fixture `setCheckedStable` รอ data-ready (ORACLE `6599208`) · TC-SERIES-04 นับผ่านด้วย unit E75 (`e2e/run-unit-proof.mjs` ต้องรันก่อน `build-index.mjs`) · K3 `getNow` ไม่อ่านแถว clock เมื่อปิด seam · id ผิดรูป/รหัสมี NUL → 404 แทน 500 · เทสต์ตาข่ายเสริม `e2e/tests/cr/{stored-amounts,wrong-type-inputs,reschedule-overlap}` · MCP server สนามบอล `tools/mcp-football` + Excalidraw `docs/mcp/` · เอกสาร (ERD, SYSTEM-MAP ป้าย + ส่วน N, KNOWN-ISSUES, IMPACT-TEMPLATE, `docs/trace/dynamic`)
+**ผลรอบเต็มสุดท้ายบน main (commit `733d0a7` · `e2e/test-report/` + `e2e/index.html`):** 491 ผ่าน · 2 ล้ม (webkit `TC-BOOK-01`, `TC-STAFF-06` — flaky ที่รู้ รันซ้ำผ่าน) · index: chromium 128/128 (P1 74/74) ✅ · firefox 128/128 ✅ · webkit 126/128 ❌ (2 ข้อนั้น) · TC-SERIES-04 พิสูจน์ด้วย unit E75 · unit 159/159 · smoke 10/10 · axe serious/critical 0 ทุกหน้าหลัก · testid 904 คงเดิม
 
-**ยังไม่ commit (เซสชัน 22 ต.ค.) — ให้ lead ตรวจแล้ว commit:**
-- `e2e/run-all.mjs` — จบรอบเต็ม (ไม่มี `--gif`/อาร์กิวเมนต์เพิ่ม) รัน `run-unit-proof.mjs` → `build-index.mjs` ให้เอง · คืน `e2e/plan-cases.json` เดิมเสมอ (build-index เขียนใหม่ต่างกันแค่ `generatedAt`) และเตือนถ้าเนื้อหาต่างจริง
-- `e2e/build-index.mjs` — ตารางเทสต์ CR นับ RESCH-OVL / STORED / WT เพิ่ม (49 → 64 แถว)
-- `e2e/triage.json` — เพิ่ม TC-BOOK-01 · อัปเดต TC-STAFF-06 (จาก "เว็บผิด" เก่า → flaky รอบนี้ ประวัติคงในช่อง note) · TC-PRICE-04 ผ่านครบรอบนี้
-- รอบเต็มใหม่: `e2e/test-report/{results.json,run-info.json,TEST-REPORT.md,unit-proof.json,chat/**}` + `e2e/index.html` (ตั้งใจเก็บไว้ ไม่ `git checkout`)
-- เอกสาร: `legacy/REGRESSION-REPORT.md` §3.2 · `docs/RUBRIC-SELF-CHECK.md` (ตรวจใหม่ **74/80** จาก 74.5) · `docs/11-INSTRUCTOR-MAP.md` (§1.2 Dynamic · §1.3 MCP · §2 · §5 ช่องว่าง 10 ข้อ) · `README.md` · `docs/LINE-TO-INSTRUCTOR.md` · `docs/09-TEST-PLAN.md` บรรทัดสรุปข้อ 6 (BR-46–51) · `HANDOFF.md`
+### 3.1 งาน 2 UX/UI — หยุดหลัง S2b ตามที่ผู้ใช้เลือก
+- **อยู่บน main แล้ว:** S0 (testid snapshot + axe baseline) · S1 (ระบบสี night/turf/flood/mist, contrast serious 32→0, ปุ่ม/ฟอร์ม/โฟกัส, หัวเว็บแถวเดียว + ปุ่มเมนูบนมือถือ) · S2 (แชทแผงข้างเต็มสูง/เต็มจอมือถือ, ป้ายบอท, ชิปคำถามด่วน 4 ปุ่ม, การ์ดราคาแบบตั๋ว, คีย์บอร์ด/Esc) · S2b (ปุ่มแชทย้ายเข้าหัวเว็บ ไม่ทับเนื้อหา, "รอบว่างวันนี้" ตอบเป็นการ์ดจาก `availability()` ตัวเดียวกับเว็บ)
+- **ไม่ได้ส่ง (จอดที่ branch `ui-final`):** S3 หน้าลูกค้า (แผงรอบว่างหน้าแรก, ตัวบอกขั้นจอง 4 ขั้น, ตั๋วที่ /booking /pay, แถบจ่ายติดล่าง) + S4 หลังบ้าน (เมนูข้าง, แดชบอร์ดใหม่, โซนอันตราย) — spec รับงานผ่าน 36/36 แต่รอบเต็มยังเหลือ 4 จุด: (1) เทสต์ใหม่จองชนกับเทสต์เดิม (2) keyboard บน webkit (3) แถบจ่ายติดล่างที่ 375 (4) login หลัง logout — commit `65a3f49` แก้ไว้แล้วแต่**ยังไม่ได้ตรวจ** · branch ต้นทาง: `ui-s3-wip`, `ui-s4`
+- **ทำต่อ (ถ้าผู้ใช้ต้องการ):** `git checkout ui-final` → อ่าน message ของ `65a3f49` + `docs/ui/PROGRESS.md` → ตรวจ 4 จุดที่ `65a3f49` แก้ไว้ → รันชุดเต็ม 3 เบราว์เซอร์ + testid compare + axe → S5 (ภาพ after, review) → merge เข้า main · ไม่ทำก็ได้ main ส่งได้อยู่แล้ว (อาจารย์ตรวจการใช้บทเรียน ส่วนหน้าตาเป็นของเพิ่ม)
+- **งาน 3 (จัดไฟล์ + README ใหม่): ยังไม่เริ่ม**
 
-**ผลรอบเต็ม 22 ต.ค. (HEAD a6ca022 · `legacy/REGRESSION-REPORT.md` §3.2):** chromium 110/0/1 · firefox 110/0/1 · webkit 108/**2**/1 · serial 86/0/1 · perf 3/3 · index: chromium 128/128 ✅ · firefox 128/128 ✅ · **webkit 126/128 ❌ (P1 73/74: TC-BOOK-01 + TC-STAFF-06)** = flaky (รันเดี่ยว 3/3 ผ่านทั้งคู่ + webkit ทั้งโปรเจกต์ 110/0) · golden 261/15/132 · unit 144/144 · Portal 1148/1148 · smoke 10/10 · MCP 13/13
+### 3.2 ที่ผู้ใช้ต้องทำเอง 🙋
+1. `CLAUDE.md` 2 บรรทัด (ผู้ใช้แก้เอง · AI แก้ไม่ได้): กับดัก "mock อ่านข้อความล่าสุดข้อความเดียว (`mock.ts:244-258`)" ไม่จริงแล้วหลัง CR-04 · กับดัก "ปิด seam แล้วยังอ่านแถว `app_settings.clock`" ไม่จริงแล้วหลัง K3 (`0864208`)
+2. ทดสอบรั้ว `.claude/settings.json` ในเซสชันใหม่ที่ `football-booking` (`legacy/FENCE-TEST.md`) แล้วลบกฎ `Write(...)` 4 บรรทัด
+3. `claude /login` แล้วรัน `node tools/mcp-football/run-claude.mjs` (ด่าน MCP C3 ที่ติด 401)
+4. พิจารณาเปลี่ยนรหัสผ่าน DB (หมุนรหัส)
+5. ร้านเดิน `UAT-CHECKLIST.md` แล้วเซ็นลายเซ็น (UAT)
+6. `web/BUGS.md` อยู่ใน git/origin ตั้งแต่ commit แรก — ผู้ใช้ตัดสินแล้ว (22 ต.ค.) ว่าไม่ต้องทำอะไร · คนเติม SYSTEM-MAP ส่วน N.2
 
-### 3.2 งานถัดไป (ตาม NEXT-TASKS-PROMPT)
-1. ~~งาน 4 — รันได้ด้วยคำสั่งเดียว~~ ✅ `fd0e78d` (RUNBOOK ข้อ 10) · **งาน 2 UX/UI กำลังทำ ← ทำต่อจากตรงนี้:** อ่าน `docs/ui/PROGRESS.md` (S0 ✅ `7b1f95f` · S1 ✅ `cdcc848` · ถัดไป S2 แชท → S3 หน้าแรก/จอง → S4 หลังบ้าน → S5 after+e2e 3 เบราว์เซอร์+GIF+review) · แผนที่ผู้ใช้อนุมัติ `docs/UI-REDESIGN.md` · หลัง S5 = งาน 3 (ทำตารางไฟล์แล้วหยุดรอผู้ใช้) · ยังไม่ push ตั้งแต่ `fd0e78d`
-2. งาน 2 — ออกแบบ UX/UI ใหม่ (เริ่มด้วยแผน + ร่างให้ผู้ใช้ดูก่อนลงมือ) · งาน 3 — จัดไฟล์ + README ใหม่ (ทำสุดท้าย)
-3. ช่องว่างที่ปิดเองได้ถูก ๆ (ดู `docs/RUBRIC-SELF-CHECK.md` ท้ายไฟล์): GIF/MP4 ของเทสต์ใหม่ 3 ไฟล์ (`npm run test:gif` เฉพาะ `tests/cr/` แล้ว `cd e2e && node build-index.mjs`) · ทำให้ webkit flaky นิ่ง (ต้องมีแถว ORACLE-CHANGES: ให้ `expectFree` พิมพ์รหัสการจองที่ชน, fixture รอ data-ready หลังเลือกชั่วโมง) · เทสต์ล็อกคู่ของ K1/K2/K4–K13 · เทสต์จองพร้อมกันสมาชิก+ไม่ล็อกอิน+แชท
-4. **🙋 ผู้ใช้ต้องทำเอง:** ทดสอบรั้ว `.claude/settings.json` ในเซสชันใหม่ที่ `football-booking` (`legacy/FENCE-TEST.md`) + ลบกฎ `Write(...)` 4 บรรทัด · ให้ `claude -p` ล็อกอินใหม่ (MCP C3 ติด 401) · คนเติม SYSTEM-MAP ส่วน N.2 · ร้านเดิน `UAT-CHECKLIST.md` + เซ็น · ตัดสินเรื่อง `web/BUGS.md` อยู่ใน git ก่อน push · **ถามก่อน push ทุกครั้ง**
+### 3.3 สถานะ push
+push ล่าสุดถึง `fd0e78d` (งาน 4) · หลังจากนั้นมี commit ในเครื่องรอ push (งาน 2 S0–S2b + รายงาน e2e `733d0a7` + เอกสารปิดงาน) — ตรวจ `git status -sb` ก่อนยืนยัน · push ได้เฉพาะ `origin` (`punkao/football-booking`) และ **ต้องถามผู้ใช้ก่อนทุกครั้ง**
 
 ## 4. วิธีทำงาน (ผู้ใช้กำหนด · โควตาจำกัด)
 - **ตัวทำงาน (เขียนโค้ด/test/CR/เอกสาร) = subagent `model: "sonnet"`** · **ตัวรีวิวโค้ด = Opus** · session หลักตรวจผลเอง (รัน test ของ CR นั้น + `node tests/golden/check.mjs` + ดู git status) ก่อน commit/บอกว่าเสร็จ

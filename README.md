@@ -7,12 +7,15 @@
 - **เว็บ:** Next.js 16 + TypeScript · หน้าลูกค้า (จอง ชำระมัดจำ ยกเลิก เครดิต จองประจำ ทีม/คำท้า สมาชิก) · หลังบ้าน (พนักงาน / ผู้จัดการ / เจ้าของ: เช็กอิน รายงาน คลังของ บันทึกการกระทำ) · แชทบอท "น้องบอล" (โหมด `mock` ไม่ออก network หรือ `ai`) · TH/EN · มือถือ 375 px
 - **ฐานข้อมูล:** PostgreSQL 16 แยก Docker คนละโปรเจกต์ (`db/` กับ `web/`) · schema **009** (`db/migrations/001–009` มีไฟล์ถอยกลับ `.down.sql` ทุกฉบับ)
 - **Portal ตรวจงาน:** <http://localhost:3000/project> — ภาพรวม เอกสาร + แผนภาพ test case พร้อมผลและ GIF traceability รายงาน และส่วน "ส่งมอบ CR-01…06"
+- **หน้าตาใหม่ (งาน UX/UI):** บน `main` มีระบบสีใหม่ (night/turf/flood/mist ตัดกันผ่าน AA — axe serious 32 → 0) · ปุ่ม/ฟอร์ม/โฟกัส · หัวเว็บแถวเดียว + ปุ่มเมนูบนมือถือ · แชทเป็นแผงข้างเต็มสูง (เต็มจอบนมือถือ) มีป้ายบอท คำถามด่วน 4 ปุ่ม การ์ดราคาแบบตั๋ว · ปุ่มแชทอยู่ในหัวเว็บ ไม่ทับเนื้อหา · ถาม "รอบว่างวันนี้" ได้การ์ดรอบว่างจาก `availability()` ตัวเดียวกับเว็บ · **ยังไม่รวมเข้า main:** หน้าลูกค้าแบบใหม่ (S3) และหลังบ้านแบบใหม่ (S4) จอดไว้ที่ branch `ui-final` ([`docs/ui/PROGRESS.md`](docs/ui/PROGRESS.md))
 - **MCP server ของสนาม:** [`tools/mcp-football/`](tools/mcp-football) — tool `check_availability` · `quote` · `book` (ต้องยืนยัน + เฉพาะ localhost) + resource ราคา ให้ AI เรียกระบบจองผ่านมาตรฐาน MCP · ทดสอบ 13/13 · รายงาน [`docs/mcp/MCP-REPORT.md`](docs/mcp/MCP-REPORT.md) (ด่าน `claude -p` เรียก tool จริงยังติดล็อกอินหมดอายุ 401)
 - **ความต้องการ:** User Story 52 · FR 48 · BR 51 · NFR 24 ([`docs/04-REQUIREMENTS.md`](docs/04-REQUIREMENTS.md) = แหล่งความจริงเดียว) · test case 128 ข้อพร้อมเฉลย ([`docs/TEST-CASES.md`](docs/TEST-CASES.md))
 
 ## รันเว็บ (ต้องมี Docker Desktop)
 
-ขั้นตอนเต็ม สำรอง/กู้คืน migration ถอยกลับ: [`docs/RUNBOOK.md`](docs/RUNBOOK.md)
+**คำสั่งเดียว:** `docker compose up -d --build` (หรือ `.\start.ps1` บน Windows / `./start.sh` บน mac, Linux, Git Bash — รอ healthy แล้วพิมพ์ URL ให้) · รายละเอียด [`docs/RUNBOOK.md`](docs/RUNBOOK.md) ข้อ 10 · ขั้นตอนเต็ม สำรอง/กู้คืน migration ถอยกลับ: RUNBOOK ข้ออื่น
+
+แบบแยก 2 โปรเจกต์ (db กับ web) ใช้ต่อได้:
 
 ```bash
 cp db/.env.example db/.env       # ตั้ง POSTGRES_PASSWORD
@@ -59,21 +62,22 @@ test เดิมห้ามแก้ — ถ้าค่าที่คาด�
 | [`legacy/REA-COMPARE.md`](legacy/REA-COMPARE.md) | เทียบระบบ `v2-handover` ↔ HEAD ด้วย REA |
 | [`CHANGE-REQUESTS/00-HANDOVER-MEMO.md`](CHANGE-REQUESTS/00-HANDOVER-MEMO.md) | บันทึกรับมอบจากทีมสร้างเว็บ v2 |
 
-### ผลทดสอบล่าสุด (จาก [`legacy/REGRESSION-REPORT.md`](legacy/REGRESSION-REPORT.md) §3.2 — รอบเต็ม 21 ต.ค. 2569 ที่ commit `a6ca022`, `BUG_MODE=0`, schema 009)
+### ผลทดสอบล่าสุด (รอบเต็มบนโค้ด `main` commit `733d0a7`, `BUG_MODE=0`, schema 009 — รายงานใน [`e2e/test-report/`](e2e/test-report) และ [`e2e/index.html`](e2e/index.html))
 
-| ชุด | ตอนรับมอบ | ตอนส่งมอบ |
-|---|---|---|
-| e2e ต่อ project (ผ่าน / ล้ม / ข้าม) | 117 ผ่าน · 10 ล้ม ต่อเบราว์เซอร์ | chromium 110 / 0 / 1 · firefox 110 / 0 / 1 · **webkit 108 / 2 / 1** · serial 86 / 0 / 1 · perf 3 ผ่าน (รวม 418/424) |
-| ตัดสินของ [`e2e/index.html`](e2e/index.html) (เกณฑ์แผน 6.4: ≥ 122/128 และ P1 74/74) | 117/128 | chromium **128/128 · P1 74/74 ผ่านเกณฑ์** · firefox **128/128 · P1 74/74 ผ่านเกณฑ์** · webkit **126/128 · P1 73/74 ไม่ผ่านเกณฑ์** |
-| ข้อที่ล้ม (webkit เท่านั้น) | – | `TC-BOOK-01` (P1) · `TC-STAFF-06` (P2) — **จัดเป็น flaky**: รันเดี่ยวหลัง reset ผ่าน 3/3 ทั้งคู่ และ webkit ทั้งโปรเจกต์ 110 ผ่าน 0 ล้ม (หลักฐาน `e2e/triage.json`) · ยังไม่ได้แก้ให้นิ่ง |
-| TC-SERIES-04 | – | พิสูจน์ผ่านหน้าเว็บไม่ได้ → นับผ่านด้วย unit E75 ที่รันผ่านจริงในรอบ (`e2e/test-report/unit-proof.json`) |
-| golden master | quote 261 + side 15 | 261/261 · 15/15 · quote-nov 132/132 (ชุด quote เดิมไม่เปลี่ยนสักไบต์) |
-| unit เว็บ · Portal · smoke · MCP | – | 144/144 · 1148/1148 · 10/10 · 13/13 |
-| rules-check · check-testdata · กระทบยอดเงินคำท้า | – | 191/191 · 151/151 · 0/0 (วัดที่ `ea32d4d` ไม่ได้รันซ้ำรอบนี้) |
-| schema | 006 | **009** |
-| คะแนนรูบริก 4 บท ([`docs/RUBRIC-SELF-CHECK.md`](docs/RUBRIC-SELF-CHECK.md)) | – | **74 / 80** (ตรวจใหม่ 22 ต.ค. จาก 74.5 — หักข้อที่เคยให้เกินจริง) |
+| ชุด | ผล |
+|---|---|
+| e2e ทั้งรอบ | **491 ผ่าน · 2 ล้ม** (ทั้ง 2 อยู่ใน webkit) |
+| ตัดสินของ [`e2e/index.html`](e2e/index.html) (เกณฑ์แผน 6.4: ≥ 122/128 และ P1 74/74) | chromium **128/128 · P1 74/74 ✅** · firefox **128/128 ✅** · webkit **126/128 ❌** |
+| ข้อที่ล้ม (webkit เท่านั้น) | `TC-BOOK-01` · `TC-STAFF-06` — **flaky ที่รู้แล้ว** รันซ้ำแล้วผ่าน (ประวัติใน `e2e/triage.json`) · ยังไม่ได้แก้ให้นิ่ง |
+| TC-SERIES-04 | พิสูจน์ผ่านหน้าเว็บไม่ได้ → นับผ่านด้วย unit E75 (`e2e/test-report/unit-proof.json`) |
+| unit เว็บ · smoke | **159/159** · **10/10** |
+| accessibility (axe) | serious/critical **0** ทุกหน้าหลัก |
+| testid | 904 ตัว เก็บครบหลังปรับหน้าตา |
+| golden master · Portal · MCP · rules-check | 261/261 + 15/15 + 132/132 · 1148/1148 · 13/13 · 191/191 — วัดที่ `a6ca022` ยังไม่ได้วัดซ้ำที่ `733d0a7` ([`legacy/REGRESSION-REPORT.md`](legacy/REGRESSION-REPORT.md) §3.2) |
+| schema | **009** |
+| คะแนนรูบริก 4 บท ([`docs/RUBRIC-SELF-CHECK.md`](docs/RUBRIC-SELF-CHECK.md)) | **74 / 80** (ตรวจ 22 ต.ค.) |
 
-ยังไม่ได้ทำ / พิสูจน์ไม่ได้: UAT — ทีมเดินบนเว็บจริงแล้ว 2026-10-21 ([`docs/UAT-RUN.md`](docs/UAT-RUN.md)) เหลือร้านเดินเอง+เซ็น · ไม่มีรอบเต็มรอบเดียวที่เขียวทั้ง 3 เบราว์เซอร์ (webkit ล้มคนละข้อทุกรอบ) · รั้ว `.claude/settings.json` ยังไม่ได้ทดสอบในเซสชันใหม่ · แชทไม่เคยทดสอบกับโมเดลจริง (มีแค่ mock / mock-llm) · คำถามค้างถึงร้าน 25 ข้อ (CR-01 2 · CR-02 7 · CR-03 6 · CR-04 4 · CR-05 6) + CR-06 อีก 5 ข้อที่รอร้านรับทราบ ([`RELEASE-NOTES.md`](RELEASE-NOTES.md) ข้อ 4) · ปัญหาที่ทีมรู้และยังไม่แก้ **12 ข้อ** (K1, K2, K4–K9, K11–K14 ใน [`KNOWN-ISSUES.md`](KNOWN-ISSUES.md); K3 ปิดแล้ว) เช่น แชทไม่จำบริบทตอนพิมพ์ "จองเลย" · role DB ของเว็บเป็น superuser · e2e ไม่ครอบคลุมการเปลี่ยนวันที่จริงหลัง 1 พ.ย.
+ยังไม่ได้ทำ / พิสูจน์ไม่ได้: UAT — ทีมเดินบนเว็บจริงแล้ว 2026-10-21 ([`docs/UAT-RUN.md`](docs/UAT-RUN.md)) เหลือร้านเดินเอง+เซ็น · ไม่มีรอบเต็มรอบเดียวที่เขียวทั้ง 3 เบราว์เซอร์ (webkit ล้ม 2 ข้อที่ flaky) · รั้ว `.claude/settings.json` ยังไม่ได้ทดสอบในเซสชันใหม่ · แชทไม่เคยทดสอบกับโมเดลจริง (มีแค่ mock / mock-llm) · คำถามค้างถึงร้าน 25 ข้อ (CR-01 2 · CR-02 7 · CR-03 6 · CR-04 4 · CR-05 6) + CR-06 อีก 5 ข้อที่รอร้านรับทราบ ([`RELEASE-NOTES.md`](RELEASE-NOTES.md) ข้อ 4) · ปัญหาที่ทีมรู้และยังไม่แก้ **12 ข้อ** (K1, K2, K4–K9, K11–K14 ใน [`KNOWN-ISSUES.md`](KNOWN-ISSUES.md); K3 ปิดแล้ว) เช่น แชทไม่จำบริบทตอนพิมพ์ "จองเลย" · role DB ของเว็บเป็น superuser · e2e ไม่ครอบคลุมการเปลี่ยนวันที่จริงหลัง 1 พ.ย.
 
 ## ผลของงานรอบสร้างเว็บ (ก่อนรับมอบ)
 

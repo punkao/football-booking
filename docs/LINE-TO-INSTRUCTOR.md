@@ -14,18 +14,21 @@ Repo: https://github.com/punkao/football-booking
 - test case 128 ข้อ พร้อมเฉลย รันด้วย Playwright (3 เบราว์เซอร์) และเดินด้วย Playwright MCP อีก 88 ข้อ
 - MCP server ของสนามเอง (tools/mcp-football: ดูรอบว่าง · คิดราคา · จอง) ทดสอบ 13/13 + วาดแผนภาพด้วย Excalidraw MCP 3 ภาพ (docs/mcp/MCP-REPORT.md) — ด่านให้ claude -p เรียก tool จริงยังติดล็อกอินหมดอายุ
 - ส่วนรับช่วงระบบเดิม (ส่วน D) CR-01…06 ทำตามลำดับ ถามร้าน → เทสต์แดง → แก้ → regression
-- e2e รอบเต็มสุดท้าย (HEAD a6ca022) ผ่าน 418/424 · ตัวตัดสิน e2e/index.html: chromium 128/128 และ firefox 128/128 ผ่านเกณฑ์ (P1 74/74) แต่ webkit 126/128 ไม่ผ่านเกณฑ์ (P1 73/74) — ที่ล้มคือ TC-BOOK-01 กับ TC-STAFF-06 ผมจัดเป็น flaky เพราะรันแยกซ้ำผ่าน 3/3 ทั้งคู่และรัน webkit ทั้งโปรเจกต์ผ่านหมด (110 ผ่าน 0 ล้ม) แต่ยังไม่ได้แก้ให้นิ่ง ไม่ได้ปรับผลให้สวย (รายละเอียด legacy/REGRESSION-REPORT.md §3.2)
+- ปรับหน้าตาเว็บใหม่ (สีตัดกันผ่านมาตรฐาน axe serious 32 → 0, แชทเป็นแผงข้าง + ปุ่มคำถามด่วน, หัวเว็บใช้บนมือถือได้) แล้วรัน e2e ซ้ำทั้งหมด
+- e2e รอบเต็มบนโค้ดล่าสุด (main, commit 733d0a7) ผ่าน 491 ล้ม 2 · ตัวตัดสิน e2e/index.html: chromium 128/128 (P1 74/74) และ firefox 128/128 ผ่านเกณฑ์ แต่ webkit 126/128 ไม่ผ่านเกณฑ์ — ที่ล้มคือ TC-BOOK-01 กับ TC-STAFF-06 ซึ่งเป็น flaky ที่รู้แล้ว (รันซ้ำผ่าน) ยังไม่ได้แก้ให้นิ่ง ไม่ได้ปรับผลให้สวย · unit 159/159 · smoke 10/10 · axe serious/critical 0 ทุกหน้าหลัก
+- รันระบบด้วยคำสั่งเดียว: docker compose up -d --build (หรือ start.ps1 / start.sh)
 - ให้คะแนนตัวเองตามรูบริก 4 บท (03-06) ได้ 74/80 (ตรวจใหม่รอบ 2 หักข้อที่ให้เกินจริงไว้ก่อน จาก 74.5 — docs/RUBRIC-SELF-CHECK.md)
 
 อ่านเริ่มจากตรงไหน
 1) README.md
-2) Portal http://localhost:3000/project (รัน 2 คำสั่ง docker compose ใน README / docs/RUNBOOK.md)
+2) Portal http://localhost:3000/project (docker compose up -d --build คำสั่งเดียว ดู README / docs/RUNBOOK.md ข้อ 10)
 3) RELEASE-NOTES.md และ UAT-CHECKLIST.md
 
 ช่องว่างที่ยังเหลือ (บอกตรง ๆ ครับ)
 - ยังไม่ได้ทดสอบรั้ว .claude/settings.json ในเซสชันใหม่
 - แชทบอทยังไม่เคยทดสอบกับโมเดลจริง ทดสอบแค่โหมด mock และ mock-llm
-- webkit ยังไม่นิ่ง (รอบเต็มล่าสุด index ตัดสิน webkit ไม่ผ่านเกณฑ์) · ปัญหาที่ทีมรู้และยังไม่แก้ 12 ข้อ (KNOWN-ISSUES.md)
+- webkit ยังไม่นิ่ง (2 ข้อ flaky ข้างบน) · ปัญหาที่ทีมรู้และยังไม่แก้ 12 ข้อ (KNOWN-ISSUES.md)
+- หน้าตาใหม่ยังไม่ครบ: หน้าลูกค้า (หน้าแรก/ขั้นตอนจอง/ตั๋ว) กับหลังบ้านแบบใหม่ จอดไว้ที่ branch ui-final ยังไม่รวมเข้า main (ยังมี 4 จุดที่ต้องตรวจ/แก้ก่อน) — main ใช้งานได้ครบ
 - UAT: ทีมเดินบนเว็บจริงแล้ว (21 ต.ค. · docs/UAT-RUN.md) เหลือร้านเดินเองและเซ็น
 รายการเต็มอยู่ docs/11-INSTRUCTOR-MAP.md หัวข้อ 5
 

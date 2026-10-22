@@ -9,10 +9,15 @@
 | S0 | testid snapshot + axe baseline (serious 32) | ✅ | 7b1f95f |
 | S1 | design tokens · contrast · ปุ่ม/ฟอร์ม/focus · nav 375 (ปุ่มเมนู) · ท้ายหน้าเว้นที่ให้ปุ่มแชท | ✅ testid 904→904 · chromium 117 · serial 86 · axe serious 32→0 | cdcc848 |
 | S2 | แชท: แผงข้างเต็มสูง (desktop) / เต็มจอ (375) · ป้ายบอท · ปุ่มคำถามด่วน 4 ปุ่ม · การ์ดราคาแบบตั๋ว | ✅ testid 904→904 (เทียบ before: สับเซ็ต exit 0) · chromium chat/cr-04/cr-05/known-issues/v2/mob/layout/chat-ui 69 · firefox+webkit chat.spec+chat-ui+layout 78 · serial 86 (+1 skip) · unit 144 · golden · smoke 10/10 · axe หน้าหลัก serious/critical 0 + แชทเปิด 0 · ทดลองโหมด ai ผ่านแล้วคืน mock | d0aa857 |
-| S2b | ปุ่มแชทย้ายเข้าหัวเว็บ (ไม่มีปุ่มลอย) · ชิป "รอบว่างวันนี้" ตอบเป็นการ์ดเวลาเริ่มที่ว่างของทุกสนามด้วย tag [DAY] ใหม่ | ✅ testid 904→904 (compare exit 0) · chromium ทั้งชุด 136 (+1 skip) · firefox+webkit ทั้งชุด 270 (+4 skip) · serial 86 (+1 skip) + uat-walk/chat.serial ซ้ำหลังแก้ปุ่ม 7 · unit 159 (ใหม่ day.test.ts 15 ข้อ แดงก่อนเขียวหลัง) · golden · smoke 10/10 · axe ทุกหน้า + แผงแชทเปิด serious/critical 0 | |
-| S3 | หน้าแรก (แผงรอบว่างวันนี้) · /book · /book/new ตัวบอกขั้น 4 ขั้น (ขั้น 1–2 หน้าเดียว) + แถบจ่ายติดล่าง · /booking · /pay · ตั๋วจอง | ⏳ | |
-| S4 | หลังบ้าน: เมนูข้างจัดกลุ่ม · แดชบอร์ด · ตารางที่ 375 · ฟิลเตอร์ · โซนอันตราย (ไม่เพิ่มขั้นยืนยันปิดสนามฝน) | ⏳ | |
-| S5 | ภาพ after (`node tools/ui-shots.mjs --out docs/ui/after`) + ตารางก่อน/หลังใน UI-REDESIGN.md · e2e เต็ม 3 เบราว์เซอร์ · golden · smoke · unit · a11y gate (`A11Y_GATE=1` ไม่มี serious/critical) · GIF ใหม่เฉพาะหน้าที่เปลี่ยน · code review (Opus) | ⏳ | |
+| S2b | ปุ่มแชทย้ายเข้าหัวเว็บ (ไม่มีปุ่มลอย) · ชิป "รอบว่างวันนี้" ตอบเป็นการ์ดเวลาเริ่มที่ว่างของทุกสนามด้วย tag [DAY] ใหม่ | ✅ testid 904→904 (compare exit 0) · chromium ทั้งชุด 136 (+1 skip) · firefox+webkit ทั้งชุด 270 (+4 skip) · serial 86 (+1 skip) + uat-walk/chat.serial ซ้ำหลังแก้ปุ่ม 7 · unit 159 (ใหม่ day.test.ts 15 ข้อ แดงก่อนเขียวหลัง) · golden · smoke 10/10 · axe ทุกหน้า + แผงแชทเปิด serious/critical 0 | 8a7c9f6 |
+| S3 | หน้าแรก (แผงรอบว่างวันนี้) · /book · /book/new ตัวบอกขั้น 4 ขั้น (ขั้น 1–2 หน้าเดียว) + แถบจ่ายติดล่าง · /booking · /pay · ตั๋วจอง | ⏸ จอดที่ branch `ui-final` (spec รับงาน 36/36 ผ่าน · รอบเต็มยังมี 4 จุดค้าง ดูข้างล่าง) | |
+| S4 | หลังบ้าน: เมนูข้างจัดกลุ่ม · แดชบอร์ด · ตารางที่ 375 · ฟิลเตอร์ · โซนอันตราย (ไม่เพิ่มขั้นยืนยันปิดสนามฝน) | ⏸ จอดที่ branch `ui-final` (เหมือน S3) | |
+| S5 | ภาพ after (`node tools/ui-shots.mjs --out docs/ui/after`) + ตารางก่อน/หลังใน UI-REDESIGN.md · e2e เต็ม 3 เบราว์เซอร์ · golden · smoke · unit · a11y gate (`A11Y_GATE=1` ไม่มี serious/critical) · GIF ใหม่เฉพาะหน้าที่เปลี่ยน · code review (Opus) | ไม่ได้รันบน `ui-final` · main ตรวจด้วยรอบเต็มที่ commit 733d0a7 (491 ผ่าน · 2 ล้ม webkit flaky · unit 159 · smoke 10/10 · axe serious/critical 0) | |
+
+## สถานะปิดงาน (ผู้ใช้สั่งส่ง main ตอนนี้)
+- **บน main:** S0 · S1 · S2 · S2b — ตรวจด้วยรอบเต็ม commit `733d0a7` (e2e 491 ผ่าน · 2 ล้ม = webkit TC-BOOK-01, TC-STAFF-06 flaky ที่รู้ · chromium/firefox 128/128 · unit 159/159 · smoke 10/10 · axe serious/critical 0 · testid 904 คงเดิม)
+- **จอดที่ branch `ui-final`** (รวม S3 หน้าลูกค้า + S4 หลังบ้าน · branch ต้นทาง `ui-s3-wip`, `ui-s4`): spec รับงานผ่าน 36/36 แต่รอบเต็มยังมี 4 จุดค้าง ต้องแก้ก่อน merge ตาม commit `65a3f49` ซึ่งเป็น WIP ที่แก้แล้วแต่**ยังไม่ได้ตรวจ**: (1) เทสต์ใหม่จองชนกับเทสต์เดิม (2) keyboard บน webkit (3) แถบจ่ายติดล่างที่ 375 (4) login หลัง logout · ยังไม่ได้ทำ S5 (ภาพ after, ตารางก่อน/หลัง, GIF, review) บน branch นี้
+- ทำต่อ: checkout `ui-final` → ตรวจ 4 จุดที่ `65a3f49` แก้ไว้ → รันชุดเต็ม 3 เบราว์เซอร์ + testid compare + axe → S5 → merge
 
 ## วิธีทำต่อ (ต่อชิ้น)
 1. ตรวจ: `node tools/testid-snapshot.mjs --compare docs/ui/testid-before.json` (exit 0) · e2e เฉพาะ spec ของหน้าที่แก้บน chromium (`--no-deps`) และ serial แยกกัน · `cd web && npm test` · `node tests/golden/check.mjs` · `node tests/smoke.mjs` · axe นับเทียบ before · ดูภาพ wip ด้วยตาตัวเอง
