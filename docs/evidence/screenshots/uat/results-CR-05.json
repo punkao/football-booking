@@ -13,7 +13,7 @@
       "✓ สนาม C ไม่มีบรรทัดราคาใหม่: ไม่มี"
     ],
     "shots": [
-      "screenshots/uat/CR-05-1.png"
+      "docs/evidence/screenshots/uat/CR-05-1.png"
     ],
     "notes": []
   },
@@ -25,7 +25,7 @@
       "✓ หน้าสนาม A: ราคาเย็น ฿1,200 · ข้อความล่วงหน้า \"ตั้งแต่ 1 พ.ย. 2026 (ช่วงเย็น / เสาร์-อาทิตย์ / วันหยุด) ฿1,300\""
     ],
     "shots": [
-      "screenshots/uat/CR-05-2.png"
+      "docs/evidence/screenshots/uat/CR-05-2.png"
     ],
     "notes": []
   },
@@ -37,7 +37,7 @@
       "✓ A ส 31 ต.ค. 19:00: ค่าสนาม ฿1,200 · แผน FULL_100 · จ่ายตอนจอง ฿1,200 · ค้างหน้าสนาม ฿0"
     ],
     "shots": [
-      "screenshots/uat/CR-05-3.png"
+      "docs/evidence/screenshots/uat/CR-05-3.png"
     ],
     "notes": []
   },
@@ -52,9 +52,9 @@
       "ช่อง \"ร้านยืนยัน: เย็นวันอาทิตย์จ่ายมัดจำ 50%\" เป็นของร้านติ๊กเอง — ทีมไม่ติ๊กแทน (ระบบให้มัดจำ 50% = ฿650 ตามที่ใบเขียน)"
     ],
     "shots": [
-      "screenshots/uat/CR-05-4-A19.png",
-      "screenshots/uat/CR-05-4-A09.png",
-      "screenshots/uat/CR-05-4-B19.png"
+      "docs/evidence/screenshots/uat/CR-05-4-A19.png",
+      "docs/evidence/screenshots/uat/CR-05-4-A09.png",
+      "docs/evidence/screenshots/uat/CR-05-4-B19.png"
     ],
     "notes": []
   },
@@ -67,8 +67,8 @@
       "✓ สนาม C ไม่เปลี่ยน: C อา 1 พ.ย. 19:00 ฿1,800 · C อ 3 พ.ย. 16:00 ฿1,200"
     ],
     "shots": [
-      "screenshots/uat/CR-05-5-A.png",
-      "screenshots/uat/CR-05-5-C.png"
+      "docs/evidence/screenshots/uat/CR-05-5-A.png",
+      "docs/evidence/screenshots/uat/CR-05-5-C.png"
     ],
     "notes": []
   },
@@ -85,7 +85,7 @@
       "✓ คำตอบที่สาม (เสาร์ 31 ต.ค.): ฿1,200"
     ],
     "shots": [
-      "screenshots/uat/CR-05-6.png"
+      "docs/evidence/screenshots/uat/CR-05-6.png"
     ],
     "notes": []
   },
@@ -98,8 +98,8 @@
       "✓ เลื่อนไป อ 3 พ.ย. 19:00: ข้อความ \"เลื่อนการจองแล้ว จ่ายส่วนต่าง ฿100 เรียบร้อย\" · ยอดรวมใหม่ ฿1,300 · จ่ายแล้ว ฿1,300"
     ],
     "shots": [
-      "screenshots/uat/CR-05-7-before.png",
-      "screenshots/uat/CR-05-7-after.png"
+      "docs/evidence/screenshots/uat/CR-05-7-before.png",
+      "docs/evidence/screenshots/uat/CR-05-7-after.png"
     ],
     "notes": []
   },
@@ -123,8 +123,8 @@
       "✓ คิดลดต่อชั่วโมงช่วง 1 พ.ย. เป็นต้นไป ฿1,170: ยอดสัปดาห์ละหลังลด: 1080, 1170, 1170, 1170, 1170, 1170, 1170, 1170 · จอแสดงยอดจ่ายตอนจอง ฿585 (= ครึ่งของ 1,170)"
     ],
     "shots": [
-      "screenshots/uat/CR-05-8-weeks.png",
-      "screenshots/uat/CR-05-8-total.png"
+      "docs/evidence/screenshots/uat/CR-05-8-weeks.png",
+      "docs/evidence/screenshots/uat/CR-05-8-total.png"
     ],
     "notes": [
       "ข้อ 8 ของใบเขียนให้เห็น \"สัปดาห์ที่ 1 ฿1,200 · สัปดาห์ที่ 2–8 ฿1,300\" แต่หน้าจอไม่ได้แสดงค่าสนามรายสัปดาห์ — แสดงเฉพาะยอดจ่ายตอนจองรายสัปดาห์ (฿540 / ฿585 = ครึ่งหนึ่งของ ฿1,080 / ฿1,170 หลังลด 10%) กับยอดรวมด้านล่าง · ควรแก้ใบเป็น \"สัปดาห์ที่ 1 ฿540 · สัปดาห์ที่ 2–8 สัปดาห์ละ ฿585\" แล้วคงยอดรวม ฿10,300 / ฿1,030 / ฿9,270"
@@ -153,10 +153,10 @@
       "✓ การจอง LN-100001 จากขั้น 7 ยอดไม่เปลี่ยน: ยอดรวม ฿1,300 จ่ายแล้ว ฿1,300 (ขั้น 7: ฿1,300 / ฿1,300)"
     ],
     "shots": [
-      "screenshots/uat/CR-05-10-home.png",
-      "screenshots/uat/CR-05-10-fields.png",
-      "screenshots/uat/CR-05-10-chat.png",
-      "screenshots/uat/CR-05-10-booking.png"
+      "docs/evidence/screenshots/uat/CR-05-10-home.png",
+      "docs/evidence/screenshots/uat/CR-05-10-fields.png",
+      "docs/evidence/screenshots/uat/CR-05-10-chat.png",
+      "docs/evidence/screenshots/uat/CR-05-10-booking.png"
     ],
     "notes": []
   },
@@ -170,8 +170,8 @@
       "✓ รอบ 17:00 ใช้ชั่วโมงฟรีไม่ได้: ช่องติ๊กปิดอยู่=true · ข้อความ \"ใช้ชั่วโมงฟรีได้เฉพาะรอบที่เริ่มก่อน 17:00 วันจันทร์–ศุกร์\" · ยอดรวม ฿1,300 (ไม่มีส่วนลดฟรี)"
     ],
     "shots": [
-      "screenshots/uat/CR-05-extra-16.png",
-      "screenshots/uat/CR-05-extra-17.png"
+      "docs/evidence/screenshots/uat/CR-05-extra-16.png",
+      "docs/evidence/screenshots/uat/CR-05-extra-17.png"
     ],
     "notes": []
   }

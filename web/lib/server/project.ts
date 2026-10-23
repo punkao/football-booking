@@ -7,8 +7,19 @@ import path from "node:path";
 export const PROJECT_ROOT = process.env.PROJECT_DIR || "/app/project";
 export type MountRoot = "docs" | "test-report" | "handover";
 export const MOUNT_ROOTS: MountRoot[] = ["docs", "test-report", "handover"];
-/** repo path of each mount (used to resolve links written in the markdown files); "handover" mirrors the repo root, so its prefix is empty */
+/** repo path of each mount (used to resolve links written in the markdown files); "handover" is a virtual layout — see handoverRepoPath() */
 export const REPO_PATH: Record<MountRoot, string> = { docs: "docs", "test-report": "e2e/test-report", handover: "" };
+/**
+ * The "handover" mount keeps a virtual layout (web/compose.yaml): RELEASE-NOTES.md, UAT-CHECKLIST.md, CHANGE-REQUESTS/… come from docs/handover/ in the repo,
+ * legacy/… from legacy/. These two functions translate between the virtual path (also the portal URL) and the repo path.
+ */
+const HANDOVER_IN_DOCS = /^(?:(?:RELEASE-NOTES|UAT-CHECKLIST)\.md|CHANGE-REQUESTS\/.*)$/;
+export const handoverRepoPath = (virtual: string): string => (HANDOVER_IN_DOCS.test(virtual) ? `docs/handover/${virtual}` : virtual);
+/** repo path → virtual handover path, or null when the file is not one of the handover files */
+export const handoverVirtualPath = (repo: string): string | null => {
+  const v = repo.startsWith("docs/handover/") ? repo.slice("docs/handover/".length) : repo;
+  return HANDOVER_MD.test(v) && handoverRepoPath(v) === repo ? v : null;
+};
 /**
  * Handover files (part D) the portal serves from the read-only "handover" mount (web/compose.yaml lists them one by one,
  * so nothing else under legacy/ or the repo root is reachable). Paths are repo-relative.

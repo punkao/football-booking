@@ -1,6 +1,6 @@
 # TEST-RUN-MCP — AI ใช้เว็บจริงผ่าน Playwright MCP ตาม test case (ส่วน A5 · C+)
 
-รัน 2026-10-19 · `BUG_MODE=0` · `MODE=mock` · Playwright MCP 0.0.83 ผ่าน bridge `tools/mcp-bridge.mjs` (headless Chromium 1247 · 1280×800) · ทุกการเรียกอยู่ใน `screenshots/mcp/trace.jsonl`
+รัน 2026-10-19 · `BUG_MODE=0` · `MODE=mock` · Playwright MCP 0.0.83 ผ่าน bridge `tools/mcp-bridge.mjs` (headless Chromium 1247 · 1280×800) · ทุกการเรียกอยู่ใน `docs/evidence/screenshots/mcp/trace.jsonl`
 วิธี: **reset ก่อนทุก TC** · คลิก/กรอก/เลือก/อ่านค่าจากหน้าจอ (testid ตาม SPEC) · เวลาเลื่อนด้วย `POST /api/test/clock` (curl) · ข้อมูลตั้งต้นที่ไม่ใช่สิ่งที่ทดสอบ (เช่น ทีมคู่แข่งอีกคนรับคำท้า) ทำผ่าน API ตามที่แผนระบุ · ตรวจซ้ำด้วย SQL อ่านอย่างเดียวเมื่อแผนกำหนด `[E sql:…]` · TC ที่เป็น API ล้วน (TC-API-*, TC-DATA-02) ใช้ curl ใน [TEST-RUN-1](TEST-RUN-1.md) ไม่นับในตารางนี้
 เกณฑ์เลือก: ทุก TC ระดับ P1 (ที่ไม่ใช่ API ล้วน) · ทุก TC ของ CHAT · อย่างน้อย 1 TC ต่อโมดูล (+ TC-MOB-02, TC-ROLE-04) · **ไม่ตรง = ⚠️ ห้ามแก้เฉลย** พร้อมความเห็นว่าเป็นบั๊กเว็บหรือแผนเข้าใจผิด
 
@@ -116,7 +116,7 @@
 | TC-ROLE-03 | P1 | หลังกด `logout` / `staff-logout` แล้วใช้ cookie เดิมเรียก `/api/me` → 401 · `/api/staff/bookings/LN-900004` → 401 | ออกจากระบบสมาชิกบนหน้าเว็บแล้วใช้ cookie เดิม → /api/me 200 · ออกจากระบบร้านแล้ว cookie เดิม → 200 | ⚠️ | [TC-ROLE-03.png](../exploration/mcp-run/TC-ROLE-03.png) | กดออกจากระบบบนหน้าเว็บแล้ว cookie เดิมยังได้ 200 ทั้ง `/api/me` (ข้อมูลสมาชิก) และ API ร้าน — session ไม่ถูกยกเลิก [R] (24 calls) |
 | TC-ROLE-04 | P2 | `/owner/dashboard`, `/owner/reports`, `/owner/audit`, `/owner/chats`, `/staff/stock`, `/manager/stock` → `/staff/login?next=<path>` + `login-required` · API → 401 | /owner/dashboard→/staff/login?next=%2Fowner%2Fdashboard+login-required · /owner/reports→/staff/login?next=%2Fowner%2Freports+login-required · /owner/audit→/staff/login?next=%2Fowner%2Faudit+login-required · /owner/chats→/staff/login?next=%2Fowner%2Fchats+login-required · /staff/stock→/staff/login?next=%2Fstaff%2Fstock+login-required · /manager/stock→/staff/login?next=%2Fmanager%2Fstock+login-required | ✅ | [TC-ROLE-04.png](../exploration/mcp-run/TC-ROLE-04.png) |  (28 calls) |
 
-## จำนวนการเรียก MCP (นับจาก `screenshots/mcp/trace.jsonl`)
+## จำนวนการเรียก MCP (นับจาก `docs/evidence/screenshots/mcp/trace.jsonl`)
 
 | ช่วง | จำนวนการเรียก |
 |---|---|

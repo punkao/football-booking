@@ -4,13 +4,13 @@ import { BASE_URL } from '../constants';
 import { ann } from '../v2-helpers';
 
 /**
- * CR-05 ปรับราคาช่วงเย็นสนาม 5 คน ฿1,200 → ฿1,300 สำหรับรอบที่เตะตั้งแต่ 1 พ.ย. 2569 (CHANGE-REQUESTS/CR-05.md · impact docs/impact/CR-05.md)
+ * CR-05 ปรับราคาช่วงเย็นสนาม 5 คน ฿1,200 → ฿1,300 สำหรับรอบที่เตะตั้งแต่ 1 พ.ย. 2569 (docs/handover/CHANGE-REQUESTS/CR-05.md · impact docs/impact/CR-05.md)
  * ไฟล์นี้ = ข้อที่ไม่ต้องเลื่อนเวลา (วันนี้ = ศ 9 ต.ค. 2569 ตามที่ล็อก) · ข้อที่ต้องเลื่อนไปหลัง 1 พ.ย. อยู่ใน cr-05.serial.spec.ts
- * ค่าที่คาดหวัง: [D:CR-05] = CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05 · [CR-05] = หนังสือ · [สมมติฐาน Qn] = docs/impact/CR-05.md ข้อ 1.2
+ * ค่าที่คาดหวัง: [D:CR-05] = docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05 · [CR-05] = หนังสือ · [สมมติฐาน Qn] = docs/impact/CR-05.md ข้อ 1.2
  * ไม่จอง ไม่ reset ไม่เลื่อนเวลา: อ่านราคาจาก availability / fields / หน้าเว็บ / แชท (ถามราคา) เท่านั้น
  */
 
-const ANSWER = 'CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05';
+const ANSWER = 'docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05';
 const NEXT = { from: '2026-11-01', dayRate: 800, eveningRate: 1300 };
 
 type Slot = { fieldId: string; hour: number; price: number };
@@ -38,7 +38,7 @@ test.describe('CR-05 ราคาเย็นสนาม 5 คน ฿1,300 ต�
   test('CR-05-01 ตารางว่าง: สนาม A, B ช่วงเย็น/เสาร์ อาทิตย์ หลัง 1 พ.ย. = ฿1,300 · ก่อน 1 พ.ย. ฿1,200 · กลางวันและสนาม C ไม่เปลี่ยน', {
     tag: ['@CR-05', '@P1'],
     annotation: ann({
-      tc: 'CR-05-01', level: 'P1', source: `[D:CR-05] ${ANSWER} ข้อ 1 "ดูวันเตะ" · CHANGE-REQUESTS/CR-05.md ตาราง · [สมมติฐาน Q6] เสาร์ 09:00 = ฿1,300`,
+      tc: 'CR-05-01', level: 'P1', source: `[D:CR-05] ${ANSWER} ข้อ 1 "ดูวันเตะ" · docs/handover/CHANGE-REQUESTS/CR-05.md ตาราง · [สมมติฐาน Q6] เสาร์ 09:00 = ฿1,300`,
       expected: 'ส 31 ต.ค. A 19:00 ฿1,200 · อา 1 พ.ย. A 09:00 ฿1,300 · อา 1 พ.ย. B 19:00 ฿1,300 · อ 3 พ.ย. A/B 16:00 ฿800 · 17:00 ฿1,300 · C 16:00 ฿1,200 · 17:00 ฿1,800 · ส 7 พ.ย. A 09:00 ฿1,300 C 09:00 ฿1,800 · fields[] ของวันนั้น: อ 3 พ.ย. A eveningRate 1300 · ส 31 ต.ค. A eveningRate 1200',
     }),
   }, async ({ request }) => {

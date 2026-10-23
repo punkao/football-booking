@@ -34,7 +34,9 @@ const read = (f) => readFile(f, "utf8").catch(() => null);
 const docs = [...(await ls(DOCS)).filter((f) => f.endsWith(".md")), ...(await ls(path.join(DOCS, "trace"))).filter((f) => f.endsWith(".md")).map((f) => `trace/${f}`)];
 // part D (handover) files shown through the "handover" mount (web/compose.yaml)
 const HANDOVER = ["RELEASE-NOTES.md", "UAT-CHECKLIST.md", "CHANGE-REQUESTS/REGISTER.md", "CHANGE-REQUESTS/00-HANDOVER-MEMO.md", ...[1, 2, 3, 4, 5, 6].map((n) => `CHANGE-REQUESTS/CR-0${n}.md`), "legacy/REGRESSION-REPORT.md", "legacy/TRACEABILITY.md", "legacy/REA-COMPARE.md"];
-const crRows = ((await read(path.join(REPO, "CHANGE-REQUESTS/REGISTER.md"))) ?? "").split(/\r?\n/).filter((l) => /^\|\s*CR-\d+\s*\|/.test(l)).length;
+// the "handover" mount keeps a virtual layout; the real files of RELEASE-NOTES / UAT-CHECKLIST / CHANGE-REQUESTS live in docs/handover/
+const handoverFile = (h) => path.join(REPO, /^(?:RELEASE-NOTES|UAT-CHECKLIST)\.md$|^CHANGE-REQUESTS\//.test(h) ? `docs/handover/${h}` : h);
+const crRows = ((await read(handoverFile("CHANGE-REQUESTS/REGISTER.md"))) ?? "").split(/\r?\n/).filter((l) => /^\|\s*CR-\d+\s*\|/.test(l)).length;
 const reports = (await ls(REPORT)).filter((f) => f.endsWith(".md"));
 const rowsOf = (md) => md.split(/\r?\n/).filter((l) => l.startsWith("|")).map((l) => l.trim().replace(/^\||\|$/g, "").split(/(?<!\\)\|/).map((c) => c.trim()));
 const req = await read(path.join(DOCS, "04-REQUIREMENTS.md"));
@@ -86,7 +88,7 @@ const pages = [
   { name: "traceability", url: "/project/traceability" },
   { name: "report", url: "/project/report", source: path.join(DOCS, "10-TEST-REPORT.md") },
   ...docs.map((d) => ({ name: `doc:${d}`, url: `/project/docs/${d}`, source: path.join(DOCS, d) })),
-  ...HANDOVER.map((h) => ({ name: `handover:${h}`, url: `/project/handover/${h}`, source: path.join(REPO, h) })),
+  ...HANDOVER.map((h) => ({ name: `handover:${h}`, url: `/project/handover/${h}`, source: handoverFile(h) })),
   ...reports.map((r) => ({ name: `report:${r}`, url: `/project/report/${r}`, source: path.join(REPORT, r) })),
 ];
 const SHOTS = {

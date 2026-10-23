@@ -8,7 +8,7 @@
       "description": "ตรวจเครื่อง ติดตั้ง Playwright + เบราว์เซอร์ที่ D:\\ms-playwright + Playwright MCP แบบ bridge (stdio) — ผ่านแล้ว",
       "dependencies": [],
       "status": "DONE",
-      "evidence": "docs/00-ENVIRONMENT.md · screenshots/mcp/trace.jsonl · screenshots/mcp/phase0-after-click.png"
+      "evidence": "docs/00-ENVIRONMENT.md · docs/evidence/screenshots/mcp/trace.jsonl · docs/evidence/screenshots/mcp/phase0-after-click.png"
     },
     "P1": {
       "description": "บทสัมภาษณ์เจ้าของสนาม + ลูกค้า (กฎมีตัวเลข + ค่าขอบ)",
@@ -65,7 +65,7 @@
         "P7_5"
       ],
       "status": "DONE",
-      "evidence": "BUG_MODE=1 → 146/153 · จับบั๊กที่ฝัง 3/3 (docs/10-TEST-REPORT.md) — สถานะใน PLAN.md ณ 2026-10-10 14:40"
+      "evidence": "BUG_MODE=1 → 146/153 · จับบั๊กที่ฝัง 3/3 (docs/10-TEST-REPORT.md) — สถานะใน docs/process/PLAN.md ณ 2026-10-10 14:40"
     },
     "P9": {
       "description": "(โบนัส) Change Request กลางทาง → Plan v2",

@@ -350,11 +350,11 @@ test('WT-04-RED รหัสการจอง/โทเคนที่มีไ
   } finally { await staff.dispose(); await cust.dispose(); }
 });
 
-// K14 (KNOWN-ISSUES.md): เปอร์เซ็นต์เข้ารหัสเสียใน URL ถูกตัวจัดเส้นทางของ Next ตอบ 500 ข้อความล้วน "ก่อนถึงโค้ดเรา" — ไม่แก้ในโค้ดของเรา (ความเสี่ยงต่ำ ไม่มีอะไรถูกเขียน)
+// K14 (docs/handover/KNOWN-ISSUES.md): เปอร์เซ็นต์เข้ารหัสเสียใน URL ถูกตัวจัดเส้นทางของ Next ตอบ 500 ข้อความล้วน "ก่อนถึงโค้ดเรา" — ไม่แก้ในโค้ดของเรา (ความเสี่ยงต่ำ ไม่มีอะไรถูกเขียน)
 test.fixme('WT-04-K14 เปอร์เซ็นต์เสียใน URL (%E0%A4%A · %FF) → ควรเป็น 4xx แต่ Next ตอบ 500 ข้อความล้วนก่อนถึงโค้ดเรา (K14 · ยอมรับเป็นข้อจำกัด)', {
   tag: ['@WRONG-TYPE', '@K14'],
   annotation: ann({
-    tc: 'WT-04-K14', level: 'P3', source: 'KNOWN-ISSUES.md K14 · ตัวจัดเส้นทางของ Next 16 (ไม่ใช่โค้ดเรา)',
+    tc: 'WT-04-K14', level: 'P3', source: 'docs/handover/KNOWN-ISSUES.md K14 · ตัวจัดเส้นทางของ Next 16 (ไม่ใช่โค้ดเรา)',
     expected: 'POST /api/staff/bookings/{%E0%A4%A|%FF}/checkin (ล็อกอินแล้ว) → 4xx · วันนี้ 500 "Internal Server Error" ข้อความล้วน ไม่มีอะไรถูกเขียน',
   }),
 }, async ({ playwright }) => {
@@ -373,7 +373,7 @@ test.fixme('WT-04-K14 เปอร์เซ็นต์เสียใน URL (%
 test('WT-05 ออกจากระบบ (ลูกค้าและร้าน): cookie ขยะ/ผิดชนิด/ของอีกฝั่ง/body ขยะ → 200 { ok: true } ล้าง cookie · ไม่เขียนรายการเพิกถอน (revoked_sessions) ใหม่ · ไม่ 500', {
   tag: ['@WRONG-TYPE', '@CR-01', '@P1'],
   annotation: ann({
-    tc: 'WT-05', level: 'P1', source: `[D:CR-01] CHANGE-REQUESTS/answers/README.md หัวข้อ CR-01 (ออกจากระบบ = ยกเลิกเฉพาะ cookie ใบนั้นที่ฝั่งเซิร์ฟเวอร์) · ${SRC}`,
+    tc: 'WT-05', level: 'P1', source: `[D:CR-01] docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-01 (ออกจากระบบ = ยกเลิกเฉพาะ cookie ใบนั้นที่ฝั่งเซิร์ฟเวอร์) · ${SRC}`,
     expected: 'POST /api/customers/logout และ /api/staff/logout ด้วย: ไม่มี cookie · cookie = garbage · a.b.c · %FF · ยาว 4,000 ตัว · ว่าง · โทเคนของฝั่งตรงข้าม (ใช้ ln_staff ที่ถูกต้องใส่ช่อง ln_customer) · body เป็น array/ข้อความ → 200 {ok:true} + Set-Cookie ล้าง · revoked_sessions ไม่เพิ่ม · แล้วออกจากระบบด้วย cookie ถูกต้อง 1 ครั้ง → เพิ่มแถวเดียว (เทียบ: เทสต์ชุดนี้จับได้ถ้าทางที่ผิดเขียนแถวขยะ)',
   }),
 }, async ({ playwright }) => {

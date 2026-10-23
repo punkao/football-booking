@@ -2,9 +2,9 @@ import { test, expect, open, getJson, staffLoginPage, waitReady } from '../fixtu
 import { ann } from '../v2-helpers';
 
 /**
- * CR-03 รายงานแยกช่องทางเงิน และชั่วโมงใช้สนาม (CHANGE-REQUESTS/CR-03.md · impact docs/impact/CR-03.md)
+ * CR-03 รายงานแยกช่องทางเงิน และชั่วโมงใช้สนาม (docs/handover/CHANGE-REQUESTS/CR-03.md · impact docs/impact/CR-03.md)
  *
- * ค่าที่คาดหวังมาจากคำตอบร้าน CHANGE-REQUESTS/answers/README.md หัวข้อ CR-03 = [D:CR-03] (+ A-41 / A-42 ใน docs/01-INTERVIEW.md)
+ * ค่าที่คาดหวังมาจากคำตอบร้าน docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-03 = [D:CR-03] (+ A-41 / A-42 ใน docs/01-INTERVIEW.md)
  * - "จ่ายผ่านพร้อมเพย์" + "เก็บหน้าสนาม" = "ยอดจอง" เดิม · 3–9 ต.ค.: พร้อมเพย์ ฿6,600 · เก็บหน้าสนาม ฿600
  * - ชั่วโมงใช้สนาม A B C = ชั่วโมงของการจอง จ่ายแล้ว/เช็กอินแล้ว/ไม่มา ที่วันเตะอยู่ในช่วง · % = ชั่วโมง ÷ (16 × จำนวนวัน) ปัด 1 ตำแหน่ง
  * - CSV เพิ่มคอลัมน์ต่อท้ายเท่านั้น (สูตร Excel ของร้านอ้างตำแหน่ง) · UTF-8 มี BOM · ยอดอื่นเหมือนเดิมทุกตัว
@@ -14,7 +14,7 @@ import { ann } from '../v2-helpers';
  * ช่วง 3–8 ต.ค. (6 วัน → ฐาน 96 ชม.): พร้อมเพย์ 6,600 · หน้าสนาม 600 · ยอดจอง 7,200 · A 3 ชม. (3.1%) · B 2 ชม. (2.1%) · C 0 ชม. (0%)
  */
 
-const ANSWER = 'CHANGE-REQUESTS/answers/README.md หัวข้อ CR-03';
+const ANSWER = 'docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-03';
 const FROM = '2026-10-03';
 const TO = '2026-10-08';
 
@@ -45,7 +45,7 @@ test.describe('CR-03 รายงานแยกช่องทางเงิ�
   test('CR-03-01 เจ้าของดูรายงาน: เงินค่าสนามแยก "มัดจำ/จ่ายผ่านพร้อมเพย์" กับ "เก็บหน้าสนาม" · รวมกันเท่ายอดจองเดิม', {
     tag: ['@CR-03', '@P2'],
     annotation: ann({
-      tc: 'CR-03-01', level: 'P2', source: `[D:CR-03] ${ANSWER} ข้อ 1 · [D A-41] · CHANGE-REQUESTS/CR-03.md ข้อ 1 · TC-REPORT-04`,
+      tc: 'CR-03-01', level: 'P2', source: `[D:CR-03] ${ANSWER} ข้อ 1 · [D A-41] · docs/handover/CHANGE-REQUESTS/CR-03.md ข้อ 1 · TC-REPORT-04`,
       expected: 'owner รายงาน 3–8 ต.ค. หน้าเว็บ: report-total-booking-promptpay ฿6,600 · report-total-booking-cash ฿600 · ยอดจองเดิม ฿7,200 = สองช่องรวมกัน · 6 ต.ค. พร้อมเพย์ ฿600 + หน้าสนาม ฿600 · 8 ต.ค. พร้อมเพย์ ฿4,800 หน้าสนาม ฿0 · JSON ฟิลด์ bookingPromptpay / bookingCash ตรงกัน',
     }),
   }, async ({ page }) => {
@@ -81,7 +81,7 @@ test.describe('CR-03 รายงานแยกช่องทางเงิ�
   test('CR-03-02 เจ้าของดูชั่วโมงที่ใช้ของสนาม A B C ในช่วงที่เลือก เป็นชั่วโมงและเปอร์เซ็นต์', {
     tag: ['@CR-03', '@P2'],
     annotation: ann({
-      tc: 'CR-03-02', level: 'P2', source: `[D:CR-03] ${ANSWER} ข้อ 3 · [D A-42] · CHANGE-REQUESTS/CR-03.md ข้อ 2 · TC-REPORT-04`,
+      tc: 'CR-03-02', level: 'P2', source: `[D:CR-03] ${ANSWER} ข้อ 3 · [D A-42] · docs/handover/CHANGE-REQUESTS/CR-03.md ข้อ 2 · TC-REPORT-04`,
       expected: 'owner รายงาน 3–8 ต.ค. (6 วัน ฐาน 96 ชม.): A 3 ชม. 3.1% · B 2 ชม. 2.1% · C 0 ชม. 0% (นับ CONFIRMED / CHECKED_IN / NO_SHOW ตามวันเตะ · ปัด 1 ตำแหน่ง) · หน้าเว็บการ์ด report-field-<สนาม>-hours / -percent ตรงกับ JSON fieldUse',
     }),
   }, async ({ page }) => {
@@ -108,7 +108,7 @@ test.describe('CR-03 รายงานแยกช่องทางเงิ�
   test('CR-03-03 ไฟล์ CSV: คอลัมน์เดิมคงที่ · คอลัมน์ใหม่ต่อท้ายเท่านั้น · UTF-8 มี BOM', {
     tag: ['@CR-03', '@P1'],
     annotation: ann({
-      tc: 'CR-03-03', level: 'P1', source: `[D:CR-03] ${ANSWER} ข้อ 4 · CHANGE-REQUESTS/CR-03.md ข้อ 3 · SPEC-GAPS G-17 · [E golden/side:csv] หัวเดิม`,
+      tc: 'CR-03-03', level: 'P1', source: `[D:CR-03] ${ANSWER} ข้อ 4 · docs/handover/CHANGE-REQUESTS/CR-03.md ข้อ 3 · SPEC-GAPS G-17 · [E golden/side:csv] หัวเดิม`,
       expected: 'owner GET reports.csv 3–8 ต.ค.: ขึ้นต้นด้วย BOM · 18 คอลัมน์แรกชื่อ/ลำดับเท่าเดิม · คอลัมน์ใหม่ต่อท้าย: "มัดจำ/จ่ายผ่านพร้อมเพย์" "เก็บหน้าสนาม" "ชั่วโมงใช้สนาม A/B/C" "ใช้สนาม A/B/C (%)" · แถวรวม: ยอดจองเดิม 7200 = พร้อมเพย์ 6600 + หน้าสนาม 600 · A 3 / 3.1 · B 2 / 2.1 · C 0 / 0 · แถว 3 ต.ค. A 2 ชม. 12.5% · ทุกแถวมีจำนวนเซลล์เท่าหัว',
     }),
   }, async ({ page }) => {

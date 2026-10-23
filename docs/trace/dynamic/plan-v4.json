@@ -8,7 +8,7 @@
       "description": "ตรวจเครื่อง ติดตั้ง Playwright + เบราว์เซอร์ที่ D:\\ms-playwright + Playwright MCP แบบ bridge (stdio) — ผ่านแล้ว",
       "dependencies": [],
       "status": "DONE",
-      "evidence": "docs/00-ENVIRONMENT.md · screenshots/mcp/trace.jsonl · screenshots/mcp/phase0-after-click.png"
+      "evidence": "docs/00-ENVIRONMENT.md · docs/evidence/screenshots/mcp/trace.jsonl · docs/evidence/screenshots/mcp/phase0-after-click.png"
     },
     "P1": {
       "description": "บทสัมภาษณ์เจ้าของสนาม + ลูกค้า (กฎมีตัวเลข + ค่าขอบ)",
@@ -65,7 +65,7 @@
         "P7_5"
       ],
       "status": "DONE",
-      "evidence": "BUG_MODE=1 → 146/153 · จับบั๊กที่ฝัง 3/3 (docs/10-TEST-REPORT.md) — สถานะใน PLAN.md ณ 2026-10-10 14:40"
+      "evidence": "BUG_MODE=1 → 146/153 · จับบั๊กที่ฝัง 3/3 (docs/10-TEST-REPORT.md) — สถานะใน docs/process/PLAN.md ณ 2026-10-10 14:40"
     },
     "P9": {
       "description": "(โบนัส) Change Request กลางทาง → Plan v2",
@@ -73,7 +73,7 @@
         "P8"
       ],
       "status": "DROPPED",
-      "note": "ไม่ได้ทำเป็นเฟส 9 ตามเดิม — งาน Change Request จริงทำเป็นชุด L5/CR-01…06 ตามบท 05–06 (ข้อสรุปจากการเทียบ PLAN.md · PLAN ไม่ได้เขียนคำว่า DROPPED เอง)"
+      "note": "ไม่ได้ทำเป็นเฟส 9 ตามเดิม — งาน Change Request จริงทำเป็นชุด L5/CR-01…06 ตามบท 05–06 (ข้อสรุปจากการเทียบ docs/process/PLAN.md · PLAN ไม่ได้เขียนคำว่า DROPPED เอง)"
     },
     "P10": {
       "description": "(โบนัส) หน้า /project portal — compose mount ../docs และ ../e2e/test-report อ่านอย่างเดียว",

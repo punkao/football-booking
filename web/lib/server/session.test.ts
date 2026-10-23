@@ -1,6 +1,6 @@
 // CR-01 · login cookies: a different token per login, one reader (readSession) for the new and the pre-CR-01 format,
 // and only a hash of the cookie is ever stored for a logout — written first (red before the fix).
-// Expected values: [D:CR-01] CHANGE-REQUESTS/answers/README.md (only the session that logged out · no change of the
+// Expected values: [D:CR-01] docs/handover/CHANGE-REQUESTS/answers/README.md (only the session that logged out · no change of the
 // 30 days / 12 hours lifetimes · people logged in at the update keep working) · docs/impact/CR-01.md 3.1
 import { test } from "node:test";
 import assert from "node:assert/strict";

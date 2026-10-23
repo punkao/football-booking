@@ -1,6 +1,6 @@
 # SPEC-GAPS — เรื่องที่ SPEC / โค้ด / requirements ยังไม่ตัดสิน (คำถามถึงร้าน)
 
-ทำเมื่อ 2026-10-20 · ทีมดูแลระบบรายใหม่ (chunk D-1 · บท 06 LAB 3 ข้อ 8) · ยังไม่ได้เปิด `CHANGE-REQUESTS/answers/`
+ทำเมื่อ 2026-10-20 · ทีมดูแลระบบรายใหม่ (chunk D-1 · บท 06 LAB 3 ข้อ 8) · ยังไม่ได้เปิด `docs/handover/CHANGE-REQUESTS/answers/`
 ที่มา: `web/SPEC.md` · `docs/04-REQUIREMENTS.md` · `docs/01-INTERVIEW.md` (A-41–A-50) · หนังสือ CR-01..05 · โค้ด (`SYSTEM-MAP.md`) · ผลรันจริง (`HANDOVER-CHECK.md`, `REA-INVENTORY.md`)
 กติกา: **ทีมไม่ตัดสินเองว่าฝั่งไหนถูก** · ทุกข้อเป็นคำถาม · คำตอบของร้านจะเป็นค่าที่คาดหวัง `[D:CR-0N]` ของเทสต์ · ป้ายแหล่ง `[SPEC §]` `[REQ]` `[A-nn]` `[CR]` `[E]` `[source file:line]`
 

@@ -11,7 +11,7 @@ import { ann, sql, expectFree } from '../v2-helpers';
  */
 
 const DATE = '2026-10-19';
-const REF = 'CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05 ข้อ 3 (คิดราคาใหม่ตามกฎเลื่อนเดิม) · docs/04-REQUIREMENTS.md BR-25, BR-06 · web/lib/server/bookings.ts rescheduleBooking (ignoreBookingId)';
+const REF = 'docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05 ข้อ 3 (คิดราคาใหม่ตามกฎเลื่อนเดิม) · docs/04-REQUIREMENTS.md BR-25, BR-06 · web/lib/server/bookings.ts rescheduleBooking (ignoreBookingId)';
 
 /** สถานะที่เก็บจริงของการจองหนึ่งใบ [E sql] */
 function row(code: string) {

@@ -7,7 +7,7 @@ node_modules/
 tools/.mcp-session
 e2e/test-results/
 e2e/playwright-report/
-screenshots/mcp/page-*.yml
+docs/evidence/screenshots/mcp/page-*.yml
 
 # หลักฐานก่อนแก้ (เฟส 7): เก็บเฉพาะ TC ที่ล้ม เพื่อลดขนาด repo
 e2e/test-report/gifs/_before-7.5b/*
@@ -26,8 +26,8 @@ db/backups/*
 !db/backups/.gitkeep
 
 # Playwright MCP run noise (browser console dumps, bridge log)
-screenshots/mcp/console-*.log
-screenshots/mcp/bridge-run.log
+docs/evidence/screenshots/mcp/console-*.log
+docs/evidence/screenshots/mcp/bridge-run.log
 
 # legacy/ (chunk D-1): REA outputs are tens of MB and copies of the build · raw HAR files contain passwords + cookies
 legacy/rea-out/*

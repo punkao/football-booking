@@ -131,7 +131,7 @@
 
 ## 0.3 ฟังเว็บ [O] — สิ่งที่ทำจริง (Playwright MCP ผ่าน bridge `tools/`, 2026-10-19)
 
-- reset ก่อนทุกกลุ่ม (`POST /api/test/reset {}`) และ reset ตอนจบ · ทุกการเรียก MCP ถูกบันทึกใน `screenshots/mcp/trace.jsonl` · ภาพอยู่ที่ `exploration/*.png`
+- reset ก่อนทุกกลุ่ม (`POST /api/test/reset {}`) และ reset ตอนจบ · ทุกการเรียก MCP ถูกบันทึกใน `docs/evidence/screenshots/mcp/trace.jsonl` · ภาพอยู่ที่ `exploration/*.png`
 - กดทุกเมนูหัว/ท้าย (`nav-*`, `cta-*`, `link-fields`, `nav-project`) · เปิด URL ที่ไม่มีจริง (`/no-such-page` → HTTP 404 + `not-found` "ไม่พบหน้านี้")
 - งานหลัก 1 รอบด้วยการคลิก: หน้าแรก → `cta-today` (1 แตะถึงตารางวันนี้) → แตะวัน พ 14 → แตะ `slot-A-19` → ใส่ 2 ชม. ชื่อ เบอร์ ติ๊ก PDPA → ยืนยัน → `/pay/LN-100001` (฿1,200 นับถอยหลัง 14:59) → ยืนยันจ่าย → `/booking/LN-100001?done=paid` (CONFIRMED · จ่ายแล้ว ฿1,200 · เก็บหน้าสนาม ฿1,200 · timeline 2 ขั้น)
 - หน้าร้าน: เข้าสู่ระบบ staff / manager / owner (**บัญชีมาจาก TEST-DATA 2.1 = ร้านให้ [D]** ไม่ต้องยืมจาก SPEC) แล้วเปิด 13 หน้าร้านทุกบทบาท

@@ -1,6 +1,6 @@
 # ตารางเปลี่ยนแผน · Reason / Changes / Impact / Reuse (บท 01 Dynamic · RE-PLAN RULES)
 
-ทุกแถวถอดจาก Plan Version Log ใน `PLAN.md` + สถานะจริงในประวัติ git · ไฟล์แผนของแต่ละเวอร์ชันอยู่ข้างกัน (`plan-v*.json`) · บันทึกการทำงานอยู่ที่ `execution-table.md`
+ทุกแถวถอดจาก Plan Version Log ใน `docs/process/PLAN.md` + สถานะจริงในประวัติ git · ไฟล์แผนของแต่ละเวอร์ชันอยู่ข้างกัน (`plan-v*.json`) · บันทึกการทำงานอยู่ที่ `execution-table.md`
 Trigger ตาม Template: (ก) พบงานที่ยังไม่มีในแผน (ข) งานทำตามแผนไม่ได้ (ค) NEW INFORMATION ทำให้ข้อกำหนดเปลี่ยน — คอลัมน์ "Trigger" ระบุข้อไหน
 
 ## ก. เวอร์ชันแผนใน Plan Version Log
@@ -16,7 +16,7 @@ Trigger ตาม Template: (ก) พบงานที่ยังไม่ม�
 
 ## ข. เหตุการณ์ที่เข้าข่าย Re-plan จริง แต่ไม่ได้ออกเป็นเวอร์ชันใน Log
 
-ทีมบันทึกไว้ใน `PLAN.md` / `HANDOFF.md` / `docs/impact` แทนการออกเลขเวอร์ชัน — ใส่ตรงนี้เพื่อให้ตารางเปลี่ยนแผนครบ (ไม่ได้ตั้งเลขเวอร์ชันเพิ่มเอง)
+ทีมบันทึกไว้ใน `docs/process/PLAN.md` / `docs/process/HANDOFF.md` / `docs/impact` แทนการออกเลขเวอร์ชัน — ใส่ตรงนี้เพื่อให้ตารางเปลี่ยนแผนครบ (ไม่ได้ตั้งเลขเวอร์ชันเพิ่มเอง)
 
 | เมื่อ (commit) | Trigger | Reason | Changes | Impact | Reuse |
 |---|---|---|---|---|---|

@@ -8,7 +8,7 @@
       "✓ ข้อความใต้ปุ่ม \"เก็บเงินแล้ว / เช็กอิน\" ก่อนกด: \"เช็กอินได้เฉพาะวันเตะเท่านั้น\""
     ],
     "shots": [
-      "screenshots/uat/CR-02-1.png"
+      "docs/evidence/screenshots/uat/CR-02-1.png"
     ],
     "notes": []
   },
@@ -22,8 +22,8 @@
       "✓ ลูกค้าเปิด \"การจองของฉัน\" ชั่วโมงสะสม: ชั่วโมงสะสม 0 (ก่อนกด = 0)"
     ],
     "shots": [
-      "screenshots/uat/CR-02-2-staff.png",
-      "screenshots/uat/CR-02-2-customer.png"
+      "docs/evidence/screenshots/uat/CR-02-2-staff.png",
+      "docs/evidence/screenshots/uat/CR-02-2-customer.png"
     ],
     "notes": []
   },
@@ -37,8 +37,8 @@
       "✓ ชั่วโมงสะสมของลูกค้า (จอง 1 ชม.): ชั่วโมงสะสม 1 (จาก 0 → 1)"
     ],
     "shots": [
-      "screenshots/uat/CR-02-3-staff.png",
-      "screenshots/uat/CR-02-3-customer.png"
+      "docs/evidence/screenshots/uat/CR-02-3-staff.png",
+      "docs/evidence/screenshots/uat/CR-02-3-customer.png"
     ],
     "notes": []
   },
@@ -52,7 +52,7 @@
       "✓ สถานะยังเป็น \"ยืนยันแล้ว\": CONFIRMED (ยืนยันแล้ว)"
     ],
     "shots": [
-      "screenshots/uat/CR-02-4.png"
+      "docs/evidence/screenshots/uat/CR-02-4.png"
     ],
     "notes": []
   },
@@ -64,7 +64,7 @@
       "✓ ตาราง \"ประวัติสถานะ\" คอลัมน์ \"ผู้ทำ\": 3 แถว: ลูกค้า · ลูกค้า · น้องบอล"
     ],
     "shots": [
-      "screenshots/uat/CR-02-5.png"
+      "docs/evidence/screenshots/uat/CR-02-5.png"
     ],
     "notes": []
   },
@@ -80,7 +80,7 @@
       "✓ สถานะการจอง: CHECKED_IN (เช็กอินแล้ว)"
     ],
     "shots": [
-      "screenshots/uat/CR-02-6.png"
+      "docs/evidence/screenshots/uat/CR-02-6.png"
     ],
     "notes": []
   },
@@ -94,7 +94,7 @@
       "✓ ไม่มีขั้น \"จบ\": 3 ขั้น"
     ],
     "shots": [
-      "screenshots/uat/CR-02-7.png"
+      "docs/evidence/screenshots/uat/CR-02-7.png"
     ],
     "notes": []
   },
@@ -107,8 +107,8 @@
       "✓ ดาวน์โหลด CSV (Excel): ไฟล์ report-2026-11-30-2027-02-28.csv · 6130 ตัวอักษร · ขึ้นต้นด้วย BOM=true · 91 แถววัน"
     ],
     "shots": [
-      "screenshots/uat/CR-02-8-table.png",
-      "screenshots/uat/CR-02-8-csv.png"
+      "docs/evidence/screenshots/uat/CR-02-8-table.png",
+      "docs/evidence/screenshots/uat/CR-02-8-csv.png"
     ],
     "notes": []
   },
@@ -121,8 +121,8 @@
       "✓ ช่วง 1 ต.ค. → 31 ธ.ค.: 92 วัน"
     ],
     "shots": [
-      "screenshots/uat/CR-02-9-a.png",
-      "screenshots/uat/CR-02-9-b.png"
+      "docs/evidence/screenshots/uat/CR-02-9-a.png",
+      "docs/evidence/screenshots/uat/CR-02-9-b.png"
     ],
     "notes": []
   },
@@ -136,9 +136,9 @@
       "✓ (ค) กรอกเฉพาะเบอร์: \"กรุณากรอกรหัสการจองและเบอร์โทรให้ครบ\""
     ],
     "shots": [
-      "screenshots/uat/CR-02-10-a.png",
-      "screenshots/uat/CR-02-10-b.png",
-      "screenshots/uat/CR-02-10-c.png"
+      "docs/evidence/screenshots/uat/CR-02-10-a.png",
+      "docs/evidence/screenshots/uat/CR-02-10-b.png",
+      "docs/evidence/screenshots/uat/CR-02-10-c.png"
     ],
     "notes": []
   }

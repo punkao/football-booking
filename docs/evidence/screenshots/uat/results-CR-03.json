@@ -10,8 +10,8 @@
       "✓ แถว \"รวม\" เก็บหน้าสนาม: ฿600"
     ],
     "shots": [
-      "screenshots/uat/CR-03-1-head.png",
-      "screenshots/uat/CR-03-1-total.png"
+      "docs/evidence/screenshots/uat/CR-03-1-head.png",
+      "docs/evidence/screenshots/uat/CR-03-1-total.png"
     ],
     "notes": []
   },
@@ -23,7 +23,7 @@
       "✓ \"ยอดจอง\" แถวรวม: ฿7,200 = ฿6,600 + ฿600"
     ],
     "shots": [
-      "screenshots/uat/CR-03-2.png"
+      "docs/evidence/screenshots/uat/CR-03-2.png"
     ],
     "notes": []
   },
@@ -36,7 +36,7 @@
       "✓ 8 ต.ค.: พร้อมเพย์ ฿4,800 · เก็บหน้าสนาม ฿0"
     ],
     "shots": [
-      "screenshots/uat/CR-03-3.png"
+      "docs/evidence/screenshots/uat/CR-03-3.png"
     ],
     "notes": []
   },
@@ -50,7 +50,7 @@
       "✓ สนาม C: 0 ชม. 0.0%"
     ],
     "shots": [
-      "screenshots/uat/CR-03-4.png"
+      "docs/evidence/screenshots/uat/CR-03-4.png"
     ],
     "notes": []
   },
@@ -68,7 +68,7 @@
       "หมายเหตุ: ไม่ได้เปิดด้วย Excel/สูตรของร้านจริง — ตรวจจากไฟล์ CSV (ตำแหน่ง/ชื่อคอลัมน์ ซึ่งเป็นสิ่งที่สูตรอ้างถึง)"
     ],
     "shots": [
-      "screenshots/uat/CR-03-5.png"
+      "docs/evidence/screenshots/uat/CR-03-5.png"
     ],
     "notes": []
   },
@@ -86,7 +86,7 @@
       "หมายเหตุ: ไม่มีไฟล์รายงานเดิมที่ทีมแนบให้ร้าน จึงเทียบกับ golden master tests/golden/side.golden.json (ค่าเดิมที่ล็อกไว้)"
     ],
     "shots": [
-      "screenshots/uat/CR-03-6.png"
+      "docs/evidence/screenshots/uat/CR-03-6.png"
     ],
     "notes": []
   }

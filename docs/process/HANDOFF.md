@@ -1,10 +1,10 @@
 # HANDOFF — ส่งต่องานให้ Claude session/บัญชีใหม่ (อ่านไฟล์นี้ก่อนทำอะไร)
 
-> เขียน 21 ต.ค. 2569 โดย session หลัก (Opus) ก่อนผู้ใช้ย้ายบัญชี Claude · บทสนทนาเดิมไม่ตามมา ไฟล์นี้ + `PLAN.md` + `CLAUDE.md` + memory คือความจำทั้งหมด
+> เขียน 21 ต.ค. 2569 โดย session หลัก (Opus) ก่อนผู้ใช้ย้ายบัญชี Claude · บทสนทนาเดิมไม่ตามมา ไฟล์นี้ + `docs/process/PLAN.md` + `CLAUDE.md` + memory คือความจำทั้งหมด
 > ผู้ใช้พูดไทย · ตอบไทย สั้น ชัด · ผู้ใช้ทำหน้าที่ "เจ้าของสนาม" เวลาต้องตอบคำถามร้าน
 
 ## 1. งานคืออะไร
-งานส่งอาจารย์ (repo อาจารย์ `../Teaching_CWN2026` · **ห้ามแก้ ห้าม push · ห้ามเปิด `_solution/`**): เอาทุกบทที่อาจารย์สอนมาทำระบบจองสนามบอล "ลูกหนัง อารีน่า" ให้เป็น production 1 ตัว (หน้าบ้าน · หลังบ้าน · แชทบอท · คลังของ · จัดการข้อมูลเบื้องหลัง) + test case พร้อมเฉลยผ่าน Playwright MCP · แผนเต็ม `PLAN.md` ("แผน v5" ส่วน A–E) · แผนที่บทเรียน → งาน `docs/11-INSTRUCTOR-MAP.md`
+งานส่งอาจารย์ (repo อาจารย์ `../Teaching_CWN2026` · **ห้ามแก้ ห้าม push · ห้ามเปิด `_solution/`**): เอาทุกบทที่อาจารย์สอนมาทำระบบจองสนามบอล "ลูกหนัง อารีน่า" ให้เป็น production 1 ตัว (หน้าบ้าน · หลังบ้าน · แชทบอท · คลังของ · จัดการข้อมูลเบื้องหลัง) + test case พร้อมเฉลยผ่าน Playwright MCP · แผนเต็ม `docs/process/PLAN.md` ("แผน v5" ส่วน A–E) · แผนที่บทเรียน → งาน `docs/11-INSTRUCTOR-MAP.md`
 push ได้ที่ `https://github.com/punkao/football-booking.git` (origin) เท่านั้น · **ถามผู้ใช้ก่อน push ทุกครั้ง** · ห้ามแตะ `punkao/Final-project-VLM-`
 
 **หลักใหญ่ (ผู้ใช้ย้ำ 21 ต.ค.):** ทุกขั้นต้องยึดสิ่งที่ `Teaching_CWN2026` สอน — สอนอะไร · ให้เทสต์อะไร อย่างไร · ใช้เครื่องมืออะไร อย่างไร — แล้ว **ปรับให้เป็นของสนามบอลเรา** (ไม่ลอกตัวอย่าง petshop/สปา) · **ทำเพิ่มเกินบทเรียนได้ถ้าดีกว่าหรือเหมาะกว่า** โดยเขียนเหตุผลสั้น ๆ ว่าทำไม · ก่อนทำแต่ละขั้นให้เปิด README/LAB ของบทที่เกี่ยวข้องอ่านก่อน (ห้าม `_solution/`) · ตอนปิดงานตรวจครบทั้ง repo (00_tester 01–06 · 00_setup 04.1/04.2/05 · 01 Loop/Graph/Dynamic · 02 MCP · 03 Jev) แล้วอัปเดต `docs/11-INSTRUCTOR-MAP.md` + ระบุช่องว่างตรง ๆ
@@ -16,7 +16,7 @@ push ได้ที่ `https://github.com/punkao/football-booking.git` (origin
 | B สร้างเว็บ v2 | Next.js + PostgreSQL (Docker แยก db/web) · แชทบอท mock/ai · รีวิว G4/G5 แก้ 12 ข้อ | `web/`, `db/`, `docs/RUNBOOK.md` |
 | C ทดสอบแบบอาจารย์ | TEST-CASES 128 ข้อ + เฉลย · MCP รัน 88 ข้อ · e2e 3 เบราว์เซอร์ · `e2e/index.html` · GIF/MP4 · BUG-HUNT จับบั๊กปริศนา 3/3 | `docs/TEST-CASES.md`, `docs/TEST-RUN-MCP.md`, `docs/BUG-HUNT.md` |
 | D รับช่วง (บท 05–06) | HANDOVER-CHECK · SYSTEM-MAP · REA (image `rea-lab:6.4.0` build แล้ว) · golden master · mutant 3/3 · known-issue lock | `legacy/`, `tests/golden/`, `CLAUDE.md` |
-| D CR-01…05 | ทุกฉบับ: คำถาม → ของเดิม file:line → impact → commit แดง → commit แก้ → regression | `CHANGE-REQUESTS/`, `docs/impact/CR-0N.md`, `ORACLE-CHANGES.md` |
+| D CR-01…05 | ทุกฉบับ: คำถาม → ของเดิม file:line → impact → commit แดง → commit แก้ → regression | `docs/handover/CHANGE-REQUESTS/`, `docs/impact/CR-0N.md`, `ORACLE-CHANGES.md` |
 
 คะแนน e2e: เริ่มส่วน D 117/128 → หลัง CR-04 **127/128 ทุกเบราว์เซอร์** (เหลือ SERIES-04 ข้ามตามแผน) · schemaVersion **009**
 
@@ -39,7 +39,7 @@ push ได้ที่ `https://github.com/punkao/football-booking.git` (origin
 2. ทดสอบรั้ว `.claude/settings.json` ในเซสชันใหม่ที่ `football-booking` (`legacy/FENCE-TEST.md`) แล้วลบกฎ `Write(...)` 4 บรรทัด
 3. `claude /login` แล้วรัน `node tools/mcp-football/run-claude.mjs` (ด่าน MCP C3 ที่ติด 401)
 4. พิจารณาเปลี่ยนรหัสผ่าน DB (หมุนรหัส)
-5. ร้านเดิน `UAT-CHECKLIST.md` แล้วเซ็นลายเซ็น (UAT)
+5. ร้านเดิน `docs/handover/UAT-CHECKLIST.md` แล้วเซ็นลายเซ็น (UAT)
 6. `web/BUGS.md` อยู่ใน git/origin ตั้งแต่ commit แรก — ผู้ใช้ตัดสินแล้ว (22 ต.ค.) ว่าไม่ต้องทำอะไร · คนเติม SYSTEM-MAP ส่วน N.2
 
 ### 3.3 สถานะ push
@@ -54,7 +54,7 @@ push ล่าสุดถึง `fd0e78d` (งาน 4) · หลังจา�
 ## 5. คำสั่งที่ใช้บ่อย (รายละเอียด `CLAUDE.md`, `docs/RUNBOOK.md`)
 - เปิดระบบ: Docker Desktop → `docker compose -f db/compose.yaml up -d` → `docker compose -f web/compose.yaml up -d --build` → `curl localhost:3000/api/version` (ต้อง 009 / mock / bugMode 0)
 - reset: `curl -X POST localhost:3000/api/test/reset -H "content-type: application/json" -d "{}"`
-- test ไฟล์เดียว: `cd e2e && npx playwright test <file> --project=chromium --no-deps` · ทั้งชุด: `cd e2e && RUN_MIGRATION_TEST=1 node run-all.mjs` (~15 นาที) · รอบเต็มจบแล้ว `run-all.mjs` สร้าง `unit-proof.json` + `e2e/index.html` ให้เอง (รอบเต็มที่ต้องการเก็บ = commit ไฟล์เหล่านั้น · รอบทดลอง/รันซ้ำข้อเดียวเขียนทับ `results.json` → สำรองก่อน หรือ `git checkout -- e2e/test-report e2e/index.html` · อย่าลืมคืน `screenshots/uat` กับ `web/selfcheck/screens` ที่ถูกเขียนทับด้วย `git checkout --`)
+- test ไฟล์เดียว: `cd e2e && npx playwright test <file> --project=chromium --no-deps` · ทั้งชุด: `cd e2e && RUN_MIGRATION_TEST=1 node run-all.mjs` (~15 นาที) · รอบเต็มจบแล้ว `run-all.mjs` สร้าง `unit-proof.json` + `e2e/index.html` ให้เอง (รอบเต็มที่ต้องการเก็บ = commit ไฟล์เหล่านั้น · รอบทดลอง/รันซ้ำข้อเดียวเขียนทับ `results.json` → สำรองก่อน หรือ `git checkout -- e2e/test-report e2e/index.html` · อย่าลืมคืน `docs/evidence/screenshots/uat` กับ `web/selfcheck/screens` ที่ถูกเขียนทับด้วย `git checkout --`)
 - golden: `node tests/golden/check.mjs`
 - แชทโหมด ai (ผ่าน mock-llm ในเครื่อง): `node tools/chat-mode.mjs ai` · กลับ `node tools/chat-mode.mjs mock`
 
@@ -63,6 +63,6 @@ push ล่าสุดถึง `fd0e78d` (งาน 4) · หลังจา�
 
 ## 7. ประโยคเริ่มงานสำหรับ session ใหม่
 เปิด Claude Code ที่โฟลเดอร์แม่ **`D:\work (outside)\Chanwacnich_TA`** (memory ของงานนี้ผูกกับ path นี้ · เปิด `football-booking` ตรง ๆ จะไม่เห็น memory) แล้วพิมพ์:
-> "อ่าน `football-booking/HANDOFF.md` แล้วทำต่อจากข้อ 3 ในโฟลเดอร์ football-booking · ใช้ Sonnet ทำงาน · Opus รีวิว"
+> "อ่าน `football-booking/docs/process/HANDOFF.md` แล้วทำต่อจากข้อ 3 ในโฟลเดอร์ football-booking · ใช้ Sonnet ทำงาน · Opus รีวิว"
 
 ทำงานในโฟลเดอร์ย่อย: ใช้ path เต็ม / `cd football-booking` ในคำสั่ง · subagent ให้ระบุ root `D:\work (outside)\Chanwacnich_TA\football-booking` · รั้ว `.claude/settings.json` ทำงานเฉพาะ session ที่เปิดที่ `football-booking` ตรง ๆ (ใช้ตอนทดสอบรั้วในส่วน E)

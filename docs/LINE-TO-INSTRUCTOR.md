@@ -22,12 +22,12 @@ Repo: https://github.com/punkao/football-booking
 อ่านเริ่มจากตรงไหน
 1) README.md
 2) Portal http://localhost:3000/project (docker compose up -d --build คำสั่งเดียว ดู README / docs/RUNBOOK.md ข้อ 10)
-3) RELEASE-NOTES.md และ UAT-CHECKLIST.md
+3) docs/handover/RELEASE-NOTES.md และ docs/handover/UAT-CHECKLIST.md
 
 ช่องว่างที่ยังเหลือ (บอกตรง ๆ ครับ)
 - ยังไม่ได้ทดสอบรั้ว .claude/settings.json ในเซสชันใหม่
 - แชทบอทยังไม่เคยทดสอบกับโมเดลจริง ทดสอบแค่โหมด mock และ mock-llm
-- webkit ยังไม่นิ่ง (2 ข้อ flaky ข้างบน) · ปัญหาที่ทีมรู้และยังไม่แก้ 12 ข้อ (KNOWN-ISSUES.md)
+- webkit ยังไม่นิ่ง (2 ข้อ flaky ข้างบน) · ปัญหาที่ทีมรู้และยังไม่แก้ 12 ข้อ (docs/handover/KNOWN-ISSUES.md)
 - หน้าตาใหม่ยังไม่ครบ: หน้าลูกค้า (หน้าแรก/ขั้นตอนจอง/ตั๋ว) กับหลังบ้านแบบใหม่ จอดไว้ที่ branch ui-final ยังไม่รวมเข้า main (ยังมี 4 จุดที่ต้องตรวจ/แก้ก่อน) — main ใช้งานได้ครบ
 - UAT: ทีมเดินบนเว็บจริงแล้ว (21 ต.ค. · docs/UAT-RUN.md) เหลือร้านเดินเองและเซ็น
 รายการเต็มอยู่ docs/11-INSTRUCTOR-MAP.md หัวข้อ 5

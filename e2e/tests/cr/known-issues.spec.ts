@@ -8,7 +8,7 @@ import { BASE_URL, TODAY } from '../constants';
  * - แต่ละข้อ assert พฤติกรรมที่ "ถูกตามร้าน" ([D] คำตอบร้าน / [R] หลักสากล) จึงล้มวันนี้ → ห่อด้วย test.fail() = ชุดเขียว
  * - วันที่ CR แก้บั๊กนั้นสำเร็จ ข้อนั้นจะ "ผ่านโดยไม่คาด" (Playwright นับเป็นล้ม) → CR ต้องถอด test.fail() ข้อนั้นเอง
  *   (ย้ายเป็น test ปกติ หรือลบเพราะมีเทสต์ CR ครอบแล้ว) — ล็อกคู่กับ TC เดิมที่ล้มอยู่ใน e2e/tests/*.ts
- * - เป็น "ตัวทำซ้ำขั้นต่ำ" ของ TC เดิม (ไม่ลอกทุกขั้น) · แท็ก @known-issue @CR-0N ตาม CHANGE-REQUESTS/REGISTER.md
+ * - เป็น "ตัวทำซ้ำขั้นต่ำ" ของ TC เดิม (ไม่ลอกทุกขั้น) · แท็ก @known-issue @CR-0N ตาม docs/handover/CHANGE-REQUESTS/REGISTER.md
  * - ไม่ reset / ไม่เลื่อนเวลา (ไฟล์นี้รันพร้อม 3 เบราว์เซอร์และ spec อื่น) · ใช้ข้อมูล seed แบบอ่านอย่างเดียว หรือข้อมูลใหม่ที่ไม่ชน
  * - นับผล: บรรทัดสรุปของ Playwright รวม expected-fail ไว้ใน "passed" → นับด้วย --grep @known-issue (10 ข้อต่อเบราว์เซอร์ · หลัง CR-01 เหลือ 9: KI TC-ROLE-03 เป็น test ปกติแท็ก @fixed · หลัง CR-02 เหลือ 4: KI TC-BOOK-11 / TC-STAFF-06 / TC-REPORT-01 / TC-TRACK-01 / TC-DATA-01 เป็น test ปกติแท็ก @fixed · หลัง CR-03 KI TC-REPORT-04 · หลัง CR-04 KI TC-CHAT-14/15/16 เป็น test ปกติแท็ก @fixed)
  */
@@ -49,7 +49,7 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   test('KI TC-ROLE-03 ออกจากระบบแล้ว cookie เดิมต้องใช้ไม่ได้', {
     ...ki(
       'TC-ROLE-03', 'CR-01',
-      '[R] OWASP Session Management · NFR-05 · CHANGE-REQUESTS/CR-01.md',
+      '[R] OWASP Session Management · NFR-05 · docs/handover/CHANGE-REQUESTS/CR-01.md',
       'สมาชิก logout แล้ว cookie เดิม GET /api/me → 401 · staff logout แล้ว cookie เดิม GET /api/staff/bookings/LN-900004 → 401',
     ),
     tag: ['@CR-01', '@fixed'],
@@ -77,7 +77,7 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   test('KI TC-BOOK-11 ค้นการจองโดยไม่กรอก → ข้อความบอกให้กรอก (ไม่ใช่ error ระบบ)', {
     ...ki(
       'TC-BOOK-11', 'CR-02',
-      '[R] ข้อความ error ต้องบอกสิ่งที่ผู้ใช้ต้องแก้ · FR-09 · CHANGE-REQUESTS/CR-02.md ข้อ 5',
+      '[R] ข้อความ error ต้องบอกสิ่งที่ผู้ใช้ต้องแก้ · FR-09 · docs/handover/CHANGE-REQUESTS/CR-02.md ข้อ 5',
       '/my กด lookup-submit ทันที → ข้อความพูดถึงรหัส/เบอร์ที่ต้องกรอก และไม่ใช่ "เกิดข้อผิดพลาดในระบบ"',
     ),
     tag: ['@CR-02', '@fixed'],
@@ -99,7 +99,7 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   test('KI TC-STAFF-06 เช็กอินการจองที่ยังไม่ถึงวันเตะ → ต้องถูกปฏิเสธ', {
     ...ki(
       'TC-STAFF-06', 'CR-02',
-      '[D A-45] เช็กอินได้เฉพาะวันเตะ · CHANGE-REQUESTS/CR-02.md ข้อ 1',
+      '[D A-45] เช็กอินได้เฉพาะวันเตะ · docs/handover/CHANGE-REQUESTS/CR-02.md ข้อ 1',
       'วันนี้ 9 ต.ค. · การจองวันที่ 21 ต.ค. ที่จ่ายแล้ว → staff POST checkin ได้ 4xx และสถานะยัง CONFIRMED',
     ),
     tag: ['@CR-02', '@fixed'],
@@ -135,7 +135,7 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   test('KI TC-CHAT-14 "ช่วงไหนถูกสุด" → "ถ้าเอาช่วงนั้น 2 ชั่วโมงล่ะ" ต้องตอบ 1,600', {
     ...ki(
       'TC-CHAT-14', 'CR-04',
-      '[D] US-39 · FR-35 · CHANGE-REQUESTS/CR-04.md',
+      '[D] US-39 · FR-35 · docs/handover/CHANGE-REQUESTS/CR-04.md',
       'ห้องเดียวกัน: คำตอบ 1 มี 800 · คำตอบ 2 มี 1,600 · ไม่มี "ไม่มีข้อมูล"',
     ),
     tag: ['@CR-04', '@fixed'],
@@ -155,7 +155,7 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   test('KI TC-CHAT-15 "วันนี้ 19:00 สนาม A ว่างไหม" → "งั้นสนาม B ล่ะ" ต้องตอบเรื่องสนาม B', {
     ...ki(
       'TC-CHAT-15', 'CR-04',
-      '[D] FR-35 "จำบทสนทนาในห้องเดียวกัน" · US-39 · CHANGE-REQUESTS/CR-04.md',
+      '[D] FR-35 "จำบทสนทนาในห้องเดียวกัน" · US-39 · docs/handover/CHANGE-REQUESTS/CR-04.md',
       'คำตอบ 2 พูดถึง "สนาม B" (ใช้วัน/เวลาจากข้อความแรก) และไม่มี "ไม่มีข้อมูล"',
     ),
     tag: ['@CR-04', '@fixed'],
@@ -174,7 +174,7 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   test('KI TC-CHAT-16 "Is pitch C covered?" → "How much is it on Saturday night?" ต้องตอบราคาสนาม C', {
     ...ki(
       'TC-CHAT-16', 'CR-04',
-      '[D] US-39 เกณฑ์ข้อ 2 · FR-35 · BR-07/08 · CHANGE-REQUESTS/CR-04.md',
+      '[D] US-39 เกณฑ์ข้อ 2 · FR-35 · BR-07/08 · docs/handover/CHANGE-REQUESTS/CR-04.md',
       'คำตอบ 2 มี 1,800 และไม่ตอบราคาสนาม A ("Field A") เพราะ "it" = สนาม C',
     ),
     tag: ['@CR-04', '@fixed'],
@@ -193,7 +193,7 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   test('KI TC-REPORT-01 รายงาน 30 พ.ย. 2569 → 28 ก.พ. 2570 ต้องดูได้', {
     ...ki(
       'TC-REPORT-01', 'CR-02',
-      '[D A-46] 30 พ.ย. → 28 ก.พ. ดูได้ · BR-39 · CHANGE-REQUESTS/CR-02.md ข้อ 4',
+      '[D A-46] 30 พ.ย. → 28 ก.พ. ดูได้ · BR-39 · docs/handover/CHANGE-REQUESTS/CR-02.md ข้อ 4',
       'owner GET /api/owner/reports?from=2026-11-30&to=2027-02-28 → 200 และ 91 วัน',
     ),
     tag: ['@CR-02', '@fixed'],
@@ -208,7 +208,7 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   test('KI TC-REPORT-04 รายงาน CSV ต้องแยก "เก็บหน้าสนาม" และมีชั่วโมงต่อสนาม', {
     ...ki(
       'TC-REPORT-04', 'CR-03',
-      '[D A-41] มัดจำพร้อมเพย์ / เก็บหน้าสนาม 2 คอลัมน์ · [D A-42] ชั่วโมงต่อสนาม · CHANGE-REQUESTS/CR-03.md',
+      '[D A-41] มัดจำพร้อมเพย์ / เก็บหน้าสนาม 2 คอลัมน์ · [D A-42] ชั่วโมงต่อสนาม · docs/handover/CHANGE-REQUESTS/CR-03.md',
       'owner GET /api/owner/reports.csv 3–9 ต.ค. → หัวคอลัมน์มี "หน้าสนาม" และชั่วโมงของสนาม A/B/C',
     ),
     tag: ['@CR-03', '@fixed'],
@@ -225,7 +225,7 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   test('KI TC-TRACK-01 การจองที่เช็กอินแล้วและเล่นจบแล้ว → ขั้นสุดท้ายคือ "จบ"', {
     ...ki(
       'TC-TRACK-01', 'CR-02',
-      '[D A-43] ขั้น "จบ" หลังเวลาเล่นจบเป็นขั้นสุดท้าย · US-49 · CHANGE-REQUESTS/CR-02.md ข้อ 3 · seed LN-900005 (CHECKED_IN 3 ต.ค. 18:00–20:00)',
+      '[D A-43] ขั้น "จบ" หลังเวลาเล่นจบเป็นขั้นสุดท้าย · US-49 · docs/handover/CHANGE-REQUESTS/CR-02.md ข้อ 3 · seed LN-900005 (CHECKED_IN 3 ต.ค. 18:00–20:00)',
       '/booking/LN-900005 (วันนี้ 9 ต.ค. เล่นจบไปแล้ว) → ขั้นสุดท้ายของ timeline มีคำว่า "จบ"',
     ),
     tag: ['@CR-02', '@fixed'],
@@ -246,7 +246,7 @@ test.describe('known issues (ล็อกคู่ · test.fail)', () => {
   test('KI TC-DATA-01 ประวัติการจองต้องแสดงชื่อพนักงาน ไม่ใช่ username', {
     ...ki(
       'TC-DATA-01', 'CR-02',
-      '[D A-44] ประวัติแสดงชื่อพนักงาน · BR-42 · CHANGE-REQUESTS/CR-02.md ข้อ 2 · seed LN-900008 แถวที่ 3 ทำโดย staff (ชื่อ น้องบอล)',
+      '[D A-44] ประวัติแสดงชื่อพนักงาน · BR-42 · docs/handover/CHANGE-REQUESTS/CR-02.md ข้อ 2 · seed LN-900008 แถวที่ 3 ทำโดย staff (ชื่อ น้องบอล)',
       'owner เปิด /owner/bookings/LN-900008 → history-actor-2 = "น้องบอล"',
     ),
     tag: ['@CR-02', '@fixed'],

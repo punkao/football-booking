@@ -1,4 +1,4 @@
-// CR-05 น้องบอลบอกราคาที่มีวันมีผล (node --test). Written from the shop's answers (CHANGE-REQUESTS/answers/README.md, CR-05 = [D:CR-05])
+// CR-05 น้องบอลบอกราคาที่มีวันมีผล (node --test). Written from the shop's answers (docs/handover/CHANGE-REQUESTS/answers/README.md, CR-05 = [D:CR-05])
 // and the letter: "แชทบอท ใบเสนอราคา ต้องบอกราคาเดียวกัน". The facts carry today's rates + the changes that start later;
 // the mock brain tells both, a question about a date is answered with the rates of THAT date, and the BR-30 price guard
 // must let a published future rate through (it is a number of the FACTS, not an invented price).

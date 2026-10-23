@@ -5,9 +5,9 @@ import { BASE_URL } from '../constants';
 import { ann, sql, memberLoginUi, staffLoginUi } from '../v2-helpers';
 
 /**
- * CR-01 ออกจากระบบแล้วยังเข้าใช้ต่อได้ (CHANGE-REQUESTS/CR-01.md · impact docs/impact/CR-01.md)
+ * CR-01 ออกจากระบบแล้วยังเข้าใช้ต่อได้ (docs/handover/CHANGE-REQUESTS/CR-01.md · impact docs/impact/CR-01.md)
  *
- * ค่าที่คาดหวังมาจากคำตอบร้าน CHANGE-REQUESTS/answers/README.md หัวข้อ CR-01 = [D:CR-01]
+ * ค่าที่คาดหวังมาจากคำตอบร้าน docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-01 = [D:CR-01]
  * - ยกเลิกเฉพาะ session ที่กดออกจากระบบ · เครื่องอื่นที่ยังเข้าสู่ระบบอยู่ใช้ต่อได้
  * - หลังออกจากระบบ cookie เดิมเรียกหน้าหรือ API ที่ต้องเข้าสู่ระบบ → เหมือนไม่ได้เข้าสู่ระบบ (API 401 · หน้าเว็บพาไปหน้าเข้าสู่ระบบ)
  * - ไม่ต้องทำ "ออกจากทุกเครื่อง" · ไม่เปลี่ยนเวลาหมดอายุ session เดิม
@@ -17,7 +17,7 @@ import { ann, sql, memberLoginUi, staffLoginUi } from '../v2-helpers';
  * ไม่ reset / ไม่เลื่อนเวลา (รันพร้อม 3 เบราว์เซอร์) · สมาชิกใหม่ใช้ uniquePhone(b) · บัญชีร้านใช้ seed แบบเข้าสู่ระบบแยกต่อ context
  */
 
-const ANSWER = 'CHANGE-REQUESTS/answers/README.md หัวข้อ CR-01';
+const ANSWER = 'docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-01';
 type PW = { request: { newContext: (o: object) => Promise<APIRequestContext> } };
 
 /** อีกเครื่องที่ถือ cookie ชุดเดียวกับ ctx ตอนนี้ (เหมือนคนที่แอบเก็บ cookie ไว้) */
@@ -35,7 +35,7 @@ test.describe('CR-01 ออกจากระบบแล้วต้องใ�
   test('CR-01-01 สมาชิกกดออกจากระบบแล้ว cookie เดิมดูข้อมูลสมาชิกไม่ได้ (API 401 · หน้า /my ให้เข้าสู่ระบบ)', {
     tag: ['@CR-01', '@P1'],
     annotation: ann({
-      tc: 'CR-01-01', level: 'P1', source: `[D:CR-01] ${ANSWER} ข้อ 2 · CHANGE-REQUESTS/CR-01.md ("ดูข้อมูลสมาชิก เครดิต ชั่วโมงสะสมได้") · TC-ROLE-03`,
+      tc: 'CR-01-01', level: 'P1', source: `[D:CR-01] ${ANSWER} ข้อ 2 · docs/handover/CHANGE-REQUESTS/CR-01.md ("ดูข้อมูลสมาชิก เครดิต ชั่วโมงสะสมได้") · TC-ROLE-03`,
       expected: 'หลังกด logout บน /my: cookie เดิม GET /api/me → 401 UNAUTHORIZED · เปิด /my ด้วย cookie เดิม → เห็นฟอร์มเข้าสู่ระบบ (login-phone) ไม่เห็น my-name',
     }),
   }, async ({ page, playwright, anonApi, newUserPage, b }) => {
@@ -71,7 +71,7 @@ test.describe('CR-01 ออกจากระบบแล้วต้องใ�
   test('CR-01-02 พนักงานกดออกจากระบบแล้ว cookie เดิมเปิดหลังบ้านและข้อมูลการจองไม่ได้ (API 401 · หน้าเว็บไปหน้าเข้าสู่ระบบ)', {
     tag: ['@CR-01', '@P1'],
     annotation: ann({
-      tc: 'CR-01-02', level: 'P1', source: `[D:CR-01] ${ANSWER} ข้อ 2 · CHANGE-REQUESTS/CR-01.md ("ยังเปิดหน้าร้านและข้อมูลการจองได้อยู่") · TC-ROLE-03`,
+      tc: 'CR-01-02', level: 'P1', source: `[D:CR-01] ${ANSWER} ข้อ 2 · docs/handover/CHANGE-REQUESTS/CR-01.md ("ยังเปิดหน้าร้านและข้อมูลการจองได้อยู่") · TC-ROLE-03`,
       expected: 'staff กด staff-logout แล้ว cookie เดิม: GET /api/staff/bookings/LN-900004 · /api/staff/me · /api/staff/stock → 401 · เปิด /staff → /staff/login?next=%2Fstaff + login-required · owner ออกแล้ว cookie เดิม GET /api/owner/dashboard → 401',
     }),
   }, async ({ page, playwright, staffApi, newUserPage }) => {
@@ -115,7 +115,7 @@ test.describe('CR-01 ออกจากระบบแล้วต้องใ�
   test('CR-01-03 ออกจากระบบเฉพาะเครื่องที่กด เครื่องอื่นของบัญชีเดียวกันใช้ต่อได้ และเข้าสู่ระบบใหม่ได้', {
     tag: ['@CR-01', '@P1'],
     annotation: ann({
-      tc: 'CR-01-03', level: 'P1', source: `[D:CR-01] ${ANSWER} ข้อ 1 + ข้อ 3 (ไม่ทำ "ออกจากทุกเครื่อง") · CHANGE-REQUESTS/CR-01.md ("คนที่ไม่ได้กดออกจากระบบ ใช้งานต่อได้ตามปกติ")`,
+      tc: 'CR-01-03', level: 'P1', source: `[D:CR-01] ${ANSWER} ข้อ 1 + ข้อ 3 (ไม่ทำ "ออกจากทุกเครื่อง") · docs/handover/CHANGE-REQUESTS/CR-01.md ("คนที่ไม่ได้กดออกจากระบบ ใช้งานต่อได้ตามปกติ")`,
       expected: 'สมาชิก: เครื่อง A ออก → cookie A เดิม 401 · เครื่อง B 200 · A เข้าสู่ระบบใหม่ → 200 · ร้าน: staff เครื่อง A ออก → cookie A เดิม 401 · เครื่อง B GET /api/staff/bookings/LN-900004 → 200',
     }),
   }, async ({ playwright, anonApi, staffApi, b }) => {

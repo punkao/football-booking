@@ -1,5 +1,5 @@
-// CR-05 (CHANGE-REQUESTS/CR-05.md · docs/impact/CR-05.md) — กฎล้วนของราคาที่มีวันมีผล (node --test) · เขียนก่อนแก้โค้ด
-// ค่าที่คาดหวัง: [D:CR-05] = CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05 · [CR-05] = หนังสือ · [E rules.test.ts] = ของเดิมที่ต้องคงไว้
+// CR-05 (docs/handover/CHANGE-REQUESTS/CR-05.md · docs/impact/CR-05.md) — กฎล้วนของราคาที่มีวันมีผล (node --test) · เขียนก่อนแก้โค้ด
+// ค่าที่คาดหวัง: [D:CR-05] = docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05 · [CR-05] = หนังสือ · [E rules.test.ts] = ของเดิมที่ต้องคงไว้
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import * as rules from "./index.ts";

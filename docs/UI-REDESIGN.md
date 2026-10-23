@@ -176,7 +176,7 @@
 
 ## 5. สัญญา testid / ข้อความ (ห้ามเสีย)
 
-**วิธีตรวจ (เสนอทำเป็นขั้นแรกของชิ้น 1)**: สคริปต์ใหม่ (ไฟล์ใหม่ใน `tools/`) เปิด 19 หน้า × TH/EN × 1280/375 (ใช้ `tools/ui-shots.mjs` เป็นฐาน) แล้วเก็บ **ชุด `data-testid` + `data-*` ที่เทสต์อ้าง + ข้อความของ testid ที่เทสต์ตรวจ** ลง `docs/ui/testids-before.json` ก่อนแก้ แล้วเทียบกับ `testids-after.json` หลังแต่ละชิ้น (ต้องเป็นสับเซ็ตเสมอ: เพิ่มได้ ลด/เปลี่ยนค่าไม่ได้) · ตอนนี้เทสต์อ้าง testid ราว **390 ตัว/รูปแบบ** (สกัดจาก `e2e/tests/**`)
+**วิธีตรวจ (เสนอทำเป็นขั้นแรกของชิ้น 1)**: สคริปต์ใหม่ (ไฟล์ใหม่ใน `tools/`) เปิด 19 หน้า × TH/EN × 1280/375 (ใช้ `tools/ui-shots.mjs` เป็นฐาน) แล้วเก็บ **ชุด `data-testid` + `data-*` ที่เทสต์อ้าง + ข้อความของ testid ที่เทสต์ตรวจ** ลง `docs/ui/testid-before.json` ก่อนแก้ แล้วเทียบกับ `testids-after.json` หลังแต่ละชิ้น (ต้องเป็นสับเซ็ตเสมอ: เพิ่มได้ ลด/เปลี่ยนค่าไม่ได้) · ตอนนี้เทสต์อ้าง testid ราว **390 ตัว/รูปแบบ** (สกัดจาก `e2e/tests/**`)
 
 ### 5.1 กติกากลาง
 1. **ไม่ลบ ไม่เปลี่ยนชื่อ ไม่ย้ายแอตทริบิวต์** `data-testid`, `data-value`, `data-status`, `data-ready`, `data-chat-state`, `data-bug-mode`, `aria-pressed`, `aria-current`, `lang` · เปลี่ยนได้เฉพาะ className/CSS/ห่อด้วย element เพิ่ม
@@ -216,7 +216,7 @@
 
 | ชิ้น | ทำอะไร | ไฟล์ที่น่าจะแตะ | เทสต์ที่รันตอนจบชิ้น | แรง |
 |---|---|---|---|---|
-| **S0** เตรียม | เก็บ `testids-before.json` + สคริปต์เทียบ; ตรวจ `getByTestId` ที่ซ้อนกับ layout (xpath `..`) | ใหม่: `tools/testid-snapshot.mjs`, `docs/ui/testids-before.json` | รันสคริปต์สองรอบได้ผลเท่ากัน | S (~0.5 ชม.) |
+| **S0** เตรียม | เก็บ `testids-before.json` + สคริปต์เทียบ; ตรวจ `getByTestId` ที่ซ้อนกับ layout (xpath `..`) | ใหม่: `tools/testid-snapshot.mjs`, `docs/ui/testid-before.json` | รันสคริปต์สองรอบได้ผลเท่ากัน | S (~0.5 ชม.) |
 | **S1** design system + layout | แทน token ใน `globals.css` (ตัวแปร, ปุ่ม, ฟอร์ม `input:not([type])`, ป้ายสถานะ, ตั๋ว, ตัวบอกขั้น, ตาราง) · หัวเว็บ + `Nav` (เมนู 375, กลุ่มพนักงาน) · ตัด `rise/floaty/hover ลอย/ไล่สี` · ท้ายหน้าเว้นที่ footer · ฟอนต์ import · `Stepper` คอมโพเนนต์ (ยังไม่ใช้) | `web/app/globals.css`, `web/app/layout.tsx`, `web/components/Nav.tsx`, `web/components/ui.tsx` (`Stepper`), `web/components/BackOffice.tsx` (BackTabs เป็นกลุ่ม) | `tsc`+`eslint` · e2e chromium: `home` `mob` `i18n` `book` `owner` `staff` · testid diff · ภาพ after ชุดเล็ก | **M-L** (ไฟล์ CSS เดียว ~1,400 บรรทัด + 4 ไฟล์) |
 | **S2** แชท | แผงข้าง/เต็มจอ, ปุ่ม, ต้อนรับ+ทำได้/ไม่ได้, ชิปด่วน, การ์ดตั๋ว, a11y | `web/components/ChatWidget.tsx`, `globals.css` (`.chat-*`), (+เทสต์ชิปใหม่ใน `e2e/tests/my/`, หน่วยใน `web/lib/chat/`) | `chat.spec` `chat.serial.spec` `v2.spec`(TC-MOB แชท 375) `mob` · ทดลองโหมด `ai` (mock-llm) แล้วคืน `mock` · เทสต์ใหม่: แผงไม่บังเนื้อหาที่ 1280 (ขอบซ้ายของ `chat-panel` ≥ ขอบขวาของ `main`), ชิปส่งข้อความ | **M** |
 | **S3** หน้าบ้าน/จอง | หน้าแรก, ตารางว่าง, `/book/new` (ตั๋ว, แถบจ่ายมือถือ, ข้อความวิธีแก้), `/pay`, `/booking` | `web/app/page.tsx`, `web/app/book/BookClient.tsx`, `web/app/book/new/NewBookingClient.tsx`, `web/app/pay/[code]/PayClient.tsx`, `web/app/booking/[code]/BookingClient.tsx`, `web/lib/i18n.ts` (ข้อความใหม่), (แผงรอบว่างวันนี้: `web/lib/server/*` เรียกตารางว่าง) | `home` `book` `price` `rent` `pay` `cancel` `member` `series` `credit` `team` `cr/*`(home/CR-05) `mob` `i18n` (ครบ 3 เบราว์เซอร์) + `book.perf` (NFR-08) · testid diff | **L** (3–4 ไฟล์ใหญ่) |

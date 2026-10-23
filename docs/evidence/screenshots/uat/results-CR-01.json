@@ -8,8 +8,8 @@
       "✓ เครื่อง B: สวัสดี ต้น · เครดิต ฿1,200 · ชั่วโมงสะสม 7"
     ],
     "shots": [
-      "screenshots/uat/CR-01-1-A.png",
-      "screenshots/uat/CR-01-1-B.png"
+      "docs/evidence/screenshots/uat/CR-01-1-A.png",
+      "docs/evidence/screenshots/uat/CR-01-1-B.png"
     ],
     "notes": []
   },
@@ -21,7 +21,7 @@
       "✓ เครื่อง A หลังกดออกจากระบบ: เห็นฟอร์ม \"เข้าสู่ระบบสมาชิก\" (ช่องเบอร์โทร/รหัสผ่าน) · ไม่มีชื่อ/เครดิต (my-name=0, credit-balance=0)"
     ],
     "shots": [
-      "screenshots/uat/CR-01-2.png"
+      "docs/evidence/screenshots/uat/CR-01-2.png"
     ],
     "notes": []
   },
@@ -34,8 +34,8 @@
       "✓ รีเฟรช /my: ฟอร์มเข้าสู่ระบบ=1 · my-name=0 · credit-balance=0"
     ],
     "shots": [
-      "screenshots/uat/CR-01-3-back.png",
-      "screenshots/uat/CR-01-3-reload.png"
+      "docs/evidence/screenshots/uat/CR-01-3-back.png",
+      "docs/evidence/screenshots/uat/CR-01-3-reload.png"
     ],
     "notes": []
   },
@@ -47,7 +47,7 @@
       "✓ เครื่อง B รีเฟรช /my: สวัสดี ต้น · login-phone=0"
     ],
     "shots": [
-      "screenshots/uat/CR-01-4.png"
+      "docs/evidence/screenshots/uat/CR-01-4.png"
     ],
     "notes": []
   },
@@ -59,7 +59,7 @@
       "✓ เครื่อง A เข้าสู่ระบบใหม่: สวัสดี ต้น · เครดิต ฿1,200"
     ],
     "shots": [
-      "screenshots/uat/CR-01-5.png"
+      "docs/evidence/screenshots/uat/CR-01-5.png"
     ],
     "notes": []
   },
@@ -72,8 +72,8 @@
       "✓ เครื่อง B ค้น LN-900004: เห็นการจอง LN-900004 · ลูกค้า แนน · สถานะ CONFIRMED"
     ],
     "shots": [
-      "screenshots/uat/CR-01-6-A.png",
-      "screenshots/uat/CR-01-6-B.png"
+      "docs/evidence/screenshots/uat/CR-01-6-A.png",
+      "docs/evidence/screenshots/uat/CR-01-6-B.png"
     ],
     "notes": []
   },
@@ -88,8 +88,8 @@
       "✓ หลัง restart: พนักงานยังเข้าสู่ระบบอยู่: น้องบอล · STAFF"
     ],
     "shots": [
-      "screenshots/uat/CR-01-7-member.png",
-      "screenshots/uat/CR-01-7-staff.png"
+      "docs/evidence/screenshots/uat/CR-01-7-member.png",
+      "docs/evidence/screenshots/uat/CR-01-7-staff.png"
     ],
     "notes": []
   }

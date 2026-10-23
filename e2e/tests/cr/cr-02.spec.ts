@@ -3,9 +3,9 @@ import { test, expect, open, uniquePhone, payBooking, getJson, postJson, registe
 import { ann, sql, sqlNum } from '../v2-helpers';
 
 /**
- * CR-02 แก้ 5 จุดให้ตรงกับที่ร้านตอบไว้ (CHANGE-REQUESTS/CR-02.md · impact docs/impact/CR-02.md)
+ * CR-02 แก้ 5 จุดให้ตรงกับที่ร้านตอบไว้ (docs/handover/CHANGE-REQUESTS/CR-02.md · impact docs/impact/CR-02.md)
  *
- * ค่าที่คาดหวังมาจากคำตอบร้าน CHANGE-REQUESTS/answers/README.md หัวข้อ CR-02 = [D:CR-02] (+ A-43..A-46 ใน docs/01-INTERVIEW.md)
+ * ค่าที่คาดหวังมาจากคำตอบร้าน docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-02 = [D:CR-02] (+ A-43..A-46 ใน docs/01-INTERVIEW.md)
  * - (1) เช็กอินได้ทุกเวลาของวันเตะ (เวลาไทย) · วันอื่นปฏิเสธพร้อมข้อความว่าเช็กอินได้เฉพาะวันเตะ · ชั่วโมงสะสมนับตอนเช็กอิน
  * - (2) "ใครกด" = ชื่อที่แสดงของพนักงาน · ลูกค้า/ระบบเหมือนเดิม · ประวัติเก่าก็แสดงชื่อ (ห้ามแก้แถวประวัติเดิม)
  * - (3) ขั้น "จบ" เมื่อเช็กอินแล้วและเลยเวลาจบรอบ · เวลา = เวลาจบรอบ · ไม่มีสถานะใหม่ · ไม่มา/ยกเลิกไม่มี "จบ"
@@ -18,7 +18,7 @@ import { ann, sql, sqlNum } from '../v2-helpers';
  * seed ใช้แบบอ่านอย่างเดียว
  */
 
-const ANSWER = 'CHANGE-REQUESTS/answers/README.md หัวข้อ CR-02';
+const ANSWER = 'docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-02';
 const SYS = 'เกิดข้อผิดพลาดในระบบ';
 const NOT_PLAY_DAY = 'เช็กอินได้เฉพาะวันเตะ'; // [D:CR-02] ข้อ 1 "ข้อความบอกว่าเช็กอินได้เฉพาะวันเตะ"
 
@@ -49,7 +49,7 @@ test.describe('CR-02 แก้ 5 จุดให้ตรงกับที่�
   test('CR-02-01 พนักงานกดเช็กอินการจองที่ยังไม่ถึงวันเตะ → ปฏิเสธพร้อมบอกว่าเช็กอินได้เฉพาะวันเตะ · ชั่วโมงสะสมไม่ขึ้น', {
     tag: ['@CR-02', '@P2'],
     annotation: ann({
-      tc: 'CR-02-01', level: 'P2', source: `[D:CR-02] ${ANSWER} ข้อ 1 · [D A-45] · CHANGE-REQUESTS/CR-02.md ข้อ 1 · TC-STAFF-06 · [สมมติฐาน Q4] ปุ่มยังกดได้ + บอกเหตุผลใต้ปุ่ม`,
+      tc: 'CR-02-01', level: 'P2', source: `[D:CR-02] ${ANSWER} ข้อ 1 · [D A-45] · docs/handover/CHANGE-REQUESTS/CR-02.md ข้อ 1 · TC-STAFF-06 · [สมมติฐาน Q4] ปุ่มยังกดได้ + บอกเหตุผลใต้ปุ่ม`,
       expected: 'วันนี้ 9 ต.ค. · สมาชิกใหม่จองสนาม C วันเตะ พ 21 ต.ค. (12:00–20:00 ช่องที่ว่าง) จ่ายแล้ว · /staff ก่อนกด: staff-checkin-hint data-value CHECKIN_NOT_PLAY_DAY "เช็กอินได้เฉพาะวันเตะ" · กด → error-message "เช็กอินได้เฉพาะวันเตะ" · สถานะ CONFIRMED · API 409 CHECKIN_NOT_PLAY_DAY · /my paid-hours 0 · [E sql] ไม่มีเงินหน้าสนาม ไม่มี checked_in_at',
     }),
   }, async ({ page, b, staffApi }) => {
@@ -220,7 +220,7 @@ test.describe('CR-02 แก้ 5 จุดให้ตรงกับที่�
   test('CR-02-07 ลูกค้ากดค้นการจองโดยไม่กรอกรหัสหรือไม่กรอกเบอร์ → บอกให้กรอกให้ครบ (ไม่ใช่ข้อผิดพลาดระบบ)', {
     tag: ['@CR-02', '@P3'],
     annotation: ann({
-      tc: 'CR-02-07', level: 'P3', source: `[D:CR-02] ${ANSWER} ข้อ 5 · CHANGE-REQUESTS/CR-02.md ข้อ 5 · TC-BOOK-11 · [สมมติฐาน Q13] ข้อความเดียวใน error-message · [สมมติฐาน Q15] เว้นวรรค = ไม่กรอก`,
+      tc: 'CR-02-07', level: 'P3', source: `[D:CR-02] ${ANSWER} ข้อ 5 · docs/handover/CHANGE-REQUESTS/CR-02.md ข้อ 5 · TC-BOOK-11 · [สมมติฐาน Q13] ข้อความเดียวใน error-message · [สมมติฐาน Q15] เว้นวรรค = ไม่กรอก`,
       expected: '/my กด lookup-submit: (ก) ว่างทั้งคู่ (ข) รหัส LN-900004 อย่างเดียว (ค) เบอร์อย่างเดียว (ง) เว้นวรรคทั้งคู่ → error-message มี "กรอก" และ "ครบ" ไม่มี "เกิดข้อผิดพลาดในระบบ" ไม่ไปหน้า /booking และไม่มีคำขอ /api/bookings · ภาษาอังกฤษ → "Please enter both …"',
     }),
   }, async ({ page }) => {

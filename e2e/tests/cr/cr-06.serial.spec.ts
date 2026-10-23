@@ -5,9 +5,9 @@ import { test, expect, open, uniquePhone, createBooking, payBooking, getJson, po
 import { ann, sql, sqlNum, T } from '../v2-helpers';
 
 /**
- * CR-06 เงินจากทีมรับคำท้าไม่ขึ้นในรายงาน (CHANGE-REQUESTS/CR-06.md · impact docs/impact/CR-06.md)
+ * CR-06 เงินจากทีมรับคำท้าไม่ขึ้นในรายงาน (docs/handover/CHANGE-REQUESTS/CR-06.md · impact docs/impact/CR-06.md)
  *
- * ค่าที่คาดหวังมาจากคำตอบร้าน CHANGE-REQUESTS/answers/README.md หัวข้อ CR-06 = [D:CR-06]
+ * ค่าที่คาดหวังมาจากคำตอบร้าน docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-06 = [D:CR-06]
  * - เงินที่ทีมรับคำท้าโอน เข้าบัญชีพร้อมเพย์ของร้านจริง · รายงานนับในช่อง "จ่ายผ่านพร้อมเพย์" ตามวันที่รับเงิน (รวมใน "ยอดจอง" และ "รวมรับเงิน")
  * - คำท้าที่รับและจ่ายไปแล้วในอดีต: เติมบันทึกการรับเงินย้อนหลังด้วย migration (รันซ้ำได้ ถอยกลับได้ ไม่สร้างซ้ำ)
  * - เครดิตที่เจ้าของการจองได้ เหมือนเดิมทุกบาท
@@ -25,7 +25,7 @@ test.afterEach(async ({ request }, testInfo) => {
   await resetData(request);
 });
 
-const ANSWER = 'CHANGE-REQUESTS/answers/README.md หัวข้อ CR-06';
+const ANSWER = 'docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-06';
 const BOOK_DATE = '2026-10-16';
 const TODAY = '2026-10-09';
 
@@ -65,7 +65,7 @@ function creditSnapshot(phone: string) {
 test('CR-06-01 ทีมรับคำท้าโอนเงินแล้ว เงินก้อนนั้นขึ้นในรายงานช่อง "จ่ายผ่านพร้อมเพย์" (รวมในยอดจองและรวมรับเงินด้วย)', {
   tag: ['@CR-06', '@P1'],
   annotation: ann({
-    tc: 'CR-06-01', level: 'P1', source: `[D:CR-06] ${ANSWER} ข้อ 1–2 · CHANGE-REQUESTS/CR-06.md ข้อ 1 · docs/impact/CR-03.md ข้อ 5 · SPEC-GAPS G-15`,
+    tc: 'CR-06-01', level: 'P1', source: `[D:CR-06] ${ANSWER} ข้อ 1–2 · docs/handover/CHANGE-REQUESTS/CR-06.md ข้อ 1 · docs/impact/CR-03.md ข้อ 5 · SPEC-GAPS G-15`,
     expected: '9 ต.ค.: เจ้าของจ่ายเต็ม ฿1,800 → รายงานพร้อมเพย์ ฿1,800 · ทีมรับคำท้ารับแล้วยังไม่จ่าย → ยังเท่าเดิม · ทีมรับจ่าย ฿900 → พร้อมเพย์ ฿2,700 · ยอดจอง ฿2,700 · รวมรับเงินเพิ่มขึ้น ฿900 · หน้าเว็บ report-total-booking-promptpay = 2700 · แถวเงินใหม่ผูกกับการจองของเจ้าของ (PROMPTPAY ฿900)',
   }),
 }, async ({ page, staffApi, b }) => {

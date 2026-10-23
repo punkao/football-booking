@@ -12,7 +12,7 @@ path ในตารางเป็นแบบย่อ: `rules/` = `web/lib/ru
 |---|---|---|---|
 | ฐานข้อมูล | `postgres:16-alpine` container `football-db` · volume `football-pgdata` · พอร์ต `127.0.0.1:5433` · TZ Asia/Bangkok · mount `init/` `migrations/` `scripts/` `backups/` | `db/compose.yaml:6-24` | 🔵🟢 |
 | network | `football-net` สร้างโดย db project · web ใช้แบบ `external` | `db/compose.yaml:32-34` · `web/compose.yaml` ท้ายไฟล์ `external: true` | 🔵🟢 |
-| เว็บ | image `football-web:v2` · container `football-web` · พอร์ต 3000 · ไม่มี volume ข้อมูล · mount `docs/` `e2e/test-report/` และไฟล์ส่งมอบทีละไฟล์ (`CHANGE-REQUESTS/` `RELEASE-NOTES.md` `UAT-CHECKLIST.md` `legacy/{REGRESSION-REPORT,TRACEABILITY,REA-COMPARE}.md`) สำหรับ Portal `/project` และ `db/init/02-seed.sql` (reset) อ่านอย่างเดียว | `web/compose.yaml:9-45` | 🔵🟢 |
+| เว็บ | image `football-web:v2` · container `football-web` · พอร์ต 3000 · ไม่มี volume ข้อมูล · mount `docs/` `e2e/test-report/` และไฟล์ส่งมอบทีละไฟล์ (`docs/handover/CHANGE-REQUESTS/` `docs/handover/RELEASE-NOTES.md` `docs/handover/UAT-CHECKLIST.md` `legacy/{REGRESSION-REPORT,TRACEABILITY,REA-COMPARE}.md`) สำหรับ Portal `/project` และ `db/init/02-seed.sql` (reset) อ่านอย่างเดียว | `web/compose.yaml:9-45` | 🔵🟢 |
 | env ที่มีผล | `DATABASE_URL` (บังคับ) · `ALLOW_TEST_RESET` (ค่าเริ่ม 0) · `BUG_MODE` (0) · `MODE` (mock) · `LLM_BASE_URL` `LLM_MODEL` `LLM_API_KEY` `LLM_TIMEOUT_MS` · `SESSION_SECRET` · `SEED_SQL_PATH` | `web/compose.yaml:15-27` | 🔵 |
 | healthcheck เว็บ | `fetch('http://127.0.0.1:3000/api/health')` ต้อง `ok && db` | `web/compose.yaml:40-41` | 🔵🟢 |
 | mock-llm | profile `mock` · node:24 · mount `web/lib` อ่านอย่างเดียว → ใช้สมองเดียวกับ `MODE=mock` | `web/compose.yaml` service `mock-llm` · `web/mock-llm/server.mjs:11` | 🔵 |

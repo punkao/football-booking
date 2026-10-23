@@ -7,7 +7,7 @@ import type { APIRequestContext } from '@playwright/test';
  * ตาข่ายเสริม (ก): "ยอดที่เก็บลงฐานตอนสร้างการจอง = ยอดที่ลูกค้าเห็นบนใบเสนอราคา/หน้าจอ" ทุกช่อง
  * ช่องที่ตรวจ: ค่าสนาม (field_price) · ส่วนลด (discount) · ค่าเช่า (rental_price) · ยอดรวม (total_price) · จ่ายตอนนี้ (pay_now) · ค้างจ่ายหน้าสนาม (due_at_field) · จ่ายแล้ว (amount_paid = 0) · เครดิต (credit_used = 0)
  * 4 กรณี: (1) รอบปกติ (2) เย็นหลัง 1 พ.ย. = CR-05 (3) จองประจำคร่อม 1 พ.ย. (4) จองผ่านน้องบอล (mock)
- * ค่าที่คาดหวัง: "เท่ากับที่ใบเสนอราคาบอก" [D:BR-07/BR-11/BR-12 ยอดเดียวกันทุกช่องทาง · NFR-19] · ตัวเลขราคาจริงของ CR-05 [D:CR-05] CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05
+ * ค่าที่คาดหวัง: "เท่ากับที่ใบเสนอราคาบอก" [D:BR-07/BR-11/BR-12 ยอดเดียวกันทุกช่องทาง · NFR-19] · ตัวเลขราคาจริงของ CR-05 [D:CR-05] docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05
  * project "serial" · นาฬิกา 25 ต.ค. 2569 10:00 เพื่อให้จองรอบหลัง 1 พ.ย. ได้ (หน้าต่างจอง 14 วัน) · reset ก่อนและหลังทุกข้อ
  * ห้ามแก้ test เดิม — ไฟล์นี้เป็นของใหม่ (CR-05 / ตาข่ายเสริม)
  */
@@ -15,7 +15,7 @@ import type { APIRequestContext } from '@playwright/test';
 test.beforeEach(async ({ request }) => { await resetData(request); await setClock(request, T('2026-10-25T10:00:00')); });
 test.afterEach(async ({ request }) => { await resetData(request); });
 
-const ANSWER = 'CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05';
+const ANSWER = 'docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05';
 
 type Stored = { fieldPrice: number; discount: number; rentalPrice: number; totalPrice: number; payNow: number; dueAtField: number; amountPaid: number; creditUsed: number };
 

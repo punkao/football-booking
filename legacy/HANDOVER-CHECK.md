@@ -1,6 +1,6 @@
 # HANDOVER-CHECK — ตรวจคำอ้างของผู้รับเหมาเดิมกับผลที่รันจริง
 
-ทำเมื่อ 2026-10-20 · ทีมดูแลระบบรายใหม่ (chunk D-1 · บท 06 LAB 1 + บท 05 LAB 1) · ฐาน: git tag `v2-handover` = `faa3f2e` · HEAD `95a5513` (เพิ่มแค่ `CHANGE-REQUESTS/` · `git diff --stat v2-handover HEAD` = 8 ไฟล์ใน CHANGE-REQUESTS) · `git status web db` สะอาด
+ทำเมื่อ 2026-10-20 · ทีมดูแลระบบรายใหม่ (chunk D-1 · บท 06 LAB 1 + บท 05 LAB 1) · ฐาน: git tag `v2-handover` = `faa3f2e` · HEAD `95a5513` (เพิ่มแค่ `docs/handover/CHANGE-REQUESTS/` · `git diff --stat v2-handover HEAD` = 8 ไฟล์ใน docs/handover/CHANGE-REQUESTS) · `git status web db` สะอาด
 หลัก: **โค้ดบอก ≠ ระบบทำ ≠ ร้านต้องการ** · บันทึกส่งมอบ / README / SPEC / RUNBOOK = คำอ้าง **[A]** จนกว่าจะรันเอง
 ป้าย: ✅ ตรงกับผลที่รัน · ❌ ไม่ตรง · ⚠️ ตรงบางส่วน / ตรวจไม่ได้ในรอบนี้ (บอกวิธีตรวจ)
 
@@ -39,7 +39,7 @@ e2e ที่ส่งมอบ (สรุปจาก `results.json` ด้ว�
 
 ## 3. คำอ้าง vs ผลจริง
 
-### 3.1 บันทึกส่งมอบ `CHANGE-REQUESTS/00-HANDOVER-MEMO.md` (H1–H20)
+### 3.1 บันทึกส่งมอบ `docs/handover/CHANGE-REQUESTS/00-HANDOVER-MEMO.md` (H1–H20)
 
 | # | คำอ้าง [A] (บรรทัด) | ผลจริง / หลักฐาน | ผล |
 |---|---|---|---|

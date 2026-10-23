@@ -9,7 +9,7 @@
       "✓ การ์ดราคา: มี ฿1,200"
     ],
     "shots": [
-      "screenshots/uat/CR-04-1.png"
+      "docs/evidence/screenshots/uat/CR-04-1.png"
     ],
     "notes": []
   },
@@ -23,7 +23,7 @@
       "✓ สนาม C พรุ่งนี้ 10:00 = ฿1,800 ไม่ถามใหม่ ไม่ตอบ \"ไม่มีข้อมูล\": ได้ ฿1,800"
     ],
     "shots": [
-      "screenshots/uat/CR-04-2.png"
+      "docs/evidence/screenshots/uat/CR-04-2.png"
     ],
     "notes": []
   },
@@ -37,7 +37,7 @@
       "✓ สนาม C จันทร์ 12 ต.ค. 10:00 = ฿1,200: มี ฿1,200"
     ],
     "shots": [
-      "screenshots/uat/CR-04-3.png"
+      "docs/evidence/screenshots/uat/CR-04-3.png"
     ],
     "notes": []
   },
@@ -51,7 +51,7 @@
       "✓ 2 ชั่วโมง = ฿2,400: มี ฿2,400"
     ],
     "shots": [
-      "screenshots/uat/CR-04-4.png"
+      "docs/evidence/screenshots/uat/CR-04-4.png"
     ],
     "notes": []
   },
@@ -67,7 +67,7 @@
       "✓ 3 ชั่วโมง: มี ฿3,600"
     ],
     "shots": [
-      "screenshots/uat/CR-04-5.png"
+      "docs/evidence/screenshots/uat/CR-04-5.png"
     ],
     "notes": []
   },
@@ -82,7 +82,7 @@
       "✓ 2 ชั่วโมง: มี ฿1,600"
     ],
     "shots": [
-      "screenshots/uat/CR-04-6.png"
+      "docs/evidence/screenshots/uat/CR-04-6.png"
     ],
     "notes": []
   },
@@ -100,7 +100,7 @@
       "✓ ไม่มีตัวอักษรไทยในคำตอบ: ไม่พบ"
     ],
     "shots": [
-      "screenshots/uat/CR-04-7.png"
+      "docs/evidence/screenshots/uat/CR-04-7.png"
     ],
     "notes": []
   },
@@ -113,7 +113,7 @@
       "✓ ไม่จำข้ามห้อง → ไม่มีข้อมูล + เบอร์ร้าน: ตอบไม่มีข้อมูล พร้อมเบอร์ร้าน"
     ],
     "shots": [
-      "screenshots/uat/CR-04-8.png"
+      "docs/evidence/screenshots/uat/CR-04-8.png"
     ],
     "notes": []
   },
@@ -130,8 +130,8 @@
       "✓ ปฏิเสธนอกเรื่อง: ตอบได้เฉพาะเรื่องสนาม…"
     ],
     "shots": [
-      "screenshots/uat/CR-04-9-card.png",
-      "screenshots/uat/CR-04-9-off.png"
+      "docs/evidence/screenshots/uat/CR-04-9-card.png",
+      "docs/evidence/screenshots/uat/CR-04-9-off.png"
     ],
     "notes": [
       "ใบข้อ 9 ไม่ได้บอกว่าน้องบอลจะถาม PDPA เป็นข้อความก่อน และต้องพิมพ์ \"ยินยอม\" การ์ดยืนยันถึงจะขึ้น (ตรงกับ TC-CHAT-07) — ควรเติมในใบ: ... → น้องบอลถามยินยอม → พิมพ์ \"ยินยอม\" → ขึ้นการ์ด"
@@ -147,7 +147,7 @@
       "✓ ยังถามสนาม/วัน/เวลาใหม่ (ตามที่แจ้งไว้ ไม่ใช่ความผิดพลาดใหม่): ไม่มีการ์ดยืนยัน=true"
     ],
     "shots": [
-      "screenshots/uat/CR-04-10.png"
+      "docs/evidence/screenshots/uat/CR-04-10.png"
     ],
     "notes": []
   }

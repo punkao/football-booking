@@ -4,9 +4,9 @@ import { BASE_URL, TODAY } from '../constants';
 import { ann } from '../v2-helpers';
 
 /**
- * CR-04 น้องบอลจำเรื่องที่คุยไปแล้ว (CHANGE-REQUESTS/CR-04.md · impact docs/impact/CR-04.md)
+ * CR-04 น้องบอลจำเรื่องที่คุยไปแล้ว (docs/handover/CHANGE-REQUESTS/CR-04.md · impact docs/impact/CR-04.md)
  *
- * ค่าที่คาดหวังมาจากคำตอบร้าน CHANGE-REQUESTS/answers/README.md หัวข้อ CR-04 = [D:CR-04]
+ * ค่าที่คาดหวังมาจากคำตอบร้าน docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-04 = [D:CR-04]
  * - จำเฉพาะในห้องแชทเดียวกัน · เปิดห้องใหม่ = เริ่มใหม่
  * - ข้อความใหม่ไม่บอกวัน/เวลา/สนาม/ชั่วโมง → ใช้ค่าล่าสุดในห้อง · บอกค่าใหม่ → ใช้ค่าใหม่ · "it"/"สนามนั้น" = สนามล่าสุดที่คุย
  * - "ช่วงไหนถูกสุด" → ก่อน 17:00 จ–ศ พร้อมราคาต่อชั่วโมงของสนามที่คุยอยู่ (ไม่มี = สนาม 5 คน) · ถามต่อ "N ชั่วโมง" → คิดราคาจากช่วงนั้น
@@ -17,7 +17,7 @@ import { ann } from '../v2-helpers';
  * วันล็อก: วันนี้ = ศ 9 ต.ค. 2569 → พรุ่งนี้ = ส 10 ต.ค. · จันทร์ถัดไป = 12 ต.ค. (13 ต.ค. วันหยุด)
  */
 
-const ANSWER = 'CHANGE-REQUESTS/answers/README.md หัวข้อ CR-04';
+const ANSWER = 'docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-04';
 const THAI = /[฀-๿]/;
 
 /** ห้องแชทใหม่ (cookie แยก) + IP ของตัวเอง (กันชนเพดานต่อ IP) */
@@ -36,7 +36,7 @@ test.describe('CR-04 น้องบอลจำเรื่องที่ค�
   test('CR-04-01 บอกค่าใหม่ → ใช้ค่าใหม่ ที่เหลือใช้ค่าเดิมของห้อง (สนาม → วัน → ชั่วโมง)', {
     tag: ['@CR-04', '@P2'],
     annotation: ann({
-      tc: 'CR-04-01', level: 'P2', source: `[D:CR-04] ${ANSWER} ข้อ 2 · CHANGE-REQUESTS/CR-04.md ข้อ 1 · TC-CHAT-15`,
+      tc: 'CR-04-01', level: 'P2', source: `[D:CR-04] ${ANSWER} ข้อ 2 · docs/handover/CHANGE-REQUESTS/CR-04.md ข้อ 1 · TC-CHAT-15`,
       expected: `ห้องเดียวกัน: "สนาม A พรุ่งนี้ 10:00 ราคาเท่าไร" ฿1,200 (เสาร์ = เรทเย็น) → "สนาม C ล่ะ" ฿1,800 (สนามใหม่ วัน/เวลาเดิม) → "วันจันทร์ล่ะ" ฿1,200 (จันทร์ 12 ต.ค. 10:00 = เรทก่อน 17:00 ของ C) → "ขอ 2 ชั่วโมง" ฿2,400 · ทุกคำตอบเป็นการ์ดราคา (quote) · ไม่มี "ไม่มีข้อมูล"`,
     }),
   }, async ({ playwright, b }) => {
@@ -79,7 +79,7 @@ test.describe('CR-04 น้องบอลจำเรื่องที่ค�
   test('CR-04-02 ภาษาอังกฤษ: ถามราคาสนาม B แล้ว "what about field C?" → ตอบสนาม C วัน/เวลาเดิม ไม่มีอักษรไทย', {
     tag: ['@CR-04', '@P2'],
     annotation: ann({
-      tc: 'CR-04-02', level: 'P2', source: `[D:CR-04] ${ANSWER} ข้อ 2–3 · CHANGE-REQUESTS/CR-04.md ข้อ 3 · TC-CHAT-16`,
+      tc: 'CR-04-02', level: 'P2', source: `[D:CR-04] ${ANSWER} ข้อ 2–3 · docs/handover/CHANGE-REQUESTS/CR-04.md ข้อ 3 · TC-CHAT-16`,
       expected: `"How much is field B on Saturday at 7pm?" → THB 1,200 · "what about field C?" → Field C THB 1,800 (เสาร์ 10 ต.ค. 19:00 จากข้อความก่อน) · "and 2 hours?" → THB 3,600 · ไม่มีอักษรไทยในคำตอบใด`,
     }),
   }, async ({ playwright, b }) => {
@@ -102,7 +102,7 @@ test.describe('CR-04 น้องบอลจำเรื่องที่ค�
   test('CR-04-03 "ช่วงไหนถูกสุด" ตามสนามที่คุยอยู่ (C = ฿1,200) · ไม่มีสนาม = สนาม 5 คน ฿800 · "N ชั่วโมง" คิดราคาช่วงนั้น (EN ก็ได้)', {
     tag: ['@CR-04', '@P2'],
     annotation: ann({
-      tc: 'CR-04-03', level: 'P2', source: `[D:CR-04] ${ANSWER} ข้อ 4 · [D A-48] · CHANGE-REQUESTS/CR-04.md ข้อ 2 · TC-CHAT-14`,
+      tc: 'CR-04-03', level: 'P2', source: `[D:CR-04] ${ANSWER} ข้อ 4 · [D A-48] · docs/handover/CHANGE-REQUESTS/CR-04.md ข้อ 2 · TC-CHAT-14`,
       expected: 'ห้อง 1: "สนาม C มีหลังคาไหม" → "ช่วงไหนถูกสุด" ต้องมี ฿1,200 และ 17:00 และไม่มี ฿800 → "3 ชั่วโมง" ต้องมี ฿3,600 (การ์ดราคาสนาม C) · ห้อง 2 (EN): "which time is the cheapest?" THB 800 → "what about 3 hours?" THB 2,400 · ทั้งหมดต้องมาจากฟังก์ชันราคา (การ์ด quote) ไม่เดา',
     }),
   }, async ({ playwright, b }) => {
@@ -135,7 +135,7 @@ test.describe('CR-04 น้องบอลจำเรื่องที่ค�
   test('CR-04-04 เปิดห้องใหม่ = เริ่มใหม่ · และคำถามเรื่องอื่นไม่ถูกความจำแย่งตอบ', {
     tag: ['@CR-04', '@P2'],
     annotation: ann({
-      tc: 'CR-04-04', level: 'P2', source: `[D:CR-04] ${ANSWER} ข้อ 1, 5 · BR-29 · BR-32 · CHANGE-REQUESTS/CR-04.md ข้อ 4`,
+      tc: 'CR-04-04', level: 'P2', source: `[D:CR-04] ${ANSWER} ข้อ 1, 5 · BR-29 · BR-32 · docs/handover/CHANGE-REQUESTS/CR-04.md ข้อ 4`,
       expected: 'ห้อง 1 คุยเรื่อง สนาม C เสาร์ 19:00 แล้วถาม "เปิดกี่โมง" → 08:00 และ 24:00 · "ขอบคุณครับ" → ไม่มีข้อมูล + เบอร์ร้าน · "ผลบอลเมื่อคืนเป็นยังไง" → ปฏิเสธนอกเรื่อง · ไม่มีการ์ดใหม่เลยตั้งแต่คำถามที่ 2 · ห้อง 2 (ห้องใหม่) พิมพ์ "งั้นสนาม B ล่ะ" ข้อความเดียว → ไม่มีข้อมูล + เบอร์ร้าน (ไม่จำข้ามห้อง)',
     }),
   }, async ({ playwright, b }) => {

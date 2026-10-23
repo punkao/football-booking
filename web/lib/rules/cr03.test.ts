@@ -1,5 +1,5 @@
-// CR-03 (CHANGE-REQUESTS/CR-03.md · docs/impact/CR-03.md) — กฎล้วนของรายงานแยกช่องทางเงิน + ชั่วโมงใช้สนาม (node --test) · เขียนก่อนแก้โค้ด
-// ค่าที่คาดหวัง: [D:CR-03] = CHANGE-REQUESTS/answers/README.md หัวข้อ CR-03 · [D A-41/A-42] = docs/01-INTERVIEW.md
+// CR-03 (docs/handover/CHANGE-REQUESTS/CR-03.md · docs/impact/CR-03.md) — กฎล้วนของรายงานแยกช่องทางเงิน + ชั่วโมงใช้สนาม (node --test) · เขียนก่อนแก้โค้ด
+// ค่าที่คาดหวัง: [D:CR-03] = docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-03 · [D A-41/A-42] = docs/01-INTERVIEW.md
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import * as rules from "./index.ts";

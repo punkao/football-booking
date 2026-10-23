@@ -8,13 +8,13 @@ import { sql, staffLoginUi, memberLoginUi, T } from '../v2-helpers';
 import { ChatLog, ChatRoom } from '../chat-helpers';
 
 /**
- * เดินใบ UAT-CHECKLIST.md ทีละขั้นบนเว็บจริงเหมือนเจ้าของสนาม (บท 04 LAB 9 · docs/TEST-RUN-MCP.md)
- * ผลต่อขั้น (เห็นอะไร · ✅/❌ · ภาพ) เขียนที่ screenshots/uat/results-CR-0N.json แล้ว docs/UAT-RUN.md สร้างจากไฟล์เหล่านี้
+ * เดินใบ docs/handover/UAT-CHECKLIST.md ทีละขั้นบนเว็บจริงเหมือนเจ้าของสนาม (บท 04 LAB 9 · docs/TEST-RUN-MCP.md)
+ * ผลต่อขั้น (เห็นอะไร · ✅/❌ · ภาพ) เขียนที่ docs/evidence/screenshots/uat/results-CR-0N.json แล้ว docs/UAT-RUN.md สร้างจากไฟล์เหล่านี้
  * ขั้น "ทีมทำ" ทำผ่าน /api/test/clock · docker exec psql (อ่านอย่างเดียว) ตามที่ใบกำหนด
  * รัน: cd e2e && npx playwright test tests/my/uat-walk.serial.spec.ts --project=serial --no-deps --reporter=list -g "CR-01"
  */
 
-const OUT = path.resolve(__dirname, '..', '..', '..', 'screenshots', 'uat');
+const OUT = path.resolve(__dirname, '..', '..', '..', 'docs', 'evidence', 'screenshots', 'uat');
 const TMP = process.env.UAT_TMP ?? path.resolve(__dirname, '..', '..', 'test-results', 'uat-tmp');
 fs.mkdirSync(OUT, { recursive: true });
 fs.mkdirSync(TMP, { recursive: true });
@@ -46,7 +46,7 @@ class S {
     try {
       if (target) await target.scrollIntoViewIfNeeded({ timeout: 3000 }).catch(() => {});
       await page.screenshot({ path: path.join(OUT, name), animations: 'disabled' });
-      this.shots.push(`screenshots/uat/${name}`);
+      this.shots.push(`docs/evidence/screenshots/uat/${name}`);
     } catch (e) {
       this.saw.push(`(ถ่ายภาพ ${name} ไม่ได้: ${String(e).slice(0, 80)})`);
     }

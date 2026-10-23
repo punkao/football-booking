@@ -14,7 +14,7 @@
 | 2 | `node build-index.mjs --run test-report/bugmode2 --out test-report/bugmode2/index.html --compare normal-mode --media test-report/bugmode2 --triage test-report/bugmode2/triage.json --label …` | [`e2e/test-report/bugmode2/index.html`](../e2e/test-report/bugmode2/index.html) · เทียบโหมดปกติ: เปลี่ยน 11 จุด (TC × เบราว์เซอร์) |
 | 2 | `RUN_MIGRATION_TEST=1 npm run test:gif` (โหมดบั๊ก · chromium + serial · slowMo 650) | 109 ผ่าน / 18 ล้ม / 1 ข้าม · perf-chromium ผ่าน · ข้อที่ล้ม = ชุดเดียวกับรอบหลัก (10 ข้อเดิม + 8 ข้อใหม่) · เก็บ **เฉพาะ GIF/MP4 ของ 8 TC ที่ล้มใหม่** = GIF 11 / MP4 11 ไฟล์ ที่ `bugmode2/gifs` `bugmode2/videos` (TC-DASH-02 มี 4 คลิป) · `TEST-REPORT-gif.md` · `gif-run.log` |
 | 2 | คืนหลักฐานโหมดปกติ | `git checkout -- e2e/test-report/gifs e2e/test-report/videos e2e/test-report/chat e2e/test-report/TEST-REPORT.md e2e/test-report/results.json e2e/test-report/run-info.json e2e/plan-cases.json` → ลิงก์ GIF/MP4 ของ `e2e/index.html` กลับเป็นหลักฐานโหมดปกติ 138/138 |
-| 4 | ลองซ้ำด้วย Playwright MCP (bridge headless) เฉพาะส่วนที่ล้มใหม่ | 79 การเรียก MCP (trace.jsonl บรรทัด 4518–4596) · ภาพ `screenshots/mcp/bug-hunt/*.png` |
+| 4 | ลองซ้ำด้วย Playwright MCP (bridge headless) เฉพาะส่วนที่ล้มใหม่ | 79 การเรียก MCP (trace.jsonl บรรทัด 4518–4596) · ภาพ `docs/evidence/screenshots/mcp/bug-hunt/*.png` |
 | 6 | `BUG_MODE=0 docker compose -f web/compose.yaml up -d` + reset `{}` | `data-bug-mode="0"` · `/api/version` = `{"schemaVersion":"006","chatMode":"mock","bugMode":0}` · reset ตอบ `{"ok":true,…,"bugMode":0}` · health `{"ok":true,"db":true}` |
 
 ### 0.1 หมายเหตุ `e2e/normal-mode/index.html`
@@ -86,7 +86,7 @@ Playwright MCP ผ่าน bridge (`tools/mcp-bridge.mjs --headless` + `tools/m
 
 | กลุ่ม | ที่ทำผ่าน MCP (คลิก/กรอกแบบคน) | ผลที่อ่านจากหน้าจอ | ภาพ |
 |---|---|---|---|
-| A | `/book` อ่านปุ่มวัน · `/book?date=` 23 / 24 / 25 ต.ค. · ฟอร์ม `/book/new?field=A&date=2026-10-24&start=9` พิมพ์ชื่อ/เบอร์ ติ๊ก PDPA กดยืนยัน · curl API 25 ต.ค. | ปุ่มวัน 9–24 ต.ค. (16 ปุ่ม) · 23 และ 24 ต.ค. `slot-A-9`/`slot-C-23` = `free` · 25 ต.ค. = `out-of-range` · กดยืนยัน 24 ต.ค. → `/pay/LN-100001` "ยอดที่ต้องจ่ายตอนนี้ ฿600" · API 25 ต.ค. → `TOO_FAR_AHEAD` `maxDate: "2026-10-24"` → **ขอบเลื่อนจาก 23 เป็น 24 พอดี 1 วัน** | `screenshots/mcp/bug-hunt/BUG-A-pay-24oct.png` |
+| A | `/book` อ่านปุ่มวัน · `/book?date=` 23 / 24 / 25 ต.ค. · ฟอร์ม `/book/new?field=A&date=2026-10-24&start=9` พิมพ์ชื่อ/เบอร์ ติ๊ก PDPA กดยืนยัน · curl API 25 ต.ค. | ปุ่มวัน 9–24 ต.ค. (16 ปุ่ม) · 23 และ 24 ต.ค. `slot-A-9`/`slot-C-23` = `free` · 25 ต.ค. = `out-of-range` · กดยืนยัน 24 ต.ค. → `/pay/LN-100001` "ยอดที่ต้องจ่ายตอนนี้ ฿600" · API 25 ต.ค. → `TOO_FAR_AHEAD` `maxDate: "2026-10-24"` → **ขอบเลื่อนจาก 23 เป็น 24 พอดี 1 วัน** | `docs/evidence/screenshots/mcp/bug-hunt/BUG-A-pay-24oct.png` |
 | B | owner เข้าสู่ระบบผ่าน `/staff/login` → `/owner/dashboard` · `/owner/reports` กรอกช่วง 8–8, 8–9, 9–10, 3–9 ต.ค. กดดูรายงาน | แดชบอร์ด: today 0 · sales 0 · week 7,260 · แท่ง 8 ต.ค. 4,860 (มีขาย ฿60) · แท่ง 9 ต.ค. 0 · รายงาน 8–8: promptpay 0 รวม 4,800 · 8–9: **8 ต.ค. promptpay 60 ถูก** แต่ 9 ต.ค. cash 0 · 9–10: **9 ต.ค. cash 40 ถูก** · 3–9: รวม 7,260 → **ขายหายเฉพาะวันสุดท้ายของช่วง** · เงินจาก Payment ไม่หาย | `BUG-B-dashboard.png` · `BUG-B-report-3-9.png` |
 | C | manager เข้าสู่ระบบ → `/manager/stock` ฟอร์มชำรุด WATER / STORE / 72 / เหตุผล → `/staff/stock` | "บันทึกของชำรุดแล้ว" · `stock-WATER-total` 48 · `stock-WATER-reorder` 48 · `stock-alerts` count 1 "! น้ำดื่ม 600 มล.: เหลือรวม 48 (จุดสั่งซื้อซ้ำ 48)" · ป้าย "ใกล้หมด" | `BUG-C-stock-48.png` |
 

@@ -3,7 +3,7 @@
 ทำแบบบทเรียน 00_tester/03 LAB 5 และ 02_MCP บท 6: AI ใช้เว็บผ่าน **Playwright MCP** ทีละขั้น (snapshot → ตัดสินใจ → คลิก/กรอก) ไม่ได้อ่านโค้ด
 - เครื่องมือ: `@playwright/mcp` 0.0.83 ผ่าน `tools/mcp-bridge.mjs` (Chromium มีหน้าต่าง, `--isolated`)
 - เวลาเว็บล็อกที่ **ศุกร์ 9 ต.ค. 2569 10:00** ด้วย `POST /api/test/reset` ก่อนเริ่ม · `BUG_MODE=0`
-- หลักฐาน: `screenshots/mcp/trace.jsonl` (163 tools/call · 11 ครั้งเป็น error จากฝั่งผู้สั่งเอง เช่น ส่งพารามิเตอร์ผิด, ref ว่าง, timeout ตอนเลือกตัวเลือกที่ไม่มี — ไม่ใช่ error ของเว็บ) · ภาพ `screenshots/mcp/p5-*.png`
+- หลักฐาน: `docs/evidence/screenshots/mcp/trace.jsonl` (163 tools/call · 11 ครั้งเป็น error จากฝั่งผู้สั่งเอง เช่น ส่งพารามิเตอร์ผิด, ref ว่าง, timeout ตอนเลือกตัวเลือกที่ไม่มี — ไม่ใช่ error ของเว็บ) · ภาพ `docs/evidence/screenshots/mcp/p5-*.png`
 
 ## Journey ที่เดิน
 

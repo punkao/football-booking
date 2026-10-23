@@ -1,7 +1,7 @@
 // mcp-bridge.mjs — holds ONE Playwright MCP session open (stdio, like Claude Code does)
 // and exposes it on http://localhost:8932 so short-lived shell commands can drive the same
 // browser page step by step, like a real user. Every tools/call is logged to
-// ../screenshots/mcp/trace.jsonl as evidence.
+// ../docs/evidence/screenshots/mcp/trace.jsonl as evidence.
 //
 //   npm run mcp:bridge          # start (headed browser window)
 //   npm run mcp:bridge:headless # start without a window
@@ -14,7 +14,7 @@ import path from 'node:path';
 
 const PORT = Number(process.env.BRIDGE_PORT ?? 8932);
 const HERE = import.meta.dirname;
-const EVIDENCE = path.resolve(HERE, '..', 'screenshots', 'mcp');
+const EVIDENCE = path.resolve(HERE, '..', 'docs', 'evidence', 'screenshots', 'mcp');
 fs.mkdirSync(EVIDENCE, { recursive: true });
 
 const args = [

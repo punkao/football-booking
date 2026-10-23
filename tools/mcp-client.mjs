@@ -10,7 +10,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const BASE = `http://localhost:${process.env.BRIDGE_PORT ?? 8932}`;
-const EVIDENCE = path.resolve(import.meta.dirname, '..', 'screenshots', 'mcp');
+const EVIDENCE = path.resolve(import.meta.dirname, '..', 'docs', 'evidence', 'screenshots', 'mcp');
 
 async function api(method, route, body) {
   const res = await fetch(BASE + route, {

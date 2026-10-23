@@ -4,17 +4,17 @@ import { BASE_URL, SEED } from '../constants';
 import { ann, T } from '../v2-helpers';
 
 /**
- * CR-05 ข้อที่ต้องเลื่อนเวลาไปใกล้/หลัง 1 พ.ย. 2569 (CHANGE-REQUESTS/CR-05.md · impact docs/impact/CR-05.md)
+ * CR-05 ข้อที่ต้องเลื่อนเวลาไปใกล้/หลัง 1 พ.ย. 2569 (docs/handover/CHANGE-REQUESTS/CR-05.md · impact docs/impact/CR-05.md)
  * project "serial" (Chromium ทีละข้อ หลัง 3 เบราว์เซอร์จบ) · reset ก่อนและหลังทุกข้อ
  * หน้าต่างจอง 14 วันจากวันล็อก (9 ต.ค.) ไม่ถึง 1 พ.ย. → ตั้งนาฬิกา ส 25 ต.ค. 10:00 แล้วจอง 31 ต.ค. – 8 พ.ย. (จองประจำเริ่ม 28 ต.ค.)
- * ค่าที่คาดหวัง: [D:CR-05] = CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05 · [CR-05] = หนังสือ · [สมมติฐาน Qn] = docs/impact/CR-05.md ข้อ 1.2
+ * ค่าที่คาดหวัง: [D:CR-05] = docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05 · [CR-05] = หนังสือ · [สมมติฐาน Qn] = docs/impact/CR-05.md ข้อ 1.2
  * วันที่ใช้: ส 31 ต.ค. · อา 1 พ.ย. (วันมีผล) · อ 3 พ.ย. · ศ 6 พ.ย. · ส 7 พ.ย. · พ 28 ต.ค. (จองประจำ)
  */
 
 test.beforeEach(async ({ request }) => { await resetData(request); await setClock(request, T('2026-10-25T10:00:00')); });
 test.afterEach(async ({ request }) => { await resetData(request); });
 
-const ANSWER = 'CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05';
+const ANSWER = 'docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05';
 
 async function chatRoom(playwright: { request: { newContext: (o: object) => Promise<APIRequestContext> } }) {
   const ip = `10.250.${1 + Math.floor(Math.random() * 250)}.${1 + Math.floor(Math.random() * 250)}`;
@@ -30,7 +30,7 @@ async function chatRoom(playwright: { request: { newContext: (o: object) => Prom
 test('CR-05-S1 ใบเสนอราคา: รอบ 31 ต.ค. ฿1,200 · รอบ 1 พ.ย. ฿1,300 (มัดจำ ฿650) · คร่อม 17:00 คิดทีละชั่วโมง · กลางวันและสนาม C ไม่เปลี่ยน', {
   tag: ['@CR-05', '@P1'],
   annotation: ann({
-    tc: 'CR-05-S1', level: 'P1', source: `[D:CR-05] ${ANSWER} ข้อ 1, 4 (คร่อม 17:00 · มัดจำ ฿650) · CHANGE-REQUESTS/CR-05.md ตาราง · [สมมติฐาน Q6] เสาร์ 09:00 หลัง 1 พ.ย. ฿1,300`,
+    tc: 'CR-05-S1', level: 'P1', source: `[D:CR-05] ${ANSWER} ข้อ 1, 4 (คร่อม 17:00 · มัดจำ ฿650) · docs/handover/CHANGE-REQUESTS/CR-05.md ตาราง · [สมมติฐาน Q6] เสาร์ 09:00 หลัง 1 พ.ย. ฿1,300`,
     expected: 'วันนี้ 25 ต.ค. · A ส 31 ต.ค. 19:00 ฿1,200 (จ่ายเต็ม) · A อา 1 พ.ย. 19:00 ฿1,300 มัดจำ ฿650 หน้าสนาม ฿650 hourly[19]=1300 · A อ 3 พ.ย. 16:00 ×2 = ฿2,100 (hourly 800 + 1300) · A อ 3 พ.ย. 10:00 = ฿800 · B ส 7 พ.ย. 09:00 = ฿1,300 · ศ 6 พ.ย. A 19:00 ฿1,300 จ่ายเต็ม ฿1,300 · C อา 1 พ.ย. 19:00 ฿1,800 · C อ 3 พ.ย. 16:00 ฿1,200',
   }),
 }, async ({ request }) => {
@@ -79,7 +79,7 @@ test('CR-05-S1 ใบเสนอราคา: รอบ 31 ต.ค. ฿1,200 ·
 test('CR-05-S2 จองรอบหลัง 1 พ.ย. หลังขึ้นระบบ → เก็บยอดใหม่ ฿1,300 (มัดจำ ฿650 / จ่ายเต็ม ฿1,300) และยอดนั้นไม่เปลี่ยนเมื่อเวลาผ่าน 1 พ.ย. · การจองก่อน 1 พ.ย. ยัง ฿1,200 ทุกบาท', {
   tag: ['@CR-05', '@P1'],
   annotation: ann({
-    tc: 'CR-05-S2', level: 'P1', source: `[D:CR-05] ${ANSWER} ข้อ 2 "การจองที่สร้างก่อนระบบใหม่ ยอดเดิมทุกบาท · ใบที่สร้างหลังขึ้นระบบใช้ราคาใหม่" · CHANGE-REQUESTS/CR-05.md "ห้ามเปลี่ยนยอด"`,
+    tc: 'CR-05-S2', level: 'P1', source: `[D:CR-05] ${ANSWER} ข้อ 2 "การจองที่สร้างก่อนระบบใหม่ ยอดเดิมทุกบาท · ใบที่สร้างหลังขึ้นระบบใช้ราคาใหม่" · docs/handover/CHANGE-REQUESTS/CR-05.md "ห้ามเปลี่ยนยอด"`,
     expected: 'วันนี้ 25 ต.ค.: ก = A ส 31 ต.ค. 19:00 (฿1,200 จ่ายเต็ม) · ข = A อ 3 พ.ย. 19:00 (฿1,300 มัดจำ ฿650 หน้าสนาม ฿650) · ค = B ศ 6 พ.ย. 19:00 (฿1,300 จ่ายเต็ม) จ่ายทั้ง 3 · เลื่อนนาฬิกาเป็น 2 พ.ย. 10:00 → ก ยัง 1,200/1,200 · ข 1,300/650/650 · ค 1,300/1,300 (amountPaid เท่าเดิม)',
   }),
 }, async ({ page, request }) => {
@@ -200,7 +200,7 @@ test('CR-05-S4 จองประจำข้าม 1 พ.ย.: แต่ละ�
 test('CR-05-S5 ชั่วโมงฟรีใช้ก่อน 17:00 เท่านั้น: มูลค่า ฿800 ไม่เปลี่ยน · คร่อม 17:00 ใช้ชั่วโมงแรก → จ่าย ฿1,300', {
   tag: ['@CR-05', '@P2'],
   annotation: ann({
-    tc: 'CR-05-S5', level: 'P2', source: `[D:CR-05] ${ANSWER} + CHANGE-REQUESTS/CR-05.md "ชั่วโมงฟรีใช้ก่อน 17:00 เท่านั้น" · BR-17 · มิว (seed) มีสิทธิ์ชั่วโมงฟรี`,
+    tc: 'CR-05-S5', level: 'P2', source: `[D:CR-05] ${ANSWER} + docs/handover/CHANGE-REQUESTS/CR-05.md "ชั่วโมงฟรีใช้ก่อน 17:00 เท่านั้น" · BR-17 · มิว (seed) มีสิทธิ์ชั่วโมงฟรี`,
     expected: 'มิว: A อ 3 พ.ย. 16:00 ×2 ใช้ชั่วโมงฟรี → freeHourValue 800 ค่าสนาม 2,100 ยอด 1,300 · A อ 3 พ.ย. 17:00 ×1 ใช้ชั่วโมงฟรี → ปฏิเสธ FREE_HOUR_NOT_ELIGIBLE',
   }),
 }, async ({ page }) => {

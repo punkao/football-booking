@@ -156,7 +156,7 @@ COMMIT;
 
 ### 9.1 เมื่อไรต้องถอย
 
-`node tests/smoke.mjs` exit 1 หลังขึ้นระบบ · กระทบยอด (`tools/reconcile-challenges.sql`) ไม่เป็น 0 ทั้งคู่ · migration หยุดกลางทาง · UAT ไม่ผ่านข้อสำคัญ (`UAT-CHECKLIST.md`)
+`node tests/smoke.mjs` exit 1 หลังขึ้นระบบ · กระทบยอด (`tools/reconcile-challenges.sql`) ไม่เป็น 0 ทั้งคู่ · migration หยุดกลางทาง · UAT ไม่ผ่านข้อสำคัญ (`docs/handover/UAT-CHECKLIST.md`)
 
 ### 9.2 ก่อนขึ้นระบบ (ทำไว้ล่วงหน้า ไม่งั้นไม่มีของให้ถอย)
 

@@ -7,7 +7,7 @@
       "description": "ตรวจเครื่อง ติดตั้ง Playwright + เบราว์เซอร์ที่ D:\\ms-playwright + Playwright MCP แบบ bridge (stdio) — ผ่านแล้ว",
       "dependencies": [],
       "status": "DONE",
-      "evidence": "docs/00-ENVIRONMENT.md · screenshots/mcp/trace.jsonl · screenshots/mcp/phase0-after-click.png"
+      "evidence": "docs/00-ENVIRONMENT.md · docs/evidence/screenshots/mcp/trace.jsonl · docs/evidence/screenshots/mcp/phase0-after-click.png"
     },
     "P1": {
       "description": "บทสัมภาษณ์เจ้าของสนาม + ลูกค้า (กฎมีตัวเลข + ค่าขอบ)",

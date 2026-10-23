@@ -1,6 +1,6 @@
-// K3 (KNOWN-ISSUES.md · RELEASE-NOTES.md ส่วน K3) — "ตอนนี้" ของแอป: อ่านแถวนาฬิกาล็อก (app_settings.clock) เฉพาะเมื่อเปิดช่องทดสอบ
+// K3 (docs/handover/KNOWN-ISSUES.md · docs/handover/RELEASE-NOTES.md ส่วน K3) — "ตอนนี้" ของแอป: อ่านแถวนาฬิกาล็อก (app_settings.clock) เฉพาะเมื่อเปิดช่องทดสอบ
 // (ALLOW_TEST_RESET=1) เท่านั้น · ปิดช่องทดสอบแล้วต้องใช้เวลาจริงเสมอ แม้แถวนั้นค้างอยู่ในฐาน (ไม่งั้นเครื่องจริงติดวันที่ 9 ต.ค. 2569)
-// ค่าที่คาดหวัง: [D] RELEASE-NOTES.md K3 (เครื่องจริงต้องไม่คิดว่าเป็น 9 ต.ค.) · ADR-04 (เวลาเดียวของแอป) — เขียนก่อนแก้โค้ด
+// ค่าที่คาดหวัง: [D] docs/handover/RELEASE-NOTES.md K3 (เครื่องจริงต้องไม่คิดว่าเป็น 9 ต.ค.) · ADR-04 (เวลาเดียวของแอป) — เขียนก่อนแก้โค้ด
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import * as rules from "./index.ts";

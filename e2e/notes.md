@@ -1,6 +1,6 @@
 ## 4. บันทึกของ tester รอบ B-3 · แผน v2 128 TC (2026-10-20, BUG_MODE = 0, MODE = mock)
 
-หน้าสรุปหลัก: [`e2e/index.html`](../index.html) (ดับเบิลคลิกเปิดได้ · สร้างด้วย `node build-index.mjs` หลังรัน) · เก็บแยกรอบ: [`run-1/`](run-1/) · [`run-2/`](run-2/) (results.json · run-info.json · TEST-REPORT.md · CHATBOT-REPORT.md · index.html) · ทั้ง 2 รอบตั้ง `RUN_MIGRATION_TEST=1` (หัวหน้าทีมอนุมัติ) → TC-DATA-03 ได้รัน
+หน้าสรุปหลัก: [`e2e/index.html`](index.html) (ดับเบิลคลิกเปิดได้ · สร้างด้วย `node build-index.mjs` หลังรัน) · เก็บแยกรอบ: [`run-1/`](test-report/run-1/) · [`run-2/`](test-report/run-2/) (results.json · run-info.json · TEST-REPORT.md · CHATBOT-REPORT.md · index.html) · ทั้ง 2 รอบตั้ง `RUN_MIGRATION_TEST=1` (หัวหน้าทีมอนุมัติ) → TC-DATA-03 ได้รัน
 
 ### 4.1 ผลตามเกณฑ์ Exit (แผน 6.4 · ตัดสินแยกทีละเบราว์เซอร์ · ไม่ได้รัน/ข้าม = ไม่ผ่าน · serial นับให้ทุกเบราว์เซอร์)
 
@@ -34,7 +34,7 @@
 - ใหม่: `plan-cases.json` (จาก `build-plan-cases.mjs`) · `index.html` (จาก `build-index.mjs` + `index.template.html`)
 
 
-ตารางสรุปข้างบนคือผล **รอบที่ 2** ของ `npm test` (รอบหลัก + perf) · รอบ GIF เก็บแยก ไม่ใช้ตัดสิน · รายงานก่อนรอบนี้: [`TEST-REPORT-before-7.5b.md`](TEST-REPORT-before-7.5b.md) · รอบ 1: [`TEST-REPORT-7.5b-r1.md`](TEST-REPORT-7.5b-r1.md) · รอบ 2: [`TEST-REPORT-7.5b-r2.md`](TEST-REPORT-7.5b-r2.md)
+ตารางสรุปข้างบนคือผล **รอบที่ 2** ของ `npm test` (รอบหลัก + perf) · รอบ GIF เก็บแยก ไม่ใช้ตัดสิน · รายงานก่อนรอบนี้: [`TEST-REPORT-before-7.5b.md`](test-report/TEST-REPORT-before-7.5b.md) · รอบ 1: [`TEST-REPORT-7.5b-r1.md`](test-report/TEST-REPORT-7.5b-r1.md) · รอบ 2: [`TEST-REPORT-7.5b-r2.md`](test-report/TEST-REPORT-7.5b-r2.md)
 
 ### 5.1 ผลรัน 2 รอบ (`npm test` = รอบหลัก 3 เบราว์เซอร์ + serial แล้วตามด้วย perf รันเดี่ยว)
 

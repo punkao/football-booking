@@ -25,7 +25,7 @@
    - constraint ตาม NFR-19: `EXCLUDE` กันการจองที่กันสนามทับเวลาในสนามเดียวกัน · `CHECK` จำนวนคลังและยอดเงิน ≥ 0 · เงินเป็น `INTEGER` บาท
 2. `web/compose.yaml`: `football-web` พอร์ต 3000 · network `football-net` (external) · `DATABASE_URL=postgres://…@football-db:5432/…` · env `TZ=Asia/Bangkok`, `HOSTNAME=0.0.0.0`, `ALLOW_TEST_RESET`, `BUG_MODE=${BUG_MODE:-0}`, `MODE=${MODE:-mock}`, `LLM_BASE_URL`, `LLM_MODEL`, `LLM_API_KEY` · healthcheck ด้วย node `fetch('/api/health')` · **ห้ามต่อ DB ตอน build**
    - profile `mock`: service `mock-llm` (ตอบแบบ OpenAI `/v1/chat/completions` ตามกฎตายตัว รองรับ tag ทุกตัว)
-   - mount อ่านอย่างเดียว `../docs` และ `../e2e/test-report` สำหรับหน้า `/project`
+   - mount อ่านอย่างเดียว `.` และ `../e2e/test-report` สำหรับหน้า `/project`
 3. เปิด db ก่อน รอ healthy แล้วค่อย web · `.gitattributes` LF · ไม่มีไฟล์ `.sh` ที่ผู้ใช้ต้องรัน · `.env` ไม่ขึ้น git มีแค่ `.env.example` (NFR-18)
 
 ## 4. ฟีเจอร์ v1 (FR-01–FR-31) — ต้องทำงานเหมือนเดิมทุกข้อ

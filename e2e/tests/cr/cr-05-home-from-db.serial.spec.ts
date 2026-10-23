@@ -3,7 +3,7 @@ import { test, expect, open, getJson, resetData } from '../fixtures';
 import { ann } from '../v2-helpers';
 
 /**
- * REVIEW-1 (CR-05): ราคาที่มีวันมีผลอยู่ใน DB ไม่ใช่ในโค้ด (CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05)
+ * REVIEW-1 (CR-05): ราคาที่มีวันมีผลอยู่ใน DB ไม่ใช่ในโค้ด (docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05)
  * หน้าแรกต้องอ่านราคาจากตาราง field_rates เหมือน /api/fields — ร้านเพิ่มแถวราคาใหม่แล้วการ์ดหน้าแรกต้องตามทันทีโดยไม่ต้องแก้โค้ด
  * serial: แก้ข้อมูล field_rates ชั่วคราว (เพิ่มแถวแล้วลบเอง ทั้งในกรณีผ่านและล้ม)
  */
@@ -25,7 +25,7 @@ test.afterEach(async ({ request }) => { removeTemp(); await resetData(request); 
 test('REVIEW-1 ร้านเพิ่มแถวราคาใน field_rates → การ์ดสนาม A หน้าแรกแสดงราคาใหม่เท่ากับ /api/fields (หน้าแรกไม่ใช้ราคาที่ฝังในโค้ด)', {
   tag: ['@CR-05', '@P1'],
   annotation: ann({
-    tc: 'REVIEW-1', level: 'P1', source: '[D:CR-05] CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05 "ราคาและวันมีผลอยู่ใน DB ไม่ใช่ในโค้ด" · CR-05-02 (หน้าแรก = /api/fields)',
+    tc: 'REVIEW-1', level: 'P1', source: '[D:CR-05] docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-05 "ราคาและวันมีผลอยู่ใน DB ไม่ใช่ในโค้ด" · CR-05-02 (หน้าแรก = /api/fields)',
     expected: `เพิ่ม field_rates(A, ${FROM}, ${DAY}, ${EVENING}) → /api/fields A rateChanges[0] = ${FROM} ${DAY}/${EVENING} · หน้าแรก home-field-A-next-rate data-from ${FROM} data-value ${EVENING} data-day-value ${DAY} · ลบแถว → หน้าแรกกลับเป็น 2026-11-01 / 1300`,
   }),
 }, async ({ page, request }) => {

@@ -3,11 +3,11 @@
 เขียน 21 ต.ค. 2569 (2026-10-21) · ฐานที่ตรวจ `HEAD ea32d4d` เทียบ tag `v2-handover` (40 commit · 186 ไฟล์) · งานเอกสารล้วน: ไม่ได้รันเทสต์ รอบนี้ — ตัวเลขผลรันอยู่ที่ `legacy/REGRESSION-REPORT.md` (เขียนโดยงานอื่น) และ `docs/impact/CR-0N.md` หัวข้อ "Regression"
 แบบบท 06 LAB 11 ข้อ 6: ทุก CR มี BR + เทสต์ที่ผ่าน · ทุกเทสต์ใหม่มี CR · **ส่วนที่ทำเพิ่มจากบทเรียน** (เหตุผล: ใบตรวจรับต้องรู้ว่าข้อไหนไม่มีเครื่องพิสูจน์): คอลัมน์ "ช่องว่าง" ต่อทุกข้อกำหนด + ตารางสรุปช่องว่างท้ายไฟล์ + ตารางไฟล์ → CR
 
-ป้ายที่มา: `[D:CR-0N]` คำตอบ/หนังสือร้าน (`CHANGE-REQUESTS/answers/README.md` หัวข้อ CR นั้น) · `[E]` หลักฐานจากระบบ · `file:line` นับที่ HEAD `ea32d4d` (ตรวจด้วย grep แล้ว) · e2e = `e2e/tests/…` · unit = `web/lib/…`
+ป้ายที่มา: `[D:CR-0N]` คำตอบ/หนังสือร้าน (`docs/handover/CHANGE-REQUESTS/answers/README.md` หัวข้อ CR นั้น) · `[E]` หลักฐานจากระบบ · `file:line` นับที่ HEAD `ea32d4d` (ตรวจด้วย grep แล้ว) · e2e = `e2e/tests/…` · unit = `web/lib/…`
 
 ## 1. ตารางหลัก: CR → commit → สถานะ
 
-| CR | เรื่อง | migration | impact | commit แดง (เทสต์ก่อนแก้) | commit แก้ | commit ค่า oracle / อื่น | สถานะ (`CHANGE-REQUESTS/REGISTER.md`) |
+| CR | เรื่อง | migration | impact | commit แดง (เทสต์ก่อนแก้) | commit แก้ | commit ค่า oracle / อื่น | สถานะ (`docs/handover/CHANGE-REQUESTS/REGISTER.md`) |
 |---|---|---|---|---|---|---|---|
 | CR-01 | ออกจากระบบแล้วยังเข้าใช้ต่อได้ | 007 `session_revocation` | `docs/impact/CR-01.md` | `d7f38ff` | `e048fd8` | `507ea89` (ORACLE-CHANGES บรรทัด 7–9: TC-DATA-03 · rules-check V2.version · CLAUDE.md) · `2fb5b95` ผล migration/ถอย | ทดสอบผ่าน |
 | CR-02 | แก้ 5 จุดตามคำตอบร้าน | – | `docs/impact/CR-02.md` | `b753b67` | `39fdadf` | `5536d83` (ORACLE-CHANGES บรรทัด 10–13: TC-STAFF-01 · TC-MEMBER-03 · rules-check BR-23.9/FR-23.checkin/BR-23.10 · golden side) · `7b23502` ผล | ทดสอบผ่าน |
@@ -16,7 +16,7 @@
 | CR-05 | ราคาเย็นสนาม A/B ฿1,300 ตั้งแต่ 1 พ.ย. 2569 | 008 `field_rates` | `docs/impact/CR-05.md` | `817b160` | `4f5e8ae` | `ea1c180` (ORACLE-CHANGES บรรทัด 14–18: TC-SERIES-02/05 · TC-OWNER-01 · rules-check ×3 · E76/E77) · `c08b6b8` (KI TC-STAFF-06 เลี่ยงชน TC-API-03) · `23c5c01` ผล | ทดสอบผ่าน |
 | CR-06 | เงินทีมรับคำท้าไม่ขึ้นรายงาน | 009 `challenge_payments` | `docs/impact/CR-06.md` | `b119c1e` (รอบ 1) · `9c7b4da` (รอบ 1.3) | `ac96761` (รอบ 1) · `6ed7ec4` (รอบ 1.3) | `f845625` · `064b01d` · `5e0adc1` REGISTER/ผล | ทดสอบผ่าน |
 
-ทั้ง 6 ฉบับ: REGISTER ยังไม่ขึ้น "รอตรวจรับ (UAT)" → ใช้ `UAT-CHECKLIST.md` ตรวจแล้วค่อยขยับ · ทีมเดินใบนี้บนเว็บจริงแล้ว 2026-10-21 (`docs/UAT-RUN.md`) เหลือร้านเดินเอง+เซ็น
+ทั้ง 6 ฉบับ: REGISTER ยังไม่ขึ้น "รอตรวจรับ (UAT)" → ใช้ `docs/handover/UAT-CHECKLIST.md` ตรวจแล้วค่อยขยับ · ทีมเดินใบนี้บนเว็บจริงแล้ว 2026-10-21 (`docs/UAT-RUN.md`) เหลือร้านเดินเอง+เซ็น
 
 ## 2. ข้อกำหนด → BR → เทสต์ (ต่อ CR)
 
@@ -163,7 +163,7 @@ BR เดิมที่ **ค่า/ถ้อยคำเปลี่ยน** (
 | `db/init/01-schema.sql` · `web/SPEC.md` | CR-01 · CR-05 · CR-06 (เติม `\ir` migration + สเปก) | |
 | `e2e/tests/cr/*` · `web/lib/**/*.test.ts` · `tests/golden/*` | เทสต์ของ CR ตามข้อ 4 | |
 | `e2e/tests/{series,owner,staff,staff.serial,member,member.serial,v2.serial}.spec.ts` · `web/selfcheck/*` | ค่า oracle ตามข้อ 5 | |
-| `docs/**` · `CHANGE-REQUESTS/**` · `legacy/**` · `ORACLE-CHANGES.md` · `HANDOFF.md` | เอกสารของทีมดูแลระบบ ⚠ ไม่อยู่ในระบบที่ส่งมอบ | |
+| `docs/**` · `docs/handover/CHANGE-REQUESTS/**` · `legacy/**` · `ORACLE-CHANGES.md` · `docs/process/HANDOFF.md` | เอกสารของทีมดูแลระบบ ⚠ ไม่อยู่ในระบบที่ส่งมอบ | |
 | `e2e/test-report/**` (≈90 ไฟล์ JSON + `CHATBOT-REPORT.md`) | CR-04 (หลักฐานแชท mock/ai) ⚠ ผลรัน ไม่ใช่โค้ด | |
 | `tools/{make-prod-like-data,record-har}.mjs` · `.gitignore` · `.claude/settings.json` · `CLAUDE.md` · `tests/golden/{check,lib,*-golden}.mjs` | ⚠ เครื่องมือ/รั้วของทีมดูแลระบบ (D-1/D-2 `4d4f4cf` `a60aac5`) ไม่ใช่ CR | |
 

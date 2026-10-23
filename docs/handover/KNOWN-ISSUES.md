@@ -93,7 +93,7 @@
 
 ### K11 · เรื่องที่ไม่มีเครื่องรองรับให้เทสต์อัตโนมัติ
 - **อาการ:** 3 เรื่องต้องตรวจด้วยมือ: ใบที่สร้างด้วยโค้ดเก่าเตะหลัง 1 พ.ย. ยอดต้องไม่เปลี่ยน (CR-05) · ออกจากระบบด้วยข้อมูลเก่าแล้วหลุดทั้งกลุ่มระหว่างช่วงผ่อนผัน (CR-01) · ป้ายภาษาอังกฤษขั้น "จบ" ตอนนี้เป็นผลจากการคำนวณหน้าจอ (CR-02)
-- **ที่ไหน:** ใบ UAT: `UAT-CHECKLIST.md` (CR-05 ขั้น 9 · CR-01 ขั้น 7) · รายการเต็ม `legacy/TRACEABILITY.md` ข้อ 7 · เหตุผลที่เทสต์ไม่ได้: การจองเก่าต้องสร้างด้วยเว็บรุ่นก่อน CR (ไม่มีแล้ว) และ cookie ก่อน CR-01 หมดอายุจริงต้องรอเวลาจริง
+- **ที่ไหน:** ใบ UAT: `docs/handover/UAT-CHECKLIST.md` (CR-05 ขั้น 9 · CR-01 ขั้น 7) · รายการเต็ม `legacy/TRACEABILITY.md` ข้อ 7 · เหตุผลที่เทสต์ไม่ได้: การจองเก่าต้องสร้างด้วยเว็บรุ่นก่อน CR (ไม่มีแล้ว) และ cookie ก่อน CR-01 หมดอายุจริงต้องรอเวลาจริง
 - **ความเสี่ยง:** กลาง — หลุดได้ถ้าข้ามใบ UAT ตอนขึ้นระบบ
 - **เทสต์ที่ล็อก:** **ไม่มี** (ตั้งใจ) · บางส่วนมีหลักฐานมือ: `docs/UAT-RUN.md` (ทีมเดินใบแล้ว 21 ต.ค. — ขั้นขึ้นระบบจริง 3 ขั้นยังไม่ได้เดิน)
 - **แผน:** ร้านเดินใบ UAT ตอนขึ้นระบบแล้วลงชื่อ · ถ้าเปิดเครื่องเก่าได้ (image `v2-handover`) ทำสคริปต์สร้างข้อมูลเก่าเพื่อเทสต์ได้ — ยังไม่ทำ
@@ -128,4 +128,4 @@
 | K10 | ถ้อยคำเอกสารข้อกำหนด/ERD/แผนทดสอบยังเป็นของก่อน CR | 2026-10-21 | `docs/04-REQUIREMENTS.md` v3 (BR-46–51) · ERD `docs/06-SA.md` (+`FieldRate` `RevokedSession` `Payment.challengeId`) · `docs/09-TEST-PLAN.md` 6.2 (BR-46–51 → เทสต์) · `docs/03-USER-STORIES.md` ป้าย `[CR-0N]` |
 | K3 | เครื่องจริงต้องลบแถวเวลาจำลอง (ระบบอ่านแถว `app_settings.clock` แม้ปิดช่องทดสอบ) | 2026-10-21 | commit `a19326d` (unit แดง `web/lib/rules/now.test.ts`) → `0864208` (แก้) · `getNow` `web/lib/server/core.ts:33-39` ไม่อ่านแถวเมื่อ `ALLOW_TEST_RESET≠1` + `nowFrom`/`testSeamOn` `web/lib/rules/time.ts` · ตรวจจริง: ปิด seam ทั้งที่แถวค้าง → `/api/availability` `today` = วันจริง · ไม่มี e2e (ต้องหยุด seam) |
 | รหัสแถว/ไบต์ว่างใน URL ได้ 500 (พบจากตาข่าย `wrong-type-inputs.serial.spec.ts`) — `/api/challenges/{abc|1.5|เลขใหญ่}/pay|accept` · รหัสการจอง/โทเคนมี `%00` | 2026-10-21 | `WT-03-RED` `WT-04-RED` (แดงก่อนแก้ → เขียว) · `isDbId`/`hasNul` `web/lib/rules/records.ts` + unit `web/lib/rules/ids.test.ts` · ตอบ 404 `CHALLENGE_NOT_FOUND` / `BOOKING_NOT_FOUND` / `SPLIT_NOT_FOUND` |
-| KI เดิม 10 ข้อ (TC-ROLE-03, TC-BOOK-11, TC-STAFF-06, TC-CHAT-14/15/16, TC-REPORT-01, TC-REPORT-04, TC-TRACK-01, TC-DATA-01) — ปลด `test.fail` เมื่อ CR-01…04 แก้ | 2026-10-20…21 | `e2e/tests/cr/known-issues.spec.ts` · `CHANGE-REQUESTS/REGISTER.md` |
+| KI เดิม 10 ข้อ (TC-ROLE-03, TC-BOOK-11, TC-STAFF-06, TC-CHAT-14/15/16, TC-REPORT-01, TC-REPORT-04, TC-TRACK-01, TC-DATA-01) — ปลด `test.fail` เมื่อ CR-01…04 แก้ | 2026-10-20…21 | `e2e/tests/cr/known-issues.spec.ts` · `docs/handover/CHANGE-REQUESTS/REGISTER.md` |

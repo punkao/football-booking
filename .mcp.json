@@ -7,7 +7,7 @@
         "--isolated",
         "--browser", "chromium",
         "--viewport-size", "1280x800",
-        "--output-dir", "screenshots/mcp"
+        "--output-dir", "docs/evidence/screenshots/mcp"
       ],
       "env": { "PLAYWRIGHT_BROWSERS_PATH": "D:/ms-playwright" }
     },

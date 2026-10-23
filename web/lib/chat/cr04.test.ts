@@ -1,5 +1,5 @@
 // CR-04 น้องบอลจำเรื่องที่คุยไปแล้ว (node --test). Written before the code from the shop's answers
-// (CHANGE-REQUESTS/answers/README.md, CR-04 = [D:CR-04]) and TC-CHAT-14 / 15 / 16.
+// (docs/handover/CHANGE-REQUESTS/answers/README.md, CR-04 = [D:CR-04]) and TC-CHAT-14 / 15 / 16.
 // mergeContext is pure (texts of one room in → latest field / date / hour / hours out); the conversations go
 // through runTurn like the real room does, so the BR-30 price guard is part of what is tested.
 import { test } from "node:test";

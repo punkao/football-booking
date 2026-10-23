@@ -40,7 +40,7 @@ const READ_FIRST: { href: string; label: string; why: string }[] = [
   { href: "/project/docs/05b-EXPLORATION.md", label: "05b · Exploration (MCP)", why: "AI ใช้เว็บเหมือนลูกค้าจริงผ่าน Playwright MCP" },
 ];
 
-// Part D (handover after CR-01…06): the files themselves are the source (CHANGE-REQUESTS/REGISTER.md, legacy/REGRESSION-REPORT.md), read through the "handover" mount.
+// Part D (handover after CR-01…06): the files themselves are the source (docs/handover/CHANGE-REQUESTS/REGISTER.md, legacy/REGRESSION-REPORT.md), read through the "handover" mount.
 const HANDOVER_LINKS: { href: string; label: string; why: string }[] = [
   { href: "/project/handover/CHANGE-REQUESTS/REGISTER.md", label: "ทะเบียน CR (REGISTER)", why: "สถานะ + commit ของ CR-01…06" },
   { href: "/project/handover/legacy/REGRESSION-REPORT.md", label: "REGRESSION-REPORT", why: "ผลทดสอบรวมตอนส่งมอบ เทียบตอนรับมอบ (2 รอบ)" },
@@ -209,7 +209,7 @@ export default async function ProjectPage({ searchParams }: { searchParams: Prom
         </p>
         {!crs ? (
           <p className="muted" data-testid="project-handover-missing">
-            ไม่พบทะเบียน CR (ยังไม่ได้ mount <code>CHANGE-REQUESTS/</code>)
+            ไม่พบทะเบียน CR (ยังไม่ได้ mount <code>docs/handover/CHANGE-REQUESTS/</code>)
           </p>
         ) : (
           <div className="table-wrap">

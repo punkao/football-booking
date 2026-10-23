@@ -54,7 +54,7 @@ Claude (แชตนี้) ──shell──▶ mcp-client.mjs ──HTTP local
 
 - `npm run mcp:bridge` (ใน `tools/`) เปิด bridge + หน้าต่างเบราว์เซอร์
 - `node mcp-client.mjs call <tool> '<json>'` ส่ง `tools/call` จริงตามโปรโตคอล MCP
-- ทุก call ถูกบันทึกใน `screenshots/mcp/trace.jsonl` (tool, arguments, isError, ms, ผลย่อ)
+- ทุก call ถูกบันทึกใน `docs/evidence/screenshots/mcp/trace.jsonl` (tool, arguments, isError, ms, ผลย่อ)
 - เซสชันใหม่ในอนาคต: `.mcp.json` ที่ root ตั้งค่า server เดียวกันแบบ stdio (รอการยืนยันว่าแท็บ Code โหลดได้)
 
 ## หลักฐาน smoke test (ทุกขั้นข้ามคำสั่ง shell คนละครั้ง ใช้ session เดียวกัน)
@@ -64,11 +64,11 @@ Claude (แชตนี้) ──shell──▶ mcp-client.mjs ──HTTP local
 | 12:30:27 | `browser_navigate` https://playwright.dev | ok · title "Fast and reliable end-to-end testing…" |
 | 12:30:27 | `browser_find` "Get started" | ok · `link "Get started" [ref=e44]` |
 | 12:30:35 | `browser_click` target e44 | ok · ไปหน้า `/docs/intro` "Installation" |
-| 12:30:36 | `browser_take_screenshot` | `screenshots/mcp/phase0-after-click.png` |
+| 12:30:36 | `browser_take_screenshot` | `docs/evidence/screenshots/mcp/phase0-after-click.png` |
 
 ## Docker กับ path ที่มีช่องว่าง
 
 | ทดสอบ | ผล |
 |---|---|
 | `docker compose` build context ใน `D:\work (outside)\...` | ✅ |
-| compose mount `../docs` แบบ read-only (แบบที่ portal จะใช้) | ✅ อ่านไฟล์ได้ |
+| compose mount `.` แบบ read-only (แบบที่ portal จะใช้) | ✅ อ่านไฟล์ได้ |

@@ -7,7 +7,7 @@
       "✓ จอง C ศ 16 ต.ค. 18:00 · รหัส LN-100001: จ่ายแล้ว ฿1,800 · ยอดรวม ฿1,800 · สถานะ CONFIRMED"
     ],
     "shots": [
-      "screenshots/uat/CR-06-1.png"
+      "docs/evidence/screenshots/uat/CR-06-1.png"
     ],
     "notes": []
   },
@@ -19,7 +19,7 @@
       "✓ รายงาน 9 ต.ค. ช่อง \"มัดจำ/จ่ายผ่านพร้อมเพย์\": ฿1,800 (ยอดจอง ฿1,800 · รวมรับเงิน ฿1,840)"
     ],
     "shots": [
-      "screenshots/uat/CR-06-2.png"
+      "docs/evidence/screenshots/uat/CR-06-2.png"
     ],
     "notes": []
   },
@@ -31,7 +31,7 @@
       "✓ หลัง \"ประกาศหาคู่แข่ง\": \"ทีมเจ้าบ้าน · กลาง · เปิดรับ · ทีมรับจ่าย ฿900\""
     ],
     "shots": [
-      "screenshots/uat/CR-06-3.png"
+      "docs/evidence/screenshots/uat/CR-06-3.png"
     ],
     "notes": []
   },
@@ -44,8 +44,8 @@
       "✓ รายงาน 9 ต.ค. ยัง ฿1,800 (ยังไม่ได้รับเงิน): พร้อมเพย์ ฿1,800"
     ],
     "shots": [
-      "screenshots/uat/CR-06-4-B.png",
-      "screenshots/uat/CR-06-4-owner.png"
+      "docs/evidence/screenshots/uat/CR-06-4-B.png",
+      "docs/evidence/screenshots/uat/CR-06-4-owner.png"
     ],
     "notes": []
   },
@@ -60,8 +60,8 @@
       "✓ รวมรับเงินเพิ่มขึ้น: ฿1,840 → ฿2,740 (+฿900)"
     ],
     "shots": [
-      "screenshots/uat/CR-06-5-B.png",
-      "screenshots/uat/CR-06-5-owner.png"
+      "docs/evidence/screenshots/uat/CR-06-5-B.png",
+      "docs/evidence/screenshots/uat/CR-06-5-owner.png"
     ],
     "notes": []
   },
@@ -76,8 +76,8 @@
       "✓ ไม่เห็นรายการเงิน ฿900 ของทีมอื่นในหน้าลูกค้า: ไม่มีรายการ/ป้าย \"จากทีมรับคำท้า\" บนหน้า · ข้อความที่มี 900 บนหน้า: \" ทีมรับจ่าย ฿900\" (คือจำนวนที่ประกาศ ไม่ใช่รายการเงิน)"
     ],
     "shots": [
-      "screenshots/uat/CR-06-7-credit.png",
-      "screenshots/uat/CR-06-7-booking.png"
+      "docs/evidence/screenshots/uat/CR-06-7-credit.png",
+      "docs/evidence/screenshots/uat/CR-06-7-booking.png"
     ],
     "notes": []
   },
@@ -90,7 +90,7 @@
       "✓ 2 แถว: ฿1,800 (ไม่มีป้าย) และ ฿900 \"จากทีมรับคำท้า\": 2 แถว · ป้ายพบ 1 ครั้ง"
     ],
     "shots": [
-      "screenshots/uat/CR-06-8.png"
+      "docs/evidence/screenshots/uat/CR-06-8.png"
     ],
     "notes": []
   },
@@ -120,9 +120,9 @@
       "✓ รายงาน 9 ต.ค.: พร้อมเพย์ ฿1,800 (ไม่เปลี่ยน)"
     ],
     "shots": [
-      "screenshots/uat/CR-06-6-B.png",
-      "screenshots/uat/CR-06-6-12.png",
-      "screenshots/uat/CR-06-6-09.png"
+      "docs/evidence/screenshots/uat/CR-06-6-B.png",
+      "docs/evidence/screenshots/uat/CR-06-6-12.png",
+      "docs/evidence/screenshots/uat/CR-06-6-09.png"
     ],
     "notes": []
   },

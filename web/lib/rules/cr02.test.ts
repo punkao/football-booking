@@ -1,5 +1,5 @@
-// CR-02 (CHANGE-REQUESTS/CR-02.md · docs/impact/CR-02.md) — กฎล้วนที่ร้านตอบไว้ (node --test) · เขียนก่อนแก้โค้ด
-// ค่าที่คาดหวัง: [D:CR-02] = CHANGE-REQUESTS/answers/README.md หัวข้อ CR-02 · [D A-43..A-46] = docs/01-INTERVIEW.md
+// CR-02 (docs/handover/CHANGE-REQUESTS/CR-02.md · docs/impact/CR-02.md) — กฎล้วนที่ร้านตอบไว้ (node --test) · เขียนก่อนแก้โค้ด
+// ค่าที่คาดหวัง: [D:CR-02] = docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-02 · [D A-43..A-46] = docs/01-INTERVIEW.md
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import * as rules from "./index.ts";

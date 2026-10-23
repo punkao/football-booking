@@ -3,16 +3,16 @@ import { test, expect, open, uniquePhone, createBooking, payBooking, getJson, po
 import { ann, sql, T } from '../v2-helpers';
 
 /**
- * CR-02 ข้อที่ต้องเลื่อนเวลา / จองวันเตะ (CHANGE-REQUESTS/CR-02.md · impact docs/impact/CR-02.md)
+ * CR-02 ข้อที่ต้องเลื่อนเวลา / จองวันเตะ (docs/handover/CHANGE-REQUESTS/CR-02.md · impact docs/impact/CR-02.md)
  * project "serial" (Chromium ทีละข้อ หลัง 3 เบราว์เซอร์จบ) · reset ก่อนและหลังทุกข้อ
- * ค่าที่คาดหวัง: [D:CR-02] = CHANGE-REQUESTS/answers/README.md หัวข้อ CR-02 · SQL อ่านอย่างเดียวติดป้าย [E sql]
+ * ค่าที่คาดหวัง: [D:CR-02] = docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-02 · SQL อ่านอย่างเดียวติดป้าย [E sql]
  * วันเตะที่ใช้: จ 12 ต.ค. 2569 (วันนี้ของ seed = ศ 9 ต.ค. 10:00)
  */
 
 test.beforeEach(async ({ request }) => { await resetData(request); });
 test.afterEach(async ({ request }) => { await resetData(request); });
 
-const ANSWER = 'CHANGE-REQUESTS/answers/README.md หัวข้อ CR-02';
+const ANSWER = 'docs/handover/CHANGE-REQUESTS/answers/README.md หัวข้อ CR-02';
 const NOT_PLAY_DAY = 'เช็กอินได้เฉพาะวันเตะ';
 
 const steps = (page: Page) =>

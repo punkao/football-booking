@@ -5,22 +5,22 @@
 
 | ไฟล์ | คืออะไร | แหล่งที่มา |
 |---|---|---|
-| `plan-v1.json` | แผนแรก (สร้างใหม่จากตารางเฟส — ดูหมายเหตุในไฟล์) | `PLAN.md` ที่ `5dce699` + Plan Version Log |
+| `plan-v1.json` | แผนแรก (สร้างใหม่จากตารางเฟส — ดูหมายเหตุในไฟล์) | `docs/process/PLAN.md` ที่ `5dce699` + Plan Version Log |
 | `plan-v2.json` · `plan-v2.1.json` | ปรับครั้งที่ 1 และ 2 (วันที่ 2026-10-09) | Plan Version Log + ตารางเฟสที่ `5dce699` |
 | `plan-v3.json` | ปรับครั้งที่ 3 (2026-10-11 — อาจารย์เขียนบท 04 ใหม่) | Plan Version Log (ปรากฏใน git ครั้งแรกที่ `7dc7c3a`) |
-| `plan-v4.json` | ปรับครั้งที่ 4 (2026-10-18 — อาจารย์เพิ่มบท 05–06) | Plan Version Log + ตารางส่วนที่ 1/2 ใน `PLAN.md` |
+| `plan-v4.json` | ปรับครั้งที่ 4 (2026-10-18 — อาจารย์เพิ่มบท 05–06) | Plan Version Log + ตารางส่วนที่ 1/2 ใน `docs/process/PLAN.md` |
 | `plan-v5.json` | ปรับครั้งที่ 5 (2026-10-18 — ผู้ใช้ยืนยันเป้าหมาย production) สถานะ ณ ตอนออกแผน `7dc7c3a` | Plan Version Log + ส่วน A–E |
-| `plan-current.json` | สถานะของ v5 ที่ HEAD (`a2c53cb` · 2026-10-21) — ไม่ใช่เวอร์ชันใหม่ | `git log` + `PLAN.md` + `HANDOFF.md` |
+| `plan-current.json` | สถานะของ v5 ที่ HEAD (`a2c53cb` · 2026-10-21) — ไม่ใช่เวอร์ชันใหม่ | `git log` + `docs/process/PLAN.md` + `docs/process/HANDOFF.md` |
 | `change-table.md` | ตาราง Reason / Changes / Impact / Reuse ทุกเวอร์ชัน + เหตุการณ์ปรับแผนที่ไม่ได้ออกเป็นเวอร์ชัน | ทั้งหมดข้างบน + `docs/impact/CR-0N.md` |
-| `execution-table.md` | บันทึกการทำงาน (ขั้นตอน · งาน · แผน · ผู้ทำ · ผลลัพธ์ commit · คำตัดสิน EVALUATOR) | `git log` (วันที่/hash) + สถานะใน `PLAN.md` + `CHANGE-REQUESTS/REGISTER.md` |
+| `execution-table.md` | บันทึกการทำงาน (ขั้นตอน · งาน · แผน · ผู้ทำ · ผลลัพธ์ commit · คำตัดสิน EVALUATOR) | `git log` (วันที่/hash) + สถานะใน `docs/process/PLAN.md` + `docs/handover/CHANGE-REQUESTS/REGISTER.md` |
 
 ## บทบาท — เทียบกับที่โครงการนี้ทำจริง
 
 | บทบาท (ตาม Template) | ในโครงการนี้ | หลักฐาน |
 |---|---|---|
-| **PLANNER** สร้าง/ปรับแผน | **session หลัก (Opus)** เขียน `PLAN.md` และ Plan Version Log, ตัดงานเป็นเฟส/ส่วน, เขียนพรอมต์ให้ผู้ทำ (`08-BUILD-PROMPT` `08b` `08d` `09b` `09c` `legacy/CR-PROMPT.md`), ตัดสินว่าเมื่อไรต้องออกเวอร์ชันใหม่ · **ผู้ใช้** ทำหน้าที่เจ้าของงาน/เจ้าของสนาม ตัดสินที่จุด 🙋 (อนุมัติสัมภาษณ์, ตอบคำถามร้าน, อนุมัติ oracle, อนุญาต push) | `PLAN.md` · `HANDOFF.md` §1, §4 · `CHANGE-REQUESTS/answers/` |
-| **EXECUTOR** ทำทีละงาน | **subagent** แยกตามงาน: ผู้สร้างเว็บ (A) · ผู้เขียน test (B — ไม่เห็น `BUGS.md`) · ผู้รับช่วง/ทีม CR · SA/SAD/SRS ขนาน 3 ตัว (Graph N2∥N3∥N4) · session หลักทำเองเฉพาะงานเอกสาร/ตัดสิน. ตั้งแต่ 21 ต.ค. `HANDOFF.md` §4 กำหนด **ตัวทำงาน = subagent `sonnet`** (เขียนโค้ด/test/CR/เอกสาร) · **รุ่นโมเดลของ subagent ก่อนหน้านั้นไม่ได้บันทึกใน repo** จึงไม่ระบุ | `PLAN.md` ตาราง "การแยกบทบาท" · `docs/trace/phase4-build.md` `phase6-7-tests.md` `phase-v2-graph.md` · `HANDOFF.md` §4 |
-| **EVALUATOR** ตรวจผล + ตอบว่า "แผนยังเหมาะสมไหม" | แยกเป็น 3 ชั้น: **(1) เครื่องตรวจ/เทสต์** — `tools/check-phase2/3.mjs`, `check-testdata`, unit, e2e 3 เบราว์เซอร์, golden master, mutant, BUG-HUNT, เทสต์แดงก่อนแก้ ("แดงด้วยเหตุที่ถูก") · **(2) ด่านรีวิว** G4 `/code-review`, G5 `/security-review` · **(3) session หลักรันซ้ำเอง (G7)** ก่อนบอกว่าเสร็จ แล้วเขียนผลลง "ความคืบหน้า" ใน `PLAN.md` — ตรงนี้คือคำตอบ "แผนยังเหมาะสมไหม" · และ **ผู้ใช้** ที่จุด 🙋 | `PLAN.md` ตาราง G1–G7 · `CHANGE-REQUESTS/REGISTER.md` · `legacy/REGRESSION-REPORT.md` |
+| **PLANNER** สร้าง/ปรับแผน | **session หลัก (Opus)** เขียน `docs/process/PLAN.md` และ Plan Version Log, ตัดงานเป็นเฟส/ส่วน, เขียนพรอมต์ให้ผู้ทำ (`08-BUILD-PROMPT` `08b` `08d` `09b` `09c` `legacy/CR-PROMPT.md`), ตัดสินว่าเมื่อไรต้องออกเวอร์ชันใหม่ · **ผู้ใช้** ทำหน้าที่เจ้าของงาน/เจ้าของสนาม ตัดสินที่จุด 🙋 (อนุมัติสัมภาษณ์, ตอบคำถามร้าน, อนุมัติ oracle, อนุญาต push) | `docs/process/PLAN.md` · `docs/process/HANDOFF.md` §1, §4 · `docs/handover/CHANGE-REQUESTS/answers/` |
+| **EXECUTOR** ทำทีละงาน | **subagent** แยกตามงาน: ผู้สร้างเว็บ (A) · ผู้เขียน test (B — ไม่เห็น `BUGS.md`) · ผู้รับช่วง/ทีม CR · SA/SAD/SRS ขนาน 3 ตัว (Graph N2∥N3∥N4) · session หลักทำเองเฉพาะงานเอกสาร/ตัดสิน. ตั้งแต่ 21 ต.ค. `docs/process/HANDOFF.md` §4 กำหนด **ตัวทำงาน = subagent `sonnet`** (เขียนโค้ด/test/CR/เอกสาร) · **รุ่นโมเดลของ subagent ก่อนหน้านั้นไม่ได้บันทึกใน repo** จึงไม่ระบุ | `docs/process/PLAN.md` ตาราง "การแยกบทบาท" · `docs/trace/phase4-build.md` `phase6-7-tests.md` `phase-v2-graph.md` · `docs/process/HANDOFF.md` §4 |
+| **EVALUATOR** ตรวจผล + ตอบว่า "แผนยังเหมาะสมไหม" | แยกเป็น 3 ชั้น: **(1) เครื่องตรวจ/เทสต์** — `tools/check-phase2/3.mjs`, `check-testdata`, unit, e2e 3 เบราว์เซอร์, golden master, mutant, BUG-HUNT, เทสต์แดงก่อนแก้ ("แดงด้วยเหตุที่ถูก") · **(2) ด่านรีวิว** G4 `/code-review`, G5 `/security-review` · **(3) session หลักรันซ้ำเอง (G7)** ก่อนบอกว่าเสร็จ แล้วเขียนผลลง "ความคืบหน้า" ใน `docs/process/PLAN.md` — ตรงนี้คือคำตอบ "แผนยังเหมาะสมไหม" · และ **ผู้ใช้** ที่จุด 🙋 | `docs/process/PLAN.md` ตาราง G1–G7 · `docs/handover/CHANGE-REQUESTS/REGISTER.md` · `legacy/REGRESSION-REPORT.md` |
 
 ## ต่างจากบทเรียนตรงไหน (พูดตรง ๆ)
 
@@ -29,4 +29,4 @@
 3. **เกินเพดาน Re-plan 3 ครั้งของ Template** (ที่นี่ v2, v2.1, v3, v4, v5 = 5 ครั้ง) — Template ตั้งเพดานเพื่อกัน AI วนแก้แผนไม่จบในการรันเดียว; ที่นี่ทุกครั้งมีข้อมูลใหม่จากภายนอกที่บังคับ (ผลเฟส 0 · อาจารย์เพิ่ม/เขียนบทใหม่ 2 ครั้ง · ผู้ใช้ยืนยันเป้าหมาย) ไม่ใช่ AI แก้แผนเอง · ถ้าถือเพดาน 3 เคร่งครัดคือ **เกิน** และบันทึกไว้ตรงนี้ ไม่ซ่อน
 4. **ตั้งแต่ v3 งานบางส่วนไม่ได้ทำภายใต้เลขเวอร์ชันที่ออก** — v3 (11 ต.ค.) ถูกรวมเข้า v4 แล้วทำจริงเป็นส่วน A–C ของ v5 (18–20 ต.ค.) เพราะบท 05–06 มาก่อนจะเริ่ม; ดู `plan-v3.json` `note`
 5. **Change Request 6 ฉบับ (CR-01…06) ไม่ได้ออกเป็นเวอร์ชันแผน** — จัดเป็น "ข้อมูลใหม่" ภายใต้ v5 ส่วน D ด้วยกระบวนการ `legacy/CR-PROMPT.md` (คำถาม → ของเดิม → impact → แดง → แก้ → regression ซึ่งตรงกับ Impact/Reuse ของ Template) · เหตุการณ์ที่เข้าข่าย Re-plan จริง (CR-06 พบระหว่างทำ CR-03) อยู่ใน `change-table.md` ส่วน ข
-6. **หลักฐานก่อน 2026-10-10 มีจำกัด** — git เริ่มที่ `5dce699` (commit เดียวรวมเฟส 0–8 + portal) จึงไม่มี hash/เวลาแยกต่อเฟสสำหรับ v1–v3; วันที่ของ v1–v3 มาจาก Plan Version Log ใน `PLAN.md` ไม่ใช่จาก git
+6. **หลักฐานก่อน 2026-10-10 มีจำกัด** — git เริ่มที่ `5dce699` (commit เดียวรวมเฟส 0–8 + portal) จึงไม่มี hash/เวลาแยกต่อเฟสสำหรับ v1–v3; วันที่ของ v1–v3 มาจาก Plan Version Log ใน `docs/process/PLAN.md` ไม่ใช่จาก git

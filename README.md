@@ -40,16 +40,16 @@ test เดิมห้ามแก้ — ถ้าค่าที่คาด�
 
 ## ส่วนส่งมอบ (D): คำขอเปลี่ยนแปลง CR-01…06
 
-ทุกฉบับทำตามลำดับ: ถามร้าน → อธิบายของเดิมพร้อม `file:line` ([`docs/impact/`](docs/impact)) → commit เทสต์แดง → commit แก้ → regression ทะเบียนและ commit ของแต่ละฉบับ: [`CHANGE-REQUESTS/REGISTER.md`](CHANGE-REQUESTS/REGISTER.md)
+ทุกฉบับทำตามลำดับ: ถามร้าน → อธิบายของเดิมพร้อม `file:line` ([`docs/impact/`](docs/impact)) → commit เทสต์แดง → commit แก้ → regression ทะเบียนและ commit ของแต่ละฉบับ: [`CHANGE-REQUESTS/REGISTER.md`](docs/handover/CHANGE-REQUESTS/REGISTER.md)
 
 | CR | เรื่อง | สถานะ (ตาม REGISTER) | migration |
 |---|---|---|---|
-| [CR-01](CHANGE-REQUESTS/CR-01.md) | ออกจากระบบแล้วต้องใช้ต่อไม่ได้จริง | ทดสอบผ่าน | 007 |
-| [CR-02](CHANGE-REQUESTS/CR-02.md) | แก้ 5 จุดตามคำตอบร้าน (เช็กอินเฉพาะวันเตะ · ประวัติ · ขั้น "จบ" · ช่วงรายงาน · ค้นการจอง) | ทดสอบผ่าน | – |
-| [CR-03](CHANGE-REQUESTS/CR-03.md) | รายงานแยกพร้อมเพย์/หน้าสนาม + ชั่วโมงใช้สนาม | ทดสอบผ่าน | – |
-| [CR-04](CHANGE-REQUESTS/CR-04.md) | น้องบอลจำเรื่องที่คุยไปแล้ว | ทดสอบผ่าน | – |
-| [CR-05](CHANGE-REQUESTS/CR-05.md) | ปรับราคาเย็นสนาม 5 คนเป็น ฿1,300 มีผลรอบเตะตั้งแต่ 1 พ.ย. 2569 | ทดสอบผ่าน | 008 |
-| [CR-06](CHANGE-REQUESTS/CR-06.md) | เงินจากทีมรับคำท้าขึ้นรายงาน | ทดสอบผ่าน | 009 |
+| [CR-01](docs/handover/CHANGE-REQUESTS/CR-01.md) | ออกจากระบบแล้วต้องใช้ต่อไม่ได้จริง | ทดสอบผ่าน | 007 |
+| [CR-02](docs/handover/CHANGE-REQUESTS/CR-02.md) | แก้ 5 จุดตามคำตอบร้าน (เช็กอินเฉพาะวันเตะ · ประวัติ · ขั้น "จบ" · ช่วงรายงาน · ค้นการจอง) | ทดสอบผ่าน | – |
+| [CR-03](docs/handover/CHANGE-REQUESTS/CR-03.md) | รายงานแยกพร้อมเพย์/หน้าสนาม + ชั่วโมงใช้สนาม | ทดสอบผ่าน | – |
+| [CR-04](docs/handover/CHANGE-REQUESTS/CR-04.md) | น้องบอลจำเรื่องที่คุยไปแล้ว | ทดสอบผ่าน | – |
+| [CR-05](docs/handover/CHANGE-REQUESTS/CR-05.md) | ปรับราคาเย็นสนาม 5 คนเป็น ฿1,300 มีผลรอบเตะตั้งแต่ 1 พ.ย. 2569 | ทดสอบผ่าน | 008 |
+| [CR-06](docs/handover/CHANGE-REQUESTS/CR-06.md) | เงินจากทีมรับคำท้าขึ้นรายงาน | ทดสอบผ่าน | 009 |
 
 ทั้ง 6 ฉบับ "ทดสอบผ่าน" แล้ว แต่ **ยังรอตรวจรับ (UAT) จากร้าน** — ทีมเดินใบตรวจรับบนเว็บจริงแล้ว 2026-10-21 ([`docs/UAT-RUN.md`](docs/UAT-RUN.md)) แต่ร้านยังไม่ได้เดินเองและยังไม่มีลายเซ็น
 
@@ -57,10 +57,10 @@ test เดิมห้ามแก้ — ถ้าค่าที่คาด�
 |---|---|
 | [`legacy/REGRESSION-REPORT.md`](legacy/REGRESSION-REPORT.md) | ผล regression ตอนส่งมอบ เทียบตอนรับมอบ (รัน 2 รอบ) |
 | [`legacy/TRACEABILITY.md`](legacy/TRACEABILITY.md) | CR → คำตอบร้าน → BR → เทสต์ → commit |
-| [`RELEASE-NOTES.md`](RELEASE-NOTES.md) | บันทึกส่งมอบภาษาร้าน + เรื่องที่ยังไม่แก้ (K1–K12) + คำถามค้างถึงร้าน |
-| [`UAT-CHECKLIST.md`](UAT-CHECKLIST.md) | ใบตรวจรับรายเรื่อง ให้ร้านกดดูเองและลงชื่อ |
+| [`RELEASE-NOTES.md`](docs/handover/RELEASE-NOTES.md) | บันทึกส่งมอบภาษาร้าน + เรื่องที่ยังไม่แก้ (K1–K12) + คำถามค้างถึงร้าน |
+| [`UAT-CHECKLIST.md`](docs/handover/UAT-CHECKLIST.md) | ใบตรวจรับรายเรื่อง ให้ร้านกดดูเองและลงชื่อ |
 | [`legacy/REA-COMPARE.md`](legacy/REA-COMPARE.md) | เทียบระบบ `v2-handover` ↔ HEAD ด้วย REA |
-| [`CHANGE-REQUESTS/00-HANDOVER-MEMO.md`](CHANGE-REQUESTS/00-HANDOVER-MEMO.md) | บันทึกรับมอบจากทีมสร้างเว็บ v2 |
+| [`CHANGE-REQUESTS/00-HANDOVER-MEMO.md`](docs/handover/CHANGE-REQUESTS/00-HANDOVER-MEMO.md) | บันทึกรับมอบจากทีมสร้างเว็บ v2 |
 
 ### ผลทดสอบล่าสุด (รอบเต็มบนโค้ด `main` commit `733d0a7`, `BUG_MODE=0`, schema 009 — รายงานใน [`e2e/test-report/`](e2e/test-report) และ [`e2e/index.html`](e2e/index.html))
 
@@ -77,7 +77,7 @@ test เดิมห้ามแก้ — ถ้าค่าที่คาด�
 | schema | **009** |
 | คะแนนรูบริก 4 บท ([`docs/RUBRIC-SELF-CHECK.md`](docs/RUBRIC-SELF-CHECK.md)) | **74 / 80** (ตรวจ 22 ต.ค.) |
 
-ยังไม่ได้ทำ / พิสูจน์ไม่ได้: UAT — ทีมเดินบนเว็บจริงแล้ว 2026-10-21 ([`docs/UAT-RUN.md`](docs/UAT-RUN.md)) เหลือร้านเดินเอง+เซ็น · ไม่มีรอบเต็มรอบเดียวที่เขียวทั้ง 3 เบราว์เซอร์ (webkit ล้ม 2 ข้อที่ flaky) · รั้ว `.claude/settings.json` ยังไม่ได้ทดสอบในเซสชันใหม่ · แชทไม่เคยทดสอบกับโมเดลจริง (มีแค่ mock / mock-llm) · คำถามค้างถึงร้าน 25 ข้อ (CR-01 2 · CR-02 7 · CR-03 6 · CR-04 4 · CR-05 6) + CR-06 อีก 5 ข้อที่รอร้านรับทราบ ([`RELEASE-NOTES.md`](RELEASE-NOTES.md) ข้อ 4) · ปัญหาที่ทีมรู้และยังไม่แก้ **12 ข้อ** (K1, K2, K4–K9, K11–K14 ใน [`KNOWN-ISSUES.md`](KNOWN-ISSUES.md); K3 ปิดแล้ว) เช่น แชทไม่จำบริบทตอนพิมพ์ "จองเลย" · role DB ของเว็บเป็น superuser · e2e ไม่ครอบคลุมการเปลี่ยนวันที่จริงหลัง 1 พ.ย.
+ยังไม่ได้ทำ / พิสูจน์ไม่ได้: UAT — ทีมเดินบนเว็บจริงแล้ว 2026-10-21 ([`docs/UAT-RUN.md`](docs/UAT-RUN.md)) เหลือร้านเดินเอง+เซ็น · ไม่มีรอบเต็มรอบเดียวที่เขียวทั้ง 3 เบราว์เซอร์ (webkit ล้ม 2 ข้อที่ flaky) · รั้ว `.claude/settings.json` ยังไม่ได้ทดสอบในเซสชันใหม่ · แชทไม่เคยทดสอบกับโมเดลจริง (มีแค่ mock / mock-llm) · คำถามค้างถึงร้าน 25 ข้อ (CR-01 2 · CR-02 7 · CR-03 6 · CR-04 4 · CR-05 6) + CR-06 อีก 5 ข้อที่รอร้านรับทราบ ([`RELEASE-NOTES.md`](docs/handover/RELEASE-NOTES.md) ข้อ 4) · ปัญหาที่ทีมรู้และยังไม่แก้ **12 ข้อ** (K1, K2, K4–K9, K11–K14 ใน [`KNOWN-ISSUES.md`](docs/handover/KNOWN-ISSUES.md); K3 ปิดแล้ว) เช่น แชทไม่จำบริบทตอนพิมพ์ "จองเลย" · role DB ของเว็บเป็น superuser · e2e ไม่ครอบคลุมการเปลี่ยนวันที่จริงหลัง 1 พ.ย.
 
 ## ผลของงานรอบสร้างเว็บ (ก่อนรับมอบ)
 
@@ -93,22 +93,27 @@ test เดิมห้ามแก้ — ถ้าค่าที่คาด�
 |---|---|---|
 | 1 | [`docs/04-REQUIREMENTS.md`](docs/04-REQUIREMENTS.md) | แหล่งความจริงเดียว FR / BR + ค่าขอบ / NFR |
 | 2 | [`docs/11-INSTRUCTOR-MAP.md`](docs/11-INSTRUCTOR-MAP.md) | แผนที่บทเรียนอาจารย์ → งานนี้ + ช่องว่างที่ระบุตรง ๆ |
-| 3 | [`legacy/REGRESSION-REPORT.md`](legacy/REGRESSION-REPORT.md) · [`RELEASE-NOTES.md`](RELEASE-NOTES.md) | สถานะล่าสุดของระบบและเรื่องที่ยังไม่แก้ |
+| 3 | [`legacy/REGRESSION-REPORT.md`](legacy/REGRESSION-REPORT.md) · [`RELEASE-NOTES.md`](docs/handover/RELEASE-NOTES.md) | สถานะล่าสุดของระบบและเรื่องที่ยังไม่แก้ |
 | 4 | [`docs/TEST-CASES.md`](docs/TEST-CASES.md) · [`e2e/test-report/TEST-REPORT.md`](e2e/test-report/TEST-REPORT.md) | test case + เฉลย และผลราย test พร้อมลิงก์ GIF/MP4 |
 | 5 | [`docs/01-INTERVIEW.md`](docs/01-INTERVIEW.md) | บทสัมภาษณ์ร้าน + คำตอบร้าน |
 
-เอกสารทั้งหมด: [`docs/`](docs) · แผนทั้งหมด: [`PLAN.md`](PLAN.md) · สถานะล่าสุดของงาน: [`HANDOFF.md`](HANDOFF.md)
+เอกสารทั้งหมด: [`docs/`](docs) · แผนทั้งหมด: [`docs/process/PLAN.md`](docs/process/PLAN.md) · สถานะล่าสุดของงาน: [`docs/process/HANDOFF.md`](docs/process/HANDOFF.md)
 
 **การใช้ AI:** งานนี้ทำร่วมกับ Claude Code — เอกสาร เว็บ และ test สร้างโดย AI ตามแนวทางของบทเรียน ผู้ทำเป็นคนตัดสินใจแทน "ร้าน" และตรวจผล prompt ที่ใช้สั่ง subagent อยู่ใน `docs/08*-PROMPT.md` และ `docs/09*-PROMPT.md`
 
 ## โครงสร้าง
 
+(ใครอ้างอะไร ทำไมไฟล์ไหนอยู่ที่ราก/ย้ายไปไหน: [`docs/REPO-LAYOUT.md`](docs/REPO-LAYOUT.md))
+
 ```text
 football-booking/
-├─ README.md · PLAN.md · HANDOFF.md · CLAUDE.md · RELEASE-NOTES.md · UAT-CHECKLIST.md · ORACLE-CHANGES.md
-├─ CHANGE-REQUESTS/  หนังสือ CR-01…06 + REGISTER.md + answers/ (คำตอบร้าน)
-├─ legacy/        เอกสารทีมดูแลระบบ: SYSTEM-MAP · BASELINE · REGRESSION-REPORT · TRACEABILITY · REA-COMPARE ฯลฯ
+├─ README.md · CLAUDE.md · ORACLE-CHANGES.md · compose.yaml · start.sh · start.ps1
 ├─ docs/          เอกสาร 00–11 + impact/ (วิเคราะห์ผลกระทบ CR) + diagrams/ + trace/
+│  ├─ handover/   ส่งมอบ: RELEASE-NOTES · UAT-CHECKLIST · KNOWN-ISSUES · CHANGE-REQUESTS/ (หนังสือ CR-01…06 + REGISTER.md + answers/)
+│  ├─ process/    วิธีทำงาน: PLAN · HANDOFF (สถานะล่าสุด) · NEXT-TASKS-PROMPT
+│  └─ evidence/   หลักฐาน: screenshots/ (ภาพ UAT + Playwright MCP)
+├─ legacy/        เอกสารทีมดูแลระบบ: SYSTEM-MAP · BASELINE · REGRESSION-REPORT · TRACEABILITY · REA-COMPARE ฯลฯ
+├─ exploration/   ภาพสำรวจระบบ + mcp-run/ (ภาพต่อ TC ที่ e2e/plan-cases.json อ้าง)
 ├─ db/            PostgreSQL: compose.yaml, init/ (schema + seed), migrations/001–009
 ├─ scripts/       migrate.mjs · backup.mjs · restore.mjs
 ├─ web/           เว็บ Next.js (compose.yaml, SPEC.md, selfcheck/)
