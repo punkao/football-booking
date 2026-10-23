@@ -1,0 +1,292 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1212" height="1874" viewBox="0 0 1212 1874" font-family="'Sarabun','Noto Sans Thai','Leelawadee UI','Tahoma','Segoe UI',Arial,sans-serif" role="img" aria-label="กราฟงาน DAG ของโครงการลูกหนัง อารีน่า พร้อม rank และสายวิกฤต">
+<title>แตกโจทย์เป็นกราฟงาน (DAG) · ลูกหนัง อารีน่า</title>
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a93a0"/></marker>
+<marker id="ahc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ee6c0a"/></marker>
+</defs>
+<rect width="1212" height="1874" fill="#ffffff"/>
+<text x="22" y="36" font-size="24" fill="#1d2433" font-weight="700">แตกโจทย์เป็นกราฟงาน (DAG) · ลูกหนัง อารีน่า</text>
+<text x="22" y="62" font-size="13" fill="#454d5e">กล่อง = งาน (รหัส · ชื่อย่อ · c ชม. · rank) · ลูกศร A → B = B ต้องรอ A เสร็จก่อน · เรียงซ้าย→ขวาตามความลึกของการพึ่งพา (ขึ้นแถวใหม่เมื่อครบ 6 คอลัมน์)</text>
+<rect x="22" y="76" width="1168" height="36" rx="6" fill="#fff4e8" stroke="#ee6c0a" stroke-width="1.2"/>
+<text x="36" y="100" font-size="15" fill="#8a3d00" font-weight="700">rank(j) = c_j + max rank(k) , k ∈ งานที่ต้องรอ j · ถ้าไม่มีงานต่อ rank(j) = c_j · rank ของงานแรกสุด = เวลาของสายวิกฤต</text>
+<text x="22" y="134" font-size="12.5" fill="#454d5e">วิธีหา cost (c): ชั่วโมงทำงานจริงจากเวลา commit ใน git — แต่ละ commit นับระยะห่างจาก commit ก่อนหน้า (ช่องที่ยาวกว่า 2 ชม. นับ 2 ชม.) รวมต่องาน · ขั้นต่ำ 0.25 ชม. · ปัดทีละ 0.05</text>
+<text x="22" y="153" font-size="12.5" fill="#454d5e">กล่องเส้นประ (≈) = เฟสก่อน 10 ต.ค. อยู่ใน commit เดียว (5dce699) ไม่มีเวลาแยก → ประมาณจากแผน/trace ของโครงการเอง · ไม่มีตัวเลข token ในรูปนี้</text>
+<rect x="22" y="158" width="20" height="14" rx="3" fill="#efeafc" stroke="#6d4cc2" stroke-width="1.4"/><rect x="22" y="158" width="6" height="14" fill="#6d4cc2"/>
+<text x="48" y="170" font-size="12" fill="#1d2433">Opus (หลัก: วางแผน · รีวิว · ตรวจซ้ำ)</text>
+<rect x="268.6" y="158" width="20" height="14" rx="3" fill="#e1f4f1" stroke="#0e8a7d" stroke-width="1.4"/><rect x="268.6" y="158" width="6" height="14" fill="#0e8a7d"/>
+<text x="294.6" y="170" font-size="12" fill="#1d2433">Sonnet (subagent: ลงมือทำ)</text>
+<circle cx="473.6" cy="165" r="8" fill="#c2347a"/><text x="473.6" y="169" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="487.6" y="170" font-size="12" fill="#1d2433">ผู้ใช้ (ร้าน/ผู้อนุมัติ) ตัดสิน</text>
+<rect x="691.8000000000001" y="158" width="20" height="14" rx="3" fill="#fff" stroke="#8a93a0" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="717.8000000000001" y="170" font-size="12" fill="#1d2433">ประมาณจากแผน</text>
+<line x1="812.4000000000001" y1="165" x2="838.4000000000001" y2="165" stroke="#ee6c0a" stroke-width="4.5" marker-end="url(#ahc)"/>
+<text x="848.4000000000001" y="170" font-size="12" fill="#1d2433">สายวิกฤต</text>
+<text x="22" y="190" font-size="11.5" fill="#5b6475">ผู้ตรวจ (evaluator) ของทุกกล่อง = เทสต์/สคริปต์ (unit · golden · e2e 3 เบราว์เซอร์ · MCP) แล้ว Opus รันซ้ำเองก่อนผ่านด่าน · หลายสี = ทำร่วมกัน (แถบสีซ้ายของกล่อง)</text>
+<line x1="22" y1="218" x2="1190" y2="218" stroke="#d5dae2" stroke-width="1"/>
+<text x="22" y="240" font-size="13.5" fill="#3b4357" font-weight="700">ช่วง 1 · แผน v1–v3 · 9–10 ต.ค. (commit เดียว 5dce699) → ส่วน A–B ของแผน v5 · 18–19 ต.ค.</text>
+<line x1="22" y1="436" x2="1190" y2="436" stroke="#d5dae2" stroke-width="1"/>
+<text x="22" y="458" font-size="13.5" fill="#3b4357" font-weight="700">ช่วง 2 · ทดสอบ (C) → รับช่วง (D) → Change Request 6 ฉบับ · 18–21 ต.ค.</text>
+<line x1="22" y1="1214" x2="1190" y2="1214" stroke="#d5dae2" stroke-width="1"/>
+<text x="22" y="1236" font-size="13.5" fill="#3b4357" font-weight="700">ช่วง 3 · regression → รีวิว → ปิดงาน (E) → ตรวจความสมบูรณ์ + แก้ + MCP · 21–22 ต.ค.</text>
+<line x1="22" y1="1572" x2="1190" y2="1572" stroke="#d5dae2" stroke-width="1"/>
+<text x="22" y="1594" font-size="13.5" fill="#3b4357" font-weight="700">ช่วง 4 · งาน 4 รันคำสั่งเดียว → งาน 2 UX/UI · 22–23 ต.ค.</text>
+<g fill="none" stroke="#8a93a0" stroke-width="1.6" stroke-linejoin="round"><path d="M782 815 H798 V535 H814" marker-end="url(#ah)"/><path d="M782 815 H798 V675 H814" marker-end="url(#ah)"/><path d="M782 815 H814" marker-end="url(#ah)"/><path d="M782 815 H798 V955 H814" marker-end="url(#ah)"/><path d="M974 815 H1006" marker-end="url(#ah)"/><path d="M974 535 H990 V1185 H22 V1383 H46" marker-end="url(#ah)"/><path d="M974 675 H990 V1185 H22 V1383 H46" marker-end="url(#ah)"/><path d="M974 955 H990 V1185 H22 V1383 H46" marker-end="url(#ah)"/><path d="M1166 815 H1182 V1185 H22 V1383 H46" marker-end="url(#ah)"/><path d="M782 1383 H798 V1453 H814" marker-end="url(#ah)"/><path d="M974 1453 H990 V1383 H1006" marker-end="url(#ah)"/></g>
+<g fill="none" stroke="#ee6c0a" stroke-width="4.5" stroke-linejoin="round"><path d="M206 317 H238" marker-end="url(#ahc)"/><path d="M398 317 H430" marker-end="url(#ahc)"/><path d="M590 317 H622" marker-end="url(#ahc)"/><path d="M782 317 H814" marker-end="url(#ahc)"/><path d="M974 317 H1006" marker-end="url(#ahc)"/><path d="M1166 317 H1182 V407 H22 V815 H46" marker-end="url(#ahc)"/><path d="M206 815 H238" marker-end="url(#ahc)"/><path d="M398 815 H430" marker-end="url(#ahc)"/><path d="M590 815 H622" marker-end="url(#ahc)"/><path d="M782 815 H798 V1095 H814" marker-end="url(#ahc)"/><path d="M974 1095 H990 V1185 H22 V1383 H46" marker-end="url(#ahc)"/><path d="M206 1383 H238" marker-end="url(#ahc)"/><path d="M398 1383 H430" marker-end="url(#ahc)"/><path d="M590 1383 H622" marker-end="url(#ahc)"/><path d="M782 1383 H798 V1313 H814" marker-end="url(#ahc)"/><path d="M974 1313 H990 V1383 H1006" marker-end="url(#ahc)"/><path d="M1166 1383 H1182 V1543 H22 V1671 H46" marker-end="url(#ahc)"/><path d="M206 1671 H238" marker-end="url(#ahc)"/><path d="M398 1671 H430" marker-end="url(#ahc)"/></g>
+<text x="46" y="267" font-size="12" fill="#8a3d00" font-weight="700">1.9 + 40.15 = 42.05</text>
+<rect x="46" y="274" width="160" height="86" rx="8" fill="#efeafc" stroke="#ee6c0a" stroke-width="3.2" stroke-dasharray="6 4"/>
+<rect x="47.5" y="275.5" width="6" height="83" fill="#6d4cc2" rx="3"/>
+<text x="60" y="293" font-size="14.5" fill="#1d2433" font-weight="700">P0-3</text>
+<text x="60" y="311" font-size="12.5" fill="#1d2433">เฟส 0–3</text>
+<text x="60" y="326" font-size="12.5" fill="#1d2433">ฟังร้าน·BA·SA/SAD</text>
+<text x="60" y="350" font-size="12" fill="#1d2433">c≈1.9 ชม.</text>
+<text x="198" y="350" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 42.05</text>
+<circle cx="203" cy="277" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="203" y="281" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="46" y="374" font-size="11" fill="#c2347a">✓ ร้านยืนยัน A-01–A-16</text>
+<text x="238" y="267" font-size="12" fill="#8a3d00" font-weight="700">1.8 + 38.35 = 40.15</text>
+<rect x="238" y="274" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2" stroke-dasharray="6 4"/>
+<rect x="239.5" y="275.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<rect x="245.5" y="275.5" width="6" height="83" fill="#6d4cc2"/>
+<text x="258" y="293" font-size="14.5" fill="#1d2433" font-weight="700">P4-5</text>
+<text x="258" y="311" font-size="12.5" fill="#1d2433">เฟส 4–5</text>
+<text x="258" y="326" font-size="12.5" fill="#1d2433">สร้างเว็บ v1·MCP เดิน</text>
+<text x="258" y="350" font-size="12" fill="#1d2433">c≈1.8 ชม.</text>
+<text x="390" y="350" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 40.15</text>
+<circle cx="395" cy="277" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="395" y="281" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="238" y="374" font-size="11" fill="#c2347a">✓ ร้านตอบ A-17–A-20</text>
+<text x="430" y="267" font-size="12" fill="#8a3d00" font-weight="700">2.5 + 35.85 = 38.35</text>
+<rect x="430" y="274" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2" stroke-dasharray="6 4"/>
+<rect x="431.5" y="275.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<rect x="437.5" y="275.5" width="6" height="83" fill="#6d4cc2"/>
+<text x="450" y="293" font-size="14.5" fill="#1d2433" font-weight="700">P6-8</text>
+<text x="450" y="311" font-size="12.5" fill="#1d2433">เฟส 6–8</text>
+<text x="450" y="326" font-size="12.5" fill="#1d2433">TC 50·e2e·แก้บั๊ก 7.5</text>
+<text x="450" y="350" font-size="12" fill="#1d2433">c≈2.5 ชม.</text>
+<text x="582" y="350" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 38.35</text>
+<circle cx="587" cy="277" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="587" y="281" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="430" y="374" font-size="11" fill="#c2347a">✓ ร้านตอบ A-21–A-28</text>
+<text x="622" y="267" font-size="12" fill="#8a3d00" font-weight="700">2.35 + 33.5 = 35.85</text>
+<rect x="622" y="274" width="160" height="86" rx="8" fill="#efeafc" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="623.5" y="275.5" width="6" height="83" fill="#6d4cc2" rx="3"/>
+<rect x="629.5" y="275.5" width="6" height="83" fill="#0e8a7d"/>
+<text x="642" y="293" font-size="14.5" fill="#1d2433" font-weight="700">A</text>
+<text x="642" y="311" font-size="12.5" fill="#1d2433">ฟังร้านรอบ 2</text>
+<text x="642" y="326" font-size="12.5" fill="#1d2433">BA·US·REQ·SA/SAD</text>
+<text x="642" y="350" font-size="12" fill="#1d2433">c=2.35 ชม.</text>
+<text x="774" y="350" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 35.85</text>
+<circle cx="779" cy="277" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="779" y="281" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="622" y="374" font-size="11" fill="#c2347a">✓ ร้านยืนยัน A-29–A-40</text>
+<text x="814" y="267" font-size="12" fill="#8a3d00" font-weight="700">2.95 + 30.55 = 33.5</text>
+<rect x="814" y="274" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="815.5" y="275.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="828" y="293" font-size="14.5" fill="#1d2433" font-weight="700">B</text>
+<text x="828" y="311" font-size="12.5" fill="#1d2433">สร้างเว็บ v2</text>
+<text x="828" y="326" font-size="12.5" fill="#1d2433">ฐาน·ฟีเจอร์·แชทบอท</text>
+<text x="828" y="350" font-size="12" fill="#1d2433">c=2.95 ชม.</text>
+<text x="966" y="350" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 33.5</text>
+<text x="1006" y="267" font-size="12" fill="#8a3d00" font-weight="700">2.5 + 28.05 = 30.55</text>
+<rect x="1006" y="274" width="160" height="86" rx="8" fill="#efeafc" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="1007.5" y="275.5" width="6" height="83" fill="#6d4cc2" rx="3"/>
+<rect x="1013.5" y="275.5" width="6" height="83" fill="#0e8a7d"/>
+<text x="1026" y="293" font-size="14.5" fill="#1d2433" font-weight="700">B3</text>
+<text x="1026" y="311" font-size="12.5" fill="#1d2433">G4/G5 รีวิวโค้ด</text>
+<text x="1026" y="326" font-size="12.5" fill="#1d2433">แก้ 12 ข้อ (R1–R12)</text>
+<text x="1026" y="350" font-size="12" fill="#1d2433">c=2.5 ชม.</text>
+<text x="1158" y="350" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 30.55</text>
+<text x="46" y="765" font-size="12" fill="#8a3d00" font-weight="700">2.15 + 25.9 = 28.05</text>
+<rect x="46" y="772" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="47.5" y="773.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="60" y="791" font-size="14.5" fill="#1d2433" font-weight="700">C-A</text>
+<text x="60" y="809" font-size="12.5" fill="#1d2433">แผนทดสอบ</text>
+<text x="60" y="824" font-size="12.5" fill="#1d2433">TC 128+เฉลย·MCP รัน</text>
+<text x="60" y="848" font-size="12" fill="#1d2433">c=2.15 ชม.</text>
+<text x="198" y="848" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 28.05</text>
+<text x="238" y="765" font-size="12" fill="#8a3d00" font-weight="700">4.7 + 21.2 = 25.9</text>
+<rect x="238" y="772" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="239.5" y="773.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="252" y="791" font-size="14.5" fill="#1d2433" font-weight="700">C-B</text>
+<text x="252" y="809" font-size="12.5" fill="#1d2433">e2e 128 TC</text>
+<text x="252" y="824" font-size="12.5" fill="#1d2433">แชทบอท·index·BUG-HUNT</text>
+<text x="252" y="848" font-size="12" fill="#1d2433">c=4.7 ชม.</text>
+<text x="390" y="848" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 25.9</text>
+<circle cx="395" cy="775" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="395" y="779" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="238" y="872" font-size="11" fill="#c2347a">✓ ร้านตอบ A-41–A-50</text>
+<text x="430" y="765" font-size="12" fill="#8a3d00" font-weight="700">0.55 + 20.65 = 21.2</text>
+<rect x="430" y="772" width="160" height="86" rx="8" fill="#efeafc" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="431.5" y="773.5" width="6" height="83" fill="#6d4cc2" rx="3"/>
+<text x="444" y="791" font-size="14.5" fill="#1d2433" font-weight="700">D0</text>
+<text x="444" y="809" font-size="12.5" fill="#1d2433">ส่งมอบระบบ</text>
+<text x="444" y="824" font-size="12.5" fill="#1d2433">บันทึก·ทะเบียน·หนังสือ CR</text>
+<text x="444" y="848" font-size="12" fill="#1d2433">c=0.55 ชม.</text>
+<text x="582" y="848" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 21.2</text>
+<circle cx="587" cy="775" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="587" y="779" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="430" y="872" font-size="11" fill="#c2347a">✓ ผู้ใช้อนุมัติหนังสือ CR</text>
+<text x="622" y="751" font-size="12" fill="#8a3d00" font-weight="700">2.55 + max(16.3, 18.05, 17.05,</text>
+<text x="622" y="765" font-size="12" fill="#8a3d00" font-weight="700">16.05, 18.1) = 20.65</text>
+<rect x="622" y="772" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="623.5" y="773.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="636" y="791" font-size="14.5" fill="#1d2433" font-weight="700">D-1</text>
+<text x="636" y="809" font-size="12.5" fill="#1d2433">รับช่วง</text>
+<text x="636" y="824" font-size="12.5" fill="#1d2433">SYSTEM-MAP·รั้ว·golden</text>
+<text x="636" y="848" font-size="12" fill="#1d2433">c=2.55 ชม.</text>
+<text x="774" y="848" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 20.65</text>
+<text x="814" y="485" font-size="12" fill="#454d5e">0.8 + 15.5 = 16.3</text>
+<rect x="814" y="492" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#0e8a7d" stroke-width="1.6"/>
+<rect x="815.5" y="493.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="828" y="511" font-size="14.5" fill="#1d2433" font-weight="700">CR-01</text>
+<text x="828" y="529" font-size="12.5" fill="#1d2433">ออกจากระบบ</text>
+<text x="828" y="544" font-size="12.5" fill="#1d2433">cookie เดิมใช้ไม่ได้</text>
+<text x="828" y="568" font-size="12" fill="#1d2433">c=0.8 ชม.</text>
+<text x="966" y="568" font-size="13" font-weight="700" fill="#1d2433" text-anchor="end">rank 16.3</text>
+<circle cx="971" cy="495" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="971" y="499" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="814" y="592" font-size="11" fill="#c2347a">✓ อนุมัติ ORACLE</text>
+<text x="814" y="625" font-size="12" fill="#454d5e">2.55 + 15.5 = 18.05</text>
+<rect x="814" y="632" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#0e8a7d" stroke-width="1.6"/>
+<rect x="815.5" y="633.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="828" y="651" font-size="14.5" fill="#1d2433" font-weight="700">CR-02</text>
+<text x="828" y="669" font-size="12.5" fill="#1d2433">แก้ 5 จุด</text>
+<text x="828" y="684" font-size="12.5" fill="#1d2433">เช็กอิน·ประวัติ·รายงาน</text>
+<text x="828" y="708" font-size="12" fill="#1d2433">c=2.55 ชม.</text>
+<text x="966" y="708" font-size="13" font-weight="700" fill="#1d2433" text-anchor="end">rank 18.05</text>
+<circle cx="971" cy="635" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="971" y="639" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="814" y="732" font-size="11" fill="#c2347a">✓ อนุมัติ ORACLE</text>
+<text x="814" y="765" font-size="12" fill="#454d5e">0.4 + 16.65 = 17.05</text>
+<rect x="814" y="772" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#0e8a7d" stroke-width="1.6"/>
+<rect x="815.5" y="773.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="828" y="791" font-size="14.5" fill="#1d2433" font-weight="700">CR-03</text>
+<text x="828" y="809" font-size="12.5" fill="#1d2433">รายงาน</text>
+<text x="828" y="824" font-size="12.5" fill="#1d2433">แยกช่องทางเงิน</text>
+<text x="828" y="848" font-size="12" fill="#1d2433">c=0.4 ชม.</text>
+<text x="966" y="848" font-size="13" font-weight="700" fill="#1d2433" text-anchor="end">rank 17.05</text>
+<text x="814" y="905" font-size="12" fill="#454d5e">0.55 + 15.5 = 16.05</text>
+<rect x="814" y="912" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#0e8a7d" stroke-width="1.6"/>
+<rect x="815.5" y="913.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="828" y="931" font-size="14.5" fill="#1d2433" font-weight="700">CR-04</text>
+<text x="828" y="949" font-size="12.5" fill="#1d2433">น้องบอล</text>
+<text x="828" y="964" font-size="12.5" fill="#1d2433">จำเรื่องที่คุยไปแล้ว</text>
+<text x="828" y="988" font-size="12" fill="#1d2433">c=0.55 ชม.</text>
+<text x="966" y="988" font-size="13" font-weight="700" fill="#1d2433" text-anchor="end">rank 16.05</text>
+<text x="814" y="1045" font-size="12" fill="#8a3d00" font-weight="700">2.6 + 15.5 = 18.1</text>
+<rect x="814" y="1052" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="815.5" y="1053.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="828" y="1071" font-size="14.5" fill="#1d2433" font-weight="700">CR-05</text>
+<text x="828" y="1089" font-size="12.5" fill="#1d2433">ราคาเย็น</text>
+<text x="828" y="1104" font-size="12.5" fill="#1d2433">฿1,300 ตั้งแต่ 1 พ.ย.</text>
+<text x="828" y="1128" font-size="12" fill="#1d2433">c=2.6 ชม.</text>
+<text x="966" y="1128" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 18.1</text>
+<circle cx="971" cy="1055" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="971" y="1059" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="814" y="1152" font-size="11" fill="#c2347a">✓ อนุมัติ ORACLE 6 แถว</text>
+<text x="1006" y="765" font-size="12" fill="#454d5e">1.15 + 15.5 = 16.65</text>
+<rect x="1006" y="772" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#0e8a7d" stroke-width="1.6"/>
+<rect x="1007.5" y="773.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="1020" y="791" font-size="14.5" fill="#1d2433" font-weight="700">CR-06</text>
+<text x="1020" y="809" font-size="12.5" fill="#1d2433">เงินคำท้า</text>
+<text x="1020" y="824" font-size="12.5" fill="#1d2433">ขึ้นรายงาน</text>
+<text x="1020" y="848" font-size="12" fill="#1d2433">c=1.15 ชม.</text>
+<text x="1158" y="848" font-size="13" font-weight="700" fill="#1d2433" text-anchor="end">rank 16.65</text>
+<circle cx="1163" cy="775" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="1163" y="779" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="1006" y="872" font-size="11" fill="#c2347a">✓ ผู้ใช้ตัดสินข้อ 1.3</text>
+<text x="46" y="1333" font-size="12" fill="#8a3d00" font-weight="700">0.85 + 14.65 = 15.5</text>
+<rect x="46" y="1340" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="47.5" y="1341.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="60" y="1359" font-size="14.5" fill="#1d2433" font-weight="700">D-8</text>
+<text x="60" y="1377" font-size="12.5" fill="#1d2433">regression</text>
+<text x="60" y="1392" font-size="12.5" fill="#1d2433">REA เทียบ·ถอยกลับ</text>
+<text x="60" y="1416" font-size="12" fill="#1d2433">c=0.85 ชม.</text>
+<text x="198" y="1416" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 15.5</text>
+<text x="238" y="1333" font-size="12" fill="#8a3d00" font-weight="700">0.25 + 14.4 = 14.65</text>
+<rect x="238" y="1340" width="160" height="86" rx="8" fill="#efeafc" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="239.5" y="1341.5" width="6" height="83" fill="#6d4cc2" rx="3"/>
+<rect x="245.5" y="1341.5" width="6" height="83" fill="#0e8a7d"/>
+<text x="258" y="1359" font-size="14.5" fill="#1d2433" font-weight="700">REV</text>
+<text x="258" y="1377" font-size="12.5" fill="#1d2433">REVIEW-1/2</text>
+<text x="258" y="1392" font-size="12.5" fill="#1d2433">รีวิวก่อนส่ง</text>
+<text x="258" y="1416" font-size="12" fill="#1d2433">c=0.25 ชม.</text>
+<text x="390" y="1416" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 14.65</text>
+<text x="430" y="1333" font-size="12" fill="#8a3d00" font-weight="700">3.3 + 11.1 = 14.4</text>
+<rect x="430" y="1340" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="431.5" y="1341.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<rect x="437.5" y="1341.5" width="6" height="83" fill="#6d4cc2"/>
+<text x="450" y="1359" font-size="14.5" fill="#1d2433" font-weight="700">E</text>
+<text x="450" y="1377" font-size="12.5" fill="#1d2433">ปิดงาน</text>
+<text x="450" y="1392" font-size="12.5" fill="#1d2433">README·รูบริก·UAT</text>
+<text x="450" y="1416" font-size="12" fill="#1d2433">c=3.3 ชม.</text>
+<text x="582" y="1416" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 14.4</text>
+<text x="622" y="1333" font-size="12" fill="#8a3d00" font-weight="700">0.25 + max(10.85, 9.45) = 11.1</text>
+<rect x="622" y="1340" width="160" height="86" rx="8" fill="#efeafc" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="623.5" y="1341.5" width="6" height="83" fill="#6d4cc2" rx="3"/>
+<text x="636" y="1359" font-size="14.5" fill="#1d2433" font-weight="700">T1</text>
+<text x="636" y="1377" font-size="12.5" fill="#1d2433">งาน 1 ตรวจ</text>
+<text x="636" y="1392" font-size="12.5" fill="#1d2433">ความสมบูรณ์ (audit)</text>
+<text x="636" y="1416" font-size="12" fill="#1d2433">c=0.25 ชม.</text>
+<text x="774" y="1416" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 11.1</text>
+<circle cx="779" cy="1343" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="779" y="1347" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="622" y="1440" font-size="11" fill="#c2347a">✓ ผู้ใช้เลือกข้อที่ทำ</text>
+<text x="814" y="1263" font-size="12" fill="#8a3d00" font-weight="700">2.25 + 8.6 = 10.85</text>
+<rect x="814" y="1270" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="815.5" y="1271.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="828" y="1289" font-size="14.5" fill="#1d2433" font-weight="700">MCP</text>
+<text x="828" y="1307" font-size="12.5" fill="#1d2433">MCP server สนาม</text>
+<text x="828" y="1322" font-size="12.5" fill="#1d2433">+ Excalidraw</text>
+<text x="828" y="1346" font-size="12" fill="#1d2433">c=2.25 ชม.</text>
+<text x="966" y="1346" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 10.85</text>
+<text x="814" y="1403" font-size="12" fill="#454d5e">0.85 + 8.6 = 9.45</text>
+<rect x="814" y="1410" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#0e8a7d" stroke-width="1.6"/>
+<rect x="815.5" y="1411.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="828" y="1429" font-size="14.5" fill="#1d2433" font-weight="700">FIX</text>
+<text x="828" y="1447" font-size="12.5" fill="#1d2433">แก้จากผลตรวจ</text>
+<text x="828" y="1462" font-size="12.5" fill="#1d2433">K3·500→404·SERIES-04</text>
+<text x="828" y="1486" font-size="12" fill="#1d2433">c=0.85 ชม.</text>
+<text x="966" y="1486" font-size="13" font-weight="700" fill="#1d2433" text-anchor="end">rank 9.45</text>
+<circle cx="971" cy="1413" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="971" y="1417" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="814" y="1510" font-size="11" fill="#c2347a">✓ อนุมัติ ORACLE</text>
+<text x="1006" y="1333" font-size="12" fill="#8a3d00" font-weight="700">0.65 + 7.95 = 8.6</text>
+<rect x="1006" y="1340" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="1007.5" y="1341.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<rect x="1013.5" y="1341.5" width="6" height="83" fill="#6d4cc2"/>
+<text x="1026" y="1359" font-size="14.5" fill="#1d2433" font-weight="700">RUN</text>
+<text x="1026" y="1377" font-size="12.5" fill="#1d2433">รอบเต็มหลังงาน 1</text>
+<text x="1026" y="1392" font-size="12.5" fill="#1d2433">(HEAD a6ca022)</text>
+<text x="1026" y="1416" font-size="12" fill="#1d2433">c=0.65 ชม.</text>
+<text x="1158" y="1416" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 8.6</text>
+<text x="46" y="1621" font-size="12" fill="#8a3d00" font-weight="700">0.4 + 7.55 = 7.95</text>
+<rect x="46" y="1628" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="47.5" y="1629.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="60" y="1647" font-size="14.5" fill="#1d2433" font-weight="700">T4</text>
+<text x="60" y="1665" font-size="12.5" fill="#1d2433">งาน 4 รันด้วย</text>
+<text x="60" y="1680" font-size="12.5" fill="#1d2433">คำสั่งเดียว (Docker)</text>
+<text x="60" y="1704" font-size="12" fill="#1d2433">c=0.4 ชม.</text>
+<text x="198" y="1704" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 7.95</text>
+<text x="238" y="1621" font-size="12" fill="#8a3d00" font-weight="700">4.45 + 3.1 = 7.55</text>
+<rect x="238" y="1628" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="239.5" y="1629.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<text x="252" y="1647" font-size="14.5" fill="#1d2433" font-weight="700">T2</text>
+<text x="252" y="1665" font-size="12.5" fill="#1d2433">งาน 2 UX/UI</text>
+<text x="252" y="1680" font-size="12.5" fill="#1d2433">S0–S2b</text>
+<text x="252" y="1704" font-size="12" fill="#1d2433">c=4.45 ชม.</text>
+<text x="390" y="1704" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 7.55</text>
+<circle cx="395" cy="1631" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="395" y="1635" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="238" y="1728" font-size="11" fill="#c2347a">✓ ผู้ใช้อนุมัติ axe-core</text>
+<text x="430" y="1621" font-size="12" fill="#8a3d00" font-weight="700">ไม่มีงานต่อ → rank = 3.1</text>
+<rect x="430" y="1628" width="160" height="86" rx="8" fill="#e1f4f1" stroke="#ee6c0a" stroke-width="3.2"/>
+<rect x="431.5" y="1629.5" width="6" height="83" fill="#0e8a7d" rx="3"/>
+<rect x="437.5" y="1629.5" width="6" height="83" fill="#6d4cc2"/>
+<text x="450" y="1647" font-size="14.5" fill="#1d2433" font-weight="700">T2e</text>
+<text x="450" y="1665" font-size="12.5" fill="#1d2433">ปิดงาน 2</text>
+<text x="450" y="1680" font-size="12.5" fill="#1d2433">e2e เต็ม·ส่ง main</text>
+<text x="450" y="1704" font-size="12" fill="#1d2433">c=3.1 ชม.</text>
+<text x="582" y="1704" font-size="13" font-weight="700" fill="#c24d00" text-anchor="end">rank 3.1</text>
+<circle cx="587" cy="1631" r="9" fill="#c2347a" stroke="#fff" stroke-width="1.5"/><text x="587" y="1635" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">✓</text>
+<text x="430" y="1728" font-size="11" fill="#c2347a">✓ ผู้ใช้เลือกส่ง main</text>
+<rect x="622" y="1622" width="560" height="132" rx="8" fill="#f6f7f9" stroke="#d5dae2"/>
+<text x="634" y="1644" font-size="12.5" fill="#1d2433" font-weight="700">รวมทั้งโครงการ</text>
+<text x="634" y="1663" font-size="12.5" fill="#1d2433">26 งาน · ผลรวม c ทุกงาน = 48.35 ชม.</text>
+<text x="634" y="1682" font-size="12.5" fill="#1d2433">สายวิกฤต 20 งาน = 42.05 ชม. (rank ของ P0-3)</text>
+<text x="634" y="1701" font-size="12.5" fill="#1d2433">จาก git 42.15 ชม. · ประมาณจากแผน 6.2 ชม.</text>
+<text x="634" y="1720" font-size="12.5" fill="#5b6475">ปฏิทินจริง: เฟส 0–8 วันที่ 9–10 ต.ค. · แผน v5 18–23 ต.ค. 2569</text>
+<text x="634" y="1739" font-size="12.5" fill="#5b6475">cost = ค่าประมาณจาก git (อาจรวมเวลารอผู้ใช้/ข้ามคืน)</text>
+<line x1="22" y1="1764" x2="1190" y2="1764" stroke="#d5dae2"/>
+<text x="22" y="1782" font-size="15" fill="#8a3d00" font-weight="700">สายวิกฤต: P0-3 → P4-5 → P6-8 → A → B → B3 → C-A → C-B → D0 → D-1 → CR-05 → D-8 → REV → E → T1 → MCP → RUN → T4 → T2 → T2e</text>
+<text x="22" y="1806" font-size="13.5" fill="#8a3d00">รวม 1.9 + 1.8 + 2.5 + 2.35 + 2.95 + 2.5 + 2.15 + 4.7 + 0.55 + 2.55 + 2.6 + 0.85 + 0.25 + 3.3 + 0.25 + 2.25 + 0.65 + 0.4 + 4.45 + 3.1 = 42.05 ชม.</text>
+<text x="22" y="1828" font-size="12" fill="#454d5e">ความหมาย: สายวิกฤตคือทางที่ยาวที่สุดจากงานแรกถึงงานสุดท้าย — งานบนสายนี้ช้า = โครงการช้าตาม · งานนอกสายขนานกันได้ (เช่น CR-01…05 หลัง D-1 · MCP กับ FIX หลัง T1)</text>
+<text x="22" y="1846" font-size="12" fill="#454d5e">ในการทำงานจริงมี agent ทำทีละเรื่อง จึงเดินเรียงกัน — เวลาตามนาฬิกาจริงเลยยาวกว่าสายวิกฤตได้ · สร้างจาก docs/workflow/tasks.json ด้วย node tools/workflow-dag.mjs</text>
+</svg>

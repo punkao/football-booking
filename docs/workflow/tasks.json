@@ -1,0 +1,729 @@
+{
+  "meta": {
+    "title": "แตกโจทย์เป็นกราฟงาน (DAG) · ลูกหนัง อารีน่า",
+    "gapCapHours": 2,
+    "minCostHours": 0.25,
+    "roundHours": 0.05,
+    "colsPerBand": 6,
+    "bands": [
+      "ช่วง 1 · แผน v1–v3 · 9–10 ต.ค. (commit เดียว 5dce699) → ส่วน A–B ของแผน v5 · 18–19 ต.ค.",
+      "ช่วง 2 · ทดสอบ (C) → รับช่วง (D) → Change Request 6 ฉบับ · 18–21 ต.ค.",
+      "ช่วง 3 · regression → รีวิว → ปิดงาน (E) → ตรวจความสมบูรณ์ + แก้ + MCP · 21–22 ต.ค.",
+      "ช่วง 4 · งาน 4 รันคำสั่งเดียว → งาน 2 UX/UI · 22–23 ต.ค."
+    ]
+  },
+  "tasks": [
+    {
+      "id": "P0-3",
+      "label": "เฟส 0–3\nฟังร้าน·BA·SA/SAD",
+      "phase": "แผน v1–v3 เฟส 0–3",
+      "who": [
+        "opus"
+      ],
+      "deps": [],
+      "cost": 1.9,
+      "estimated": true,
+      "costSource": "ประมาณจากแผน: PLAN.md ตารางแผน v3 ขั้น 0 (5 นาที) + 1b–1e (20+30+40+20 นาที) = 115 นาที ใช้เป็นตัวแทน (เฟส 0–3 อยู่ใน commit 5dce699 ไม่มีเวลาแยก)",
+      "commits": [
+        "5dce699"
+      ],
+      "badges": [
+        "ร้านยืนยัน A-01–A-16"
+      ]
+    },
+    {
+      "id": "P4-5",
+      "label": "เฟส 4–5\nสร้างเว็บ v1·MCP เดิน",
+      "phase": "แผน v1–v3 เฟส 4–5",
+      "who": [
+        "sonnet",
+        "opus"
+      ],
+      "deps": [
+        "P0-3"
+      ],
+      "cost": 1.8,
+      "estimated": true,
+      "costSource": "ประมาณจากแผน: สร้างเว็บ ~48 นาที (PLAN.md สถานะเฟส 4 · docs/trace/phase4-build.md) + MCP เดิน journey 60 นาที (ขอบล่างของ PLAN.md แผน v3 ขั้น 3 60–90 นาที) = 108 นาที",
+      "commits": [
+        "5dce699"
+      ],
+      "badges": [
+        "ร้านตอบ A-17–A-20"
+      ]
+    },
+    {
+      "id": "P6-8",
+      "label": "เฟส 6–8\nTC 50·e2e·แก้บั๊ก 7.5",
+      "phase": "แผน v1–v3 เฟส 6–8",
+      "who": [
+        "sonnet",
+        "opus"
+      ],
+      "deps": [
+        "P4-5"
+      ],
+      "cost": 2.5,
+      "estimated": true,
+      "costSource": "ประมาณจากแผน: TEST-PLAN+e2e ~61 นาที (docs/trace/phase6-7-tests.md) + tester ตรวจ 7.5 ~30 นาที (docs/trace/phase7-5-fix.md) + ผู้แก้ 45 นาที (ขอบล่าง PLAN.md ขั้น 2 45–60) + BUG_MODE เทียบเฉลย ขั้นต่ำ 15 นาที = 151 นาที",
+      "commits": [
+        "5dce699"
+      ],
+      "badges": [
+        "ร้านตอบ A-21–A-28"
+      ]
+    },
+    {
+      "id": "A",
+      "label": "ฟังร้านรอบ 2\nBA·US·REQ·SA/SAD",
+      "phase": "แผน v5 ส่วน A",
+      "who": [
+        "opus",
+        "sonnet"
+      ],
+      "deps": [
+        "P6-8"
+      ],
+      "cost": 2.35,
+      "costSource": "git",
+      "commits": [
+        "7dc7c3a",
+        "4be4ac2",
+        "2de7a8b",
+        "99459d0",
+        "320da09",
+        "194f8cf"
+      ],
+      "badges": [
+        "ร้านยืนยัน A-29–A-40"
+      ],
+      "gapsHours": [
+        2,
+        0.04,
+        0.06,
+        0.05,
+        0.17,
+        0.05
+      ],
+      "period": "10-18 19:09 → 10-18 19:30 (+07)"
+    },
+    {
+      "id": "B",
+      "label": "สร้างเว็บ v2\nฐาน·ฟีเจอร์·แชทบอท",
+      "phase": "แผน v5 ส่วน B",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "A"
+      ],
+      "cost": 2.95,
+      "costSource": "git",
+      "commits": [
+        "5d945a2",
+        "c0ab3e2",
+        "87dcfd9",
+        "f8f2395",
+        "b9f901e"
+      ],
+      "gapsHours": [
+        0.01,
+        0.01,
+        0.59,
+        2,
+        0.36
+      ],
+      "period": "10-18 19:31 → 10-19 00:47 (+07)"
+    },
+    {
+      "id": "B3",
+      "label": "G4/G5 รีวิวโค้ด\nแก้ 12 ข้อ (R1–R12)",
+      "phase": "แผน v5 ส่วน B · ด่าน G4/G5",
+      "who": [
+        "opus",
+        "sonnet"
+      ],
+      "deps": [
+        "B"
+      ],
+      "cost": 2.5,
+      "costSource": "git",
+      "commits": [
+        "4f26299",
+        "3bb4986"
+      ],
+      "gapsHours": [
+        2,
+        0.48
+      ],
+      "period": "10-19 15:01 → 10-19 15:29 (+07)"
+    },
+    {
+      "id": "C-A",
+      "label": "แผนทดสอบ\nTC 128+เฉลย·MCP รัน",
+      "phase": "แผน v5 ส่วน C (A)",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "B3"
+      ],
+      "cost": 2.15,
+      "costSource": "git",
+      "commits": [
+        "8eac94d",
+        "e2372f1",
+        "6f68682",
+        "ae3af11",
+        "bda96a1"
+      ],
+      "gapsHours": [
+        0.02,
+        0.01,
+        2,
+        0.01,
+        0.1
+      ],
+      "period": "10-18 20:08 → 10-20 01:09 (+07)"
+    },
+    {
+      "id": "C-B",
+      "label": "e2e 128 TC\nแชทบอท·index·BUG-HUNT",
+      "phase": "แผน v5 ส่วน C (B)",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "C-A"
+      ],
+      "cost": 4.7,
+      "costSource": "git",
+      "commits": [
+        "0893735",
+        "30b23b2",
+        "ccb72e1",
+        "7b880c1",
+        "d1f4fc6",
+        "b8ed6f9",
+        "faa3f2e"
+      ],
+      "badges": [
+        "ร้านตอบ A-41–A-50"
+      ],
+      "gapsHours": [
+        0.36,
+        0.19,
+        0.65,
+        2,
+        0,
+        0.73,
+        0.77
+      ],
+      "period": "10-20 01:30 → 10-20 17:13 (+07)"
+    },
+    {
+      "id": "D0",
+      "label": "ส่งมอบระบบ\nบันทึก·ทะเบียน·หนังสือ CR",
+      "phase": "แผน v5 ส่วน D",
+      "who": [
+        "opus"
+      ],
+      "deps": [
+        "C-B"
+      ],
+      "cost": 0.55,
+      "costSource": "git",
+      "commits": [
+        "95a5513"
+      ],
+      "badges": [
+        "ผู้ใช้อนุมัติหนังสือ CR"
+      ],
+      "gapsHours": [
+        0.53
+      ],
+      "period": "10-20 17:45 → 10-20 17:45 (+07)"
+    },
+    {
+      "id": "D-1",
+      "label": "รับช่วง\nSYSTEM-MAP·รั้ว·golden",
+      "phase": "แผน v5 ส่วน D",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "D0"
+      ],
+      "cost": 2.55,
+      "costSource": "git",
+      "commits": [
+        "4d4f4cf",
+        "99566ee",
+        "a60aac5"
+      ],
+      "gapsHours": [
+        2,
+        0.06,
+        0.49
+      ],
+      "period": "10-20 20:32 → 10-20 21:05 (+07)"
+    },
+    {
+      "id": "CR-01",
+      "label": "ออกจากระบบ\ncookie เดิมใช้ไม่ได้",
+      "phase": "แผน v5 ส่วน D · CR",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "D-1"
+      ],
+      "cost": 0.8,
+      "costSource": "git",
+      "commits": [
+        "d7f38ff",
+        "e048fd8",
+        "2fb5b95",
+        "e6e7394",
+        "507ea89",
+        "60c334e"
+      ],
+      "badges": [
+        "อนุมัติ ORACLE"
+      ],
+      "lane": -2,
+      "gapsHours": [
+        0.24,
+        0.14,
+        0.25,
+        0.02,
+        0.15,
+        0.02
+      ],
+      "period": "10-20 21:19 → 10-21 02:42 (+07)"
+    },
+    {
+      "id": "CR-02",
+      "label": "แก้ 5 จุด\nเช็กอิน·ประวัติ·รายงาน",
+      "phase": "แผน v5 ส่วน D · CR",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "D-1"
+      ],
+      "cost": 2.55,
+      "costSource": "git",
+      "commits": [
+        "b753b67",
+        "39fdadf",
+        "5536d83",
+        "7b23502"
+      ],
+      "badges": [
+        "อนุมัติ ORACLE"
+      ],
+      "lane": -1,
+      "gapsHours": [
+        0.33,
+        2,
+        0.05,
+        0.19
+      ],
+      "period": "10-20 22:03 → 10-21 01:47 (+07)"
+    },
+    {
+      "id": "CR-03",
+      "label": "รายงาน\nแยกช่องทางเงิน",
+      "phase": "แผน v5 ส่วน D · CR",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "D-1"
+      ],
+      "cost": 0.4,
+      "costSource": "git",
+      "commits": [
+        "5d423ea",
+        "0837cbe",
+        "943ced4"
+      ],
+      "lane": 0,
+      "gapsHours": [
+        0.15,
+        0.09,
+        0.18
+      ],
+      "period": "10-21 01:55 → 10-21 02:12 (+07)"
+    },
+    {
+      "id": "CR-04",
+      "label": "น้องบอล\nจำเรื่องที่คุยไปแล้ว",
+      "phase": "แผน v5 ส่วน D · CR",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "D-1"
+      ],
+      "cost": 0.55,
+      "costSource": "git",
+      "commits": [
+        "c2a6fca",
+        "d5e4563",
+        "f64eaee",
+        "c08b6b8"
+      ],
+      "lane": 1,
+      "gapsHours": [
+        0.11,
+        0.3,
+        0.01,
+        0.12
+      ],
+      "period": "10-21 02:22 → 10-21 02:49 (+07)"
+    },
+    {
+      "id": "CR-05",
+      "label": "ราคาเย็น\n฿1,300 ตั้งแต่ 1 พ.ย.",
+      "phase": "แผน v5 ส่วน D · CR",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "D-1"
+      ],
+      "cost": 2.6,
+      "costSource": "git",
+      "commits": [
+        "817b160",
+        "4f5e8ae",
+        "23c5c01",
+        "ea1c180",
+        "927d337"
+      ],
+      "badges": [
+        "อนุมัติ ORACLE 6 แถว"
+      ],
+      "lane": 2,
+      "gapsHours": [
+        0.14,
+        0.24,
+        0.16,
+        2,
+        0.05
+      ],
+      "period": "10-21 02:57 → 10-21 14:46 (+07)"
+    },
+    {
+      "id": "CR-06",
+      "label": "เงินคำท้า\nขึ้นรายงาน",
+      "phase": "แผน v5 ส่วน D · CR (พบระหว่าง CR-03)",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "CR-03"
+      ],
+      "cost": 1.15,
+      "costSource": "git",
+      "commits": [
+        "9a1b139",
+        "b119c1e",
+        "ac96761",
+        "f845625",
+        "9c7b4da",
+        "6ed7ec4",
+        "064b01d",
+        "5e0adc1"
+      ],
+      "badges": [
+        "ผู้ใช้ตัดสินข้อ 1.3"
+      ],
+      "lane": 0,
+      "gapsHours": [
+        0.06,
+        0.2,
+        0.26,
+        0,
+        0.43,
+        0.06,
+        0.15,
+        0
+      ],
+      "period": "10-21 02:15 → 10-21 13:50 (+07)"
+    },
+    {
+      "id": "D-8",
+      "label": "regression\nREA เทียบ·ถอยกลับ",
+      "phase": "แผน v5 ส่วน D",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "CR-01",
+        "CR-02",
+        "CR-04",
+        "CR-05",
+        "CR-06"
+      ],
+      "cost": 0.85,
+      "costSource": "git",
+      "commits": [
+        "c31a592",
+        "9bf5ebf"
+      ],
+      "gapsHours": [
+        0.83,
+        0.02
+      ],
+      "period": "10-21 14:42 → 10-21 14:43 (+07)"
+    },
+    {
+      "id": "REV",
+      "label": "REVIEW-1/2\nรีวิวก่อนส่ง",
+      "phase": "แผน v5 ส่วน D · ด่าน G4/G5",
+      "who": [
+        "opus",
+        "sonnet"
+      ],
+      "deps": [
+        "D-8"
+      ],
+      "cost": 0.25,
+      "costSource": "git",
+      "commits": [
+        "e7893ad",
+        "ef8e0d3"
+      ],
+      "gapsHours": [
+        0.09,
+        0
+      ],
+      "period": "10-21 14:51 → 10-21 14:51 (+07)"
+    },
+    {
+      "id": "E",
+      "label": "ปิดงาน\nREADME·รูบริก·UAT",
+      "phase": "แผน v5 ส่วน E",
+      "who": [
+        "sonnet",
+        "opus"
+      ],
+      "deps": [
+        "REV"
+      ],
+      "cost": 3.3,
+      "costSource": "git",
+      "commits": [
+        "1818a98",
+        "1ed8db2",
+        "fdb5673",
+        "f96bf74",
+        "fe12f88",
+        "a0da73e",
+        "ba04516",
+        "2d51fa9",
+        "f457532"
+      ],
+      "gapsHours": [
+        2,
+        0.1,
+        0.51,
+        0.04,
+        0.06,
+        0.18,
+        0.03,
+        0.03,
+        0.34
+      ],
+      "period": "10-21 17:33 → 10-21 18:50 (+07)"
+    },
+    {
+      "id": "T1",
+      "label": "งาน 1 ตรวจ\nความสมบูรณ์ (audit)",
+      "phase": "งานขัดเกลา 21 ต.ค.",
+      "who": [
+        "opus"
+      ],
+      "deps": [
+        "E"
+      ],
+      "cost": 0.25,
+      "costSource": "git",
+      "commits": [
+        "a2c53cb"
+      ],
+      "badges": [
+        "ผู้ใช้เลือกข้อที่ทำ"
+      ],
+      "gapsHours": [
+        0.21
+      ],
+      "period": "10-21 19:02 → 10-21 19:02 (+07)"
+    },
+    {
+      "id": "MCP",
+      "label": "MCP server สนาม\n+ Excalidraw",
+      "phase": "งานขัดเกลา · ทางเลือก ⭐ บท 02_MCP",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "T1"
+      ],
+      "cost": 2.25,
+      "costSource": "git",
+      "commits": [
+        "895d1be",
+        "a6ca022"
+      ],
+      "lane": -0.5,
+      "gapsHours": [
+        2,
+        0.23
+      ],
+      "period": "10-21 22:29 → 10-21 23:34 (+07)"
+    },
+    {
+      "id": "FIX",
+      "label": "แก้จากผลตรวจ\nK3·500→404·SERIES-04",
+      "phase": "งานขัดเกลา · จากผล audit",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "T1"
+      ],
+      "cost": 0.85,
+      "costSource": "git",
+      "commits": [
+        "6599208",
+        "3508d8d",
+        "a19326d",
+        "0864208",
+        "4eedee3",
+        "b64cc8a"
+      ],
+      "badges": [
+        "อนุมัติ ORACLE"
+      ],
+      "lane": 0.5,
+      "gapsHours": [
+        0.51,
+        0.17,
+        0.08,
+        0,
+        0,
+        0.09
+      ],
+      "period": "10-21 23:00 → 10-21 23:20 (+07)"
+    },
+    {
+      "id": "RUN",
+      "label": "รอบเต็มหลังงาน 1\n(HEAD a6ca022)",
+      "phase": "งานขัดเกลา · ด่าน G7",
+      "who": [
+        "sonnet",
+        "opus"
+      ],
+      "deps": [
+        "MCP",
+        "FIX"
+      ],
+      "cost": 0.65,
+      "costSource": "git",
+      "commits": [
+        "5998679"
+      ],
+      "gapsHours": [
+        0.65
+      ],
+      "period": "10-22 00:13 → 10-22 00:13 (+07)"
+    },
+    {
+      "id": "T4",
+      "label": "งาน 4 รันด้วย\nคำสั่งเดียว (Docker)",
+      "phase": "งาน 4",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "RUN"
+      ],
+      "cost": 0.4,
+      "costSource": "git",
+      "commits": [
+        "fd0e78d"
+      ],
+      "gapsHours": [
+        0.38
+      ],
+      "period": "10-22 00:36 → 10-22 00:36 (+07)"
+    },
+    {
+      "id": "T2",
+      "label": "งาน 2 UX/UI\nS0–S2b",
+      "phase": "งาน 2",
+      "who": [
+        "sonnet"
+      ],
+      "deps": [
+        "T4"
+      ],
+      "cost": 4.45,
+      "costSource": "git",
+      "commits": [
+        "2ea1f1b",
+        "9a89931",
+        "64a09b4",
+        "7b1f95f",
+        "cdcc848",
+        "5b91872",
+        "d0aa857",
+        "8a7c9f6"
+      ],
+      "badges": [
+        "ผู้ใช้อนุมัติ axe-core"
+      ],
+      "gapsHours": [
+        0.29,
+        0.35,
+        0.52,
+        0.29,
+        0.39,
+        0.02,
+        2,
+        0.61
+      ],
+      "period": "10-22 00:53 → 10-22 22:23 (+07)"
+    },
+    {
+      "id": "T2e",
+      "label": "ปิดงาน 2\ne2e เต็ม·ส่ง main",
+      "phase": "งาน 2",
+      "who": [
+        "sonnet",
+        "opus"
+      ],
+      "deps": [
+        "T2"
+      ],
+      "cost": 3.1,
+      "costSource": "git",
+      "commits": [
+        "733d0a7",
+        "f43c8fc"
+      ],
+      "badges": [
+        "ผู้ใช้เลือกส่ง main"
+      ],
+      "gapsHours": [
+        2,
+        1.11
+      ],
+      "period": "10-23 02:32 → 10-23 03:38 (+07)"
+    }
+  ]
+}
